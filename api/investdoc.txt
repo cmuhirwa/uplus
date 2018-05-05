@@ -120,5 +120,16 @@ link: https://uplus.rw/api/invest.php
 		<-
 			'Done' or 'Failed'
 
+	stocksTransactions
+		->
+			userId
+		<-
+			stockId
+			userCode
+			quantity
+			totalAmount
+			type
+			date
+
 
 --END INVESTMENT--
