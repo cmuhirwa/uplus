@@ -277,6 +277,25 @@
 				//Sending the message
 				$sms = sendsms($phone, $message);
 			}
+	}else if($action == 'sendSms'){
+			//Getting data on field
+			$phone = $request['phone']??0;
+			$message = $request['message']??"";
+			$token = $request['token']??"";
+
+			if($token == 'ireebe'){
+				if($phone && $message){
+					//Sending the message
+					$sms = sendsms($phone, $message, '', 'Ireebe');
+					$response = 'done';
+				}else{
+					$response = 'Failed';
+				}
+			}else{
+				$response = 'Failed';
+			}
+
+			
 	}else if($action == 'schedule_sms'){
 			//Getting data on field
 			$phone = $request['phone']??0;
