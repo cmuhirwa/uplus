@@ -17,11 +17,13 @@ include'functions.php';
 <div id="new_comp">
 	<?php
 
-	 $forum = $_GET['id']??"";
+		$forum = $_GET['id']??"";
 		if(!empty($forum)){
 
 			//If submit request is issued
 			if(!empty($_POST)){
+				$forumData = getForum($forum);
+				$usual_logo =  $forumData['icon'];
 				$title = $_POST['forumtitle']??"";
 				$intro = $_POST['intro']??"";
 
