@@ -35,7 +35,7 @@ include'functions.php';
 						$ext = strtolower(pathinfo($forum_logo['name'], PATHINFO_EXTENSION)); //extensin
 
 						if($ext == 'png' || $ext == 'jpg' || $ext == 'jpeg'){
-							$filename = "invest/gallery/".strtolower(clean_string($title))."_".time().".$ext";
+							$filename = $HOSTNAME."invest/gallery/".strtolower(clean_string($title))."_".time().".$ext";
 							if(!move_uploaded_file($forum_logo['tmp_name'], "../../$filename")){
 								trigger_error("Error uploading the file");
 								$filename = $usual_logo;
@@ -49,7 +49,7 @@ include'functions.php';
 
 
 					//referencing the host
-					$filename = $HOSTNAME.$filename;
+					// $filename = $filename;
 
 					//updating
 					$sql = "UPDATE forums SET title = \"$title\", subtitle = \"$intro\", icon = \"$filename\", updatedDate = NOW(), updatedBy = '$thisid' WHERE id = \"$forum\"  ";
