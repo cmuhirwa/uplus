@@ -208,8 +208,8 @@
                                     <tbody>
                                         <?php 
                                         $n=0;
-                                        $sqlGetForum = $db->query("SELECT * FROM `forums` WHERE archived = 'no' ORDER BY id DESC")or die ($db->error);
-                                        while($data = mysqli_fetch_array($sqlGetForum))
+                                        $forums = church_forums();
+                                        foreach ($forums as $key => $data) {
                                             {
                                                 $admin  = staff_details($data['admin']);
                                                 $n++;

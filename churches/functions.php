@@ -220,7 +220,7 @@
 		function church_forums(){
 			//returns church
 			global $conn;
-			$query = $conn->query("SELECT * FROM forums ") or trigger_error("can't  get forums $conn->error");
+			$query = $conn->query("SELECT * FROM forums WHERE archived = 'no' ORDER BY id DESC") or trigger_error("can't  get forums $conn->error");
 
 			$forums = array();
 
