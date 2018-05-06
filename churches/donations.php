@@ -53,7 +53,7 @@
 
                                 //sum of contributed through the platform
                                 $sum_donation = 0;
-                                $query = $conn->query("SELECT SUM(amount) as sum FROM donations JOIN members ON donations.member = members.id JOIN branches ON members.branchid = branches.id WHERE branches.church = \"$churchID\" LIMIT 1 ") or die("Can't get donation sum $conn->error");
+                                $query = $conn->query("SELECT SUM(amount) as sum FROM donations JOIN members ON donations.member = members.id JOIN branches ON members.branchid = branches.id WHERE branches.church = \"$churchID\" ORDER BY donations.date DESC LIMIT 1 ") or die("Can't get donation sum $conn->error");
                                 $dons = $query->fetch_assoc();
 
                                 $sum_donation = $dons['sum'];

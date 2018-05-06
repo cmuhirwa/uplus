@@ -209,7 +209,7 @@
                                         <?php 
                                         $n=0;
                                         $forums = church_forums();
-                                        foreach ($forums as $key => $data) {
+                                        foreach ($forums as $key => $data)
                                             {
                                                 $admin  = staff_details($data['admin']);
                                                 $n++;
