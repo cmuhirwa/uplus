@@ -61,7 +61,8 @@ url: https://uplus.rw/churches/api/index.php
 			userId
 			amount
 			basketId
-			account			
+			account
+			date	
 			method (mtn, tigo, master_card)
 		<-
 			'Done'			

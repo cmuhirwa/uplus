@@ -36,14 +36,16 @@ if(isset($_GET['viewid']))
 		$csdAccount= $row['csdAccount'];
 	}
 
-	$userData = user_details($viewid);
-	$imgId = $userData['userImage'];
+	
 
 	//getting uplus user ID
 	$userQ = $investDb->query("SELECT * FROM uplus.users WHERE phone = \"$telephone\" ") or trigger_error($investDb->error);
 	$userSData = $userQ->fetch_assoc();
 	$clientData = user_details($userSData['id']);
 	$clientUserId = $userSData['id']; //Actual uplus user ID of the client
+
+	$userData = user_details($clientUserId);
+	$imgId = $userData['userImage'];
 
 }?>
     <div id="page_content">

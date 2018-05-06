@@ -358,14 +358,19 @@ include'functions.php';
 												// $totalAmt = $stockSale['quantity']*timeStockPrice($stockSale["stockId"], $stockSale['createdDate']);
 												$totalAmt = $stockSale['totalAmount'];
 												$n++;
+												$status = $stockSale['status'];
 												echo '<tr>
 												<td>'.$n.'</td>
 												<td>'.$stockSale['clientName'].'</td>
 												<td>'.$stockSale['companyName'].'</td>
 												<td>'.$stockSale['quantity'].'</td>
 												<td>'.number_format($totalAmt).' FRW</td>
-												<td>'.date($standard_date." H:i:s", strtotime($stockSale['createdDate'])).'</td>
-												<td class="approveStock"><a><i class="material-icons">visibility</i></a></td>
+												<td style="cursor:pointer">'.date($standard_date." H:i:s", strtotime($stockSale['createdDate'])).'</td>';
+
+												if($status == 'pending'){
+													echo '<i class="material-icons md-color-light-green-500">check</i><i class="material-icons md-color-red-800">clear</i>';
+												};
+												echo '</td>
 												</tr>';
 											}
 										?>
@@ -401,13 +406,19 @@ include'functions.php';
 											$n=0;
 											foreach ($sales as $key => $stockSale){
 												$n++;
+												$status = $stockSale['status'];
 												echo '<tr>
 												<td>'.$n.'</td>
 												<td>'.$stockSale['clientName'].'</td>
 												<td>'.$stockSale['companyName'].'</td>
 												<td>'.$stockSale['quantity'].'</td>
 												<td>'.date($standard_date." H:i:s", strtotime($stockSale['createdDate'])).'</td>
-												<td><a href="trade.php?id='.$stockSale['id'].'"><i class="material-icons">visibility</i></a></td>
+												<td>';
+
+												if($status == 'pending'){
+													echo '<i class="material-icons md-color-light-green-500">check</i><i class="material-icons md-color-red-800">clear</i>';
+												};
+												echo '<a href="trade.php?id='.$stockSale['id'].'"></a></td>
 												</tr>';
 											}
 										?>
