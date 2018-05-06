@@ -208,7 +208,7 @@
                                     <tbody>
                                         <?php 
                                         $n=0;
-                                        $sqlGetForum = $db->query("SELECT * FROM `forums` WHERE ISNULL(archiveDate) ORDER BY id DESC")or die ($db->error);
+                                        $sqlGetForum = $db->query("SELECT * FROM `forums` WHERE archived = 'no' ORDER BY id DESC")or die ($db->error);
                                         while($data = mysqli_fetch_array($sqlGetForum))
                                             {
                                                 $admin  = staff_details($data['admin']);
