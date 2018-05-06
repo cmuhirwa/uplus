@@ -808,7 +808,7 @@
 		}
 	}
 	else if($action == 'activate_forum' ){
-		die('deprecated');
+		// die('deprecated');
 		$forum = $request['forum']??"";
 		$user = $request['user']??""; //someone who is deleting this forum
 		if($forum && $user){
