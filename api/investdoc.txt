@@ -126,7 +126,19 @@ link: https://uplus.rw/api/invest.php
 		<-
 			stockId
 			stockName
-			userCode
+			userId
+			quantity
+			totalAmount
+			type
+			date
+	stockTransactions - uknow
+		->
+			userId
+			stockId
+		<-
+			stockId
+			stockName
+			userId
 			quantity
 			totalAmount
 			type

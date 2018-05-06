@@ -667,7 +667,35 @@
 				$hist[] = array(
 					'stockId'=>$data['stockId'],
 					'stockName'=>$data['companyName'],
-					'userCode'=>$data['userCode'],
+					'userId'=>$data['userCode'],
+					'quantity'=>$data['quantity'],
+					'totalAmount'=>$data['totalAmount'],
+					'type'=>$data['type'],
+					'date'=>$data['createdDate']
+				);
+			}
+		}
+		echo json_encode($hist);
+	}
+
+	function stockTransactions(){
+		//user sale and purchase histories
+		require 'db.php';
+		require '../invest/admin/functions.php';
+		$request = $_POST;
+
+		$user = $request['userId']??"";
+		$stock = $request['stockId']??"";
+
+		if($user){
+			$query = $investDb->query("SELECT T.*, C.companyName FROM transactions T JOIN company C ON T.stockId = C.companyId WHERE userCode = \"$user\" AND stockId = '$stock' ") or trigger_error($investDb->error);
+
+			$hist = array();
+			while ($data = $query->fetch_assoc()) {
+				$hist[] = array(
+					'stockId'=>$data['stockId'],
+					'stockName'=>$data['companyName'],
+					'userId'=>$data['userCode'],
 					'quantity'=>$data['quantity'],
 					'totalAmount'=>$data['totalAmount'],
 					'type'=>$data['type'],
