@@ -215,7 +215,8 @@ if(isset($_GET['viewid']))
 												<thead>
 													<tr>
 														<th>#</th>
-														<th>Client name</th>
+														<!-- <th>Client name</th> -->
+														<th>Type</th>
 														<th>Stock name</th>
 														<th>Number</th>
 														<th>Amount</th>
@@ -233,7 +234,7 @@ if(isset($_GET['viewid']))
 															$n++;
 															echo '<tr>
 															<td>'.$n.'</td>
-															<td>'.$transaction['clientName'].'</td>
+															<td>'.$transaction['type'].'</td>
 															<td>'.$transaction['companyName'].'</td>
 															<td>'.$transaction['quantity'].'</td>
 															<td>'.number_format($totalAmt).' FRW</td>

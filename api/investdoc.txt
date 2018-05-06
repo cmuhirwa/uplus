@@ -130,6 +130,4 @@ link: https://uplus.rw/api/invest.php
 			totalAmount
 			type
 			date
-
-
 --END INVESTMENT--
