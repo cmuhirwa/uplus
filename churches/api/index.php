@@ -112,12 +112,14 @@
 		$user = $request['userId']??"";
 
 		if($church){
-			$query = $conn->query("SELECT B.*, CONCAT(B.name, ' ', C.name) as churchName, (SELECT COUNT(*) FROM church_members WHERE userCode = \"$user\" AND branchid = B.id AND archived = 'no' ORDER BY createdDate DESC LIMIT 1) as joined FROM branches as B JOIN church as C ON C.id = B.church WHERE B.id = \"$church\" LIMIT 1 ") or trigger_error($conn->error);
+			$query = $conn->query("SELECT B.*, CONCAT(B.name, ' ', C.name) as churchName, C.name as cname, B.name as bname, (SELECT COUNT(*) FROM church_members WHERE userCode = \"$user\" AND branchid = B.id AND archived = 'no' ORDER BY createdDate DESC LIMIT 1) as joined FROM branches as B JOIN church as C ON C.id = B.church WHERE B.id = \"$church\" LIMIT 1 ") or trigger_error($conn->error);
 
 			$data = $query->fetch_assoc();
 			$branches[] = array(
 					'churchName'=>$data['churchName'],
 					'churchId'=>$church,
+					'church'=>$data['cname'],
+					'branch'=>$data['bname'],
 					'churchImage'=>$data['profile_picture'],
 					'joined'=>$exiq->num_rows==1?"Yes":"No",
 				);
