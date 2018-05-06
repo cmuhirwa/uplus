@@ -56,7 +56,7 @@ url: https://uplus.rw/churches/api/index.php
 		<-
 			'Done'
 
-	donate
+	pledge
 		->
 			userId
 			amount

@@ -206,7 +206,7 @@ if(isset($_GET['viewid']))
 																				?>
 																				<span>
 													                                <input type="checkbox" class="uk-checkbox messageChannels" name="emailMessage" data-md-icheck id="msgsendsms" />
-													                                <label for="msgsendsms" class="inline-label">SMS</label>
+													                                <label for="msgsendsms" class="inline-label">email</label>
 													                            </span>
 													                            <?php
 																			}
