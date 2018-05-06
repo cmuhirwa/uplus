@@ -130,122 +130,135 @@ if(isset($_GET['viewid']))
 							?>
 								<div class="md-card uk-margin-medium-bottom">
 									<div class="md-card-content">
-										<div class="commentsContainer uka-hidden">
-											<div class="uk-grid">
-												<div class="uk-width-3-4">
-													<div style="height: 32px; width: 100%; padding: 0px; margin: 0 -100px;"></div>
-													<form class="messageForm" method="POST" action="view.php?viewid=<?php echo $viewid; ?>">
-														<div class="md-input-wrapper">
-															<label>Message</label>
-															<textarea class="md-input" style="border: 1px solid #eee; border-radius: 2px;"></textarea>
-															<span class="md-input-bar "></span>
-														</div>
-														<input type="hidden" id="userId" value="<?php echo $viewid; ?>">
-														<div class="md-input-wrapper uk-float-right">
-															<p>
-																<?php
-																	if($telephone){
-																		?>
-																		<span>
-											                                <input type="checkbox" class="uk-checkbox messageChannels" name="smsMessage" data-md-icheck id='msgsendemail' />
-											                                <label for="msgsendemail" class="inline-label">email</label>
-											                            </span>&nbsp;&nbsp;&nbsp;&nbsp;
-											                            <?php
-																	}
-																?>
-
-																<?php
-																	if($email){
-																		?>
-																		<span>
-											                                <input type="checkbox" class="uk-checkbox messageChannels" name="emailMessage" data-md-icheck id="msgsendsms" />
-											                                <label for="msgsendsms" class="inline-label">SMS</label>
-											                            </span>
-											                            <?php
-																	}
-																?>						
-											                            
-								                            </p>
-														</div>
-														<div class="md-input-wrapper">
-															<button class="uk-button uk-button-default uk-float-right" type="submit">SEND</button>
-															<span class="md-input-bar "></span>
-														</div>
-													</form>
+										<div class="uk-grid">
+											<div class="uk-width-3-4" style="border-right: 1px solid #eee; padding-right: 5%">
+												<h4>Client Stock Transactions</h4>
+												<div class="dt_colVis_buttons">
 												</div>
-												<div class="uk-width-1-4">
-												</div>
+												<table id="dt_tableExport" class="uk-table" cellspacing="0" width="100%">
+													<thead>
+														<tr>
+															<th>#</th>
+															<!-- <th>Client name</th> -->
+															<th>Type</th>
+															<th>Stock name</th>
+															<th>Number</th>
+															<th>Amount</th>
+															<th>Date</th>
+															<!-- <th>Action</th> -->
+														</tr>
+													</thead>
+													<tbody>
+														<?php
+															$transactions = userTransactions($clientUserId);
+															$n=0;
+															foreach ($transactions as $key => $transaction){
+																// $totalAmt = $stockSale['quantity']*timeStockPrice($stockSale["stockId"], $stockSale['createdDate']);
+																$totalAmt = $transaction['totalAmount'];
+																$n++;
+																echo '<tr>
+																<td>'.$n.'</td>
+																<td>'.$transaction['type'].'</td>
+																<td>'.$transaction['companyName'].'</td>
+																<td>'.$transaction['quantity'].'</td>
+																<td>'.number_format($totalAmt).' FRW</td>
+																<td>'.date($standard_date." H:i:s", strtotime($transaction['createdDate'])).'</td>
+																</tr>';
+															}
+														?>
+														
+													</tbody>
+												</table>
 											</div>
-											<div style="height: 12px; width: 100%; padding: 0px; margin: 0 -100px;"></div>
-											<div class="clearfix uk-margin-top">                                                    
-												<ul class="uk-list uk-list-line">
-													<?php
-														foreach ($messages as $key => $message) {
-															?>
-															<li>
-																<div class="uk-grid">
-																	<div class="comment-head">
-																		<div class="thumbnail">
-																			<img class="user avatar inline" style="height: 72px; width: 72px; border-radius: 50%" src="<?php echo $Company->standardLogo ?>">
-																			<div class="inline">
-																				<p style="vertical-align: middle; font-family: verdana; color: #0a3482">
-																					<i><?php echo $userName ?></i>
-																				</p>
-																				<p class="uk-text-muted" style="margin: -15px 0 0 0">
-																					<small><?php echo $message['createdDate'] ?></small>
-																				</p>
-																			</div>
-																																						
-																		</div>
-																	</div>
-																	<div class="uk-width-1-1 uk-margin-top">
-																		<?php echo $message['message'] ?>
-																	</div>
+											<div class="uk-width-1-4">
+												<div class="">
+													<h4>Owners(1)</h4>
+													<ul class="uk-list">
+														<li><?php echo $names; ?></li>
+													</ul>
+												</div>
+												<div class="commentsContainer uka-hidden">
+													<div class="uk-grid">
+														<div class="uk-width-3-4">
+															<div style="height: 32px; width: 100%; padding: 0px; margin: 0 -100px;"></div>
+															<form class="messageForm" method="POST" action="view.php?viewid=<?php echo $viewid; ?>">
+																<div class="md-input-wrapper">
+																	<label>Message</label>
+																	<textarea class="md-input" style="border: 1px solid #eee; border-radius: 2px;"></textarea>
+																	<span class="md-input-bar "></span>
 																</div>
-															</li>
+																<input type="hidden" id="userId" value="<?php echo $viewid; ?>">
+																<div class="md-input-wrapper uk-float-right">
+																	<p>
+																		<?php
+																			if($telephone){
+																				?>
+																				<span>
+													                                <input type="checkbox" class="uk-checkbox messageChannels" name="smsMessage" data-md-icheck id='msgsendemail' />
+													                                <label for="msgsendemail" class="inline-label">SMS</label>
+													                            </span>&nbsp;&nbsp;&nbsp;&nbsp;
+													                            <?php
+																			}
+																		?>
+
+																		<?php
+																			if($email){
+																				?>
+																				<span>
+													                                <input type="checkbox" class="uk-checkbox messageChannels" name="emailMessage" data-md-icheck id="msgsendsms" />
+													                                <label for="msgsendsms" class="inline-label">SMS</label>
+													                            </span>
+													                            <?php
+																			}
+																		?>						
+													                            
+										                            </p>
+																</div>
+																<div class="md-input-wrapper">
+																	<button class="uk-button uk-button-default uk-float-right" type="submit">SEND</button>
+																	<span class="md-input-bar "></span>
+																</div>
+															</form>
+														</div>
+														<div class="uk-width-1-4">
+														</div>
+													</div>
+													<div style="height: 12px; width: 100%; padding: 0px; margin: 0 -100px;"></div>
+													<div class="clearfix uk-margin-top">                                                    
+														<ul class="uk-list uk-list-line">
 															<?php
-														}
-													?>
-												</ul>
+																foreach ($messages as $key => $message) {
+																	?>
+																	<li>
+																		<div class="uk-grid">
+																			<div class="comment-head">
+																				<div class="thumbnail">
+																					<img class="user avatar inline" style="height: 72px; width: 72px; border-radius: 50%" src="<?php echo $Company->standardLogo ?>">
+																					<div class="inline">
+																						<p style="vertical-align: middle; font-family: verdana; color: #0a3482">
+																							<i><?php echo $userName ?></i>
+																						</p>
+																						<p class="uk-text-muted" style="margin: -15px 0 0 0">
+																							<small><?php echo $message['createdDate'] ?></small>
+																						</p>
+																					</div>
+																																								
+																				</div>
+																			</div>
+																			<div class="uk-width-1-1 uk-margin-top">
+																				<?php echo $message['message'] ?>
+																			</div>
+																		</div>
+																	</li>
+																	<?php
+																}
+															?>
+														</ul>
+													</div>											
+												</div>
 											</div>
-											<h4>Client Stock Transactions</h4>
-											<div class="dt_colVis_buttons">
-											</div>
-											<table id="dt_tableExport" class="uk-table" cellspacing="0" width="100%">
-												<thead>
-													<tr>
-														<th>#</th>
-														<!-- <th>Client name</th> -->
-														<th>Type</th>
-														<th>Stock name</th>
-														<th>Number</th>
-														<th>Amount</th>
-														<th>Date</th>
-														<!-- <th>Action</th> -->
-													</tr>
-												</thead>
-												<tbody>
-													<?php
-														$transactions = userTransactions($clientUserId);
-														$n=0;
-														foreach ($transactions as $key => $transaction){
-															// $totalAmt = $stockSale['quantity']*timeStockPrice($stockSale["stockId"], $stockSale['createdDate']);
-															$totalAmt = $transaction['totalAmount'];
-															$n++;
-															echo '<tr>
-															<td>'.$n.'</td>
-															<td>'.$transaction['type'].'</td>
-															<td>'.$transaction['companyName'].'</td>
-															<td>'.$transaction['quantity'].'</td>
-															<td>'.number_format($totalAmt).' FRW</td>
-															<td>'.date($standard_date." H:i:s", strtotime($transaction['createdDate'])).'</td>
-															</tr>';
-														}
-													?>
-													
-												</tbody>
-											</table>
 										</div>
+										
 									</div>
 								</div>
 							<?php

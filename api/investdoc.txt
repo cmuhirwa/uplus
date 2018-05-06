@@ -125,6 +125,7 @@ link: https://uplus.rw/api/invest.php
 			userId
 		<-
 			stockId
+			stockName
 			userCode
 			quantity
 			totalAmount

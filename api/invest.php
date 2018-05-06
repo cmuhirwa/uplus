@@ -660,12 +660,13 @@
 		$user = $request['userId']??"";
 
 		if($user){
-			$query = $investDb->query("SELECT * FROM transactions WHERE userCode = \"$user\" ") or trigger_error($investDb->error);
+			$query = $investDb->query("SELECT T.*, C.companyName FROM transactions T JOIN company C ON T.stockId = C.companyId WHERE userCode = \"$user\" ") or trigger_error($investDb->error);
 
 			$hist = array();
 			while ($data = $query->fetch_assoc()) {
 				$hist[] = array(
 					'stockId'=>$data['stockId'],
+					'stockName'=>$data['companyName'],
 					'userCode'=>$data['userCode'],
 					'quantity'=>$data['quantity'],
 					'totalAmount'=>$data['totalAmount'],
