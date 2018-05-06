@@ -52,7 +52,7 @@ include'functions.php';
 					$filename = $HOSTNAME.$filename;
 
 					//updating
-					$sql = "UPDATE forums SET title = \"$title\", subtitle = \"$intro\", icon = \"$filename\", updatedDate = NOW(), updatedBy = '$userId' WHERE id = \"$forum\"  ";
+					$sql = "UPDATE forums SET title = \"$title\", subtitle = \"$intro\", icon = \"$filename\", updatedDate = NOW(), updatedBy = '$thisid' WHERE id = \"$forum\"  ";
 					$query = $conn->query($sql) or trigger_error($conn->error);
 					if($query){
 						// header("location:".$_SERVER['REQUEST_URI']);
