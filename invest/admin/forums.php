@@ -35,10 +35,12 @@ include'functions.php';
 						$ext = strtolower(pathinfo($forum_logo['name'], PATHINFO_EXTENSION)); //extensin
 
 						if($ext == 'png' || $ext == 'jpg' || $ext == 'jpeg'){
-							$filename = $HOSTNAME."invest/gallery/".strtolower(clean_string($title))."_".time().".$ext";
+							$filename = "invest/gallery/".strtolower(clean_string($title))."_".time().".$ext";
 							if(!move_uploaded_file($forum_logo['tmp_name'], "../../$filename")){
 								trigger_error("Error uploading the file");
 								$filename = $usual_logo;
+							}else{
+								$filename = $HOSTNAME."invest/gallery/".strtolower(clean_string($title))."_".time().".$ext";
 							}
 						}else{
 							$filename = $usual_logo;
