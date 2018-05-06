@@ -365,10 +365,10 @@ include'functions.php';
 												<td>'.$stockSale['companyName'].'</td>
 												<td>'.$stockSale['quantity'].'</td>
 												<td>'.number_format($totalAmt).' FRW</td>
-												<td style="cursor:pointer">'.date($standard_date." H:i:s", strtotime($stockSale['createdDate'])).'</td>';
+												<td>'.date($standard_date." H:i:s", strtotime($stockSale['createdDate'])).'</td><td style="cursor:pointer">';
 
 												if($status == 'pending'){
-													echo '<i class="material-icons md-color-light-green-500">check</i><i class="material-icons md-color-red-800">clear</i>';
+													echo '<i class="material-icons md-color-light-green-500 transBtn">check</i><i class="material-icons md-color-red-800 transBtn">clear</i>';
 												};
 												echo '</td>
 												</tr>';
@@ -413,10 +413,10 @@ include'functions.php';
 												<td>'.$stockSale['companyName'].'</td>
 												<td>'.$stockSale['quantity'].'</td>
 												<td>'.date($standard_date." H:i:s", strtotime($stockSale['createdDate'])).'</td>
-												<td>';
+												<td style="cursor:pointer">';
 
 												if($status == 'pending'){
-													echo '<i class="material-icons md-color-light-green-500">check</i><i class="material-icons md-color-red-800">clear</i>';
+													echo '<i class="material-icons md-color-light-green-500 transBtn">check</i><i class="material-icons md-color-red-800 transBtn">clear</i>';
 												};
 												echo '<a href="trade.php?id='.$stockSale['id'].'"></a></td>
 												</tr>';
@@ -634,6 +634,10 @@ include'functions.php';
 				alert("Provide user details")
 			}
 
+		});
+
+		$(".transBtn").on('click', function(data){
+			alert("Transaction activity");
 		})
 
 		//Approving the stock selling request
