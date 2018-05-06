@@ -168,6 +168,17 @@
 		return $companies;
 	}
 
+	function userTransactions($userId){
+		global $investDb;
+
+		$query = $investDb->query("SELECT T.*, U.name as clientName, C.companyName FROM transactions as T JOIN company as C ON T.stockId = C.companyId JOIN uplus.users AS U ON U.id = T.usercode WHERE T.userCode=\"$userId\" AND T.archived = 'no' ") or trigger_error($investDb->error);
+		$transactions = array();
+		while ($data = $query->fetch_assoc()) {
+			$transactions[] = $data;
+		}
+		return $transactions;
+	}
+
 	function listFeeds($memberId='')
 	{
 		//function to return the posts from $user

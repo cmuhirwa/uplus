@@ -167,29 +167,12 @@
 							<li title="Dashboard">					
 							</li>
 							<li title="Members">
-								<a href="javascript:void()">
+								<a href="customers.php?compId=<?php echo $Company->companyId;?>">
 									<span class="menu_icon">
 									<i class="material-icons"></i>
 									</span>
 									<span class="menu_title">Customers</span>
 								</a>
-								<ul>
-									<li>
-										<a href="customers.php?compId=<?php echo $Company->companyId;?>">Clients</a>
-									</li>
-									<!-- <li>
-										<a href="visitors.php">Clients</a>
-									</li> -->
-									<!-- <li>
-										<a href="#">Institution</a>
-									</li>
-									<li>
-										<a href="#">Foreign</a>
-									</li>
-									<li>
-										<a href="#">Domestic</a>
-									</li> -->
-								</ul>
 							</li>
 							<li title="Communication">
 								<a href="javascript:void()">

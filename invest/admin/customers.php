@@ -6,7 +6,7 @@
     <div id="page_content">
         <div id="page_content_inner">
 
-            <h4 class="heading_a uk-margin-bottom">CSD REQUESTS</h4>
+            <h4 class="heading_a uk-margin-bottom">CSD REQUESTS &amp; Clients</h4>
            
             <div class="uk-grid uk-grid-medium" data-uk-grid-margin>
                 <div class="uk-width-large-4-4">
@@ -16,8 +16,9 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Date</th>
                                         <th>Names</th>
+                                        <th>Type</th>
+                                        <th>Date</th>                                        
                                         <th>Country</th>
                                         <th>Status</th>
                                         <th>Action</th>
@@ -26,9 +27,10 @@
 
                                 <tfoot>
                                     <tr>
-                                        <th>#</th>
-                                        <th>Date</th>
+                                        <th>#</th>                                        
                                         <th>Names</th>
+                                        <th>Type</th>                                        
+                                        <th>Date</th>
                                         <th>Country</th>
                                         <th>Status</th>
                                         <th>Action</th>
@@ -44,8 +46,9 @@
 											echo '
 												<tr>
 													<td>'.$n.'</td>
-													<td>'.$row['statusOn'].'</td>
-													<td>'.$row['names'].'</td>
+                                                    <td>'.$row['names'].'</td>
+                                                    <td>'.ucfirst($row['clientType']).'</td>
+													<td>'.date("d-M-Y", strtotime($row['statusOn'])).'</td>
 													<td>'.$row['country'].'</td>
 													<td>'.$row['status'].'</td>
 													<td><a href="view.php?viewid='.$row['id'].'">View</a></td>

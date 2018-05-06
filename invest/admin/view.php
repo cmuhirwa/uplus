@@ -208,6 +208,42 @@ if(isset($_GET['viewid']))
 													?>
 												</ul>
 											</div>
+											<h4>Client Stock Transactions</h4>
+											<div class="dt_colVis_buttons">
+											</div>
+											<table id="dt_tableExport" class="uk-table" cellspacing="0" width="100%">
+												<thead>
+													<tr>
+														<th>#</th>
+														<th>Client name</th>
+														<th>Stock name</th>
+														<th>Number</th>
+														<th>Amount</th>
+														<th>Date</th>
+														<!-- <th>Action</th> -->
+													</tr>
+												</thead>
+												<tbody>
+													<?php
+														$transactions = userTransactions($clientUserId);
+														$n=0;
+														foreach ($transactions as $key => $transaction){
+															// $totalAmt = $stockSale['quantity']*timeStockPrice($stockSale["stockId"], $stockSale['createdDate']);
+															$totalAmt = $transaction['totalAmount'];
+															$n++;
+															echo '<tr>
+															<td>'.$n.'</td>
+															<td>'.$transaction['clientName'].'</td>
+															<td>'.$transaction['companyName'].'</td>
+															<td>'.$transaction['quantity'].'</td>
+															<td>'.number_format($totalAmt).' FRW</td>
+															<td>'.date($standard_date." H:i:s", strtotime($transaction['createdDate'])).'</td>
+															</tr>';
+														}
+													?>
+													
+												</tbody>
+											</table>
 										</div>
 									</div>
 								</div>
