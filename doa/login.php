@@ -15,27 +15,24 @@
 	<div class="container">
 		<div class="jumbotron topbar">
 			<div class="row">
-				<div class="col-md-2">
-					
+				<div class="col-md-4">
+				
 				</div>
 				<div class="col-md-8">
 					<form class="form-horizontal">
 						<div class="form-group">
 							<label for="inputEmail3" class="col-sm-3 control-label">Handle ID</label>
 							<div class="col-sm-9">
-							  <input type="email" class="form-control" id="inputEmail3" disabled value="25/NIDA/1199280036180077">
+							  	<div class="input-group">
+									<div class="input-group-addon">25.001/</div>
+									<input type="text" class="form-control" placeholder="...">
+									<span class="input-group-btn">
+										<a href="index.php" class="btn btn-success" type="button">Login</a>
+									</span>
+								</div>
 							</div>
 						</div>
 					</form>	
-				</div>
-				<div class="col-md-2">
-					<form class="form-horizontal">
-						<div class="form-group">
-						    <div class="col-sm-offset-2 col-sm-10">
-						      <button type="submit" class="btn btn-danger">Exit</button>
-						    </div>
-				  		</div>
-				  	</form>
 				</div>
 			</div>
 		</div>
@@ -45,10 +42,15 @@
 	  			<div class="tree" style="text-align: center;">
 					<ul>
 						<li>
-							<a href="nida.php">NID<br>12,374,563</a>
+							<a href="nida.php">NID<br><?php  
+	  								include('db.php');
+		  						$sqlDoa1 = $db->query("SELECT handleId FROM nida WHERE handleId <>'' AND handleId IS NOT NULL")or die(mysqli_error($db));
+		  						echo mysqli_num_rows($sqlDoa1); ?>/<?php
+		  						$sqlNida = $db->query("SELECT * FROM nida");
+		  						echo mysqli_num_rows($sqlNida); ?></a>
 							<ul>
 								<li>
-									<a href="#">REB<br>3,289,120</a>
+									<a href="reb.php">REB<br>3,289,120</a>
 									<ul>
 										<li>
 											<a href="#">UOK</a>
@@ -85,6 +87,75 @@
 				</div>
 			</div>
 	  	</dir>
+	  	<br>
+	  	<dir class="row mainContent" style="text-align: center;">
+	  		<div class="col-md-12 contentHolder">
+	  			<div class="holderHead" style="background: #a1034d; color: #fff; font-weight: 700; font-size: 14px">Findout</div>
+	  			<br>
+	  			<div class="row">
+					<div class="col-md-2">
+						
+					</div>
+					<div class="col-md-8">
+						<form class="form-horizontal">
+							<div class="form-group">
+								<label for="inputEmail3" class="col-sm-2 control-label">Handle ID</label>
+								<div  class="col-sm-6" style="padding: unset;">
+									<div class="input-group">
+										<div class="input-group-addon">25.001/</div>
+										<input type="text" id="handleToResolve" class="form-control" placeholder="...">
+									</div>
+								</div>
+								<div class="col-sm-4" style="padding: unset;">
+								  	<div class="input-group">
+										<input type="text" id="handleCode" class="form-control" placeholder="Optional Key...">
+										<span class="input-group-btn">
+											<button onclick="resolve()" class="btn btn-success" type="button">Resolve</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</form>	
+					</div>
+					<div class="col-md-2">
+						
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-2"></div>
+					<div class="col-md-8" id="handlesInfoHolder">
+						
+					</div>
+				</div>
+			</div>
+	  	</dir>
 	</div>
+	<script type="text/javascript">
+		function resolve() {
+			var handleIdResolve = document.getElementById("handleToResolve").value;
+			var handleCode = document.getElementById("handleCode").value;
+			document.getElementById('handlesInfoHolder').innerHTML ='<svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">'
+		   	+'<circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle></svg>';
+
+			$.ajax({
+					type : "GET",
+					url : "functions.php",
+					dataType : "html",
+					cache : "false",
+					data : {
+						action: 'resolveHandle',
+						handleId: handleIdResolve,
+						handleCode: handleCode
+					},
+					success : function(html, textStatus){
+						//alert('reslut back');
+					$('#handlesInfoHolder').html(html);
+					},
+					error : function(xht, textStatus, errorThrown){
+						alert("Error : " + errorThrown);
+					}
+				});
+		}
+	</script>
 </body>
 </html>
