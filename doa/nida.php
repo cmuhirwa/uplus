@@ -183,11 +183,11 @@
 						setTimeout(function(){
 						nGenerated++
 						percentage = ((nGenerated/nhandleElems)*100).toFixed(0)
-						changeProgress(percentage)
+						changeProgress(percentage, n)
 					}, 100);
 					}
 					console.log(html);
-					loopHandles(n);
+					loopHandles();
 										
 				},
 				error : function(xht, textStatus, errorThrown){
@@ -196,8 +196,9 @@
 			});
 		}
 	});
-	function changeProgress(percentage){
-		
+	function changeProgress(percentage, n){
+		document.getElementById('doaCounter').innerHTML = 'DOA ('+n+')';
+	
 		percentage = percentage.toString()
 		// progressElem.style.width = percentage+'%'
 		$("#handleProgress").css('width', percentage+'%')
@@ -208,11 +209,10 @@
 
 <script type="text/javascript">
 // (loopHandles())();
-function loopHandles(n){
+function loopHandles(){
 	
 	//document.getElementById('handlesHolder').innerHTML ='<svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">'
 	//	   +'<circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle></svg>';
-	document.getElementById('doaCounter').innerHTML = 'DOA ('+n+')';
 	$.ajax({
 			type : "GET",
 			url : "functions.php",
