@@ -10,20 +10,22 @@
 	<link rel="stylesheet" href="css/bootstrap.min.css" media="all">
 	<link rel="stylesheet" href="css/bootstrap-theme.min.css" media="all">
 	<link rel="stylesheet" href="css/styles.css" media="all">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
 </head>
 <body style="background: #efefef;">
 	<div class="container">
 		<div class="jumbotron topbar">
 			<div class="row">
 				<div class="col-md-2">
-					<img src="https://firebasestorage.googleapis.com/v0/b/uplusmp.appspot.com/o/users_photos%2Fcropped-2082218212.jpg?alt=media&token=5ceab3b9-5469-43e3-907e-06b2c0e82da4" alt="..." style="width: 100px;" class="img-circle">
+					<img src="https://firebasestorage.googleapis.com/v0/b/uplusmp.appspot.com/o/users_photos%2F351.jpg?alt=media&token=cf5c2a7b-b0db-426d-9104-b1ffb48ee82chttps://firebasestorage.googleapis.com/v0/b/uplusmp.appspot.com/o/users_photos%2Fcropped1690598495.jpg?alt=media&token=c77bca2c-fb6a-4bdc-8767-85948e31d44b" alt="..." style="width: 100px;" class="img-circle">
 				</div>
 				<div class="col-md-8">
 					<form class="form-horizontal">
 						<div class="form-group">
 							<label for="inputEmail3" class="col-sm-3 control-label">Handle ID</label>
 							<div class="col-sm-9">
-							  <input type="email" class="form-control" id="inputEmail3" disabled value="25/NIDA/1199280036180077">
+							  <input type="email" class="form-control" id="inputEmail3" disabled value="25.001/CREDITSCORE/1199280018360074">
 							</div>
 						</div>
 						<div class="form-group">
@@ -43,7 +45,7 @@
 						      	<div id="collapse1" style="color: #000;" class="panel-collapse collapse">
 							        <ul class="list-group">
 										<li class="list-group-item">Name:	MUHIRWA CLEMENT</li>
-										<li class="list-group-item">AGE: 26</li>
+										<li class="list-group-item">AGE: 01/01/1990</li>
 										<li class="list-group-item">GENDER: MALE</li>
 							        </ul>
 						     	</div>
@@ -55,7 +57,7 @@
 					<form class="form-horizontal">
 						<div class="form-group">
 						    <div class="col-sm-offset-2 col-sm-10">
-						      <button type="submit" class="btn btn-danger">Exit</button>
+						      <a href="login.php" type="submit" class="btn btn-danger">Exit</a>
 						    </div>
 				  		</div><div class="form-group">
 						    <div class="col-sm-offset-2 col-sm-10">
@@ -111,15 +113,15 @@
 				<div style="padding: 18px 0;">
 					<h5  style="float: left;">Education</h5>
 					<div class="btn-group btn-toggle" style="float: right;"> 
-						<button class="btn btn-xs btn-default">ON</button>
-						<button class="btn btn-xs btn-primary active">OFF</button>
+						<button class="btn btn-xs btn-primary active">ON</button>
+						<button class="btn btn-xs btn-default">OFF</button>
 					</div>
 				</div>
 				<div style="padding: 18px 0;">
 					<h5  style="float: left;">Criminal</h5>
 					<div class="btn-group btn-toggle" style="float: right;"> 
-						<button class="btn btn-xs btn-primary active">ON</button>
-						<button class="btn btn-xs btn-default ">OFF</button>
+						<button class="btn btn-xs btn-default">ON</button>
+						<button class="btn btn-xs btn-primary active">OFF</button>
 					</div>
 				</div>
 				<div style="padding: 18px 0;">
@@ -132,8 +134,8 @@
 				<div style="padding: 18px 0;">
 					<h5  style="float: left;">Family</h5>
 					<div class="btn-group btn-toggle" style="float: right;"> 
-						<button class="btn btn-xs btn-primary active">ON</button>
-						<button class="btn btn-xs btn-default ">OFF</button>
+						<button class="btn btn-xs btn-default ">ON</button>
+						<button class="btn btn-xs btn-primary active">OFF</button>
 					</div>
 				</div>
 		    </div>
