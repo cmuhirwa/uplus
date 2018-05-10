@@ -33,7 +33,7 @@
 				    background-repeat: no-repeat;
 				    background-position: center center;
 				    border-radius: 100px;
-				    background-image: url();">
+				    background-image: url(http://tohoza.com/oc-content/uploads/10/1859.jpg);">
 				</div></div>
 				<div class="col-md-8" style="overflow-y: hidden;">
 					<form class="form-horizontal">
