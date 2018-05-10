@@ -98,7 +98,7 @@
 				</div>
 			</div>
 	  		<div class="col-md-3 contentHolder">
-	  			<div class="holderHead">DOA  (<?php 
+	  			<div class="holderHead" id="doaCounter">DOA  (<?php 
 		  						$sqlDoa1 = $db->query("SELECT handleId FROM nida WHERE handleId <> '' AND handleId IS NOT NULL")or die(mysqli_error($db));
 		  						echo mysqli_num_rows($sqlDoa1); ?>)</div>
 	  			<div id="handlesHolder">
@@ -186,11 +186,8 @@
 						changeProgress(percentage)
 					}, 100);
 					}
-
-					
-					
-					 console.log(html);
-					loopHandles();
+					console.log(html);
+					loopHandles(n);
 										
 				},
 				error : function(xht, textStatus, errorThrown){
@@ -211,11 +208,11 @@
 
 <script type="text/javascript">
 // (loopHandles())();
-function loopHandles(){
+function loopHandles(n){
 	
 	//document.getElementById('handlesHolder').innerHTML ='<svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">'
 	//	   +'<circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle></svg>';
-
+	document.getElementById('doaCounter').innerHTML = 'DOA ('+n+')';
 	$.ajax({
 			type : "GET",
 			url : "functions.php",
