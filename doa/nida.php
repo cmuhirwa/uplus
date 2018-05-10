@@ -183,7 +183,7 @@
 						setTimeout(function(){
 						nGenerated++
 						percentage = ((nGenerated/nhandleElems)*100).toFixed(0)
-						changeProgress(percentage, n)
+						changeProgress(percentage, nGenerated)
 					}, 100);
 					}
 					console.log(html);
