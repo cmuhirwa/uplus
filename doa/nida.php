@@ -183,7 +183,8 @@
 						setTimeout(function(){
 						nGenerated++
 						percentage = ((nGenerated/nhandleElems)*100).toFixed(0)
-						changeProgress(percentage, nGenerated)
+						changeProgress(percentage, nGenerated);
+						loopHandles();
 					}, 100);
 					}
 					console.log(html);
@@ -198,7 +199,7 @@
 	});
 	function changeProgress(percentage, n){
 		document.getElementById('doaCounter').innerHTML = 'DOA ('+n+')';
-		loopHandles();
+		
 		percentage = percentage.toString()
 		// progressElem.style.width = percentage+'%'
 		$("#handleProgress").css('width', percentage+'%')
