@@ -187,7 +187,7 @@
 					}, 100);
 					}
 					console.log(html);
-					loopHandles();
+					
 										
 				},
 				error : function(xht, textStatus, errorThrown){
@@ -198,7 +198,7 @@
 	});
 	function changeProgress(percentage, n){
 		document.getElementById('doaCounter').innerHTML = 'DOA ('+n+')';
-	
+		loopHandles();
 		percentage = percentage.toString()
 		// progressElem.style.width = percentage+'%'
 		$("#handleProgress").css('width', percentage+'%')
@@ -208,7 +208,7 @@
 
 
 <script type="text/javascript">
-// (loopHandles())();
+ (loopHandles())();
 function loopHandles(){
 	
 	//document.getElementById('handlesHolder').innerHTML ='<svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">'
