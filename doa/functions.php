@@ -20,11 +20,11 @@ else
 function createNidHandle()
 {
 	require('db.php');
-	echo $img 		= $_GET['img'];
-	echo $names 	= $_GET['names'];
-	echo $gender 	= $_GET['gender'];
-	echo $dob 		= $_GET['dob'];
-	echo $nid 		= $_GET['nid'];
+	$img 		= $_GET['img'];
+	$names 	= $_GET['names'];
+	$gender 	= $_GET['gender'];
+	$dob 		= '01/01/1990';//$_GET['dob'];
+	$nid 		= $_GET['nid'];
 	$location = $gender;
 	$personal_id = $nid;
 
@@ -95,7 +95,7 @@ function createNidHandle()
 				CURLOPT_POSTFIELDS => ($data)
 	    ));
        
-        $output = curl_exec($curl);
+        echo $output = curl_exec($curl);
         echo $handleid;
         
 	//	END GENERATE A HANDLE
@@ -134,8 +134,10 @@ function loopHandles()
 function resolveHandle()
 {
 	$handleId 	= '25.001/'.$_GET['handleId'];
+	$handleCode = $_GET['handleCode'];
 
-	$url = 'http://175.139.242.87:8000/api/handles/'.$handleId;
+
+	$url = 'http://175.139.242.87:8000/api/handles/'.$handleId.'?pretty';
 
 	$data["timestamp"]	= 'test';
 	$options = array(
@@ -150,20 +152,14 @@ function resolveHandle()
 	//echo $result;
 	if ($result === FALSE) 
 	{ 
-		$returnedinformation	= array();
-		$returnedinformation[] 	= array(
-	       		"status" => "NETWORK ERROR",
-			    "transactionid" => $pushTransactionId
-	    	);
-		header('Content-Type: application/json');
-		$returnedinformation 	= json_encode($returnedinformation);
-		echo $returnedinformation;
+		$returnedinformation	= 'Sorry handle not available!';
 	}
 	else
 	{
-		$result 	= json_decode($result);
+		$result 	= json_decode($result, true);
 		
-		if ($result->{'responseCode'} == 1)
+		
+		if ($result['responseCode'] == 1)
 		{
 			?>
 				<table class="table table-striped table-bordered">
@@ -178,34 +174,77 @@ function resolveHandle()
 	  					<tr style="text-align: left;">
 	  						<td>1</td>
 	  						<td>HandleId</td>
-	  						<td><?php echo $result->{'handle'}; ?></td>
+	  						<td><?php echo $result['handle'];?></td>
 	  					</tr>
-	  					<tr style="text-align: left;">
-	  						<td>1</td>
-	  						<td><?php echo $result->{'handle'}->{'index'};?></td>
-	  						<td>Person Information</td>
+	  					<?php
+	  					$n=1;
+		  					foreach($result['values'] as $values){
+							if ( $values['type']=="type")
+									{
+											
+									}
+									$n++;
+								foreach($values['data'] as $data){
+									if (is_array($data) || is_object($data) || $data=="admin" || $data=="string")
+									{
+
+									}else{echo 
+										'<tr style="text-align: left;">
+	  						<td>'.$n.'</td>
+	  						<td>'.$values['type'].'</td>
+	  						<td>'.$data.'</td>
+	  					</tr>';}
+								}
+							}
+						if ($handleCode == NULL || $handleCode == "") {
+							# code...
+						}else{
+							?>
+
+						<tr style="text-align: left;">
+	  						<td>8</td>
+	  						<td>Education</td>
+	  						<td>Master's Degree</td>
 	  					</tr>
+						<tr style="text-align: left;">
+	  						<td>9</td>
+	  						<td>Education</td>
+	  						<td>Bachaloret Degree</td>
+	  					</tr>
+						<tr style="text-align: left;">
+	  						<td>10</td>
+	  						<td>Education</td>
+	  						<td>A'level Degree</td>
+	  					</tr>
+						<tr style="text-align: left;">
+	  						<td>11</td>
+	  						<td>Education</td>
+	  						<td>O'level Diploma</td>
+	  					</tr>
+						<tr style="text-align: left;">
+	  						<td>12</td>
+	  						<td>Education</td>
+	  						<td>Primary Diploma</td>
+	  					</tr>
+						<tr style="text-align: left;">
+	  						<td>13</td>
+	  						<td>Education</td>
+	  						<td>Nursary Diploma</td>
+	  					</tr>
+							<?php
+						}
+
+							?>
+	  					
 	  				</tbody>
 				</table>
 		<?php
-
 		}
 		elseif($result->{'responseCode'} == 100)
 		{
 			echo 'The handle Id is unvailable';
-		}
-		//var_dump($result);
+		}	
 	}		
-
-
-	//$ch = curl_init($url);
-	//$respone = curl_exec($ch);
-	//$respone = json_decode($respone);
-	//var_dump($respone);
-	echo $responseCode = $result->{'responseCode'};
-	//echo $responseCode;
-	//curl_close($ch);
-	
 }
 // END RESOLVE
 ?>

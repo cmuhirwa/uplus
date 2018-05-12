@@ -26,14 +26,14 @@
 			<div class="row">
 				<div class="col-md-2">
 					<div style="box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
-    height: 100px;
-    background-color: #d3d5db;
-    width: 100px;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    border-radius: 100px;
-    background-image: url();">
+				    height: 100px;
+				    background-color: #d3d5db;
+				    width: 100px;
+				    background-size: cover;
+				    background-repeat: no-repeat;
+				    background-position: center center;
+				    border-radius: 100px;
+				    background-image: url(http://tohoza.com/oc-content/uploads/10/1859.jpg);">
 				</div></div>
 				<div class="col-md-8" style="overflow-y: hidden;">
 					<form class="form-horizontal">
@@ -55,7 +55,7 @@
 					<form class="form-horizontal">
 						<div class="form-group">
 						    <div class="col-sm-offset-2 col-sm-10">
-						      <button type="submit" class="btn btn-danger">Exit</button>
+						      <a href="login.php" type="submit"  class="btn btn-danger">Exit</a>
 						    </div>
 				  		</div><div class="form-group">
 						    <div class="col-sm-offset-2 col-sm-10">
@@ -98,7 +98,7 @@
 				</div>
 			</div>
 	  		<div class="col-md-3 contentHolder">
-	  			<div class="holderHead">DOA  (<?php 
+	  			<div class="holderHead" id="doaCounter">DOA  (<?php 
 		  						$sqlDoa1 = $db->query("SELECT handleId FROM nida WHERE handleId <> '' AND handleId IS NOT NULL")or die(mysqli_error($db));
 		  						echo mysqli_num_rows($sqlDoa1); ?>)</div>
 	  			<div id="handlesHolder">
@@ -153,13 +153,12 @@
 		
 
 		for( n=0; n<handleElems.length; n++){
-			handleElem = handleElems[n]
+			handleElem = handleElems[n];
 
 			//getting details of user
-			names 	= handleElem.dataset.names
-			gender 	= handleElem.dataset.gender
-			nid 	= handleElem.dataset.nid
-			console.log(nid);
+			names 	= handleElem.dataset.names;
+			gender 	= handleElem.dataset.gender;
+			nid 	= handleElem.dataset.nid;
 			$.ajax({
 				type: "GET",
 				url: "functions.php",
@@ -176,7 +175,7 @@
 				},
 				success: function(html, textStatus){
 					//progress changing
-					// console.log(html)
+					 console.log(html)
 					
 					// progressElem.style.width = percentage+'%'
 					// progressElem.innerText = percentage+'%'
@@ -184,14 +183,12 @@
 						setTimeout(function(){
 						nGenerated++
 						percentage = ((nGenerated/nhandleElems)*100).toFixed(0)
-						changeProgress(percentage)
+						changeProgress(percentage, nGenerated);
+						loopHandles();
 					}, 100);
 					}
-
+					console.log(html);
 					
-					
-					// console.log(html);
-					loopHandles();
 										
 				},
 				error : function(xht, textStatus, errorThrown){
@@ -200,7 +197,8 @@
 			});
 		}
 	});
-	function changeProgress(percentage){
+	function changeProgress(percentage, n){
+		document.getElementById('doaCounter').innerHTML = 'DOA ('+n+')';
 		
 		percentage = percentage.toString()
 		// progressElem.style.width = percentage+'%'
@@ -210,16 +208,12 @@
 </script> 
 
 
-
-
-
 <script type="text/javascript">
-// (loopHandles())();
+ (loopHandles())();
 function loopHandles(){
 	
-	document.getElementById('handlesHolder').innerHTML ='<svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">'
-		   +'<circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle></svg>';
-
+	//document.getElementById('handlesHolder').innerHTML ='<svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">'
+	//	   +'<circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle></svg>';
 	$.ajax({
 			type : "GET",
 			url : "functions.php",
@@ -229,7 +223,7 @@ function loopHandles(){
 				action: 'loopHandles'
 			},
 			success : function(html, textStatus){
-				//alert('reslut back');
+			//	alert('reslut back');
 			$('#handlesHolder').html(html);
 			},
 			error : function(xht, textStatus, errorThrown){
