@@ -574,6 +574,12 @@
 			global $conn;
 
 			//Attaches $userId to church with $branchId
+
+			//remove the user from all the churches
+			$conn->query("UPDATE church_members SET archived = 'yes' WHERE userCode = \"$userId\" ") or trigger_error($conn->error);
+
+			//query = 
+
 			$check = $conn->query("SELECT FROM uplus.users WHERE phone = \"$phone\" AND \"$email\" ") or trigger_error("User can't be got".$conn->error);
 			if($check->num_rows<1){
 				//here the user is new
