@@ -11,6 +11,7 @@
     //keep api request log for debuggin
     $f = fopen("logs/invest.txt", 'a+');
     fwrite($f, json_encode($_POST)."\n\n");
+    fwrite($f, "echo");
     fclose($f);
 
 	if ($_SERVER["REQUEST_METHOD"] == "POST") 
