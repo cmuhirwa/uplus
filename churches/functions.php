@@ -570,7 +570,7 @@
 			}
 		}
 
-		function add_church_member($userId, $userType, $branchId){
+		function add_church_member($userId, $userType, $branchId, $platform='app', $createdBy=1){
 			global $conn;
 
 			//Attaches $userId to church with $branchId
@@ -578,18 +578,10 @@
 			//remove the user from all the churches
 			$conn->query("UPDATE church_members SET archived = 'yes' WHERE userCode = \"$userId\" ") or trigger_error($conn->error);
 
-			//query = 
-
-			$check = $conn->query("SELECT FROM uplus.users WHERE phone = \"$phone\" AND \"$email\" ") or trigger_error("User can't be got".$conn->error);
-			if($check->num_rows<1){
-				//here the user is new
-				$query = $conn->query("INSERT INTO uplus.users(name, phone, email, gender, address) VALUES(\"$name\", \"$phone\", \"$email\", \"$gender\", \"$address\") ") or trigger_error("User can't be inserted".$conn->error);
-				return $conn->insert_id;
-			}else{
-				//get the userId
-				$userData = $query->fetch_assoc();
-				return $userData['id'];
-			}
+			$query = $conn->query("INSERT INTO church_members(userCode, branchid, type, joinedByPlatform, createdBy) VALUES(\"$userId\", \"$branchid\", \"$userType\", \"$platform\", \"$createdBy\") ") or trigger_error($conn->error);
+			if($query){
+				return true;
+			}else return false;
 		}
 
 		function getChurchList(){
