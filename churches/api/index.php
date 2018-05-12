@@ -161,6 +161,11 @@
 
 
 		if(!empty($name) && !empty($branch) && !empty($type)){
+			//inserting a user
+			$userId = add_user($name, $phone, $email, $gender, $address);
+			if($userId){
+				//attach the user to church
+			}
 			$sql = "INSERT INTO members(name, phone, email, branchid, address, type, createdDate) VALUES (\"$name\", \"$phone\", \"$email\", \"$branch\", \"$address\", \"$type\", '$date')";
 			$query = $db->query($sql);
 			

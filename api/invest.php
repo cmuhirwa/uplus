@@ -660,7 +660,7 @@
 		$user = $request['userId']??"";
 
 		if($user){
-			$query = $investDb->query("SELECT T.*, C.companyName FROM transactions T JOIN company C ON T.stockId = C.companyId WHERE userCode = \"$user\" ") or trigger_error($investDb->error);
+			$query = $investDb->query("SELECT T.*, C.companyName FROM transactions T JOIN company C ON T.stockId = C.companyId WHERE userCode = \"$user\" ORDER BY T.createdDate DESC ") or trigger_error($investDb->error);
 
 			$hist = array();
 			while ($data = $query->fetch_assoc()) {
@@ -688,7 +688,7 @@
 		$stock = $request['stockId']??"";
 
 		if($user){
-			$query = $investDb->query("SELECT T.*, C.companyName FROM transactions T JOIN company C ON T.stockId = C.companyId WHERE userCode = \"$user\" AND stockId = '$stock' ") or trigger_error($investDb->error);
+			$query = $investDb->query("SELECT T.*, C.companyName FROM transactions T JOIN company C ON T.stockId = C.companyId WHERE userCode = \"$user\" AND stockId = '$stock' ORDER BY T.createdDate DESC ") or trigger_error($investDb->error);
 
 			$hist = array();
 			while ($data = $query->fetch_assoc()) {

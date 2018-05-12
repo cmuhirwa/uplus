@@ -554,6 +554,38 @@
 			return $members;
 		}
 
+		function add_user($name, $phone, $email, $gender, $address=''){
+			global $conn;
+
+			//check if email and phone are not used
+			$check = $conn->query("SELECT FROM uplus.users WHERE phone = \"$phone\" AND \"$email\" ") or trigger_error("User can't be got".$conn->error);
+			if($check->num_rows<1){
+				//here the user is new
+				$query = $conn->query("INSERT INTO uplus.users(name, phone, email, gender, address) VALUES(\"$name\", \"$phone\", \"$email\", \"$gender\", \"$address\") ") or trigger_error("User can't be inserted".$conn->error);
+				return $conn->insert_id;
+			}else{
+				//get the userId
+				$userData = $query->fetch_assoc();
+				return $userData['id'];
+			}
+		}
+
+		function add_church_member($userId, $userType, $branchId){
+			global $conn;
+
+			//Attaches $userId to church with $branchId
+			$check = $conn->query("SELECT FROM uplus.users WHERE phone = \"$phone\" AND \"$email\" ") or trigger_error("User can't be got".$conn->error);
+			if($check->num_rows<1){
+				//here the user is new
+				$query = $conn->query("INSERT INTO uplus.users(name, phone, email, gender, address) VALUES(\"$name\", \"$phone\", \"$email\", \"$gender\", \"$address\") ") or trigger_error("User can't be inserted".$conn->error);
+				return $conn->insert_id;
+			}else{
+				//get the userId
+				$userData = $query->fetch_assoc();
+				return $userData['id'];
+			}
+		}
+
 		function getChurchList(){
 			global $conn;
 
