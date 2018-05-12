@@ -558,14 +558,14 @@
 			global $conn;
 
 			//check if email and phone are not used
-			$check = $conn->query("SELECT FROM uplus.users WHERE phone = \"$phone\" AND \"$email\" ") or trigger_error("User can't be got".$conn->error);
+			$check = $conn->query("SELECT * FROM uplus.users WHERE phone = \"$phone\" AND \"$email\" ") or trigger_error("User can't be got".$conn->error);
 			if($check->num_rows<1){
 				//here the user is new
 				$query = $conn->query("INSERT INTO uplus.users(name, phone, email, gender, address) VALUES(\"$name\", \"$phone\", \"$email\", \"$gender\", \"$address\") ") or trigger_error("User can't be inserted".$conn->error);
 				return $conn->insert_id;
 			}else{
 				//get the userId
-				$userData = $query->fetch_assoc();
+				$userData = $check->fetch_assoc();
 				return $userData['id'];
 			}
 		}
@@ -578,7 +578,9 @@
 			//remove the user from all the churches
 			$conn->query("UPDATE church_members SET archived = 'yes' WHERE userCode = \"$userId\" ") or trigger_error($conn->error);
 
-			$query = $conn->query("INSERT INTO church_members(userCode, branchid, type, joinedByPlatform, createdBy) VALUES(\"$userId\", \"$branchid\", \"$userType\", \"$platform\", \"$createdBy\") ") or trigger_error($conn->error);
+			$sql = "INSERT INTO church_members(userCode, branchid, type, joinedByPlatform, createdBy) VALUES(\"$userId\", \"$branchId\", \"$userType\", \"$platform\", \"$createdBy\") ";
+			echo "$sql";
+			$query = $conn->query($sql) or trigger_error($conn->error);
 			if($query){
 				return true;
 			}else return false;

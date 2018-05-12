@@ -152,10 +152,14 @@
 		$church_id = $request['church'];
 		$name = $request['name']??"";
 		$phone = $request['phone']??0;
+		$gender = $request['gender']??'male';
 		$email = $request['email']??"";
 		$address = $request['address']??"";
+		$platform = $request['platform']??"";
 		$branch = $request['branch']??"";
 		$type = $request['type']??"";
+		$createdBy = $request['createdBy']??1; //who created the user
+
 
 		$date = date("Y-m-d H:i:s");
 
@@ -165,17 +169,14 @@
 			$userId = add_user($name, $phone, $email, $gender, $address);
 			if($userId){
 				//attach the user to church
-			}
-			$sql = "INSERT INTO members(name, phone, email, branchid, address, type, createdDate) VALUES (\"$name\", \"$phone\", \"$email\", \"$branch\", \"$address\", \"$type\", '$date')";
-			$query = $db->query($sql);
-			
-			if($query){
-				$response = array('status'=>true);
+				if(add_church_member($userId, $church_id, $type, $platform, $createdBy)){
+					echo "done";
+				}else{
+					echo "fail";
+				}
 			}else{
-				$response = array('status'=>false, 'msg'=>"Error $db->error");
+				echo "fail";
 			}
-		}else{
-			$response = array('status'=>false, 'msg'=>"Please provide info to create church member");
 		}
 	}else if($action == "joinChurch"){		
 		//when the user want to join church

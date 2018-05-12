@@ -1,4 +1,5 @@
 <?php
+// include_o
 $fileName = $_FILES["file1"]["name"]; // The file name
 $fileTmpLoc = $_FILES["file1"]["tmp_name"]; // File in the PHP tmp folder
 $fileType = $_FILES["file1"]["type"]; // The type of file it is
