@@ -21,6 +21,7 @@ if(move_uploaded_file($fileTmpLoc, "../docs/contacts.xls")){
 
 function testupload(){
 	include '../db.php';
+	include '../functions.php';
 	$n=0;
 	global $church;
 	// EXCEL BULK INVITATIONS
@@ -33,27 +34,41 @@ function testupload(){
 		$highestRow = $worksheet->getHighestRow();
 		for ($row=2; $row<=$highestRow; $row++)
 		{
+
 			$names = mysqli_real_escape_string($db, $worksheet->getCellByColumnAndRow(0, $row)->getValue());
 			$phone = mysqli_real_escape_string($db, $worksheet->getCellByColumnAndRow(1, $row)->getValue());
 			$email = mysqli_real_escape_string($db, $worksheet->getCellByColumnAndRow(2, $row)->getValue());
 			$location = mysqli_real_escape_string($db, $worksheet->getCellByColumnAndRow(3, $row)->getValue());
 			$type = mysqli_real_escape_string($db, $worksheet->getCellByColumnAndRow(4, $row)->getValue());
+			$gender = 'male'; //todo: add gender into excel
 
-			//Getting location id like bach
-			$loc = $conn->query("SELECT * FROM branches WHERE church = \"$church\" AND name = \"$location\" LIMIT 1") or die("Can't get branch". $conn->error);
-			$loc = $loc->fetch_assoc();
+			//adding the user into system
+			$userId = add_user($names, $phone, $email, $gender, $location);
 
-			$location = $loc['id'];
+			if($userId){
+				//attach the user to the church
+				if(add_church_member($userId, $type, $church, 'web', 1)){
+					$response = "done";
+				}else{
+					$response = "fail";
+				}
+			}
+
+			// //Getting location id like bach
+			// $loc = $conn->query("SELECT * FROM branches WHERE church = \"$church\" AND name = \"$location\" LIMIT 1") or die("Can't get branch". $conn->error);
+			// $loc = $loc->fetch_assoc();
+
+			// $location = $loc['id'];
 
 
-			$queries.="INSERT INTO 
-			members 
-			(name, phone, location, type, createdDate) 
-			VALUES ('$names', '$phone', '$location', '$type', NOW());<br/>";
-			$sql = $db->query("INSERT INTO 
-				members 
-				(name, phone, branchId, type, createdDate) 
-				VALUES ('$names', '$phone', '$location', '$type', NOW());") or die($conn->error);
+			// $queries.="INSERT INTO 
+			// members 
+			// (name, phone, location, type, createdDate) 
+			// VALUES ('$names', '$phone', '$location', '$type', NOW());<br/>";
+			// $sql = $db->query("INSERT INTO 
+			// 	members 
+			// 	(name, phone, branchId, type, createdDate) 
+			// 	VALUES ('$names', '$phone', '$location', '$type', NOW());") or die($conn->error);
 		$n++;
 		}
 		echo '<a href="members.php">'.$n.' uploaded! Click Here.</a><br/>';

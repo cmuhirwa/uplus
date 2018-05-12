@@ -169,13 +169,13 @@
 			$userId = add_user($name, $phone, $email, $gender, $address);
 			if($userId){
 				//attach the user to church
-				if(add_church_member($userId, $church_id, $type, $platform, $createdBy)){
-					echo "done";
+				if(add_church_member($userId, $type, $branch, $platform, $createdBy)){
+					$response = "done";
 				}else{
-					echo "fail";
+					$response = "fail";
 				}
 			}else{
-				echo "fail";
+				$response = "fail";
 			}
 		}
 	}else if($action == "joinChurch"){		

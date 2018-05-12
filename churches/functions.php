@@ -579,7 +579,6 @@
 			$conn->query("UPDATE church_members SET archived = 'yes' WHERE userCode = \"$userId\" ") or trigger_error($conn->error);
 
 			$sql = "INSERT INTO church_members(userCode, branchid, type, joinedByPlatform, createdBy) VALUES(\"$userId\", \"$branchId\", \"$userType\", \"$platform\", \"$createdBy\") ";
-			echo "$sql";
 			$query = $conn->query($sql) or trigger_error($conn->error);
 			if($query){
 				return true;

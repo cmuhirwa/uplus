@@ -18,7 +18,6 @@
 	<!-- main sidebar -->
 	<?php
 		include_once "sidebar.php";
-		echo "string";
 	?>
 
 	<div id="page_content">
@@ -58,8 +57,8 @@
 											<div class="uk--select"  data-uk-form-select>
 												<select id="selectGender" class="md-input">
 													<option value="">-- Gender --</option>
-													<option value="m">Male</option>
-													<option value="f">Female</option>
+													<option value="Male">Male</option>
+													<option value="Female">Female</option>
 												</select>
 											</div>
 										</div>
@@ -499,13 +498,14 @@
 				//USer can be submitted
 				$.post('api/index.php', {action:'add_member', church:<?php echo $churchID; ?>, name:name, phone:phone, email:email, address:address, branch:branch, type:type}, function(data){
 					try{
-						if(typeof(data) != "object"){
-							ret = JSON.parse(data);
-						}else{
-							ret = data;
-						}
+						ret = data;
+						// if(typeof(data) != "object"){
+						// 	ret = JSON.parse(data);
+						// }else{
+						// 	ret = data;
+						// }
 
-						if(ret.status){
+						if(ret == 'done'){
 							//User done
 							//create successfully(Giving notification and closing the modal);
 							$("#addStatus").html("<p class='uk-text-success'>Member added successfully!</p>");
@@ -514,6 +514,8 @@
 								UIkit.modal($("#add_member_modal")).hide();
 								window.location = 'members.php';
 							}, 3000);
+						}else{
+							alert("We have problem saving the user")
 						}
 					}catch(e){
 						alert("error"+e)
