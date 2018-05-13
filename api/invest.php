@@ -628,7 +628,7 @@
 					$stockData = $stockq->fetch_assoc(); 
 					//Going to send message to the user
 					$userData = user_details($userId);
-					$message = "Dear $userData[name], your $quantity stocks of $stockData[companyName] are pending sale for ".number_format($totalAmt)." FRW";
+					$message = "Dear $userData[name], you just sold your $quantity at ".number_format($totalAmt)." FRW shares of $stockData[companyName] and they're pending  for broker's approval";
 
 					sendsms($userData['phone'], $message);
 
