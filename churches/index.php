@@ -664,7 +664,7 @@
                                     // var_dump($groups);
                                     for($n=0; $n<count($groups); $n++){
                                         $group = $groups[$n];
-                                        $maplocation = explode(",", $group['maplocation']);
+                                        $maplocation = explode(",", $group['mapLocation']);
                                         $branchname = $group['branchname'];
                                         $profile_picture = $group['profile_picture'];
                                         ?>
