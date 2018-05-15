@@ -142,7 +142,7 @@
 				// 'branchid'=>$data['branchid'],
 				// 'type'=>$data['type'],
 				// 'location'=>$data['location'],
-				// 'maplocation'=>$data['maplocation'],
+				// 'mapLocation'=>$data['mapLocation'],
 				'groupImage'=>$data['profile_picture'],
 			);
 		}
@@ -323,7 +323,7 @@
 		$rep = $request['rep'];
 		$church = $request['church'];
 
-		$maplocation = $request['maplocation']??"-1.9912405,30.096438000000035";
+		$mapLocation = $request['mapLocation']??"-1.9912405,30.096438000000035";
 
 		if(!empty($_FILES)){
 			$pic = $_FILES['profile_picture'];
@@ -339,7 +339,7 @@
 
 
 						//Creating group i uplus
-						$sql = "INSERT INTO uplus.groups(groupName, location, maplocation, groupImage, adminId) VALUES(\"$name\", \"$location\", \"$maplocation\", \"$filename\", \"$rep\" )";
+						$sql = "INSERT INTO uplus.groups(groupName, location, mapLocation, groupImage, adminId) VALUES(\"$name\", \"$location\", \"$mapLocation\", \"$filename\", \"$rep\" )";
 						$query = $conn->query($sql) or die("Error $conn->error");
 						if($query){
 							//get group ID
@@ -349,7 +349,7 @@
 						}
 
 
-						$sql = "INSERT INTO groups(name, branchId, representative, type, location, maplocation, profile_picture) VALUES(\"$name\", \"$church\", $rep, \"$type\", \"$location\", \"$maplocation\", \"$filename\" )";
+						$sql = "INSERT INTO groups(name, branchId, representative, type, location, mapLocation, profile_picture) VALUES(\"$name\", \"$church\", $rep, \"$type\", \"$location\", \"$mapLocation\", \"$filename\" )";
 						// echo "$sql\n";
 						
 						$response = array('status'=>true, 'msg'=>"Success", 'groupid'=>$conn->insert_id);

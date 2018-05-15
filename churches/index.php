@@ -664,11 +664,11 @@
                                     // var_dump($groups);
                                     for($n=0; $n<count($groups); $n++){
                                         $group = $groups[$n];
-                                        $maplocation = explode(",", $group['mapLocation']);
+                                        $mapLocation = explode(",", $group['mapLocation']);
                                         $branchname = $group['branchname'];
                                         $profile_picture = $group['profile_picture'];
                                         ?>
-                                        <li data-gmap-lat="<?php echo $maplocation[0] ?>"  data-gmap-lon="<?php echo $maplocation[1] ?>" data-gmap-user="<?php echo $group['name']; ?>" data-gmap-user-company="<?php echo $branchname ?>">
+                                        <li data-gmap-lat="<?php echo $mapLocation[0] ?>"  data-gmap-lon="<?php echo $mapLocation[1] ?>" data-gmap-user="<?php echo $group['name']; ?>" data-gmap-user-company="<?php echo $branchname ?>">
                                             <div class="md-list-addon-element">
                                                 <img class="md-user-image group-image-thumbnail-small md-list-addon-avatar" src="<?php echo $profile_picture ?>" alt=""/>
                                             </div>

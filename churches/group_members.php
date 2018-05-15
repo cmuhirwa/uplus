@@ -42,7 +42,7 @@
                     $group_id = $groupId;
                     $group_data = group_details($group_id);
                     $groupname = $group_data['name'];
-                    $grp_location = $group_data['maplocation']??$group_data['location'];
+                    $grp_location = $group_data['mapLocation']??$group_data['location'];
                     $gmembers = group_members($group_id);
                     ?>
                         <div id="page_content_inner" data-page="group">           
