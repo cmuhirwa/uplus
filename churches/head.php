@@ -64,3 +64,6 @@
     <script type="text/javascript" src="bower_components/matchMedia/matchMedia.addListener.js"></script>
     <link rel="stylesheet" href="assets/css/ie.css" media="all">
 <![endif]-->
+<script type="text/javascript">
+    const currentUser = <?php echo $userId; ?>;
+</script>

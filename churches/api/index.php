@@ -338,10 +338,20 @@
 						//Updating database
 
 
-						//Creating group
+						//Creating group i uplus
+						$sql = "INSERT INTO uplus.groups(groupName, location, maplocation, groupImage, adminId) VALUES(\"$name\", \"$location\", \"$maplocation\", \"$filename\", \"$rep\" )";
+						$query = $conn->query($sql) or die("Error $conn->error");
+						if($query){
+							//get group ID
+							$groupId = $conn->insert_id;
+							$cq = $conn->query("INSERT INTO churches.church_groups(groupCode, branchCode, type) VALUES($groupId, \"$church\", \"$type\") ") or trigger_error($conn->error);
+
+						}
+
+
 						$sql = "INSERT INTO groups(name, branchId, representative, type, location, maplocation, profile_picture) VALUES(\"$name\", \"$church\", $rep, \"$type\", \"$location\", \"$maplocation\", \"$filename\" )";
 						// echo "$sql\n";
-						$conn->query($sql) or die("Error $conn->error");
+						
 						$response = array('status'=>true, 'msg'=>"Success", 'groupid'=>$conn->insert_id);
 
 					}else $response = array('status'=>false, 'msg'=>"Error keeping file on server\nPlease try again");
@@ -411,8 +421,12 @@
 	}else if($action == 'delete_group'){
 		//Deleting group
 		$groupid = $request['group']??0;
+		$userId = $request['userId']??1; //user deleting this group
 
-		$conn->query("DELETE FROM groups WHERE id = \"$groupid\" ");
+		$sql = "UPDATE church_groups SET archived = 'yes', archivedBy = $userId, archievedDate = NOW() WHERE groupCode = \"$groupid\" ";
+		$conn->query($sql) or trigger_error($conn->error);
+		$conn->query("UPDATE uplus.groups SET archived = 'yes', archivedBy = $userId, archievedDate = NOW() WHERE id = \"$groupid\" ");
+		$conn->query($sql) or trigger_error($conn->error);
 	}else if($action == 'invoice'){        
 	}else if($action == "create_branch"){
 		//creating branch

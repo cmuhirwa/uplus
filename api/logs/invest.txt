@@ -8,3 +8,5 @@
 
 {"action":"stocksTransactions","stockId":"1","userId":"1"}
 
+{"action":"commentFeed","userId":"530","feedId":"105","feedComment":"Salama\n"}
+

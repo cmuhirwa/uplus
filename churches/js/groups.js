@@ -98,9 +98,10 @@ $("#grp_remove").on('click', function(){
     ok = window.confirm("Are you sure you want to delete this group, No recovery!");
     groupid = $(this).data('grp')
 
+
     if(ok){
-        $.post('api/index.php', {action:'delete_group', group:groupid}, function(){
-            window.location = 'groups.php'
+        $.post('api/index.php', {action:'delete_group', group:groupid, userId:currentUser}, function(){
+            window.location = 'groups.php';
         })
     }
 })
@@ -130,6 +131,7 @@ $("#members_add_submit").on('click', function(){
     //handling group addition
     add = $("#group_add_member input[type=checkbox]:checked");
 
+
     num = add.length;
     users = [];
     for(n=0; n<add.length; n++){
@@ -144,10 +146,8 @@ $("#members_add_submit").on('click', function(){
     //Getting group ID
     group_id = $(".group_map").attr('data-group-id');
 
-    $.post('api/index.php', {action:'addmembers', members:users, group:group_id, function(data, status){
+    $.post('api/index.php', {action:'addmembers', members:users, group:group_id}, function(data){
         //here going to check who was added or not
-        log(data)
-        log(status)
         if(typeof(data) == 'object'){
             //removing the added users
             added = data['added'];
@@ -155,11 +155,12 @@ $("#members_add_submit").on('click', function(){
                 added_id = added[n];
                 log($("tr input[data-member="+added_id+"]"))
             }
+            location.reload();
         }else{
             console.log("error understanding data returned")
             log(data)
         }
-    }})
+    })
 });
 //Removing peope on click from group
 $(".removemember").on('click', function(){
