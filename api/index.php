@@ -31,7 +31,8 @@
 		
 		//GET CSD ACCOUNT
 		$sqlCsd = $investDb->query("SELECT * FROM clients WHERE telephone = '$phoneNumber' LIMIT 1");
-		if((mysqli_num_rows($sqlCsd))>0)
+		$countScd = mysqli_num_rows($sqlCsd);
+		if($countScd > 0)
 		{
 			$row = mysqli_fetch_array($sqlCsd);
 			$csdAccount = $row['csdAccount'];	
