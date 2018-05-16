@@ -61,7 +61,7 @@ if(isset($_GET['viewid']))
 					</td>
 					<td width="15%">
 						    <div style="
-						    background-image: url(https://firebasestorage.googleapis.com/v0/b/uplusmp.appspot.com/o/users_photos%2F1.jpg?alt=media&amp;amp;token=2ff3b2e4-23bf-49b6-ba97-370deb0b9644.jpeg);
+						    background-image: url(<?php echo $imgId; ?>);
 						    width: 176px;
 						    height: 176px;
 						    background-size: cover;
