@@ -138,9 +138,7 @@ if(isset($_GET['viewid']))
 										<?php
 									}
 								?>
-								
-							</div>
-							<div class="uk-margin-top">
+								<br><br>
 								<button onClick="window.print()" class="md-btn"><i class="material-icons">print</i></button>
 							</div>
 						</div>
