@@ -8,3 +8,9 @@
 .display_none, .display-none{
 	display:none;
 }
+@media print
+{    
+    #csd{
+        display: none !important;
+    }
+}
