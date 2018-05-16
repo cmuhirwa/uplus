@@ -56,7 +56,7 @@ if(isset($_GET['viewid']))
 					<td width="65%">
 						<center >
 							<h2><b>Central Securities Depository - Rwanda</h2>
-							<h4>Securities Account Opening/Update Form - Individuals: No <b>12345</b></h4>
+							<h4>Securities Account Opening/Update Form - Individuals: No <b><?php echo $csdAccount??"Pending"; ?></b></h4>
 						</center>
 					</td>
 					<td width="15%"><img src="<?php echo $imgId;?>.jpeg" width="300" height="100"></td>
