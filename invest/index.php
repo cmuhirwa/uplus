@@ -64,7 +64,7 @@
                 ?>
                 <div class="product-single main-product">
                     <div class="navbar nav-menu">
-                        <div class="navbar-label"><h3 class="title"><span class="icon fa fa-star"></span><span class="label-prod">INVESTMENTS IN RWANDA</span></h3></div>
+                        <div class="navbar-label"><h3 class="title"><span class="icon fa fa-star"></span><span class="label-prod">INVESTMENTS IN NIGERIA</span></h3></div>
                     </div>
                     <div id="container"></div>
                     <div class="tab-container">
@@ -306,7 +306,7 @@ $("#comfirm_buy").on('click', function(){
 
 $.getJSON('aapl-c.json', function (data) {
     <?php
-        $company_name = 'BK';
+        $company_name = 'FirstBank';
     ?>
     // Create the chart
     Highcharts.stockChart('container', {
