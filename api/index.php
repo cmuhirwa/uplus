@@ -39,7 +39,7 @@
 		}
 		else
 		{
-			$csdAccount = "1";
+			$csdAccount = $phoneNumber;
 		}
 		//CHECK IF THE USER ALREADY EXISTS
 		$sqlcheckPin 	= $db->query("SELECT *  FROM users WHERE phone = '$phoneNumber' LIMIT 1");
