@@ -117,7 +117,7 @@ if(isset($_GET['viewid']))
 									</td>
 								</tr>
 							</table>
-							<div id="csd" class="uk-margin-top">
+							<div id="csd" class="uk-margin-top csdBtns">
 								<?php
 									if($status == 'approved'){
 										echo "Approved";
