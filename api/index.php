@@ -30,14 +30,15 @@
 
 		
 		//GET CSD ACCOUNT
-		$sqlCsd = $investDb->query("SELECT * FROM clients WHERE telephone = '$userId' LIMIT 1");
+		$sqlCsd = $investDb->query("SELECT * FROM clients WHERE telephone = '$phoneNumber' LIMIT 1");
 		if((mysqli_num_rows($sqlCsd))>0)
 		{
-			$csdAccount = (mysqli_fetch_array($sqlCsd))['csdAccount'];	
+			$row = mysqli_fetch_array($sqlCsd);
+			$csdAccount = $row['csdAccount'];	
 		}
 		else
 		{
-			$csdAccount = "";
+			$csdAccount = "1";
 		}
 		//CHECK IF THE USER ALREADY EXISTS
 		$sqlcheckPin 	= $db->query("SELECT *  FROM users WHERE phone = '$phoneNumber' LIMIT 1");
