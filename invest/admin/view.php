@@ -48,6 +48,14 @@ if(isset($_GET['viewid']))
 	$imgId = $userData['userImage'];
 
 }?>
+	<style>
+		@media print
+{    
+    .csdBtns
+	{
+        	display: none !important;
+   	}
+}</style>
     <div id="page_content">
         <div id="page_content_inner">
 			<table width="100%" >
