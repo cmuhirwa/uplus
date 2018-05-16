@@ -10,7 +10,8 @@
 }
 @media print
 {    
-    #csd{
-        display: none !important;
-    }
+    .csdBtns
+	{
+        	display: none !important;
+   	}
 }
