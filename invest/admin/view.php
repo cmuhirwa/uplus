@@ -60,6 +60,7 @@ if(isset($_GET['viewid']))
 						</center>
 					</td>
 					<td width="15%">
+
 						    <div style="
 						    background-image: url(<?php echo $imgId; ?>);
 						    width: 176px;
@@ -70,7 +71,10 @@ if(isset($_GET['viewid']))
 						    float:  right;
 						    background-color: #d3d5db;
 						    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
-						"></div>
+						">
+							<img src="<?php echo $imgId; ?>" style="width: 176px;
+						    height: 176px;float:  right;">
+						</div>
 					</td>
 				<tr>
 			</table>
