@@ -25,6 +25,7 @@
 				return $userData['type'];
 			}else return false;
 		}
+		
 		function total_users(){
 			//returns all the users of church system
 			global $conn;
