@@ -28,6 +28,17 @@
 		$phoneNumber 	= preg_replace( '/[^0-9]/', '', $phoneNumber );
 		$phoneNumber 	= substr($phoneNumber, -10); 
 
+		
+		//GET CSD ACCOUNT
+		$sqlCsd = $investDb->query("SELECT * FROM clients WHERE telephone = '$userId' LIMIT 1");
+		if((mysqli_num_rows($sqlCsd))>0)
+		{
+			$csdAccount = (mysqli_fetch_array($sqlCsd))['csdAccount'];	
+		}
+		else
+		{
+			$csdAccount = "";
+		}
 		//CHECK IF THE USER ALREADY EXISTS
 		$sqlcheckPin 	= $db->query("SELECT *  FROM users WHERE phone = '$phoneNumber' LIMIT 1");
 		$countPin 		= mysqli_num_rows($sqlcheckPin);
@@ -47,7 +58,8 @@
 				$signInfo = array(
 			   		"pin"        => $code,
 			   		"userId"     => $userId,
-			   		"userName"   => $profileName
+			   		"userName"   => $profileName,
+					"csdAccount" => $csdAccount
 			   );
 			}
 		}
