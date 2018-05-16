@@ -48,6 +48,14 @@ if(isset($_GET['viewid']))
 	$imgId = $userData['userImage'];
 
 }?>
+	<style>
+		@media print
+{    
+    .csdBtns
+	{
+        	display: none !important;
+   	}
+}</style>
     <div id="page_content">
         <div id="page_content_inner">
 			<table width="100%" >
@@ -134,9 +142,7 @@ if(isset($_GET['viewid']))
 										<?php
 									}
 								?>
-								
-							</div>
-							<div class="uk-margin-top">
+								<br><br>
 								<button onClick="window.print()" class="md-btn"><i class="material-icons">print</i></button>
 							</div>
 						</div>
