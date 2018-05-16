@@ -59,7 +59,19 @@ if(isset($_GET['viewid']))
 							<h4>Securities Account Opening/Update Form - Individuals: No <b>12345</b></h4>
 						</center>
 					</td>
-					<td width="15%"><img src="<?php echo $imgId;?>.jpeg" width="300" height="100"></td>
+					<td width="15%">
+						    <div style="
+						    background-image: url(https://firebasestorage.googleapis.com/v0/b/uplusmp.appspot.com/o/users_photos%2F1.jpg?alt=media&amp;amp;token=2ff3b2e4-23bf-49b6-ba97-370deb0b9644.jpeg);
+						    width: 176px;
+						    height: 176px;
+						    background-size: cover;
+						    background-repeat: no-repeat;
+						    background-position: center center;
+						    float:  right;
+						    background-color: #d3d5db;
+						    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+						"></div>
+					</td>
 				<tr>
 			</table>
 
