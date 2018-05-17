@@ -272,12 +272,25 @@
 		$query = $investDb->query("SELECT * FROM broker_companies WHERE companyId = \"$stockId\" AND archived = 'no' ") or trigger_error($investDb->error);
 		$hist = array();
 		while ($data = $query->fetch_assoc()) {
+			$currentPriceDate = $data['priceDate'];
+			$currentPrice = $data['unitPrice'];
+			//calculate the change
+			$changeq = $investDb->query("SELECT * FROM broker_companies WHERE companyId = \"$stockId\" AND priceDate<'$currentPriceDate' LIMIT 1 ") or trigger_error($investDb->error);
+			$changeData = $changeq->fetch_assoc();
+			$prevPrice = $changeData['unitPrice'];
+			//percentage
+			$change = (($currentPrice-$prevPrice)*100/($prevPrice??$currentPrice));
+			$change = round($change, 1);
+
+			$data['change'] = $change;
+			$data['prevPrice'] = $prevPrice;
+
 			$hist[] = $data;
 		}
 		return $hist;
 
 	}
-	
+
 	function stockPurchases($brokerId){
 		//returns stock sales of the broker
 		global $investDb;

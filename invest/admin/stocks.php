@@ -119,7 +119,7 @@ if(isset($_POST['newPrice'])){
 														<td>'.$n.'</td>
 														<td>'.date("d-M-Y H:i", strtotime($data['priceDate'])).'</td>
 														<td>'.number_format($data['unitPrice']).' frw</td>
-														<td>'.(9).'%</td>														
+														<td>'.$data['change'].'%</td>														
 														</tr>';
 													}
 												?>
