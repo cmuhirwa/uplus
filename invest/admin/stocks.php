@@ -544,6 +544,12 @@ function get_sub(){
 		});
 	}
 
+
+
+	// $.post('../api/index.php', {action:'listStocks'}, function(){
+		
+	// })
+
 	$.getJSON('../aapl-c.json', function (data) {
     // Create the chart
     Highcharts.stockChart('chartContainer', {
