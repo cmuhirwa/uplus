@@ -277,6 +277,7 @@
 		return $hist;
 
 	}
+	
 	function stockPurchases($brokerId){
 		//returns stock sales of the broker
 		global $investDb;

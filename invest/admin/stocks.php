@@ -76,9 +76,17 @@ if(isset($_POST['newPrice'])){
 			?>
 				<div id="page_content">
 					<div id="page_content_inner">
-						<div class="heading_a uk-grid uk-margin-bottom uk-grid-width-large-1-2">
-							<div class="uk-row-first"><h4 class=""><?php echo $stockName; ?></h4></div>
+						<div class="md-card">
+							<div class="md-card-content">
+								<div class="heading_a uk-grid uk-margin-bottom uk-grid-width-large-1-2">
+									<div class="uk-row-first"><h4 class=""><?php echo $stockName; ?></h4></div>
+
+								</div>
+								<!-- <button class="md-btn md-btn-warning">DELETE</button> -->
+							</div>
 						</div>
+						<div style="margin-top:50px;"></div>
+						
 						<div id="chartContainer"></div>
 
 						<div class=" uk-grid uk-margin-bottom uk-grid-medium" data-uk-grid-margin>   
@@ -122,117 +130,7 @@ if(isset($_POST['newPrice'])){
 								</div>
 							</div>              
 						</div>
-					</div>
-
-					<div class="md-fab-wrapper">
-						<button class="md-fab md-fab-primary" href="javascript:void(0)" data-uk-modal="{target:'#add_member_modal'}"><i class="material-icons">person_add</i></button>
-					</div>
-
-					<div class="modals">            
-						<div class="uk-modal" id="add_member_modal" aria-hidden="true" style="display: none; overflow-y: auto;">
-							<div class="uk-modal-dialog" style="top: 339.5px;">
-								<div class="uk-modal-header uk-tile uk-tile-default">
-									<h3 class="d_inline">Invite members to forum</h3>
-								</div>
-								<form id="invite_member_form">
-									<div class="md-carda">
-										<div class="md-card-contenta">
-											<div class="uk-tab-center1">
-												<ul class="uk-tab" data-uk-tab="{connect:'#tabs_5'}">
-													<li class="uk-active"><a href="#">Users</a></li>
-													<li><a href="#">Email</a></li>
-												</ul>
-											</div>
-											<ul id="tabs_5" class="uk-switcher uk-margin">
-												<li>
-													<label>Select members to invite</label>
-													<table id="dt_tableExport" class="uk-table" cellspacing="0" width="100%">
-														<thead>
-															<tr>
-																<th><input type="checkbox" class="uk-checkbox checkall" data-md-ichecka></th>
-																<th>Names</th>
-																<th>Gender</th>
-																<th>Type</th>
-															</tr>
-														</thead>
-														<tbody id='app_invite_users'>
-															<?php 
-															$n=0;
-
-															foreach($forum_not_joined as $key=> $member)
-																{
-																	$n++;
-																	$memberData = user_details($member['id']);
-																	echo '<tr>
-																	<td> <input type="checkbox" class="uk-checkbox checkbox_elem" data-id='.$memberData['id'].'> </td>
-																	<td>'.$memberData['names'].'</td>
-																	<td>'.$memberData['gender'].'</td>
-																	<td>'.$memberData['account_type'].'</td>';
-																}
-															?> 
-															
-														</tbody>
-													</table>
-												</li>
-												<li>
-													
-													<div class="md-input-wrapper md-input-filled uk-margin-top">
-														<label>Enter emails you want to envite</label>
-														<textarea id="invite_emails"  class="md-input label-fixed" placeholder="Email list separated by comma ','"></textarea>
-														<span class="md-input-bar "></span>
-													</div>
-												</li>
-											</ul>
-										</div>                            
-									</div>
-
-									<div class="md-input-wrapper md-input-filled uk-margin-top">
-										<label>Invitation message</label>
-										<textarea id="invite_text"  class="md-input label-fixed" placeholder="Enter invitation">You are invited to join '<?php echo $forum_title; ?>' forum on u-invest, https://uplus.rw click here for more info</textarea>
-										<span class="md-input-bar "></span>
-									</div>
-								</form>
-								<div id="addStatus" class="card mt-3" style="margin-top:20px"></div>
-
-
-								<div class="uk-modal-footer uk-text-right act-dialog" data-role='init'>
-									<button class="md-btn md-btn-danger pull-left uk-modal-close">Cancel</button>
-									<button class="md-btn md-btn-success pull-right" id="invite_member_btn">Invite</button>
-								</div>
-
-								<div class="uk-modal-footer uk-text-right act-dialog display-none" data-role='done'>
-									<button type="button" class="md-btn md-btn-flat uk-modal-close"><img src="assets/img/rot_loader.gif" style="max-height: 50px"> Inviting people to the forum...</button>
-								</div>
-
-							</div>
-						</div>
-						<div class="uk-modal" id="modal_upload_members" aria-hidden="true" style="display: none; overflow-y: auto;">
-							<div class="uk-modal-dialog" style="top: 339.5px;">
-								<div class="uk-modal-header uk-tile uk-tile-default">
-									<h3 class="d_inline">Batch members upload</h3>
-								</div>
-								<form id="memExport" method="POST" enctype="multipart/form-data">
-									<div class="md-card">
-										<div class="md-card-content">
-											<div class="md-input-wrapper">
-												<label>Choose Excel file of members you want to export</label>
-												
-												<input type="file" id="file1" class="dropify" data-allowed-file-extensions="xls xlsx"/>
-												<span class="md-input-bar "></span>
-											</div>                                            
-											<input type="hidden" name="action" value="export_members">
-											<input type="hidden" name="church" value="<?php echo $churchID; ?>">
-											<input type="hidden" name="user" value="<?php echo $userId; ?>">                       
-										</div>
-									</div>
-									<div class="uk-modal-footer uk-text-right">
-										<button class="md-btn md-btn-danger pull-left uk-modal-close">Cancel</button>
-										<button type="submit" class="md-btn md-btn-success pull-right">Save</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
+					</div>					
 				</div>
 			<?php
 		}else{
