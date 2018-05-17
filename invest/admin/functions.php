@@ -270,12 +270,12 @@
 	{
 		global $investDb;
 		$query = $investDb->query("SELECT * FROM broker_companies WHERE companyId = \"$stockId\" AND archived = 'no' ") or trigger_error($investDb->error);
-		$query = $investDb->query("SELECT * FROM broker_companies ") or trigger_error($investDb->error);
 		$hist = array();
 		while ($data = $query->fetch_assoc()) {
 			$hist[] = $data;
 		}
 		return $hist;
+
 	}
 	function stockPurchases($brokerId){
 		//returns stock sales of the broker
