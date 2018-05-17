@@ -105,13 +105,41 @@
 		return $posts;
 	}
 
-	function brokerCompanies($brokerId)
+	// function brokerStocks($brokerId)
+	// {
+	// 	//returns the company that the broker works with a broker is a company with $brokerId
+	// 	global $investDb;
+	// 	$query = $investDb->query("SELECT * FROM broker_companies as B WHERE B.brokerId = $brokerId") or trigger_error($investDb->error);
+	// 	$companies = array();
+	// 	while ($data = $query->fetch_assoc()) {
+	// 		$companies[] = $data;
+	// 	}
+	// 	return $companies;
+	// }
+
+	function brokerStocksSummary($brokerId)
 	{
 		//returns the company that the broker works with a broker is a company with $brokerId
 		global $investDb;
-		$query = $investDb->query("SELECT * FROM broker_companies as B WHERE B.brokerId = $brokerId ") or trigger_error($investDb->error);
+		
+		$sql = "SELECT * FROM `broker_security` GROUP BY `companyId`";
+		// echo "$sql";
+		$query = $investDb->query($sql) or trigger_error($investDb->error);
 		$companies = array();
-		while ($data = $query->fetch_assoc()) {
+		while ($row = $query->fetch_assoc()) {
+			$companyId = $row['companyId'];
+			$sql = $investDb->query("SELECT B.unitPrice, C.companyName, B.companyId, B.createdBy 
+						FROM broker_security B
+						INNER JOIN company C 
+						ON C.companyId = B.companyId
+						WHERE B.companyId = '$companyId' 
+						ORDER BY B.id DESC LIMIT 2") or trigger_error($investDb->error);
+
+			$data = mysqli_fetch_array($sql);
+			$prevData = mysqli_fetch_array($sql);
+			$data['prevPrice'] = $prevData['unitPrice'];
+			$change = $data['unitPrice'] - $data['prevPrice'];
+			$data['change'] = ($change * 100)/ ($data['prevPrice']??$change);
 			$companies[] = $data;
 		}
 		return $companies;
@@ -127,6 +155,13 @@
 			$companies[] = $data;
 		}
 		return $companies;
+	}
+
+	function stockInfo($stockId){
+		//returns the detals of stock
+		global $investDb;
+		$query = $investDb->query("SELECT * FROM company WHERE companyId = \"$stockId\" ") or trigger_error($investDb->error);
+		return $query->fetch_assoc();
 	}
 
 	function timeStockPrice($stockId, $date)
@@ -229,6 +264,17 @@
 		}
 
 		return $sales;
+	}
+
+	function stockHistory($stockId)
+	{
+		global $investDb;
+		$query = $investDb->query("SELECT * FROM broker_companies WHERE companyId = \"$stockId\" AND archived = 'no' ") or trigger_error($investDb->error);
+		$hist = array();
+		while ($data = $query->fetch_assoc()) {
+			$hist[] = $data;
+		}
+		return $hist;
 	}
 	function stockPurchases($brokerId){
 		//returns stock sales of the broker

@@ -66,7 +66,7 @@
                     <div class="navbar nav-menu">
                         <div class="navbar-label"><h3 class="title"><span class="icon fa fa-star"></span><span class="label-prod">INVESTMENTS IN NIGERIA</span></h3></div>
                     </div>
-                    <div id="container"></div>
+                    <div id="chartContainer"></div>
                     <div class="tab-container">
                         <div id="tab-1" class="tab-panel active">
                             <ul class="product-list owl-carousel" data-dots="false" data-loop="true" data-nav = "true" data-margin = "0" data-autoplayTimeout="1000" data-autoplayHoverPause = "true" data-responsive='{"0":{"items":1},"480":{"items":2}, "991":{"items":3},"1200":{"items":4}}'>
@@ -309,7 +309,7 @@ $.getJSON('aapl-c.json', function (data) {
         $company_name = 'FirstBank';
     ?>
     // Create the chart
-    Highcharts.stockChart('container', {
+    Highcharts.stockChart('chartContainer', {
 
 
         rangeSelector: {

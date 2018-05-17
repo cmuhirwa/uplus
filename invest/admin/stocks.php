@@ -11,14 +11,23 @@
 
 include'userheader.php';
 include'functions.php';
+
+$brokerId = $Broker['companyId'];
+
+if(isset($_POST['newPrice'])){
+	$newPrice = $_POST['newPrice'];
+	$companyId = $_POST['companyId'];
+
+	$sql = "INSERT INTO `broker_security`(`brokerId`,`companyId`,`unitPrice`,`createdBy`) VALUES (\"$brokerId\", \"$companyId\", \"$newPrice\", \"$brokerId\")";
+	$query = $investDb->query($sql) or trigger_error($investDb->error);
+}
 ?>
 
 <!-- main sidebar -->
 <div id="new_comp">
 	<?php
-
-	 $forum = $_GET['id']??"";
-		if(!empty($forum)){
+	$stock = $_GET['id']??"";
+		if(!empty($stock)){
 
 			//If submit request is issued
 			if(!empty($_POST)){
@@ -60,152 +69,59 @@ include'functions.php';
 				}
 			}
 
-			$forumData = getForum($forum);
 
-			$forum_id = $forumData['id'];
-			$forum_title = $forumData['title']??"";
-			$forum_logo = $usual_logo =  $forumData['icon'];
-			$forum_status = empty($forumData['archiveDate'])?'active':'archive';
-			$forum_n_joined = n_forum_users($forum_id);
-			$forum_joined = forum_users($forum_id);
-
-			$forum_not_joined = forumn_non_users($forum_id);
+			$stockInfo = stockInfo($stock);
+			$stockName = $stockInfo['companyName'];
+			$stockData  = stockHistory($stock);
 			?>
 				<div id="page_content">
 					<div id="page_content_inner">
-						<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="POST" class="uk-form-stacked" id="user_edit_form" enctype="multipart/form-data">
-							<div class="uk-grid" data-uk-grid-margin>
-								<div class="uk-width-large-7-10">
-									<div class="md-card">
-										<div class="user_heading" data-uk-sticky="{ top: 48, media: 960 }">
-											<div class="user_heading_avatar fileinput fileinput-new" data-provides="fileinput">
-												<div class="fileinput-new thumbnail">
-													<img src="<?php echo $forumData['icon']; ?>" alt="user avatar"/>
-												</div>
-												<div class="fileinput-preview fileinput-exists thumbnail"></div>
-												<div class="user_avatar_controls">
-													<span class="btn-file">
-														<span class="fileinput-new"><i class="material-icons">&#xE2C6;</i></span>
-														<span class="fileinput-exists"><i class="material-icons">&#xE86A;</i></span>
-														<input type="file" name="forum_logo" id="user_edit_avatar_control">
-													</span>
-													<a href="#" class="btn-file fileinput-exists" data-dismiss="fileinput"><i class="material-icons">&#xE5CD;</i></a>
-												</div>
-											</div>
-											<div class="user_heading_content">
-												<h2 class="heading_b"><span class="uk-text-truncate" id="user_edit_uname"><?php echo $forum_title; ?></span><span class="sub-heading" id="user_edit_position">Started <?php echo date($standard_date, strtotime($forumData['createdDate'])); ?></span></h2>
-											</div>
-											<div class="md-fab-wrapper">
-												 <?php
-													if($forum_status == 'active'){
-												?>
-													<div class="md-fab md-fab-small md-fab-danger">
-														<i class="material-icons md-color-red" id="delete_forum_btn" data-forum = "<?php echo $forum; ?>" title="delete forum">&#xE872;</i>
-													</div>
-												<?php }else{
-													?>
-														<div class="md-fab md-fab-small md-fab-success">
-															<i class="material-icons md-color-red" id="activate_forum_btn" data-forum = "<?php echo $forum; ?>" title="Re-Activate forum">done</i>
-														</div>
-													<?php
-												} ?>
-												
-											</div>
-										</div>
-										<div class="user_content">
-											
-											<div class="md-input-wrapper md-input-filled">
-												<label>Forum title</label>
-												<input type="text" name="forumtitle" id="forumtitle_input" value="<?php echo $forum_title; ?>" class="md-input" required="required">
-												<span class="md-input-bar "></span>
-											</div>
-											<div class="md-input-wrapper md-input-filled">
-												<textarea cols="20" rows="2" id="forum_intro" name="intro" class="md-input autosized" placeholder="What's the forum about?" style="overflow-x: hidden; word-wrap: break-word;"><?php echo $forumData['subtitle']; ?></textarea>
-												<span class="md-input-bar "></span>
-											</div>
-											<div class="md-input-wrapper">
-												<button class="md-btn md-btn-primary" type="submit">UPDATE</button>
-											</div>                                         
-										</div>
-									</div>
-								</div>
-								<div class="uk-width-large-3-10">
-									<div class="md-card">
-										<div class="md-card-content">
-											<h3 class="heading_c uk-margin-medium-bottom">Summary</h3>
-											<div class="uk-form-row">
-												<i class="md-icon material-icons md-color-light-blue-500">person_outline</i> <?php echo $forum_n_joined." of ".total_users(); ?> joined
-													<?php
-														if(!empty($forumData['updatedDate']) && 0){
-															?>
-															  <li>Last updated: <?php echo $forumData['updatedDate'] ?> by <i><?php echo staff_details($forumData['updatedBy'])['name'] ?></i></li>  
-															<?php
-														}
+						<div class="heading_a uk-grid uk-margin-bottom uk-grid-width-large-1-2">
+							<div class="uk-row-first"><h4 class=""><?php echo $stockName; ?></h4></div>
+						</div>
+						<div id="chartContainer"></div>
 
-													?>
-
-												<!-- <?php
-													if($forum_status == 'active' ){
-												?>
-													<input type="checkbox" checked data-switchery id="user_edit_active" disabled/>
-													<label for="user_edit_active" class="inline-label">Forum Active</label>
-												<?php }else{
-													?>
-														<input type="checkbox" data-switchery id="user_edit_active" disabled/>
-														<label for="user_edit_active" class="inline-label">Forum Archived</label>
-													<?php
-												} ?> -->
-											</div>                                
-										</div>
-									</div>
-								</div>
-							</div>
-						</form>
-
-						<?php
-							//Showing members of the forum
-							if($forum_n_joined>0){
-						?>
-						<div class="uk-grid uk-margin-top">
-							<div class="uk-width-1-1">
+						<div class=" uk-grid uk-margin-bottom uk-grid-medium" data-uk-grid-margin>   
+							<div class="uk-width-large-4-4">
 								<div class="md-card">
+									<?php
+									?>
+									<div id="status"></div>
 									<div class="md-card-content">
-										<h4 class="heading_a uk-margin-bottom">Forum members</h4>
 										<div class="dt_colVis_buttons">
 										</div>
 										<table id="dt_tableExport" class="uk-table" cellspacing="0" width="100%">
 											<thead>
 												<tr>
 													<th>#</th>
-													<th>Names</th>
-													<th>Gender</th>
-													<th>Joined Date</th>
+													<th>Date</th>
+													<th>Price</th>
+													<th>Change</th>
+													<!-- <th>Date</th> -->
 												</tr>
 											</thead>
 											<tbody>
 												<?php 
-												$n=0;
-												foreach($forum_joined as $key=> $member)
-													{
+													$n=0;
+													
+													foreach ($stockData as $key => $data){
+														$admin  = staff_details($data['createdBy']);
 														$n++;
-														$memberData = user_details($member['userCode']);
-														$gender  = empty($memberData['gender'])?"Male":"Female";
 														echo '<tr>
 														<td>'.$n.'</td>
-														<td>'.$memberData['name'].'</td>
-														<td>'.$gender.'</td>
-														<td>'.date($standard_date, strtotime($member['createdDate']) ).'</td>';
+														<td>'.date("d-M-Y H:i", strtotime($data['priceDate'])).'</td>
+														<td>'.number_format($data['unitPrice']).' frw</td>
+														<td>'.(9).'%</td>														
+														</tr>';
 													}
-												?> 
+												?>
 												
 											</tbody>
 										</table>
 									</div>
 								</div>
-							</div>
+							</div>              
 						</div>
-						<?php } ?>
-
 					</div>
 
 					<div class="md-fab-wrapper">
@@ -355,7 +271,7 @@ include'functions.php';
 						</div> -->
 						<div class="md-card">
 							<?php
-								$companies = brokerCompanies($Broker['companyId']);
+								$companies = brokerStocksSummary($Broker['companyId']);
 							?>
 							<div id="status"></div>
 							<div class="md-card-content">
@@ -365,10 +281,10 @@ include'functions.php';
 									<thead>
 										<tr>
 											<th>#</th>
-											<th>Company Name</th>
-											<th>Current Shares</th>
-											<th>Share price</th>
-											<th>Action</th>
+											<th>Stock Name</th>
+											<th>Previous price</th>
+											<th>Current Price</th>
+											<th>New Price</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -380,10 +296,11 @@ include'functions.php';
 												$n++;
 												echo '<tr>
 												<td>'.$n.'</td>
-												<td>'.$data['companyName'].'</td>
-												<td>'.$data['number'].'</td>
-												<td>'.$data['unitPrice'].'</td>
-												<td><a href="forums.php?id='.$data['unitPrice'].'"><i class="material-icons">mode_edit</i></a></td>
+												<td><a href="stocks.php?id='.$data['companyId'].'">'.$data['companyName'].'</a></td>
+												<td>'.$data['prevPrice'].'</td>
+												<td>'.$data['unitPrice'].' ('.number_format($data['change']).'%)</td>
+												<td><form method="post" action="stocks.php"><input name="newPrice" /><input type="hidden" name="companyId" value=
+												"'.$data['companyId'].'"><button>CHANGE</button></form></td>
 												</tr>';
 											}
 										?>
@@ -519,6 +436,9 @@ include'functions.php';
 
 	<!-- Firebase -->
 	<script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
+
+	<!-- HighStock -->
+	<script src="https://code.highcharts.com/stock/highstock.js"></script>
 
 	<script src="js/uploadFile.js"></script>
 
@@ -725,6 +645,44 @@ function get_sub(){
 				}
 		});
 	}
+
+	$.getJSON('../aapl-c.json', function (data) {
+    // Create the chart
+    Highcharts.stockChart('chartContainer', {
+
+
+        rangeSelector: {
+            selected: 1
+        },
+
+        title: {
+            text: '<?php echo $stockName; ?> Stock Price'
+        },
+
+        series: [{
+            name: '<?php echo $stockName; ?> Stock Price',
+            data: data,
+            type: 'areaspline',
+            threshold: null,
+            tooltip: {
+                valueDecimals: 2
+            },
+            fillColor: {
+                linearGradient: {
+                    x1: 0,
+                    y1: 0,
+                    x2: 0,
+                    y2: 1
+                },
+                stops: [
+                    [0, Highcharts.getOptions().colors[0]],
+                    [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                ]
+            }
+        }]
+    });
+});
+
 </script>
 </body>
 </html>
