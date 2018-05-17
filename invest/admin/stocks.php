@@ -240,7 +240,7 @@ if(isset($_POST['newPrice'])){
 		<div id="page_content">
 			<div id="page_content_inner">
 				<div class="heading_a uk-grid uk-margin-bottom uk-grid-width-large-1-2">
-					<div class="uk-row-first"><h4 class="">Companies</h4></div>
+					<div class="uk-row-first"><h4 class="">Stocks</h4></div>
 				</div>
 
 				<div class=" uk-grid uk-margin-bottom uk-grid-medium" data-uk-grid-margin>   

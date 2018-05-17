@@ -122,7 +122,7 @@
 		//returns the company that the broker works with a broker is a company with $brokerId
 		global $investDb;
 		
-		$sql = "SELECT * FROM `broker_security` GROUP BY `companyId`";
+		$sql = "SELECT companyId FROM `broker_security` GROUP BY `companyId`";
 		// echo "$sql";
 		$query = $investDb->query($sql) or trigger_error($investDb->error);
 		$companies = array();
