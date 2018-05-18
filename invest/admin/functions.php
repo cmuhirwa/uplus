@@ -214,6 +214,23 @@
 		return $transactions;
 	}
 
+	function brokerTransactions($brokerId){
+		global $investDb;
+		$query = $investDb->query("SELECT * FROM transactions WHERE brokerId = \"$brokerId\"  AND archived = 'no' ") or trigger_error($investDb->error);
+		$trans = array();
+		while ($data = $query->fetch_assoc()) {
+			$trans[] = $data;
+		}
+		return $trans;
+	}
+
+	function brokerTransactionsSummary($brokerId){
+		global $investDb;
+		$query = $investDb->query("SELECT COUNT(*) as num, SUM(totalAmount) as amount FROM transactions WHERE archived = 'no'  ") or trigger_error($investDb->error);
+		$data = $query->fetch_assoc();
+		return $data;
+	}
+
 	function listFeeds($memberId='')
 	{
 		//function to return the posts from $user

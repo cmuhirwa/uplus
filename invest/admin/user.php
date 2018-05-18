@@ -102,18 +102,61 @@
 	                        </div>
 	                    </div>
 	                    </a>
-	                </div>   
+	                </div>
+
+	                <!-- Customers -->
+	                <div>
+	                    <a href="customers.php?compId=<?php echo $comanyId;?>">
+						<div class="md-card md-card-hover md-card-overlay">
+	                        <!-- <div class="md-card-content uk-flex uk-flex-center uk-flex-middle">
+	                            <span class="peity_conversions_large peity_data">5,3,9,6,5,9,7</span>
+	                        </div> -->
+	                        <div class="md-card-content">
+	                        	<?php
+	                        		$sqlClients = $db->query('SELECT * FROM clients');
+									$countClients = mysqli_num_rows($sqlClients);
+									$countUsers = mysqli_num_rows($db->query('SELECT * FROM uplus.users'));
+	                        	?>
+	                        	<div style="vertical-align: middle; margin-top: 10%; font-size: 3rem">
+	                        		<span class="" style=""><span class="countUpMe"><?php echo $countClients; ?></span>/<span><?php echo $countUsers; ?></span></span>
+	                        	</div>	                        	
+		                        <!-- <div class="epc_chart" data-percent="53" data-bar-color="#009688">
+	                                <span class="epc_chart_text"><span class="countUpMe">53</span>%</span>
+	                            </div> -->
+                            </div>
+	                        <div class="md-card-overlay-content">
+	                            <div class="uk-clearfix md-card-overlay-header">
+	                                <i class="md-icon material-icons md-card-overlay-toggler">&#xE5D4;</i>
+	                                <h3>
+	                                    Customers
+	                                </h3>
+	                            </div>
+	                            Users with CSD accounts out of all system users
+	                            <!-- <p>Current Customers:</p> -->
+								<?php
+									// $sqlClients = $db->query('SELECT * FROM clients');
+									// echo $countClients = mysqli_num_rows($sqlClients);
+								?>
+	                        </div>
+	                    </div>
+						</a>
+	                </div>
+
 					<div>
 						<a href="stocks.php">
 						<div class="md-card md-card-hover md-card-overlay">
 	                        <div class="md-card-content uk-flex uk-flex-center uk-flex-middle">
-	                            <span class="peity_conversions_large peity_data">5,3,9,6,5,9,7</span>
+	                        	<div class="md-card-content">
+	                        		<div style="margin-top: 55%; font-size: 3rem">
+		                        		<span class="" style=""><span class="countUpMe"><?php $summary = brokerTransactionsSummary($Company->companyId); echo $summary['num']; ?></span></span>
+		                        	</div>	 
+	                        	</div>
 	                        </div>
 	                        <div class="md-card-overlay-content">
 	                            <div class="uk-clearfix md-card-overlay-header">
 	                                <i class="md-icon material-icons md-card-overlay-toggler">&#xE5D4;</i>
 	                                <h3>
-	                                    Stocks
+	                                    Transactions
 	                                </h3>
 	                            </div>
 	                            Total Share Value:
@@ -152,42 +195,7 @@
 						</a>
 					</div>
 	            
-	                <div>
-	                    <a href="customers.php?compId=<?php echo $comanyId;?>">
-						<div class="md-card md-card-hover md-card-overlay">
-	                        <!-- <div class="md-card-content uk-flex uk-flex-center uk-flex-middle">
-	                            <span class="peity_conversions_large peity_data">5,3,9,6,5,9,7</span>
-	                        </div> -->
-	                        <div class="md-card-content">
-	                        	<?php
-	                        		$sqlClients = $db->query('SELECT * FROM clients');
-									$countClients = mysqli_num_rows($sqlClients);
-									$countUsers = mysqli_num_rows($db->query('SELECT * FROM uplus.users'));
-	                        	?>
-	                        	<div style="vertical-align: middle; margin-top: 10%; font-size: 3rem">
-	                        		<span class="" style=""><span class="countUpMe"><?php echo $countClients; ?></span>/<span><?php echo $countUsers; ?></span></span>
-	                        	</div>	                        	
-		                        <!-- <div class="epc_chart" data-percent="53" data-bar-color="#009688">
-	                                <span class="epc_chart_text"><span class="countUpMe">53</span>%</span>
-	                            </div> -->
-                            </div>
-	                        <div class="md-card-overlay-content">
-	                            <div class="uk-clearfix md-card-overlay-header">
-	                                <i class="md-icon material-icons md-card-overlay-toggler">&#xE5D4;</i>
-	                                <h3>
-	                                    Customers
-	                                </h3>
-	                            </div>
-	                            Users with CSD accounts out of all system users
-	                            <!-- <p>Current Customers:</p> -->
-								<?php
-									// $sqlClients = $db->query('SELECT * FROM clients');
-									// echo $countClients = mysqli_num_rows($sqlClients);
-								?>
-	                        </div>
-	                    </div>
-						</a>
-	                </div>
+	                
 		            <div>
 	                    <div class="md-card md-card-hover md-card-overlay">
 	                        <div class="md-card-content">
