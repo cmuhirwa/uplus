@@ -147,9 +147,22 @@ ini_set('display_errors', 0);
 	                <div>
 	                    <a href="customers.php?compId=<?php echo $comanyId;?>">
 						<div class="md-card md-card-hover md-card-overlay">
-	                        <div class="md-card-content uk-flex uk-flex-center uk-flex-middle">
+	                        <!-- <div class="md-card-content uk-flex uk-flex-center uk-flex-middle">
 	                            <span class="peity_conversions_large peity_data">5,3,9,6,5,9,7</span>
-	                        </div>
+	                        </div> -->
+	                        <div class="md-card-content">
+	                        	<?php
+	                        		$sqlClients = $db->query('SELECT * FROM clients');
+									$countClients = mysqli_num_rows($sqlClients);
+									$countUsers = mysqli_num_rows($db->query('SELECT * FROM uplus.users'));
+	                        	?>
+	                        	<div style="vertical-align: middle; margin-top: 10%; font-size: 3rem">
+	                        		<span class="" style=""><span class="countUpMe"><?php echo $countClients; ?></span>/<span><?php echo $countUsers; ?></span></span>
+	                        	</div>	                        	
+		                        <!-- <div class="epc_chart" data-percent="53" data-bar-color="#009688">
+	                                <span class="epc_chart_text"><span class="countUpMe">53</span>%</span>
+	                            </div> -->
+                            </div>
 	                        <div class="md-card-overlay-content">
 	                            <div class="uk-clearfix md-card-overlay-header">
 	                                <i class="md-icon material-icons md-card-overlay-toggler">&#xE5D4;</i>
