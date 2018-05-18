@@ -1,7 +1,7 @@
 
 <?php
-error_reporting(E_ALL); 
-ini_set('display_errors', 0);
+	error_reporting(E_ALL); 
+	ini_set('display_errors', 1);
 	if(isset($_POST['addpst']))
 	{
 		$itemName = $_POST['itemName'];
@@ -52,7 +52,7 @@ ini_set('display_errors', 0);
 		$postDeadline = $_POST['postDeadline'];
 		$productLocation = $_POST['productLocation'];
 		
-		include ("db.php");
+		include ("db.php");		
 		$sql = $db->query("UPDATE posts SET postTitle='$postTitle',productCode='$productCode',quantity='$quantity',price='$price',priceStatus='$priceStatus',postDesc='$postDesc',postedBy='$postedBy',postDeadline='$postDeadline',productLocation='$productLocation' WHERE postId = '$postId'")or die (mysqli_error());
 		
 		header("location: user.php");
@@ -62,7 +62,11 @@ ini_set('display_errors', 0);
 <!doctype html>
 <!--[if lte IE 9]> <html class="lte-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 9]><!--> <html lang="en"> <!--<![endif]-->
-<?php include'userheader.php' ;?>
+<?php
+	include ("../db.php");
+	include'userheader.php';
+	require("functions.php");
+?>
 
 <!-- main sidebar -->
 <div id="new_comp">
@@ -82,12 +86,16 @@ ini_set('display_errors', 0);
 	                <div>
 	                    <a href="items.php?compId=<?php echo $comanyId;?>">
 						<div class="md-card md-card-hover md-card-overlay">
-	                        <img src="<?php echo $Company->standardLogo;?>" alt="">
+							<div class="md-card-content">
+		                        <div style="vertical-align: middle; margin-top: 10%; font-size: 3rem">
+	                        		<span class="" style=""><span class="countUpMe"><?php echo count(getForums()); ?></span></span>
+	                        	</div>	 
+	                        </div>
 	                        <div class="md-card-overlay-content">
 	                            <div class="uk-clearfix md-card-overlay-header">
 	                                <i class="md-icon material-icons md-card-overlay-toggler">&#xE5D4;</i>
 	                                <h3>
-	                                    <?php echo $row['companyName'];?>
+	                                    Forums
 	                                </h3>
 	                            </div>
 	                            <?php echo $row['companyDescription'];?>
@@ -170,10 +178,11 @@ ini_set('display_errors', 0);
 	                                    Customers
 	                                </h3>
 	                            </div>
-	                            Current Customers: 
+	                            Users with CSD accounts out of all system users
+	                            <!-- <p>Current Customers:</p> -->
 								<?php
-									$sqlClients = $db->query('SELECT * FROM clients');
-									echo $countClients = mysqli_num_rows($sqlClients);
+									// $sqlClients = $db->query('SELECT * FROM clients');
+									// echo $countClients = mysqli_num_rows($sqlClients);
 								?>
 	                        </div>
 	                    </div>
@@ -215,9 +224,7 @@ ini_set('display_errors', 0);
 	                                    </thead>
 	                                    <tbody>
 	                                    	<?php
-												include ("../db.php");
-
-												$sql2 = $db->query("SELECT * FROM items1 WHERE createdBy = '$username' ORDER BY itemId DESC");
+	                                    		$sql2 = $db->query("SELECT * FROM items1 WHERE createdBy = '$username' ORDER BY itemId DESC");
 												$countItems = mysqli_num_rows($sql2);
 												if($countItems > 0){
 												while($row = mysqli_fetch_array($sql2)){
