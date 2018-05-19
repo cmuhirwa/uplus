@@ -19,6 +19,12 @@
 	}
 // END INITIATE
 
+// START LOG
+    $f = fopen("logs/uplus.txt", 'a') or die("Unable to open file!");;
+    fwrite($f, json_encode($_POST)."\n\n");
+    fclose($f);
+// END LOG
+
 // START ACCOUNTS
 	function signup()
 	{
