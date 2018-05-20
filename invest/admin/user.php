@@ -82,6 +82,7 @@
 							{
 								$comanyId = $row['companyId'];
 			?>
+				
 				<div class="uk-grid uk-grid-width-small-1-2 uk-grid-width-large-1-3 uk-grid-width-xlarge-1-4 uk-text-center " id="dashboard_sortable_cards" >
 	                <div>
 	                    <a href="items.php?compId=<?php echo $comanyId;?>">
@@ -118,7 +119,8 @@
 									$countUsers = mysqli_num_rows($db->query('SELECT * FROM uplus.users'));
 	                        	?>
 	                        	<div style="vertical-align: middle; margin-top: 10%; font-size: 3rem">
-	                        		<span class="" style=""><span class="countUpMe"><?php echo $countClients; ?></span>/<span><?php echo $countUsers; ?></span></span>
+	                        		<span class="" style=""><span class="countUpMe"><?php echo $countClients; ?></span>/
+	                        		<span><?php echo $countUsers; ?></span></span>
 	                        	</div>	                        	
 		                        <!-- <div class="epc_chart" data-percent="53" data-bar-color="#009688">
 	                                <span class="epc_chart_text"><span class="countUpMe">53</span>%</span>
@@ -207,7 +209,7 @@
 	                            <div class="uk-clearfix md-card-overlay-header">
 	                                <i class="md-icon material-icons md-card-overlay-toggler">&#xE5D4;</i>
 	                                <h3>
-	                                    Shares
+	                                    Engagement
 	                                </h3>
 	                            </div>
 	                            <p>Purchased Shares: 11,340</p>
@@ -220,59 +222,40 @@
 	            <div class="uk-grid" data-uk-grid-margin data-uk-grid-match="{target:'.md-card-content'}">
 	                <div class="uk-width-medium-1-3">
 	                    <div class="md-card">
-	                        <div class="md-card-content">
+	                        <div class="md-card-content" style="height: 468px; !imporntant">
 	                            <div class="uk-overflow-container">
-	                                <table class="uk-table">
-	                                    <thead>
-	                                        <tr>
-	                                            <th class="uk-text-nowrap">Branches</th>
-	                                            <th class="uk-text-nowrap">Progress</th>
-	                                            <th class="uk-text-nowrap uk-text-right">Rest</th>
-	                                        </tr>
-	                                    </thead>
-	                                    <tbody>
-	                                    	<?php
-	                                    		$sql2 = $db->query("SELECT * FROM items1 WHERE createdBy = '$username' ORDER BY itemId DESC");
-												$countItems = mysqli_num_rows($sql2);
-												if($countItems > 0){
-												while($row = mysqli_fetch_array($sql2)){
-												$itemId = $row['itemId'];
-												$postTitle = $row['itemName'];
-												//$priceStatus = $row['postDeadline'];
-												$price = number_format($row['unitPrice']);
-												
-												$rest = rand(10000,1000);
-												$progr = rand(100,10);
-												echo '
-													<tr class="uk-table-middle">
-							                            <td class="uk-width-3-10 uk-text-nowrap"><a href="userPost.php?postId='.$itemId.'">'.$postTitle.'</a></td>
-							                            <td class="uk-width-3-10">
-							                                <div class="uk-progress uk-progress-mini uk-progress-warning uk-margin-remove">
-							                                    <div class="uk-progress-bar" style="width: '.$progr.'%;"></div>
-							                                </div>
-							                            </td>
-							                            <td class="uk-width-2-10 uk-text-right uk-text-muted uk-text-small">'.number_format($rest).'</td>
-							                        </tr>
-													';
-												}}
-												else{
-													echo '<center><h4>Opps No Item Yet!!!, Please add some</h4></center>';
-												}
-											?>
-	                                    </tbody>
-	                                </table>
+	                                <h3>Event Title</h3>
+	                                <br><p>Event Descriobtion Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+	                                 Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley 
+	                                 of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap 
+	                                 into electronic typesetting, remaining essentially unchanged.</p>
+	                                 <p> It was popularised in the 1960s with the release of
+	                                  Letraset sheets containing Lorem Ipsum passages,
+	                                 and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. 
+	                             	</p>
 	                            </div>
 	                        </div>
 	                    </div>
 	                </div>
 	            	<div class="uk-width-medium-2-3">
 	                    <div class="md-card">
-	                        <div class="md-card-content">
-	                            <h3 class="heading_a uk-margin-bottom">Comparision of Banks <span class="uk-badge" style="background-color: unset;background-color: #1f77b4;">Deposit</span> & <span class="uk-badge" style="background-color: unset;background-color: #ff7f0e;">Total Assets</span>
-	                            </h3>
-	                            <div id="ct-chart" class="chartist"></div>
-	                        </div>
-	                    </div>
+                            <div class="uk-slidenav-position" style="max-height: 500px;" data-uk-slideshow="{animation:'scale'}">
+                                <ul class="uk-slideshow"  style="max-height: 500px; !imporntant"  >
+                                    <li><img src="assets/img/gallery/Image01.jpg" alt=""></li>
+                                    <li><img src="assets/img/gallery/Image02.jpg" alt=""></li>
+                                    <li><img src="assets/img/gallery/Image03.jpg" alt=""></li>
+                                    <li><img src="assets/img/gallery/Image04.jpg" alt=""></li>
+                                </ul>
+                                <a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-previous" data-uk-slideshow-item="previous"></a>
+                                <a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-next" data-uk-slideshow-item="next"></a>
+                                <ul class="uk-dotnav uk-dotnav-contrast uk-position-bottom uk-flex-center">
+                                    <li data-uk-slideshow-item="0"><a href="#"></a></li>
+                                    <li data-uk-slideshow-item="1"><a href="#"></a></li>
+                                    <li data-uk-slideshow-item="2"><a href="#"></a></li>
+                                    <li data-uk-slideshow-item="3"><a href="#"></a></li>
+                                </ul>
+                            </div>
+                        </div>
 	                </div>
 	            </div>
 			<?php
