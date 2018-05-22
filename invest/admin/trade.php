@@ -8,9 +8,8 @@
 <!--[if lte IE 9]> <html class="lte-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 9]><!--> <html lang="en"> <!--<![endif]-->
 <?php
-
-include'userheader.php';
-include'functions.php';
+	include'userheader.php';
+	include'functions.php';
 ?>
 
 <!-- main sidebar -->
@@ -539,7 +538,7 @@ include'functions.php';
 	<script type="text/javascript" src="js/forums.js"></script>
 
 	<script type="text/javascript">
-		var churchID  = 1;
+		const currentUser = <?php echo $thisid; ?>;
 		$('.dropify#input-forum-logo').dropify();
 		$(".selectize").selectize();
 
@@ -638,13 +637,20 @@ include'functions.php';
 		// 	alert("Transaction activity");
 		// })
 
+
+		//When transaction is to be approved
 		$(".confTrans").on('click', function(data){
 			transType = $(this).data('transtype');
 			transId = $(this).data('transid');
 			UIkit.modal.confirm('Confirm '+transType+' Transaction', function(){
 				//sending the action
-				$.post('api/index.php', {action:})
-		    	alert(transId)
+				$.post('../../api/invest.php', {action:'actTransaction', transId:transId, act:'approveds', doneBy:currentUser}, function(data){
+					if(data == 'Done'){
+						location.reload()
+					}else{
+						alert("Error updating transaction")
+					}
+				});
 		    })
 		})
 

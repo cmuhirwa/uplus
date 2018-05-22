@@ -600,6 +600,28 @@
 		$userId = $request['userId']??""; //id of the security the user is buying
 		echo json_encode($response);
 	}
+
+	function actTransaction(){
+		require_once '../invest/admin/db.php';
+		require '../invest/admin/functions.php';
+
+		$request = $_POST;
+
+		//action on transactions
+		$transId  = $request['transId'];
+		$act  = $request['act'];
+		$doneBy  = $request['doneBy'];
+
+
+
+		$query = $investDb->query("UPDATE transactions SET status = \"$act\", updatedBy = \"$doneBy\", updatedDate = NOW() WHERE id = \"$transId\" ") or trigger_error($investDb->error);
+		if($query){
+			echo json_encode("Done");
+		}else{
+			echo json_encode("Failed");
+		}
+	}
+
 	function sellStocks(){
 		//allows user to sell her stocks
 		require 'db.php';
