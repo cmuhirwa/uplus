@@ -372,7 +372,7 @@
 												}else if($status == 'approved'){
 													echo '<p class="uk-text-success">Approved</p>' ;
 												}else if($status == 'denied'){
-													echo '<p class="uk-text-danger">Denied</p>' ;
+													echo '<p class="uk-text-danger">Rejected</p>' ;
 												}
 												echo '</td>
 												</tr>';
@@ -425,7 +425,7 @@
 												}else if($status == 'approved'){
 													echo '<p class="uk-text-success">Approved</p>' ;
 												}else if($status == 'denied'){
-													echo '<p class="uk-text-danger">Denied</p>' ;
+													echo '<p class="uk-text-danger">Rejected</p>' ;
 												}
 												echo '</td>
 												</tr>';
@@ -667,7 +667,7 @@
 		$(".denTrans").on('click', function(data){
 			transType = $(this).data('transtype');
 			transId = $(this).data('transid');
-			UIkit.modal.confirm('Deny '+transType+' Transaction', function(){
+			UIkit.modal.confirm('Reject '+transType+' Transaction', function(){
 				//sending the action
 				$.post('../../api/invest.php', {action:'actTransaction', transId:transId, act:'denied', doneBy:currentUser}, function(data){
 					if(data == 'Done'){
