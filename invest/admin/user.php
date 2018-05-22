@@ -239,12 +239,11 @@
 	                </div>
 	            	<div class="uk-width-medium-2-3">
 	                    <div class="md-card">
-                            <div class="uk-slidenav-position" style="max-height: 500px;" data-uk-slideshow="{animation:'scale'}">
-                                <ul class="uk-slideshow"  style="max-height: 500px; !imporntant"  >
-                                    <li><img src="assets/img/gallery/Image01.jpg" alt=""></li>
-                                    <li><img src="assets/img/gallery/Image02.jpg" alt=""></li>
-                                    <li><img src="assets/img/gallery/Image03.jpg" alt=""></li>
-                                    <li><img src="assets/img/gallery/Image04.jpg" alt=""></li>
+                            <div class="uk-slidenav-position" data-uk-slideshow="{animation:'scale'}">
+                                <ul class="uk-slideshow" style="max-height: 500px !important;">
+                                    <li><img style="max-height: 100%" src="assets/img/gallery/young.jpg" alt=""></li>
+                                    <li><img style="max-height: 100%" src="assets/img/gallery/img2.jpg" alt=""></li>
+                                    <li><img style="max-height: 100%" src="assets/img/gallery/img3.jpg" alt=""></li>
                                 </ul>
                                 <a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-previous" data-uk-slideshow-item="previous"></a>
                                 <a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-next" data-uk-slideshow-item="next"></a>
