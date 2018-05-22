@@ -368,7 +368,7 @@ include'functions.php';
 												<td>'.date($standard_date." H:i:s", strtotime($stockSale['createdDate'])).'</td><td style="cursor:pointer">';
 
 												if($status == 'pending'){
-													echo '<i class="material-icons md-color-light-green-500 transBtn">check</i><i class="material-icons md-color-red-800 transBtn">clear</i>';
+													echo '<i class="material-icons md-color-light-green-500 transBtn confTrans" data-transtype="sell">check</i><i class="material-icons md-color-red-800 transBtn">clear</i>';
 												};
 												echo '</td>
 												</tr>';
@@ -416,7 +416,7 @@ include'functions.php';
 												<td style="cursor:pointer">';
 
 												if($status == 'pending'){
-													echo '<i class="material-icons md-color-light-green-500 transBtn">check</i><i class="material-icons md-color-red-800 transBtn">clear</i>';
+													echo '<i class="material-icons md-color-light-green-500 transBtn confTrans" data-transtype="sell">check</i><i class="material-icons md-color-red-800 transBtn">clear</i>';
 												};
 												echo '<a href="trade.php?id='.$stockSale['id'].'"></a></td>
 												</tr>';
@@ -636,8 +636,17 @@ include'functions.php';
 
 		});
 
-		$(".transBtn").on('click', function(data){
-			alert("Transaction activity");
+		// $(".transBtn").on('click', function(data){
+		// 	alert("Transaction activity");
+		// })
+
+		$(".confTrans").on('click', function(data){
+			UIkit.modal.confirm('Confirm Transaction', {
+		      labels: {
+		        cancel: 'Abort',
+		        ok: 'Confirm'
+		      }
+		    });
 		})
 
 		//Approving the stock selling request
@@ -718,20 +727,20 @@ function get_sub(){
 	var catId =$("#catId").val();
 	//alert(catId);
 	$.ajax({
-			type : "GET",
-			url : "userscript.php",
-			dataType : "html",
-			cache : "false",
-			data : {
-				
-				catId : catId,
-			},
-			success : function(html, textStatus){
-				$("#suboption").html(html);
-			},
-			error : function(xht, textStatus, errorThrown){
-				alert("Error : " + errorThrown);
-			}
+		type : "GET",
+		url : "userscript.php",
+		dataType : "html",
+		cache : "false",
+		data : {
+			
+			catId : catId,
+		},
+		success : function(html, textStatus){
+			$("#suboption").html(html);
+		},
+		error : function(xht, textStatus, errorThrown){
+			alert("Error : " + errorThrown);
+		}
 	});
 }
 </script>

@@ -224,15 +224,8 @@
 	                    <div class="md-card">
 	                        <div class="md-card-content" style="height: 468px; !imporntant">
 	                            <div class="uk-overflow-container">
-	                                <h3>Event Title</h3>
-	                                <br><p>Event Descriobtion Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-	                                 Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley 
-	                                 of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap 
-	                                 into electronic typesetting, remaining essentially unchanged.</p>
-	                                 <p> It was popularised in the 1960s with the release of
-	                                  Letraset sheets containing Lorem Ipsum passages,
-	                                 and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. 
-	                             	</p>
+	                                <h3>Youth Financial Literacy Seminar</h3>
+	                                <br><p>Youth came together to learn how to save and invest money</p>
 	                            </div>
 	                        </div>
 	                    </div>
