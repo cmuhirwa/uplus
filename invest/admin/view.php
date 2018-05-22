@@ -195,14 +195,7 @@ if(isset($_GET['viewid']))
 														
 													</tbody>
 												</table>
-											</div>
-											<div class="uk-width-1-4">
-												<div class="">
-													<h4>Owners(1)</h4>
-													<ul class="uk-list">
-														<li><?php echo $names; ?></li>
-													</ul>
-												</div>
+												<hr>
 												<div class="commentsContainer uka-hidden">
 													<div class="uk-grid">
 														<div class="uk-width-3-4">
@@ -282,6 +275,14 @@ if(isset($_GET['viewid']))
 														</ul>
 													</div>											
 												</div>
+											</div>
+											<div class="uk-width-1-4">
+												<div class="">
+													<h4>Owners(1)</h4>
+													<ul class="uk-list">
+														<li><?php echo $names; ?></li>
+													</ul>
+												</div>												
 											</div>
 										</div>
 										
