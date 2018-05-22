@@ -338,7 +338,7 @@
 								<h2>Client Stock Sales</h2>
 								<div class="dt_colVis_buttons">
 								</div>
-								<table id="dt_tableExport" class="uk-table" cellspacing="0" width="100%">
+								<table id="dt_tableExport" class="uk-table" cellspacing="0" width="100%" style="max-height: 500px; overflow-y: scroll;">
 									<thead>
 										<tr>
 											<th>#</th>
@@ -394,7 +394,7 @@
 								<h2>Purchased</h2>
 								<div class="dt_colVis_buttons">
 								</div>
-								<table id="dt_tableExport" class="uk-table" cellspacing="0" width="100%">
+								<table id="dt_tableExport" class="uk-table" cellspacing="0" width="100%" style="max-height: 500px; overflow-y: scroll;">
 									<thead>
 										<tr>
 											<th>#</th>
