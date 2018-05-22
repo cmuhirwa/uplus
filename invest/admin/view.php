@@ -35,6 +35,7 @@ if(isset($_GET['viewid']))
 		$accountNumber = $row['accountNumber'];
 		$csdAccount= $row['csdAccount'];
 	}
+	// var_dump($csdAccount);
 
 	
 
@@ -50,12 +51,13 @@ if(isset($_GET['viewid']))
 }?>
 	<style>
 		@media print
-{    
-    .csdBtns
-	{
-        	display: none !important;
-   	}
-}</style>
+		{    
+		    .csdBtns
+			{
+		        	display: none !important;
+		   	}
+		}
+	</style>
     <div id="page_content">
         <div id="page_content_inner">
 			<table width="100%" >

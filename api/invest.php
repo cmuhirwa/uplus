@@ -382,7 +382,7 @@
 			$query = $investDb->query("SELECT * FROM users WHERE id = \"$doneBy\" AND account_type = 'broker' LIMIT 1 ") or trigger_error($db->error);
 			if($query->num_rows){
 				//here user is a  broker we can now assign the CSD
-				$investDb->query("UPDATE clients SET csdAccount = \"$doneBy\", status = 'approved', statusBy = \"$doneBy\", statusOn = NOW() WHERE id = \"$user\" ") or trigger_error($db->error);
+				$investDb->query("UPDATE clients SET csdAccount = \"$csd\", status = 'approved', statusBy = \"$doneBy\", statusOn = NOW() WHERE id = \"$user\" ") or trigger_error($db->error);
 
 				//broker data
 				$brokerQ = $investDb->query("SELECT C.companyName FROM broker_user B JOIN company C ON B.companyId = C.companyId WHERE B.userCode = '$doneBy'");
