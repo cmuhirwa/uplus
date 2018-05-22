@@ -356,6 +356,7 @@
 											foreach ($sales as $key => $stockSale){
 												// $totalAmt = $stockSale['quantity']*timeStockPrice($stockSale["stockId"], $stockSale['createdDate']);
 												$totalAmt = $stockSale['totalAmount'];
+												$transId = $stockSale['id'];
 												$n++;
 												$status = $stockSale['status'];
 												echo '<tr>
@@ -367,8 +368,12 @@
 												<td>'.date($standard_date." H:i:s", strtotime($stockSale['createdDate'])).'</td><td style="cursor:pointer">';
 
 												if($status == 'pending'){
-													echo '<i class="material-icons md-color-light-green-500 transBtn confTrans" data-transtype="sell" data-transId="1">check</i><i class="material-icons md-color-red-800 transBtn">clear</i>';
-												};
+													echo '<i class="material-icons md-color-light-green-500 transBtn confTrans" data-transtype="sell" data-transId="'.$transId.'">check</i><i class="denTrans material-icons md-color-red-800 transBtn" data-transtype="sell" data-transId="'.$transId.'">clear</i>';
+												}else if($status == 'approved'){
+													echo '<p class="uk-text-success">Approves</p>' ;
+												}else if($status == 'denied'){
+													echo '<p class="uk-text-danger">Denied</p>' ;
+												}
 												echo '</td>
 												</tr>';
 											}
@@ -416,9 +421,13 @@
 												<td style="cursor:pointer">';
 
 												if($status == 'pending'){
-													echo '<i class="material-icons md-color-light-green-500 transBtn confTrans" data-transtype="sell" data-transId = "'.$transId.'">check</i><i class="material-icons md-color-red-800 transBtn">clear</i>';
-												};
-												echo '<a href="trade.php?id='.$stockSale['id'].'"></a></td>
+													echo '<i class="material-icons md-color-light-green-500 transBtn confTrans" data-transtype="sell" data-transId = "'.$transId.'">check</i><i class="material-icons md-color-red-800 transBtn denTrans" data-transtype="sell" data-transId = "'.$transId.'">clear</i>';
+												}else if($status == 'approved'){
+													echo '<p class="uk-text-success">Approves</p>' ;
+												}else if($status == 'denied'){
+													echo '<p class="uk-text-danger">Denied</p>' ;
+												}
+												echo '</td>
 												</tr>';
 											}
 										?>
@@ -644,9 +653,25 @@
 			transId = $(this).data('transid');
 			UIkit.modal.confirm('Confirm '+transType+' Transaction', function(){
 				//sending the action
-				$.post('../../api/invest.php', {action:'actTransaction', transId:transId, act:'approveds', doneBy:currentUser}, function(data){
+				$.post('../../api/invest.php', {action:'actTransaction', transId:transId, act:'approved', doneBy:currentUser}, function(data){
 					if(data == 'Done'){
 						location.reload()
+					}else{
+						alert("Error updating transaction")
+					}
+				});
+		    })
+		})
+
+		//When transaction is to be denied
+		$(".denTrans").on('click', function(data){
+			transType = $(this).data('transtype');
+			transId = $(this).data('transid');
+			UIkit.modal.confirm('Deny '+transType+' Transaction', function(){
+				//sending the action
+				$.post('../../api/invest.php', {action:'actTransaction', transId:transId, act:'denied', doneBy:currentUser}, function(data){
+					if(data == 'Done'){
+						location.reload();
 					}else{
 						alert("Error updating transaction")
 					}
