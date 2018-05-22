@@ -370,7 +370,7 @@
 												if($status == 'pending'){
 													echo '<i class="material-icons md-color-light-green-500 transBtn confTrans" data-transtype="sell" data-transId="'.$transId.'">check</i><i class="denTrans material-icons md-color-red-800 transBtn" data-transtype="sell" data-transId="'.$transId.'">clear</i>';
 												}else if($status == 'approved'){
-													echo '<p class="uk-text-success">Approves</p>' ;
+													echo '<p class="uk-text-success">Approved</p>' ;
 												}else if($status == 'denied'){
 													echo '<p class="uk-text-danger">Denied</p>' ;
 												}
@@ -423,7 +423,7 @@
 												if($status == 'pending'){
 													echo '<i class="material-icons md-color-light-green-500 transBtn confTrans" data-transtype="sell" data-transId = "'.$transId.'">check</i><i class="material-icons md-color-red-800 transBtn denTrans" data-transtype="sell" data-transId = "'.$transId.'">clear</i>';
 												}else if($status == 'approved'){
-													echo '<p class="uk-text-success">Approves</p>' ;
+													echo '<p class="uk-text-success">Approved</p>' ;
 												}else if($status == 'denied'){
 													echo '<p class="uk-text-danger">Denied</p>' ;
 												}
