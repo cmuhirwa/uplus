@@ -85,7 +85,7 @@
 				
 				<div class="uk-grid uk-grid-width-small-1-2 uk-grid-width-large-1-3 uk-grid-width-xlarge-1-4 uk-text-center " id="dashboard_sortable_cards" >
 	                <div>
-	                    <a href="items.php?compId=<?php echo $comanyId;?>">
+	                    <a href="forums.php">
 						<div class="md-card md-card-hover md-card-overlay">
 							<div class="md-card-content">
 		                        <div style="vertical-align: middle; margin-top: 10%; font-size: 3rem">
@@ -212,8 +212,8 @@
 	                                    Engagement
 	                                </h3>
 	                            </div>
-	                            <p>Purchased Shares: 11,340</p>
-	                            <p>Remaining Shares: 9,783</p>
+	                            <p>Feeds View: 11,340</p>
+	                            <p>Feeds Likes: 783</p>
 	                        </div>
 	                    </div>
 	                </div>

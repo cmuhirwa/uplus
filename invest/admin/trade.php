@@ -368,7 +368,7 @@ include'functions.php';
 												<td>'.date($standard_date." H:i:s", strtotime($stockSale['createdDate'])).'</td><td style="cursor:pointer">';
 
 												if($status == 'pending'){
-													echo '<i class="material-icons md-color-light-green-500 transBtn confTrans" data-transtype="sell" data-transid="1">check</i><i class="material-icons md-color-red-800 transBtn">clear</i>';
+													echo '<i class="material-icons md-color-light-green-500 transBtn confTrans" data-transtype="sell" data-transId="1">check</i><i class="material-icons md-color-red-800 transBtn">clear</i>';
 												};
 												echo '</td>
 												</tr>';
@@ -417,7 +417,7 @@ include'functions.php';
 												<td style="cursor:pointer">';
 
 												if($status == 'pending'){
-													echo '<i class="material-icons md-color-light-green-500 transBtn confTrans" data-transtype="sell" data-transId = "'.$transId.'" >check</i><i class="material-icons md-color-red-800 transBtn">clear</i>';
+													echo '<i class="material-icons md-color-light-green-500 transBtn confTrans" data-transtype="sell" data-transId = "'.$transId.'">check</i><i class="material-icons md-color-red-800 transBtn">clear</i>';
 												};
 												echo '<a href="trade.php?id='.$stockSale['id'].'"></a></td>
 												</tr>';
@@ -640,8 +640,11 @@ include'functions.php';
 
 		$(".confTrans").on('click', function(data){
 			transType = $(this).data('transtype');
+			transId = $(this).data('transid');
 			UIkit.modal.confirm('Confirm '+transType+' Transaction', function(){
-		    	alert(transType)
+				//sending the action
+				$.post('api/index.php', {action:})
+		    	alert(transId)
 		    })
 		})
 
@@ -692,99 +695,5 @@ include'functions.php';
 			altair_helpers.ie_fix();
 		});
 	</script>
-	
-<script>
-// <!--0 Add Company-->
-function addcomp(){
-
-	var comp = 'yes';
-		
-	$.ajax({
-			type : "GET",
-			url : "createCompany.php",
-			dataType : "html",
-			cache : "false",
-			data : {
-				
-				comp : comp,
-			},
-			success : function(html, textStatus){
-				$("#new_comp").html(html);
-			},
-			error : function(xht, textStatus, errorThrown){
-				alert("Error : " + errorThrown);
-			}
-	});
-}
-</script>	
-<script>
-	// <!--1 Show subcat-->
-function get_sub(){
-	var catId =$("#catId").val();
-	//alert(catId);
-	$.ajax({
-		type : "GET",
-		url : "userscript.php",
-		dataType : "html",
-		cache : "false",
-		data : {
-			
-			catId : catId,
-		},
-		success : function(html, textStatus){
-			$("#suboption").html(html);
-		},
-		error : function(xht, textStatus, errorThrown){
-			alert("Error : " + errorThrown);
-		}
-	});
-}
-</script>
-<script>
-	// <!--2 Show products-->
-	function get_prod(){
-		var subCatId =$("#subCatId").val();
-		//alert(subCatId);
-		$.ajax({
-				type : "GET",
-				url : "userscript.php",
-				dataType : "html",
-				cache : "false",
-				data : {
-					
-					subCatId : subCatId,
-				},
-				success : function(html, textStatus){
-					$("#prodoption").html(html);
-				},
-				error : function(xht, textStatus, errorThrown){
-					alert("Error : " + errorThrown);
-				}
-		});
-	}
-</script>
-<script>
-	// <!--3 start new post-->
-	function new_post(){
-		var productId =$("#productId").val();
-		//alert(productId);
-		$.ajax({
-				type : "GET",
-				url : "userscript.php",
-				dataType : "html",
-				cache : "false",
-				data : {
-					
-					productId : productId,
-				},
-				success : function(html, textStatus){
-					$("#new_post_show").html(html);
-				},
-				error : function(xht, textStatus, errorThrown){
-					alert("Error : " + errorThrown);
-				}
-		});
-	}
-</script>
 </body>
 </html>
