@@ -130,6 +130,7 @@ link: https://uplus.rw/api/invest.php
 			quantity
 			totalAmount
 			type
+			status
 			date
 	stockTransactions - uknow
 		->
@@ -142,5 +143,6 @@ link: https://uplus.rw/api/invest.php
 			quantity
 			totalAmount
 			type
+			status
 			date
 --END INVESTMENT--

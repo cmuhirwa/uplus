@@ -693,6 +693,7 @@
 					'quantity'=>$data['quantity'],
 					'totalAmount'=>$data['totalAmount'],
 					'type'=>$data['type'],
+					'status'=>$data['status'],
 					'date'=>$data['createdDate']
 				);
 			}
@@ -721,6 +722,7 @@
 					'quantity'=>$data['quantity'],
 					'totalAmount'=>$data['totalAmount'],
 					'type'=>$data['type'],
+					'status'=>$data['status'],
 					'date'=>$data['createdDate']
 				);
 			}
