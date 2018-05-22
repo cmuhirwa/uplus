@@ -368,7 +368,7 @@ include'functions.php';
 												<td>'.date($standard_date." H:i:s", strtotime($stockSale['createdDate'])).'</td><td style="cursor:pointer">';
 
 												if($status == 'pending'){
-													echo '<i class="material-icons md-color-light-green-500 transBtn confTrans" data-transtype="sell">check</i><i class="material-icons md-color-red-800 transBtn">clear</i>';
+													echo '<i class="material-icons md-color-light-green-500 transBtn confTrans" data-transtype="sell" data-transid="1">check</i><i class="material-icons md-color-red-800 transBtn">clear</i>';
 												};
 												echo '</td>
 												</tr>';
@@ -406,6 +406,7 @@ include'functions.php';
 											$n=0;
 											foreach ($sales as $key => $stockSale){
 												$n++;
+												$transId = $stockSale['id'];
 												$status = $stockSale['status'];
 												echo '<tr>
 												<td>'.$n.'</td>
@@ -416,7 +417,7 @@ include'functions.php';
 												<td style="cursor:pointer">';
 
 												if($status == 'pending'){
-													echo '<i class="material-icons md-color-light-green-500 transBtn confTrans" data-transtype="sell">check</i><i class="material-icons md-color-red-800 transBtn">clear</i>';
+													echo '<i class="material-icons md-color-light-green-500 transBtn confTrans" data-transtype="sell" data-transId = "'.$transId.'" >check</i><i class="material-icons md-color-red-800 transBtn">clear</i>';
 												};
 												echo '<a href="trade.php?id='.$stockSale['id'].'"></a></td>
 												</tr>';
@@ -465,9 +466,6 @@ include'functions.php';
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="md-fab-wrapper">
-			<button class="md-fab md-fab-primary" href="javascript:void(0)" data-uk-modal="{target:'#add_member_modal'}"><i class="material-icons">add</i></button>
 		</div>
 	<?php } ?>
 </div>
@@ -641,12 +639,10 @@ include'functions.php';
 		// })
 
 		$(".confTrans").on('click', function(data){
-			UIkit.modal.confirm('Confirm Transaction', {
-		      labels: {
-		        cancel: 'Abort',
-		        ok: 'Confirm'
-		      }
-		    });
+			transType = $(this).data('transtype');
+			UIkit.modal.confirm('Confirm '+transType+' Transaction', function(){
+		    	alert(transType)
+		    })
 		})
 
 		//Approving the stock selling request
