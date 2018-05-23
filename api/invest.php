@@ -437,6 +437,7 @@
 		}
 		echo json_encode($response);
 	}
+
 	function messageBrokerClient()
 	{
 		# Broker messaging a client
@@ -484,7 +485,8 @@
 		echo json_encode($response);			
 	}
 
-	function addStock(){
+	function addStock()
+	{
 		//company adding stocks
 		require 'db.php';
 		require '../invest/admin/functions.php';
@@ -512,7 +514,8 @@
 
 	}
 
-	function listStocks(){
+	function listStocks()
+	{
 		//list stock prices with their stock people
 
 		// require 'db.php';
@@ -522,15 +525,25 @@
 
 		global $investDb;
 		$request = $_POST;
-		$query = $investDb->query("SELECT B.companyId, B.id as securityId, B.brokerId, B.sharesNumber, B.unitPrice, B.createdDate, C.companyName, (SELECT companyName FROM company WHERE companyId = B.brokerId ) AS brokerName	 FROM broker_security AS B JOIN company AS C ON C.companyId = B.companyId WHERE type ='stock' ORDER BY B.createdDate ") or trigger_error($investDb->error);
+		$sql = "SELECT B.companyId, B.id as securityId, B.brokerId, B.sharesNumber, B.unitPrice, B.createdDate, C.companyName,
+(SELECT companyName FROM company WHERE companyId = B.brokerId ) AS brokerName,
+COALESCE( (SELECT N.unitPrice FROM broker_security AS N WHERE N.id<securityId), '0') AS prevPrice
+			 FROM broker_security AS B JOIN company AS C ON C.companyId = B.companyId WHERE type ='stock' ORDER BY B.createdDate";
+		$query = $investDb->query($sql) or trigger_error($investDb->error);
 		$companies = $companyDetails = array();
+
+
+
 
 		
 		while ($data = $query->fetch_assoc()) {
+			$prevPriceDiv = $data['prevPrice']==0?1:$data['prevPrice']; //prevPrice for division omitting 0
 			$compData = $cd = array(
 						'unitPrice'=>$data['unitPrice'],
 						'date'=>$data['createdDate'],
 						'securityId'=>$data['securityId'],
+						'prevPrice'=>$data['prevPrice'],
+						'change'=>( ($data['unitPrice'] - $data['prevPrice'])/$data['unitPrice'])*100,
 					);
 			if(isset($companies[$data['companyId']])){				
 				//here we'll concatenate				
@@ -561,9 +574,10 @@
 		$response = $ret;		
 
 		echo json_encode($response);
-
 	}
-	function purchase(){
+
+	function purchase()
+	{
 		//user buying the shares
 		require 'db.php';
 		require '../invest/admin/functions.php';
@@ -601,7 +615,8 @@
 		echo json_encode($response);
 	}
 
-	function actTransaction(){
+	function actTransaction()
+	{
 		require_once '../invest/admin/db.php';
 		require '../invest/admin/functions.php';
 
@@ -622,7 +637,8 @@
 		}
 	}
 
-	function sellStocks(){
+	function sellStocks()
+	{
 		//allows user to sell her stocks
 		require 'db.php';
 		require '../invest/admin/functions.php';
@@ -673,7 +689,9 @@
 		}
 		echo json_encode($response);
 	}
-	function stocksTransactions(){
+
+	function stocksTransactions()
+	{
 		//user sale and purchase histories
 		require 'db.php';
 		require '../invest/admin/functions.php';
@@ -701,7 +719,8 @@
 		echo json_encode($hist);
 	}
 
-	function stockTransactions(){
+	function stockTransactions()
+	{
 		//user sale and purchase histories
 		require 'db.php';
 		require '../invest/admin/functions.php';
