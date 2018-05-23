@@ -363,6 +363,45 @@
 		echo json_encode($response);
 	}
 
+	function requestGroupCSD()
+	{
+		// user requesting CSD group account
+		require 'db.php';
+		require '../scripts/class.group.php';
+		require '../invest/admin/functions.php';
+
+		$request = $_POST;
+
+		$groupId = $request['groupId']??"";
+		if($groupId){
+			//here we fetch details from app
+			$groupData = $Group->details($groupId);
+
+			//check if group exists
+			if($groupData && $groupData['archive']!='yes'){
+				//check the group CSD status
+				$groupInvestData = checkGroup($groupId);
+
+				if(empty($groupInvestData) || $groupInvestData['status'] == 'declined' ){
+					//here we can request new CSD
+					$query = $investDb->query("INSERT INTO clients(groupCode, clientType) VALUES(\"$groupId\", 'group')") or trigger_error($investDb->error);
+					if ($query) {
+						$response = "Done";
+					}else{
+						$response = "Fail";
+					}
+				}else{
+					$response = "Fail";
+				}
+			}else{
+				$response = "Fail";
+			}
+		}else{
+			$response = "Fail";
+		}
+		echo json_encode($response);
+	}
+
 	function approveCSD()
 	{
 		//broker is going to approve the CSD request

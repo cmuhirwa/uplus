@@ -90,6 +90,11 @@ link: https://uplus.rw/api/invest.php
 		NID
 		<-
 			"Done"
+	requestGroupCSD
+		->
+			groupId
+		<-
+			'Done'
 
 	listStocks
 		->

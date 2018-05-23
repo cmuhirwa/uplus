@@ -164,6 +164,27 @@
 		return $query->fetch_assoc();
 	}
 
+	function checkGroupCSD($groupId){
+		//checks the CSD of the group
+		global $investDb;
+		$query = $investDbs->query("SELECT csdAccount FROM clients WHERE groupCode = \"$groupId\" AND archived = 'no' ") or trigger_error($investDb->error);
+		if($query->num_rows){
+			$data = $query->fetch_assoc();
+			return $data['csdAccount'];
+		}else return false;
+		
+	}
+	function checkGroup($groupId){
+		//checks the investment info of the group
+		global $investDb;
+		$query = $investDb->query("SELECT * FROM clients WHERE groupCode = \"$groupId\" ") or trigger_error($investDb->error);
+		if($query->num_rows){
+			$data = $query->fetch_assoc();
+			return $data;
+		}else return false;
+		
+	}
+
 	function timeStockPrice($stockId, $date)
 	{
 		# Stock price at $date moment
