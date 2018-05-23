@@ -198,10 +198,10 @@ $("#group_add_submit").on('click', function(e){
     rep = $("#group_rep").val();
     var file = document.getElementById("input-fgroup-pic").files[0];
 
-    churchID = 1; //todo
+    churchID = current_church;
 
     if(grouptype && groupname && grouplocation && rep){
-        fields = {action:'create_group', name:groupname, type:grouptype, location:grouplocation, profile_picture:file, rep:rep, church:churchID};
+        fields = {action:'create_group', name:groupname, type:grouptype, location:grouplocation, profile_picture:file, rep:rep, church:churchID, createdBy:current_user};
 
         // var file = _("input-fgroup-pic").files[0];
         var formdata = new FormData();
