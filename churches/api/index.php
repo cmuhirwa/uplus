@@ -344,13 +344,15 @@
 						if($query){
 							//get group ID
 							$groupId = $conn->insert_id;
-							$cq = $conn->query("INSERT INTO churches.church_groups(groupCode, branchCode, type) VALUES($groupId, \"$church\", \"$type\") ") or trigger_error($conn->error);
+							$sql = "INSERT INTO churches.church_groups(groupCode, branchCode, type) VALUES($groupId, \"$church\", \"$type\") ";
+							echo "$sql";
+							$cq = $conn->query($sql) or trigger_error($conn->error);
 
 						}
 
 
-						$sql = "INSERT INTO groups(name, branchId, representative, type, location, mapLocation, profile_picture) VALUES(\"$name\", \"$church\", $rep, \"$type\", \"$location\", \"$mapLocation\", \"$filename\" )";
-						// echo "$sql\n";
+						// $sql = "INSERT INTO groups(name, branchId, representative, type, location, mapLocation, profile_picture) VALUES(\"$name\", \"$church\", $rep, \"$type\", \"$location\", \"$mapLocation\", \"$filename\" )";
+						// // echo "$sql\n";
 						
 						$response = array('status'=>true, 'msg'=>"Success", 'groupid'=>$conn->insert_id);
 
