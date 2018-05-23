@@ -160,7 +160,7 @@
 	function stockInfo($stockId){
 		//returns the detals of stock
 		global $investDb;
-		$query = $investDb->query("SELECT * FROM company WHERE companyId = \"$stockId\" ") or trigger_error($investDb->error);
+		$query = $investDb->query("SELECT *, companyName as stockName FROM company WHERE companyId = \"$stockId\" ") or trigger_error($investDb->error);
 		return $query->fetch_assoc();
 	}
 
@@ -227,6 +227,15 @@
 	function brokerTransactionsSummary($brokerId){
 		global $investDb;
 		$query = $investDb->query("SELECT COUNT(*) as num, SUM(totalAmount) as amount FROM transactions WHERE archived = 'no'  ") or trigger_error($investDb->error);
+		$data = $query->fetch_assoc();
+		return $data;
+	}
+
+	function getTransaction($transId){
+		//returns data on the transaction
+		global $investDb;
+		$transId = $investDb->real_escape_string($transId);
+		$query = $investDb->query("SELECT * FROM transactions WHERE id = \"$transId\"") or trigger_error($investDb->error);
 		$data = $query->fetch_assoc();
 		return $data;
 	}
@@ -390,9 +399,9 @@
 
 		// $smsName = !empty( churchSMSname($churchID) )?churchSMSname($churchID):"Uplus";
 		$data = array(
-				"sender"        =>$smsName,
-				"recipients"    =>$recipients,
-				"message"       =>$message,
+			"sender"        =>$smsName,
+			"recipients"    =>$recipients,
+			"message"       =>$message,
 		);
 		$url = "https://www.intouchsms.co.rw/api/sendsms/.json";
 		$data = http_build_query ($data);

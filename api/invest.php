@@ -627,10 +627,39 @@ COALESCE( (SELECT N.unitPrice FROM broker_security AS N WHERE N.id<securityId), 
 		$act  = $request['act'];
 		$doneBy  = $request['doneBy'];
 
+		//getting transaction data
+		$transData = getTransaction($transId);
+		$transType = $transData['type'];
+		$transClient = $transData['userCode'];
 
+		//checking the details of the customer
+		$clientData = user_details($transClient);
+		$clientName = $clientData['name'];		
+
+		$stockInfo = stockInfo($transData['stockId']);
+		$stockName = $stockInfo['stockName'];
 
 		$query = $investDb->query("UPDATE transactions SET status = \"$act\", updatedBy = \"$doneBy\", updatedDate = NOW() WHERE id = \"$transId\" ") or trigger_error($investDb->error);
 		if($query){
+
+			//notifying the client
+			$phone = $clientData['phone'];
+			if($transType == 'sell'){
+				if($act == 'approve'){
+					$message = "Dear $clientName, Your request to sell $transData[quantity] shares in $stockName was approved, You will receive your funds soon";
+				}else{
+					$message = "Dear $clientName, Your request to sell $transData[quantity] shares in $stockName was rejected.";
+				}
+			}else if($transType == 'buy'){
+				if($act == 'approve'){
+					$message = "Dear $clientName, Your request to buy $transData[quantity] shares in $stockName was approved, Thank you for using investing";
+				}else{
+					$message = "Dear $clientName, Your request to buy $transData[quantity] shares in $stockName was rejected. You will be refunded your investment";
+				}				
+			}
+
+			sendsms($phone, $message);
+
 			echo json_encode("Done");
 		}else{
 			echo json_encode("Failed");
