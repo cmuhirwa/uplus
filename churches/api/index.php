@@ -322,6 +322,7 @@
 		$location = $request['location'];
 		$rep = $request['rep'];
 		$church = $request['church'];
+		$createdBy = $request['createdBy']??1;
 
 		$mapLocation = $request['mapLocation']??"-1.9912405,30.096438000000035";
 
@@ -344,8 +345,7 @@
 						if($query){
 							//get group ID
 							$groupId = $conn->insert_id;
-							$sql = "INSERT INTO churches.church_groups(groupCode, branchCode, type) VALUES($groupId, \"$church\", \"$type\") ";
-							echo "$sql";
+							$sql = "INSERT INTO churches.church_groups(groupCode, branchCode, type, createdBy) VALUES($groupId, \"$church\", \"$type\", \"$createdBy\") ";
 							$cq = $conn->query($sql) or trigger_error($conn->error);
 
 						}
