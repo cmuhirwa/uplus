@@ -385,7 +385,7 @@
 
 				if(empty($groupInvestData) || $groupInvestData['status'] == 'declined' ){
 					//here we can request new CSD
-					$query = $investDb->query("INSERT INTO clients(groupCode, clientType, country) VALUES(\"$groupId\", 'group', \"$country\")") or trigger_error($investDb->error);
+					$query = $investDb->query("INSERT INTO clients(groupCode, clientType, country, nationality) VALUES(\"$groupId\", 'group', \"$country\", \"$country\")") or trigger_error($investDb->error);
 					if ($query) {
 						$response = "Done";
 					}else{

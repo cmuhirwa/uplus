@@ -19,7 +19,7 @@ if(isset($_GET['viewid']))
 		if($clientType == 'group'){
 			//Loading group details
 			$groupId = $client['groupCode'];
-			$groupData = $Group->details($groupId);
+			$clientData = $groupData = $Group->details($groupId);
 			$names = $groupData['groupName'];
 			$nationality = $row['country'];
 		}else{
@@ -38,6 +38,8 @@ if(isset($_GET['viewid']))
 			$email = $row['e-mail'];
 		}
 
+
+		//Getting general clients information
 		$status = $row['status'];
 		$country = $row['country'];
 		$taxCode = $row['taxCode'];
@@ -49,18 +51,14 @@ if(isset($_GET['viewid']))
 		$branch = $row['branch'];
 		$accountNumber = $row['accountNumber'];
 		$csdAccount= $row['csdAccount'];
+
+		$clientUserId = $client['userCode'];
+
+		$clientData = user_details($clientUserId);
+		$clientImg = $clientData['userImage'];
 	}
 
 	
-
-	//getting uplus user ID
-	$userQ = $investDb->query("SELECT * FROM uplus.users WHERE phone = \"$telephone\" ") or trigger_error($investDb->error);
-	$userSData = $userQ->fetch_assoc();
-	$clientData = user_details($userSData['id']);
-	$clientUserId = $userSData['id']; //Actual uplus user ID of the client
-
-	$userData = user_details($clientUserId);
-	$imgId = $userData['userImage'];
 
 }?>
 	<style>
@@ -68,7 +66,7 @@ if(isset($_GET['viewid']))
 		{    
 		    .csdBtns
 			{
-		        	display: none !important;
+				display: none !important;
 		   	}
 		}
 	</style>
@@ -77,34 +75,237 @@ if(isset($_GET['viewid']))
         	<?php
         		if($clientType == 'Individual'){
         	?>
-			<table width="100%" >
-				<tr>
-					<td width="10%"><img src="../assets/images/bnr.jpg"></td>
-					<td width="65%">
-						<center >
-							<h2><b>Central Securities Depository - Rwanda</h2>
-							<h4>Securities Account Opening/Update Form - Individuals: No <b><?php echo $csdAccount??"Pending"; ?></b></h4>
-						</center>
-					</td>
-					<td width="15%">
+				<table width="100%" >
+					<tr>
+						<td width="10%"><img src="../assets/images/bnr.jpg"></td>
+						<td width="65%">
+							<center >
+								<h2><b>Central Securities Depository - Rwanda</h2>
+								<h4>Securities Account Opening/Update Form - Individuals: No <b><?php echo $csdAccount??"Pending"; ?></b></h4>
+							</center>
+						</td>
+						<td width="15%">
 
-						    <div style="
-						    background-image: url(<?php echo $imgId; ?>);
-						    width: 176px;
-						    height: 176px;
-						    background-size: cover;
-						    background-repeat: no-repeat;
-						    background-position: center center;
-						    float:  right;
-						    background-color: #d3d5db;
-						    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
-						">
-							<img src="<?php echo $imgId; ?>" style="width: 176px;
-						    height: 176px;float:  right;">
+							    <div style="
+							    background-image: url(<?php echo $clientImg; ?>);
+							    width: 176px;
+							    height: 176px;
+							    background-size: cover;
+							    background-repeat: no-repeat;
+							    background-position: center center;
+							    float:  right;
+							    background-color: #d3d5db;
+							    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+							">
+								<img src="<?php echo $clientImg; ?>" style="width: 176px;
+							    height: 176px;float:  right;">
+							</div>
+						</td>
+					<tr>
+				</table>
+				<hr style="margin: unset;">
+
+	            <div class="uk-grid uk-grid-medium" data-uk-grid-margin>
+	                <div class="uk-width-large-4-4">
+	                    <div class="md-card uk-margin-medium-bottom">
+	                        <div class="md-card-content">
+								<center><h3 style="margin: unset; color:#b1461b;"><b>To be completed in BLOCK LETTERS</b></h3></center>
+								<table width="100%" border="1" style="border-spacing: unset;">
+									<tr>
+										<td><b>Primary Applicant</b></td>
+									</tr>
+									<tr>
+										<td>
+											<table width="100%">
+												<tr>
+													<td>
+														<table>
+															<tr>
+																<td width="100%">Names:<br><input value="<?php echo $names;?>" disabled></td>
+															</tr>
+														</table>
+													</td>
+												</tr>
+												<tr>
+													<td>
+														<table>
+															<tr>
+																<td width="30%">Date Of Birth:<br><input value="<?php echo $dob;?>" disabled></td>
+																<td width="20%">Gender:<br><input value="<?php echo $gender;?>" disabled></td>
+																<td width="40%">National ID/Passport No:<br><input value="<?php echo $nidPassport;?>" disabled></td>
+																<td width="30%">Nationality:<br><input value="<?php echo $nationality;?>" disabled></td>
+															</tr>
+														</table>
+													</td>
+												</tr>
+												<tr><td></td></tr>
+												<tr><td></td></tr>
+											</table>
+										</td>
+									</tr>
+								</table>
+								<div id="csd" class="uk-margin-top csdBtns">
+									<?php
+										if($status == 'approved'){
+											echo "Approved";
+										}else if($status == 'declined'){
+											echo "Declined";
+										}else{
+											?>
+												<button data-uk-modal="{target:'#approve_csd_modal'}" class="uk-button uk-button-primary">Approve</button>
+												<button data-uk-modal="{target:'#deny_csd_modal'}" class="uk-button uk-button-danger">Decline</button>
+											<?php
+										}
+									?>
+									<br><br>
+									<button onClick="window.print()" class="md-btn"><i class="material-icons">print</i></button>
+								</div>
+							</div>
 						</div>
-					</td>
-				<tr>
-			</table>
+						<?php
+							if($status == 'approved'){
+								//Load some other stuffs for customer relationship
+								$messages = brokerMessages($thisid, $viewid);
+								?>
+									<div class="md-card uk-margin-medium-bottom">
+										<div class="md-card-content">
+											<div class="uk-grid">
+												<div class="uk-width-3-4" style="border-right: 1px solid #eee; padding-right: 5%">
+													<h4>Client Stock Transactions</h4>
+													<div class="dt_colVis_buttons">
+													</div>
+													<table id="dt_tableExport" class="uk-table" cellspacing="0" width="100%">
+														<thead>
+															<tr>
+																<th>#</th>
+																<!-- <th>Client name</th> -->
+																<th>Type</th>
+																<th>Stock name</th>
+																<th>Number</th>
+																<th>Amount</th>
+																<th>Date</th>
+																<!-- <th>Action</th> -->
+															</tr>
+														</thead>
+														<tbody>
+															<?php
+																$transactions = userTransactions($clientUserId);
+																$n=0;
+																foreach ($transactions as $key => $transaction){
+																	// $totalAmt = $stockSale['quantity']*timeStockPrice($stockSale["stockId"], $stockSale['createdDate']);
+																	$totalAmt = $transaction['totalAmount'];
+																	$n++;
+																	echo '<tr>
+																	<td>'.$n.'</td>
+																	<td>'.$transaction['type'].'</td>
+																	<td>'.$transaction['companyName'].'</td>
+																	<td>'.$transaction['quantity'].'</td>
+																	<td>'.number_format($totalAmt).' FRW</td>
+																	<td>'.date($standard_date." H:i:s", strtotime($transaction['createdDate'])).'</td>
+																	</tr>';
+																}
+															?>
+															
+														</tbody>
+													</table>
+													<hr>
+													<div class="commentsContainer uka-hidden">
+														<div class="uk-grid">
+															<div class="uk-width-3-4">
+																<div style="height: 32px; width: 100%; padding: 0px; margin: 0 -100px;"></div>
+																<form class="messageForm" method="POST" action="view.php?viewid=<?php echo $viewid; ?>">
+																	<div class="md-input-wrapper">
+																		<label>Message</label>
+																		<textarea class="md-input" style="border: 1px solid #eee; border-radius: 2px;"></textarea>
+																		<span class="md-input-bar "></span>
+																	</div>
+																	<input type="hidden" id="userId" value="<?php echo $viewid; ?>">
+																	<div class="md-input-wrapper uk-float-right">
+																		<p>
+																			<?php
+																				if($telephone){
+																					?>
+																					<span>
+														                                <input type="checkbox" class="uk-checkbox messageChannels" name="smsMessage" data-md-icheck id='msgsendemail' />
+														                                <label for="msgsendemail" class="inline-label">SMS</label>
+														                            </span>&nbsp;&nbsp;&nbsp;&nbsp;
+														                            <?php
+																				}
+																			?>
+
+																			<?php
+																				if($email){
+																					?>
+																					<span>
+														                                <input type="checkbox" class="uk-checkbox messageChannels" name="emailMessage" data-md-icheck id="msgsendsms" />
+														                                <label for="msgsendsms" class="inline-label">email</label>
+														                            </span>
+														                            <?php
+																				}
+																			?>						
+														                            
+											                            </p>
+																	</div>
+																	<div class="md-input-wrapper">
+																		<button class="uk-button uk-button-default uk-float-right" type="submit">SEND</button>
+																		<span class="md-input-bar "></span>
+																	</div>
+																</form>
+															</div>
+															<div class="uk-width-1-4">
+															</div>
+														</div>
+														<div style="height: 12px; width: 100%; padding: 0px; margin: 0 -100px;"></div>
+														<div class="clearfix uk-margin-top">                                                    
+															<ul class="uk-list uk-list-line">
+																<?php
+																	foreach ($messages as $key => $message) {
+																		?>
+																		<li>
+																			<div class="uk-grid">
+																				<div class="comment-head">
+																					<div class="thumbnail">
+																						<img class="user avatar inline" style="height: 72px; width: 72px; border-radius: 50%" src="<?php echo $Company->standardLogo ?>">
+																						<div class="inline">
+																							<p style="vertical-align: middle; font-family: verdana; color: #0a3482">
+																								<i><?php echo $userName ?></i>
+																							</p>
+																							<p class="uk-text-muted" style="margin: -15px 0 0 0">
+																								<small><?php echo $message['createdDate'] ?></small>
+																							</p>
+																						</div>
+																																									
+																					</div>
+																				</div>
+																				<div class="uk-width-1-1 uk-margin-top">
+																					<?php echo $message['message'] ?>
+																				</div>
+																			</div>
+																		</li>
+																		<?php
+																	}
+																?>
+															</ul>
+														</div>											
+													</div>
+												</div>
+												<div class="uk-width-1-4">
+													<div class="">
+														<h4>Owners(1)</h4>
+														<ul class="uk-list">
+															<li><?php echo $names; ?></li>
+														</ul>
+													</div>												
+												</div>
+											</div>
+											
+										</div>
+									</div>
+								<?php
+							}
+						?>
+					</div>
+				</div>
 			<?php
 				}else if($clientType == 'group'){
 					?>
@@ -120,7 +321,7 @@ if(isset($_GET['viewid']))
 								<td width="15%">
 
 									    <div style="
-									    background-image: url(<?php echo $imgId; ?>);
+									    background-image: url(<?php echo $clientImg; ?>);
 									    width: 176px;
 									    height: 176px;
 									    background-size: cover;
@@ -130,209 +331,205 @@ if(isset($_GET['viewid']))
 									    background-color: #d3d5db;
 									    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
 									">
-										<img src="<?php echo $imgId; ?>" style="width: 176px;
+										<img src="<?php echo $clientImg; ?>" style="width: 176px;
 									    height: 176px;float:  right;">
 									</div>
 								</td>
 							<tr>
 						</table>
-					<?php
-				}
-			?>
+						<hr style="margin: unset;">
 
-
-			<hr style="margin: unset;">
-
-            <div class="uk-grid uk-grid-medium" data-uk-grid-margin>
-                <div class="uk-width-large-4-4">
-                    <div class="md-card uk-margin-medium-bottom">
-                        <div class="md-card-content">
-							<center><h3 style="margin: unset; color:#b1461b;"><b>To be completed in BLOCK LETTERS</b></h3></center>
-							<table width="100%" border="1" style="border-spacing: unset;">
-								<tr>
-									<td><b>Group Applicant</b></td>
-								</tr>
-								<tr>
-									<td>
-										<table width="100%">
-											<form class="uk-form" style="padding: 25px">
-												<div class="uk-grid">
-													<div class="uk-width-1-2 uk-form-row">
-														<label for="nameIn" class="block">Names: </label>
-														<input type="text" id="nameIn" name="" value="<?php echo $names; ?>" disabled>
-													</div>
-													<div class="uk-width-1-2 uk-form-row">
-														<label for="countIn" class="block">Country: </label>
-														<input type="text" id="countIn" name="" value="<?php echo $nationality; ?>" disabled>
-													</div>
-												</div>
-											</form>
+			            <div class="uk-grid uk-grid-medium" data-uk-grid-margin>
+			                <div class="uk-width-large-4-4">
+			                    <div class="md-card uk-margin-medium-bottom">
+			                        <div class="md-card-content">
+										<center><h3 style="margin: unset; color:#b1461b;"><b>To be completed in BLOCK LETTERS</b></h3></center>
+										<table width="100%" border="1" style="border-spacing: unset;">
+											<tr>
+												<td><b>Group Applicant</b></td>
+											</tr>
+											<tr>
+												<td>
+													<table width="100%">
+														<form class="uk-form" style="padding: 25px">
+															<div class="uk-grid">
+																<div class="uk-width-1-2 uk-form-row">
+																	<label for="nameIn" class="block">Names: </label>
+																	<input type="text" id="nameIn" name="" value="<?php echo $names; ?>" disabled>
+																</div>
+																<div class="uk-width-1-2 uk-form-row">
+																	<label for="countIn" class="block">Country: </label>
+																	<input type="text" id="countIn" name="" value="<?php echo $nationality; ?>" disabled>
+																</div>
+															</div>
+														</form>
+													</table>
+												</td>
+											</tr>
 										</table>
-									</td>
-								</tr>
-							</table>
-							<div id="csd" class="uk-margin-top csdBtns">
+										<div id="csd" class="uk-margin-top csdBtns">
+											<?php
+												if($status == 'approved'){
+													echo "Approved";
+												}else if($status == 'declined'){
+													echo "Declined";
+												}else{
+													?>
+														<button data-uk-modal="{target:'#approve_csd_modal'}" class="uk-button uk-button-primary">Approve</button>
+														<button data-uk-modal="{target:'#deny_csd_modal'}" class="uk-button uk-button-danger">Decline</button>
+													<?php
+												}
+											?>
+											<br><br>
+											<button onClick="window.print()" class="md-btn"><i class="material-icons">print</i></button>
+										</div>
+									</div>
+								</div>
 								<?php
 									if($status == 'approved'){
-										echo "Approved";
-									}else if($status == 'declined'){
-										echo "Declined";
-									}else{
+										//Load some other stuffs for customer relationship
+										$messages = brokerMessages($thisid, $viewid);
 										?>
-											<button data-uk-modal="{target:'#approve_csd_modal'}" class="uk-button uk-button-primary">Approve</button>
-											<button data-uk-modal="{target:'#deny_csd_modal'}" class="uk-button uk-button-danger">Decline</button>
+											<div class="md-card uk-margin-medium-bottom">
+												<div class="md-card-content">
+													<div class="uk-grid">
+														<div class="uk-width-3-4" style="border-right: 1px solid #eee; padding-right: 5%">
+															<h4>Client Stock Transactions</h4>
+															<div class="dt_colVis_buttons">
+															</div>
+															<table id="dt_tableExport" class="uk-table" cellspacing="0" width="100%">
+																<thead>
+																	<tr>
+																		<th>#</th>>
+																		<th>Type</th>
+																		<th>Stock name</th>
+																		<th>Number</th>
+																		<th>Amount</th>
+																		<th>Date</th>
+																	</tr>
+																</thead>
+																<tbody>
+																	<?php
+																		$transactions = userTransactions($clientUserId);
+																		$n=0;
+																		foreach ($transactions as $key => $transaction){
+																			// $totalAmt = $stockSale['quantity']*timeStockPrice($stockSale["stockId"], $stockSale['createdDate']);
+																			$totalAmt = $transaction['totalAmount'];
+																			$n++;
+																			echo '<tr>
+																			<td>'.$n.'</td>
+																			<td>'.$transaction['type'].'</td>
+																			<td>'.$transaction['companyName'].'</td>
+																			<td>'.$transaction['quantity'].'</td>
+																			<td>'.number_format($totalAmt).' FRW</td>
+																			<td>'.date($standard_date." H:i:s", strtotime($transaction['createdDate'])).'</td>
+																			</tr>';
+																		}
+																	?>
+																	
+																</tbody>
+															</table>
+															<hr>
+															<div class="commentsContainer uka-hidden">
+																<div class="uk-grid">
+																	<div class="uk-width-3-4">
+																		<div style="height: 32px; width: 100%; padding: 0px; margin: 0 -100px;"></div>
+																		<form class="messageForm" method="POST" action="view.php?viewid=<?php echo $viewid; ?>">
+																			<div class="md-input-wrapper">
+																				<label>Message</label>
+																				<textarea class="md-input" style="border: 1px solid #eee; border-radius: 2px;"></textarea>
+																				<span class="md-input-bar "></span>
+																			</div>
+																			<input type="hidden" id="userId" value="<?php echo $viewid; ?>">
+																			<div class="md-input-wrapper uk-float-right">
+																				<p>
+																					<?php
+																						if($telephone){
+																							?>
+																							<span>
+																                                <input type="checkbox" class="uk-checkbox messageChannels" name="smsMessage" data-md-icheck id='msgsendemail' />
+																                                <label for="msgsendemail" class="inline-label">SMS</label>
+																                            </span>&nbsp;&nbsp;&nbsp;&nbsp;
+																                            <?php
+																						}
+																					?>
+
+																					<?php
+																						if($email){
+																							?>
+																							<span>
+																                                <input type="checkbox" class="uk-checkbox messageChannels" name="emailMessage" data-md-icheck id="msgsendsms" />
+																                                <label for="msgsendsms" class="inline-label">email</label>
+																                            </span>
+																                            <?php
+																						}
+																					?>						
+																                            
+													                            </p>
+																			</div>
+																			<div class="md-input-wrapper">
+																				<button class="uk-button uk-button-default uk-float-right" type="submit">SEND</button>
+																				<span class="md-input-bar "></span>
+																			</div>
+																		</form>
+																	</div>
+																	<div class="uk-width-1-4">
+																	</div>
+																</div>
+																<div style="height: 12px; width: 100%; padding: 0px; margin: 0 -100px;"></div>
+																<div class="clearfix uk-margin-top">                                                    
+																	<ul class="uk-list uk-list-line">
+																		<?php
+																			foreach ($messages as $key => $message) {
+																				?>
+																				<li>
+																					<div class="uk-grid">
+																						<div class="comment-head">
+																							<div class="thumbnail">
+																								<img class="user avatar inline" style="height: 72px; width: 72px; border-radius: 50%" src="<?php echo $Company->standardLogo ?>">
+																								<div class="inline">
+																									<p style="vertical-align: middle; font-family: verdana; color: #0a3482">
+																										<i><?php echo $userName ?></i>
+																									</p>
+																									<p class="uk-text-muted" style="margin: -15px 0 0 0">
+																										<small><?php echo $message['createdDate'] ?></small>
+																									</p>
+																								</div>
+																																											
+																							</div>
+																						</div>
+																						<div class="uk-width-1-1 uk-margin-top">
+																							<?php echo $message['message'] ?>
+																						</div>
+																					</div>
+																				</li>
+																				<?php
+																			}
+																		?>
+																	</ul>
+																</div>											
+															</div>
+														</div>
+														<div class="uk-width-1-4">
+															<div class="">
+																<h4>Owners(1)</h4>
+																<ul class="uk-list">
+																	<li><?php echo $names; ?></li>
+																</ul>
+															</div>												
+														</div>
+													</div>
+													
+												</div>
+											</div>
 										<?php
 									}
 								?>
-								<br><br>
-								<button onClick="window.print()" class="md-btn"><i class="material-icons">print</i></button>
 							</div>
 						</div>
-					</div>
 					<?php
-						if($status == 'approved'){
-							//Load some other stuffs for customer relationship
-							$messages = brokerMessages($thisid, $viewid);
-							?>
-								<div class="md-card uk-margin-medium-bottom">
-									<div class="md-card-content">
-										<div class="uk-grid">
-											<div class="uk-width-3-4" style="border-right: 1px solid #eee; padding-right: 5%">
-												<h4>Client Stock Transactions</h4>
-												<div class="dt_colVis_buttons">
-												</div>
-												<table id="dt_tableExport" class="uk-table" cellspacing="0" width="100%">
-													<thead>
-														<tr>
-															<th>#</th>
-															<!-- <th>Client name</th> -->
-															<th>Type</th>
-															<th>Stock name</th>
-															<th>Number</th>
-															<th>Amount</th>
-															<th>Date</th>
-															<!-- <th>Action</th> -->
-														</tr>
-													</thead>
-													<tbody>
-														<?php
-															$transactions = userTransactions($clientUserId);
-															$n=0;
-															foreach ($transactions as $key => $transaction){
-																// $totalAmt = $stockSale['quantity']*timeStockPrice($stockSale["stockId"], $stockSale['createdDate']);
-																$totalAmt = $transaction['totalAmount'];
-																$n++;
-																echo '<tr>
-																<td>'.$n.'</td>
-																<td>'.$transaction['type'].'</td>
-																<td>'.$transaction['companyName'].'</td>
-																<td>'.$transaction['quantity'].'</td>
-																<td>'.number_format($totalAmt).' FRW</td>
-																<td>'.date($standard_date." H:i:s", strtotime($transaction['createdDate'])).'</td>
-																</tr>';
-															}
-														?>
-														
-													</tbody>
-												</table>
-												<hr>
-												<div class="commentsContainer uka-hidden">
-													<div class="uk-grid">
-														<div class="uk-width-3-4">
-															<div style="height: 32px; width: 100%; padding: 0px; margin: 0 -100px;"></div>
-															<form class="messageForm" method="POST" action="view.php?viewid=<?php echo $viewid; ?>">
-																<div class="md-input-wrapper">
-																	<label>Message</label>
-																	<textarea class="md-input" style="border: 1px solid #eee; border-radius: 2px;"></textarea>
-																	<span class="md-input-bar "></span>
-																</div>
-																<input type="hidden" id="userId" value="<?php echo $viewid; ?>">
-																<div class="md-input-wrapper uk-float-right">
-																	<p>
-																		<?php
-																			if($telephone){
-																				?>
-																				<span>
-													                                <input type="checkbox" class="uk-checkbox messageChannels" name="smsMessage" data-md-icheck id='msgsendemail' />
-													                                <label for="msgsendemail" class="inline-label">SMS</label>
-													                            </span>&nbsp;&nbsp;&nbsp;&nbsp;
-													                            <?php
-																			}
-																		?>
-
-																		<?php
-																			if($email){
-																				?>
-																				<span>
-													                                <input type="checkbox" class="uk-checkbox messageChannels" name="emailMessage" data-md-icheck id="msgsendsms" />
-													                                <label for="msgsendsms" class="inline-label">email</label>
-													                            </span>
-													                            <?php
-																			}
-																		?>						
-													                            
-										                            </p>
-																</div>
-																<div class="md-input-wrapper">
-																	<button class="uk-button uk-button-default uk-float-right" type="submit">SEND</button>
-																	<span class="md-input-bar "></span>
-																</div>
-															</form>
-														</div>
-														<div class="uk-width-1-4">
-														</div>
-													</div>
-													<div style="height: 12px; width: 100%; padding: 0px; margin: 0 -100px;"></div>
-													<div class="clearfix uk-margin-top">                                                    
-														<ul class="uk-list uk-list-line">
-															<?php
-																foreach ($messages as $key => $message) {
-																	?>
-																	<li>
-																		<div class="uk-grid">
-																			<div class="comment-head">
-																				<div class="thumbnail">
-																					<img class="user avatar inline" style="height: 72px; width: 72px; border-radius: 50%" src="<?php echo $Company->standardLogo ?>">
-																					<div class="inline">
-																						<p style="vertical-align: middle; font-family: verdana; color: #0a3482">
-																							<i><?php echo $userName ?></i>
-																						</p>
-																						<p class="uk-text-muted" style="margin: -15px 0 0 0">
-																							<small><?php echo $message['createdDate'] ?></small>
-																						</p>
-																					</div>
-																																								
-																				</div>
-																			</div>
-																			<div class="uk-width-1-1 uk-margin-top">
-																				<?php echo $message['message'] ?>
-																			</div>
-																		</div>
-																	</li>
-																	<?php
-																}
-															?>
-														</ul>
-													</div>											
-												</div>
-											</div>
-											<div class="uk-width-1-4">
-												<div class="">
-													<h4>Owners(1)</h4>
-													<ul class="uk-list">
-														<li><?php echo $names; ?></li>
-													</ul>
-												</div>												
-											</div>
-										</div>
-										
-									</div>
-								</div>
-							<?php
-						}
-					?>
-				</div>
-			</div>
+				}
+			?>
 		</div>
 	</div>
 
