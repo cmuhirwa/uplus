@@ -4,6 +4,8 @@
 <?php
 	include("userheader.php");
 	include_once("functions.php");
+	//including group class
+    include("../../scripts/class.group.php");
 ?>
 <?php
 if(isset($_GET['viewid']))
@@ -11,31 +13,43 @@ if(isset($_GET['viewid']))
 	$viewid = $_GET['viewid'];
 	$sqlview = $db->query("SELECT * FROM clients where id = '$viewid'");
 	while($row = mysqli_fetch_array($sqlview))
-	{
-		$title = $row['title'];
-		$names = $row['names'];
-		$dob = $row['dob'];
-		$gender = $row['gender'];
+	{	
+		$client = $row;
+		$clientType = $client['clientType'];
+		if($clientType == 'group'){
+			//Loading group details
+			$groupId = $client['groupCode'];
+			$groupData = $Group->details($groupId);
+			$names = $groupData['groupName'];
+			$nationality = $row['country'];
+		}else{
+			$title = $row['title'];
+			
+			$names = $row['names'];
+			$dob = $row['dob'];
+			$gender = $row['gender'];			
+			$nidPassport = $row['NID'];
+			$nationality = $row['nationality'];
+			$postalLine1 = $row['postalLine1'];
+			$postalLine2 = $row['postalLine2'];
+			$phyisicalLine3 = $row['phyisicalLine3'];
+			$postCode = $row['postCode'];
+			$city = $row['city'];
+			$email = $row['e-mail'];
+		}
+
 		$status = $row['status'];
-		$nidPassport = $row['NID'];
-		$nationality = $row['nationality'];
-		$postalLine1 = $row['postalLine1'];
-		$postalLine2 = $row['postalLine2'];
-		$phyisicalLine3 = $row['phyisicalLine3'];
-		$postCode = $row['postCode'];
-		$city = $row['city'];
 		$country = $row['country'];
 		$taxCode = $row['taxCode'];
 		$residentIn = $row['residentIn'];
 		$telephone = $row['telephone'];
 		$fax = $row['fax'];
-		$email = $row['e-mail'];
+		
 		$bankName = $row['bankName'];
 		$branch = $row['branch'];
 		$accountNumber = $row['accountNumber'];
 		$csdAccount= $row['csdAccount'];
 	}
-	// var_dump($csdAccount);
 
 	
 
@@ -60,6 +74,9 @@ if(isset($_GET['viewid']))
 	</style>
     <div id="page_content">
         <div id="page_content_inner">
+        	<?php
+        		if($clientType == 'Individual'){
+        	?>
 			<table width="100%" >
 				<tr>
 					<td width="10%"><img src="../assets/images/bnr.jpg"></td>
@@ -88,6 +105,40 @@ if(isset($_GET['viewid']))
 					</td>
 				<tr>
 			</table>
+			<?php
+				}else if($clientType == 'group'){
+					?>
+						<table width="100%" >
+							<tr>
+								<td width="10%"><img src="../assets/images/bnr.jpg"></td>
+								<td width="65%">
+									<center >
+										<h2><b>Central Securities Depository - Rwanda</h2>
+										<h4>Securities Account Opening/Update Form - Groups: No <b><?php echo $csdAccount??"Pending"; ?></b></h4>
+									</center>
+								</td>
+								<td width="15%">
+
+									    <div style="
+									    background-image: url(<?php echo $imgId; ?>);
+									    width: 176px;
+									    height: 176px;
+									    background-size: cover;
+									    background-repeat: no-repeat;
+									    background-position: center center;
+									    float:  right;
+									    background-color: #d3d5db;
+									    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+									">
+										<img src="<?php echo $imgId; ?>" style="width: 176px;
+									    height: 176px;float:  right;">
+									</div>
+								</td>
+							<tr>
+						</table>
+					<?php
+				}
+			?>
 
 
 			<hr style="margin: unset;">
@@ -99,34 +150,23 @@ if(isset($_GET['viewid']))
 							<center><h3 style="margin: unset; color:#b1461b;"><b>To be completed in BLOCK LETTERS</b></h3></center>
 							<table width="100%" border="1" style="border-spacing: unset;">
 								<tr>
-									<td><b>Primary Applicant</b></td>
+									<td><b>Group Applicant</b></td>
 								</tr>
 								<tr>
 									<td>
 										<table width="100%">
-											<tr>
-												<td>
-													<table>
-														<tr>
-															<td width="100%">Names:<br><input value="<?php echo $names;?>" disabled></td>
-														</tr>
-													</table>
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<table>
-														<tr>
-															<td width="30%">Date Of Birth:<br><input value="<?php echo $dob;?>" disabled></td>
-															<td width="20%">Gender:<br><input value="<?php echo $gender;?>" disabled></td>
-															<td width="40%">National ID/Passport No:<br><input value="<?php echo $nidPassport;?>" disabled></td>
-															<td width="30%">Nationality:<br><input value="<?php echo $nationality;?>" disabled></td>
-														</tr>
-													</table>
-												</td>
-											</tr>
-											<tr><td></td></tr>
-											<tr><td></td></tr>
+											<form class="uk-form" style="padding: 25px">
+												<div class="uk-grid">
+													<div class="uk-width-1-2 uk-form-row">
+														<label for="nameIn" class="block">Names: </label>
+														<input type="text" id="nameIn" name="" value="<?php echo $names; ?>" disabled>
+													</div>
+													<div class="uk-width-1-2 uk-form-row">
+														<label for="countIn" class="block">Country: </label>
+														<input type="text" id="countIn" name="" value="<?php echo $nationality; ?>" disabled>
+													</div>
+												</div>
+											</form>
 										</table>
 									</td>
 								</tr>
