@@ -1,7 +1,11 @@
 <!doctype html>
 <!--[if lte IE 9]> <html class="lte-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 9]><!--> <html lang="en"> <!--<![endif]-->
-<?php include("userheader.php");?>
+<?php
+    include("userheader.php");
+    //including group class
+    include("../../scripts/class.group.php");
+?>
 
     <div id="page_content">
         <div id="page_content_inner">
@@ -42,14 +46,28 @@
 										$n="";
 										while($row = mysqli_fetch_array($sqlClients))
 										{
+
+                                            $client = $row;
+                                            $clientType = $client['clientType'];
+                                            if($clientType == 'group'){
+                                                $groupId = $client['groupCode'];
+                                                //loading group data
+                                                $groupData = $Group->details($groupId);
+                                                $name = $groupData['groupName'];
+                                                
+                                            }else{
+                                                $name = $row['names'];
+                                                $country = $row['country'];
+                                            }
+                                            $country = $client['country'];
 											$n++;
 											echo '
 												<tr>
 													<td>'.$n.'</td>
-                                                    <td>'.$row['names'].'</td>
+                                                    <td>'.$name.'</td>
                                                     <td>'.ucfirst($row['clientType']).'</td>
 													<td>'.date("d-M-Y", strtotime($row['statusOn'])).'</td>
-													<td>'.$row['country'].'</td>
+													<td>'. $country.'</td>
 													<td>'.$row['status'].'</td>
 													<td><a href="view.php?viewid='.$row['id'].'">View</a></td>
 												</tr>';

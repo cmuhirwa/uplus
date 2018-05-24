@@ -4,7 +4,7 @@
 		public function details($groupId)
 		{
 			global $db;
-			$query = $db->query("SELECT * FROM groups WHERE id = \"$groupId\" ") or trigger_error("Can't get group data $db->error");
+			$query = $db->query("SELECT * FROM uplus.groups WHERE id = \"$groupId\" ") or trigger_error("Can't get group data $db->error");
 
 			if($query->num_rows){
 				return $query->fetch_assoc();

@@ -93,6 +93,7 @@ link: https://uplus.rw/api/invest.php
 	requestGroupCSD
 		->
 			groupId
+			nationality
 		<-
 			'Done'
 

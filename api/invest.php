@@ -373,6 +373,7 @@
 		$request = $_POST;
 
 		$groupId = $request['groupId']??"";
+		$country = $request['country']??"Rwanda";
 		if($groupId){
 			//here we fetch details from app
 			$groupData = $Group->details($groupId);
@@ -384,7 +385,7 @@
 
 				if(empty($groupInvestData) || $groupInvestData['status'] == 'declined' ){
 					//here we can request new CSD
-					$query = $investDb->query("INSERT INTO clients(groupCode, clientType) VALUES(\"$groupId\", 'group')") or trigger_error($investDb->error);
+					$query = $investDb->query("INSERT INTO clients(groupCode, clientType, country) VALUES(\"$groupId\", 'group', \"$country\")") or trigger_error($investDb->error);
 					if ($query) {
 						$response = "Done";
 					}else{
@@ -550,7 +551,6 @@
 
 		}
 		echo json_encode($response);
-
 	}
 
 	function listStocks()
