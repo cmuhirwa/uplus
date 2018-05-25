@@ -26,7 +26,6 @@
 		//appending
 		$fileDb = $temp.'db.php';
 		include_once($fileDb);
-		echo "$fileDb";
 	}else{
 		die("localhost is not good for now.");
 	}         

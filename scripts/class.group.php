@@ -11,6 +11,22 @@
 			}else return false;
 			
 		}
+		public function members($groupId)
+		{
+			global $db;
+			$sql = "SELECT * FROM uplus.members WHERE groupId = \"$groupId\" ";
+			// echo "$sql";
+			$members = array();
+
+			$query = $db->query($sql) or trigger_error("Can't get group data $db->error");
+			// var_dump($query->num_rows);
+			while ($data = $query->fetch_assoc()) {
+				$members[] = $data;
+			}
+
+			return $members;
+			
+		}
 	}
 
 	//instating new class

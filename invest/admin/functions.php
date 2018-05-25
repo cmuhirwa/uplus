@@ -174,10 +174,35 @@
 		}else return false;
 		
 	}
+
+
+
 	function checkGroup($groupId){
 		//checks the investment info of the group
 		global $investDb;
 		$query = $investDb->query("SELECT * FROM clients WHERE groupCode = \"$groupId\" ") or trigger_error($investDb->error);
+		if($query->num_rows){
+			$data = $query->fetch_assoc();
+			return $data;
+		}else return false;
+		
+	}
+
+	function checkClientUser($userId){
+		//checks the investment info of the user
+		global $investDb;
+		$query = $investDb->query("SELECT * FROM clients WHERE userCode = \"$userId\" ") or trigger_error($investDb->error);
+		if($query->num_rows){
+			$data = $query->fetch_assoc();
+			return $data;
+		}else return false;
+		
+	}
+
+	function checkClient($clientId){
+		//checks the investment info of the user
+		global $investDb;
+		$query = $investDb->query("SELECT * FROM clients WHERE id = \"$clientId\" LIMIT 1 ") or trigger_error($investDb->error);
 		if($query->num_rows){
 			$data = $query->fetch_assoc();
 			return $data;

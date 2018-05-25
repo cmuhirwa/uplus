@@ -408,40 +408,55 @@
 		//broker is going to approve the CSD request
 		require 'db.php';
 		require '../invest/admin/functions.php';
+		require '../scripts/class.group.php';
 		$request = $_POST;
 
 		$csd = $request['CSDAccount']??"";
 		$doneBy = $request['approvedBy']??"";
-		$user = $request['accountUser']??"";
+		$clientId = $request['clientId']??"";
 
-		
-
-
-		if($csd && $doneBy){
+		//Cient data
+		$clientData = checkClient($clientId);
+		if($clientData && $csd && $doneBy){
+			//client exists
+			$clientType = $clientData['clientType'];
+			
 			//checking id the user is a broker
-			$query = $investDb->query("SELECT * FROM users WHERE id = \"$doneBy\" AND account_type = 'broker' LIMIT 1 ") or trigger_error($db->error);
+			$query = $investDb->query("SELECT * FROM users WHERE id = \"$doneBy\" AND account_type = 'broker' LIMIT 1 ") or trigger_error($investDb->error);
 			if($query->num_rows){
 				//here user is a  broker we can now assign the CSD
-				$investDb->query("UPDATE clients SET csdAccount = \"$csd\", status = 'approved', statusBy = \"$doneBy\", statusOn = NOW() WHERE id = \"$user\" ") or trigger_error($db->error);
+				$investDb->query("UPDATE clients SET csdAccount = \"$csd\", status = 'approved', statusBy = \"$doneBy\", statusOn = NOW() WHERE id = \"$clientId\" ") or trigger_error($db->error);
 
 				//broker data
 				$brokerQ = $investDb->query("SELECT C.companyName FROM broker_user B JOIN company C ON B.companyId = C.companyId WHERE B.userCode = '$doneBy'");
 				$brokerData = $brokerQ->fetch_assoc();
 
+				if($clientType == 'group'){
+					$groupId = $clientData['groupCode'];
+					$groupData = $Group->details($groupId);
+					$groupName = $groupData['groupName'];
 
-				$clientData = $investDb->query("SELECT * FROM clients WHERE clients.id = \"$user\" ");
-				$userData = $clientData->fetch_assoc();
+					//getting group admin's phone
+					$adminPhone = $groupData['adminPhone'];
+					if($adminPhone){
+						//Sending the message to the user					
+						$message = "Dear admin of $groupName, CSD account for your group has been approved with account number: $csd in $brokerData[companyName] broker, you can now start investing today";
+						sendsms($adminPhone, $message);
+					}
 
-				$userphone = $userData['telephone'];
-				$clientName = $userData['names'];
-				if($userphone){
-					//Sending the message to the user					
-					$message = "Dear $clientName, your csd account has been approved with account number: $csd in $brokerData[companyName] broker, you can now start investing today";
+				}else{
+					$userId = $clientData['userCode'];
+					$userData = user_details($userId);
+					$userphone = $userData['phone'];
 
-					sendsms($userphone, $message);
+					$clientName = $userData['names'];
+					if($userphone){
+						//Sending the message to the user					
+						$message = "Dear $clientName, your csd account has been approved with account number: $csd in $brokerData[companyName] broker, you can now start investing today";
 
+						sendsms($userphone, $message);
+					}
 				}
-				
 				$response = "Done";
 			}else{
 				$response = "Failed";
@@ -449,6 +464,7 @@
 		}else{
 			$response = "Failed";
 		}
+
 		echo json_encode($response);
 	}
 
