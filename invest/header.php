@@ -19,17 +19,18 @@
                             <div class="form-category dropdown">
 							<?php
 								include_once ("db.php");
-								$sql1 = $db->query("SELECT * FROM `productcategory`");
+
+								$sql1 = $investDb->query("SELECT * FROM `productcategory`");
 								echo'<select class="box-category">';
 								while($row = mysqli_fetch_array($sql1)){
 									$CatID = $row['catId'];
 									echo'<optgroup label="'.$row['catNane'].'"><option>All Category</option>';
-									$sql2 = $db->query("SELECT * FROM productsubcategory WHERE CatCode='$CatID'");
+									$sql2 = $investDb->query("SELECT * FROM productsubcategory WHERE CatCode='$CatID'");
 									while($row = mysqli_fetch_array($sql2))
 									{
 										$subCatId = $row['subCatId'];
 										echo'<option>'.$row['subCatName'].'</option>';
-										$sql3 = $db->query("SELECT * FROM products WHERE subCatCode='$subCatId'");
+										$sql3 = $investDb->query("SELECT * FROM products WHERE subCatCode='$subCatId'");
 										while($row = mysqli_fetch_array($sql3)){
 											echo'<li>'.$row['productName'].'</li>';
 											}
