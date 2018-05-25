@@ -566,7 +566,7 @@
 		$request = $_POST;
 		$sql = "SELECT B.companyId, B.id as securityId, B.brokerId, B.sharesNumber, B.unitPrice, B.createdDate, C.companyName,
 (SELECT companyName FROM company WHERE companyId = B.brokerId ) AS brokerName,
-COALESCE( (SELECT N.unitPrice FROM broker_security AS N WHERE N.id<securityId), '0') AS prevPrice
+COALESCE( (SELECT N.unitPrice FROM broker_security AS N WHERE N.id<securityId LIMIT 1), '0') AS prevPrice
 			 FROM broker_security AS B JOIN company AS C ON C.companyId = B.companyId WHERE type ='stock' ORDER BY B.createdDate";
 		$query = $investDb->query($sql) or trigger_error($investDb->error);
 		$companies = $companyDetails = array();

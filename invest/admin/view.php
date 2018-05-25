@@ -17,6 +17,7 @@ if(isset($_GET['viewid']))
 		$client = $row;
 		$clientType = $client['clientType'];
 		if($clientType == 'group'){
+			$clientId = $client['groupCode'];
 			//Loading group details
 			$groupId = $client['groupCode'];
 			$clientData = $groupData = $Group->details($groupId);
@@ -24,7 +25,10 @@ if(isset($_GET['viewid']))
 			$nationality = $row['country'];
 		}else{
 			$title = $row['title'];
-			
+
+
+			$clientId = $client['userCode'];
+						
 			$names = $row['names'];
 			$dob = $row['dob'];
 			$gender = $row['gender'];			
@@ -556,7 +560,7 @@ if(isset($_GET['viewid']))
 						</div>                    
 					</div>
 				</div>
-				<input type="hidden" id="csd_account_user" value="<?php echo $viewid; ?>">
+				<input type="hidden" id="csd_account_user" value="<?php echo $viewid; ?>" type="<?php echo $clientType; ?>">
 				<div class="uk-modal-footer uk-text-right">
 					<button class="md-btn md-btn-danger pull-left uk-modal-close">Cancel</button>
 					<button type="submit" class="md-btn md-btn-success pull-right">APPROVE</button>
