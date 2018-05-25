@@ -11,59 +11,59 @@
 if(isset($_GET['viewid']))
 {
 	$viewid = $_GET['viewid'];
-	$sqlview = $db->query("SELECT * FROM clients where id = '$viewid'");
-	while($row = mysqli_fetch_array($sqlview))
-	{	
-		$client = $row;
-		$clientType = $client['clientType'];
-		if($clientType == 'group'){
-			$clientId = $client['groupCode'];
-			//Loading group details
-			$groupId = $client['groupCode'];
-			$clientData = $groupData = $Group->details($groupId);
-			$names = $groupData['groupName'];
-			$nationality = $row['country'];
-		}else{
-			$title = $row['title'];
+	$sqlview = $db->query("SELECT * FROM clients where id = '$viewid' LIMIT 1");
 
+	$client = $row = mysqli_fetch_array($sqlview);
+	
+	$clientType = $client['clientType'];
+	if($clientType == 'group'){
+		$clientId = $client['groupCode'];
+		//Loading group details
+		$groupId = $client['groupCode'];
+		$clientData = $groupData = $Group->details($groupId);
+		$names = $groupData['groupName'];
+		$nationality = $row['country'];
+		$clientImg = $clientData['groupImage'];
 
-			$clientId = $client['userCode'];
-						
-			$names = $row['names'];
-			$dob = $row['dob'];
-			$gender = $row['gender'];			
-			$nidPassport = $row['NID'];
-			$nationality = $row['nationality'];
-			$postalLine1 = $row['postalLine1'];
-			$postalLine2 = $row['postalLine2'];
-			$phyisicalLine3 = $row['phyisicalLine3'];
-			$postCode = $row['postCode'];
-			$city = $row['city'];
-			$email = $row['e-mail'];
-		}
+	}else{
+		$title = $row['title'];
 
-
-		//Getting general clients information
-		$status = $row['status'];
-		$country = $row['country'];
-		$taxCode = $row['taxCode'];
-		$residentIn = $row['residentIn'];
-		$telephone = $row['telephone'];
-		$fax = $row['fax'];
-		
-		$bankName = $row['bankName'];
-		$branch = $row['branch'];
-		$accountNumber = $row['accountNumber'];
-		$csdAccount= $row['csdAccount'];
+		$clientId = $client['userCode'];
+					
+		$names = $row['names'];
+		$dob = $row['dob'];
+		$gender = $row['gender'];			
+		$nidPassport = $row['NID'];
+		$nationality = $row['nationality'];
+		$postalLine1 = $row['postalLine1'];
+		$postalLine2 = $row['postalLine2'];
+		$phyisicalLine3 = $row['phyisicalLine3'];
+		$postCode = $row['postCode'];
+		$city = $row['city'];
+		$email = $row['e-mail'];
 
 		$clientUserId = $client['userCode'];
 
 		$clientData = user_details($clientUserId);
 		$clientImg = $clientData['userImage'];
+
 	}
 
-	
 
+	//Getting general clients information
+	$status = $row['status'];
+	$country = $row['country'];
+	$taxCode = $row['taxCode'];
+	$residentIn = $row['residentIn'];
+	$telephone = $row['telephone'];
+	$fax = $row['fax'];
+	
+	$bankName = $row['bankName'];
+	$branch = $row['branch'];
+	$accountNumber = $row['accountNumber'];
+	$csdAccount= $row['csdAccount'];
+
+	
 }?>
 	<style>
 		@media print
