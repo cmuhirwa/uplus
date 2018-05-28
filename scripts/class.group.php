@@ -26,6 +26,25 @@
 			return $members;
 			
 		}
+		function memberContribution($userId, $groupId){
+			//contribution of a user in a group
+			global $db;
+
+			$sqlContribution = $db->query("SELECT  
+				IFNULL(
+						(
+							SELECT sum(t.amount) 
+							FROM rtgs.grouptransactions t 
+							WHERE ((t.status = 'Successfull' AND t.operation = 'DEBIT') AND (t.memberId = '$userId' AND t.groupId = '$groupId'))
+						),0
+						) AS memberContribution 
+					FROM uplus.members m")	or die(mysql_error($sqlContribution));
+
+			if($sqlContribution->num_rows){
+				$data = $sqlContribution->fetch_assoc();
+				return $data['memberContribution'];
+			}else return 0;
+		}
 	}
 
 	//instating new class

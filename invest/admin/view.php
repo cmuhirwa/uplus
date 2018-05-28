@@ -401,7 +401,9 @@ if($viewid = $_GET['viewid'])
 
 														foreach ($members as $key => $member) {
 															$mname = $member['name'];
-															echo "<li>$mname</li>";
+															//getting contribution
+															$memberContribution = $Group->memberContribution($groupId, 1);
+															echo "<li>$mname ($memberContribution)</li>";
 														}
 														
 													}else{
