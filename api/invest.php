@@ -586,10 +586,7 @@
 			 FROM broker_security AS B JOIN company AS C ON C.companyId = B.companyId WHERE type ='stock' ORDER BY B.createdDate";
 		$query = $investDb->query($sql) or trigger_error($investDb->error);
 		$companies = $companyDetails = array();
-
-
-
-
+		
 		
 		while ($data = $query->fetch_assoc()) {
 			$prevPriceDiv = $data['prevPrice']==0?1:$data['prevPrice']; //prevPrice for division omitting 0
@@ -598,7 +595,7 @@
 						'date'=>$data['createdDate'],
 						'securityId'=>$data['securityId'],
 						'prevPrice'=>$data['prevPrice'],
-						'change'=>( ($data['unitPrice'] - $data['prevPrice'])/$data['unitPrice'])*100,
+						'change'=>(string)( ( ($data['unitPrice'] - $data['prevPrice'])/$data['unitPrice'])*100),
 					);
 			if(isset($companies[$data['companyId']])){				
 				//here we'll concatenate				
