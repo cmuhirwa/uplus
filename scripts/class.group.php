@@ -14,8 +14,7 @@
 		public function members($groupId)
 		{
 			global $db;
-			$sql = "SELECT * FROM uplus.members WHERE groupId = \"$groupId\" ";
-			// echo "$sql";
+			$sql = "SELECT *, COALESCE(memberName, memberPhone) as name  FROM uplus.members WHERE groupId = \"$groupId\" ";
 			$members = array();
 
 			$query = $db->query($sql) or trigger_error("Can't get group data $db->error");

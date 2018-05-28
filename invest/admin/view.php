@@ -400,7 +400,7 @@ if($viewid = $_GET['viewid'])
 														//load group members
 
 														foreach ($members as $key => $member) {
-															$mname = $member['memberName'];
+															$mname = $member['name'];
 															echo "<li>$mname</li>";
 														}
 														
