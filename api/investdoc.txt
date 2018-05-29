@@ -77,6 +77,13 @@ link: https://uplus.rw/api/invest.php
 			commentByName
 			commentByImg
 
+	deleteFeed
+		->			
+			userId
+			feedId
+		<-
+			'Done' or 'Failed'
+
 --END FORUM--
 
 

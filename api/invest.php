@@ -319,6 +319,28 @@
         }
         echo json_encode($response);
 	}
+
+	function deleteFeed()
+	{
+		require('db.php');
+		global $hostname;
+		$request = $_POST;
+		// /delete feeds
+        $userId = $request['userId']??"";
+        $feedId = $request['feedId']??"";
+
+        //checking authority
+        if(1){
+        	if($user && $feed){
+	            $sql = "UPDATE feeds SET archivedDate = NOW(), archivedBy = \"$user\", archive = 'YES', updatedDate = NOW(), updatedBy = \"$user\" WHERE id = \"$feed\"";
+	            $query = $conn->query($sql) or trigger_error($conn->error);
+	            $response = "Done";
+	        }else{
+	            $response = "Failed";
+	        }
+        }
+        echo json_encode($response);
+    }
 // END FORUMS
 
 
