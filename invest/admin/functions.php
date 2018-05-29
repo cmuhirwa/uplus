@@ -379,7 +379,7 @@
 		//returns stock sales of the broker
 		global $investDb;
 
-		$query = $investDb->query("SELECT T.*, U.name as clientName, C.companyName FROM transactions as T JOIN company as C ON T.stockId = C.companyId JOIN uplus.users AS U ON U.id = T.usercode WHERE T.type ='buy' ") or trigger_error($investDb->error);
+		$query = $investDb->query("SELECT T.*, U.name as clientName, C.companyName FROM transactions as T JOIN company as C ON T.stockId = C.companyId JOIN uplus.users AS U ON U.id = T.usercode WHERE T.type ='buy' ORDER BY createdDate DESC") or trigger_error($investDb->error);
 		$sales = array();
 
 		while ($data = $query->fetch_assoc()) {
