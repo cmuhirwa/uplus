@@ -313,7 +313,7 @@
 
 	function brokerTransactions($brokerId){
 		global $investDb;
-		$query = $investDb->query("SELECT * FROM transactions WHERE brokerId = \"$brokerId\"  AND archived = 'no' ") or trigger_error($investDb->error);
+		$query = $investDb->query("SELECT * FROM transactions WHERE brokerId = \"$brokerId\"  AND archived = 'no' ORDER BY createdDate DESC") or trigger_error($investDb->error);
 		$trans = array();
 		while ($data = $query->fetch_assoc()) {
 			$trans[] = $data;
