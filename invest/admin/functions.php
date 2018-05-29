@@ -5,7 +5,7 @@
 
 	function total_users()
 	{
-		//returns all the users of church system
+		//returns all the users of uplus system
 		global $db;
 
 		$query = $db->query("SELECT COUNT(*) as count FROM uplus.users") or trigger_error($db->error);
@@ -258,6 +258,24 @@
 			$transactions[] = $data;
 		}
 		return $transactions;
+	}
+
+	function userWallet($userId){
+		global $investDb;
+
+		$sql = "SELECT (SELECT SUM(quantity) as shares FROM transactions WHERE status = 'approved' AND archived = 'no' AND type = 'buy' AND userCode = \"$userId\" ) - (SELECT SUM(quantity) as shares FROM transactions WHERE status = 'approved' AND archived = 'no' AND type = 'sell' AND userCode = \"$userId\" ) * (SELECT unitPrice FROM broker_security ORDER BY createdDate DESC LIMIT 1) AS balance";
+		echo "$userId";
+		$query = $investDb->query($sql) or trigger_error($investDb->error);
+
+		// $modularQ = "SELECT SUM(sell.quantity) sellShare, SUM(buy.quantity) buyShare, buy.stockId buyStock, sell.stockId sellStock FROM transactions as sell JOIN transactions AS buy ON(sell.type = 'sell' AND buy.type = 'buy' ) WHERE sell.archived = 'no' AND buy.archived = 'no' AND sell.status = 'approved' AND buy.status = 'approved' GROUP BY sell.stockId, buy.stockId";
+
+		$data = $query->fetch_assoc();
+		var_dump($data);
+
+		$balanceShares = $data['balance']; 
+
+
+		return $balanceShares;
 	}
 
 	function userInvestProfile($userId){
