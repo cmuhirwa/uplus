@@ -699,15 +699,15 @@
 			$phone = $clientData['phone'];
 			if($transType == 'sell'){
 				if($act == 'approve'){
-					$message = "Dear $clientName, Your request to sell $transData[quantity] shares in $stockName was approved, You will receive your funds soon";
+					$message = "Dear $clientName, Your request to sell $transData[quantity] shares of $stockName was approved, Your funds have been sent to your account successfully";
 				}else{
-					$message = "Dear $clientName, Your request to sell $transData[quantity] shares in $stockName was rejected.";
+					$message = "Dear $clientName, Your request to sell $transData[quantity] shares of $stockName was rejected.";
 				}
 			}else if($transType == 'buy'){
 				if($act == 'approve'){
-					$message = "Dear $clientName, Your request to buy $transData[quantity] shares in $stockName was approved, Thank you for using investing";
+					$message = "Dear $clientName, Your request to buy $transData[quantity] shares of $stockName was approved, Thank you for using U_Invest";
 				}else{
-					$message = "Dear $clientName, Your request to buy $transData[quantity] shares in $stockName was rejected. You will be refunded your investment";
+					$message = "Dear $clientName, Your request to buy $transData[quantity] shares of $stockName was rejected. Your funds  have been refunded successfully";
 				}				
 			}
 
@@ -803,7 +803,7 @@
 
 	function stockTransactions()
 	{
-		//user sale and purchase histories
+		//stock sale and purchase histories
 		require 'db.php';
 		require '../invest/admin/functions.php';
 		$request = $_POST;
@@ -830,5 +830,17 @@
 		}
 		echo json_encode($hist);
 	}
+
+	function userInvestmentSummary(){
+		require 'db.php';
+		require '../invest/admin/functions.php';
+		$request = $_POST;
+		$userId = $request['userId'];
+		$data = userInvestProfile($userId);
+		echo json_encode($data);		
+	}
 // END INVESTMENT
+
+
+
 ?>

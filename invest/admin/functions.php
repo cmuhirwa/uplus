@@ -229,7 +229,6 @@
 	{
 		# Stock price at $date moment
 		global $investDb;
-
 		$sql = "SELECT unitPrice FROM broker_security WHERE companyId = \"$stockId\" ORDER BY createdDate DESC LIMIT 1 ";
 		$query = $investDb->query($sql) or trigger_error($investDb->error);
 
@@ -252,12 +251,64 @@
 	function userTransactions($userId){
 		global $investDb;
 
-		$query = $investDb->query("SELECT T.*, U.name as clientName, C.companyName FROM transactions as T JOIN company as C ON T.stockId = C.companyId JOIN uplus.users AS U ON U.id = T.usercode WHERE T.userCode=\"$userId\" AND T.archived = 'no' ") or trigger_error($investDb->error);
+		$sql = "SELECT T.*, U.name as clientName, C.companyName FROM transactions as T JOIN company as C ON T.stockId = C.companyId JOIN uplus.users AS U ON U.id = T.usercode WHERE T.userCode=\"$userId\" AND T.archived = 'no' ";
+		$query = $investDb->query($sql) or trigger_error($investDb->error);
 		$transactions = array();
 		while ($data = $query->fetch_assoc()) {
 			$transactions[] = $data;
 		}
 		return $transactions;
+	}
+
+	function userInvestProfile($userId){
+		//returns summary if the user's investment
+		global $investDb;
+
+		//get all transactions
+		$transactions = userTransactions($userId);
+
+		// $query = "SELECT * FROM transactions WHERE userId = \"$userId\" GROUP BY stockId "
+
+		//keeping invested, sold
+		$invested = $sales = 0;
+
+		//storing company specific data
+		$company = array();
+
+		foreach ($transactions as $key => $transaction) {
+			$amount = $transaction['totalAmount'];
+			$type = $transaction['type'];
+			$stockId = $transaction['stockId'];
+			$status = $transaction['status'];
+
+			//storing company
+			if(empty($company[$stockId])){
+				//initialize in case company aint
+				$company[$stockId] = array('buy'=>0, 'sell'=>0);
+			}
+
+			if($transaction['status'] == 'approved'){
+				if($type == 'buy'){
+					$invested += $amount; 
+				}else if($type == 'sell'){
+					$sales += $amount; 
+				}				
+
+				$company[$stockId][$type] = ($company[$stockId][$type][$status]??0)+$amount;				
+			}				
+		}
+
+		//Calculating profit
+		foreach ($company as $stockId => $compData) {
+			$company[$stockId]['profit'] = ($company[$stockId]['buy'] - $company[$stockId]['sell']);
+		}
+				
+
+		$totalProfit = ($invested-$sales);
+		//preparing output
+		$ret = array('totalInvestment'=>$invested, 'totalSales'=>$sales, 'totalProfit'=>$totalProfit, 'stocks'=>$company);
+		return $ret;
+		
 	}
 
 	function brokerTransactions($brokerId){

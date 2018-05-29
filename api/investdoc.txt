@@ -153,4 +153,19 @@ link: https://uplus.rw/api/invest.php
 			type
 			status
 			date
+
+	userInvestmentSummary
+		->
+			userId
+		<-
+			totalInvestment
+			totalSales
+			totalProfit
+			stocks {
+				stockId:{
+					buy
+					sell
+					profit
+				}
+			}
 --END INVESTMENT--
