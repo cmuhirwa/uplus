@@ -480,6 +480,8 @@ if(isset($_POST['newPrice'])){
 					stockData.push([new Date(t.date).getTime(), parseInt(t.unitPrice)])
 				}
 
+				console.log(stockData);
+
 				// Create the chart
 			    Highcharts.stockChart('chartContainer', {
 
@@ -520,7 +522,7 @@ if(isset($_POST['newPrice'])){
 				 
 			}
 		}
-});
+	});
 
 </script>
 </body>
