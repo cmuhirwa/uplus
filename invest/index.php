@@ -76,7 +76,8 @@
 									$stocks = getStockCompanies();
 									foreach ($stocks as $key => $stock) {
 										$stockName = $stock['companyName'];
-										echo '<li class="list-group-item success"><a href="javascript:;">'.$stockName.'</a></li>';
+										$stockId = $stock['companyId'];
+										echo '<li class="list-group-item stocksList success" data-stock="'.$stockId.'"><a href="javascript:;">'.$stockName.'</a></li>';
 									}
 
 								?>
@@ -332,8 +333,13 @@ $(document).ready(function(){
 	chartElem = $("#chartContainer");
 
 	initialStock  = $(chartElem).data('stock');
-
 	loadChart(initialStock);
+
+	//trigerring
+	$(".stocksList").on('click', function(){
+		stockId = $(this).data('stock');
+		loadChart(stockId)
+	})
 })
 
 
@@ -349,6 +355,7 @@ function loadChart(stockId){
 			stock = data[n];
 			if(stock.stockId == stockId){
 				current_stock_data = stock.data;
+				console.log(current_stock_data)
 
 				//Loop ovewr data
 				for (var i = current_stock_data.length - 1; i >= 0; i--) {
@@ -357,6 +364,7 @@ function loadChart(stockId){
 				}
 
 				console.log(stockData);
+				stockName = stock.stockName
 
 				// Create the chart
 			    Highcharts.stockChart('chartContainer', {
@@ -367,11 +375,11 @@ function loadChart(stockId){
 			        },
 
 			        title: {
-			            text: '<?php echo $stockName; ?> Stock Price'
+			            text: stockName+' Stock Price'
 			        },
 
 			        series: [{
-			            name: '<?php echo $stockName; ?> Stock Price',
+			            name: stockName+' Stock Price',
 			            data: stockData,
 			            type: 'areaspline',
 			            threshold: null,
@@ -441,24 +449,6 @@ function loadChart(stockId){
 // 		}]
 // 	});
 // });
-(function cart(){ 
-var cart = '1';
-	$.ajax({
-			type : "GET",
-			url : "cartBack.php",
-			dataType : "html",
-			cache : "false",
-			data : {				
-				cart : cart,
-			},
-			success : function(html, textStatus){
-				$("#cartDiv").html(html);
-			},
-			error : function(xht, textStatus, errorThrown){
-				alert("Error : " + errorThrown);
-			}
-	});
-})();
 </script>
 </body>
 </html>
