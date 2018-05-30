@@ -550,7 +550,7 @@ function get_sub(){
 		
 	// })
 
-	$.getJSON('../aapl-c.json', function (data) {
+	$.getJSON('../stock.json', function (data) {
     // Create the chart
     Highcharts.stockChart('chartContainer', {
 
