@@ -602,7 +602,7 @@
 
 		global $investDb;
 		$request = $_POST;	
-		$userId = $request['userId']??""; //iWho's buying
+		$userId = $request['userId']??""; //to checj the walet
 
 
 		$sql = "SELECT B.companyId, B.id as securityId, B.brokerId, B.sharesNumber, B.unitPrice, B.createdDate, C.companyName,

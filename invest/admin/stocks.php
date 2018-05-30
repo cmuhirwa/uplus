@@ -344,6 +344,7 @@ if(isset($_POST['newPrice'])){
 
 	<script type="text/javascript">
 		const current_user = <?php echo $thisid; ?>;
+		const current_stock = <?php echo $stock; ?>;
 		$(".input-number").on('keypress', function(e){
             if(isNaN(e.key) && e.key != '.'){
                 alert("Numbers only allowed")
@@ -442,149 +443,82 @@ if(isset($_POST['newPrice'])){
 		})
 	</script>
 
-	<!-- Firebase -->
 	<script>
-	  // Initialize Firebase
-	  // TODO: Replace with your project's customized code snippet
-	  // var config = {
-	  //   apiKey: "AIzaSyB1qCWTLud__LGEFQQCZU98iMiy-Dp8Tbk",
-	  //   authDomain: "learnbase-baa6d.firebaseapp.com",
-	  //   databaseURL: "https://learnbase-baa6d.firebaseio.com",
-	  //   projectId: "learnbase-baa6d",
-	  //   storageBucket: "learnbase-baa6d.appspot.com",
-	  //   messagingSenderId: "483987540771"
-	  // };
-	  // firebase.initializeApp(config);
-
-	  // const preObject = document.getElementById("firebase")
-	  // const dbRefObj = firebase.database().ref().child('firebase')
-
-	  // dbRefObj.on('value', function(){
-		
-	  // })
-		$(function() {
-			if(isHighDensity()) {
-				$.getScript( "bower_components/dense/src/dense.js", function() {
-					// enable hires images
-					altair_helpers.retina_images();
-				});
-			}
-			if(Modernizr.touch) {
-				// fastClick (touch devices)
-				FastClick.attach(document.body);
-			}
-		});
-		$window.load(function() {
-			// ie fixes
-			altair_helpers.ie_fix();
-		});
-
-// <!--0 Add Company-->
-function addcomp(){
-
-	var comp = 'yes';
-		
-	$.ajax({
-			type : "GET",
-			url : "createCompany.php",
-			dataType : "html",
-			cache : "false",
-			data : {
-				
-				comp : comp,
-			},
-			success : function(html, textStatus){
-				$("#new_comp").html(html);
-			},
-			error : function(xht, textStatus, errorThrown){
-				alert("Error : " + errorThrown);
-			}
+	$(function() {
+		if(isHighDensity()) {
+			$.getScript( "bower_components/dense/src/dense.js", function() {
+				// enable hires images
+				altair_helpers.retina_images();
+			});
+		}
+		if(Modernizr.touch) {
+			// fastClick (touch devices)
+			FastClick.attach(document.body);
+		}
 	});
-}
-	// <!--1 Show subcat-->
-function get_sub(){
-	var catId =$("#catId").val();
-	//alert(catId);
-	$.ajax({
-			type : "GET",
-			url : "userscript.php",
-			dataType : "html",
-			cache : "false",
-			data : {
-				
-				catId : catId,
-			},
-			success : function(html, textStatus){
-				$("#suboption").html(html);
-			},
-			error : function(xht, textStatus, errorThrown){
-				alert("Error : " + errorThrown);
-			}
+
+	$window.load(function() {
+		// ie fixes
+		altair_helpers.ie_fix();
 	});
-}
-	// <!--2 Show products-->
-	function get_prod(){
-		var subCatId =$("#subCatId").val();
-		//alert(subCatId);
-		$.ajax({
-				type : "GET",
-				url : "userscript.php",
-				dataType : "html",
-				cache : "false",
-				data : {
-					
-					subCatId : subCatId,
-				},
-				success : function(html, textStatus){
-					$("#prodoption").html(html);
-				},
-				error : function(xht, textStatus, errorThrown){
-					alert("Error : " + errorThrown);
+
+	$.post('../../api/invest.php', {action: 'listStocks'}, function (data) {
+		console.log(data)
+
+		stockData = []
+		//looping through to find our stock
+		for(n=0; n<data.length; n++)
+		{
+
+			stock = data[n];
+			if(stock.stockId == current_stock){
+				current_stock_data = stock.data;
+
+				//Loop ovewr data
+				for (var i = current_stock_data.length - 1; i >= 0; i--) {
+					t = current_stock_data[i];
+					stockData.push([new Date(t.date).getTime(), parseInt(t.unitPrice)])
 				}
-		});
-	}
+				// Create the chart
+			    Highcharts.stockChart('chartContainer', {
 
 
+			        rangeSelector: {
+			            selected: 1
+			        },
 
-	// $.post('../api/index.php', {action:'listStocks'}, function(){
-		
-	// })
+			        title: {
+			            text: '<?php echo $stockName; ?> Stock Price'
+			        },
 
-	$.getJSON('../stock.json', function (data) {
-    // Create the chart
-    Highcharts.stockChart('chartContainer', {
+			        series: [{
+			            name: '<?php echo $stockName; ?> Stock Price',
+			            data: stockData,
+			            type: 'areaspline',
+			            threshold: null,
+			            tooltip: {
+			                valueDecimals: 2
+			            },
+			            fillColor: {
+			                linearGradient: {
+			                    x1: 0,
+			                    y1: 0,
+			                    x2: 0,
+			                    y2: 1
+			                },
+			                stops: [
+			                    [0, Highcharts.getOptions().colors[0]],
+			                    [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+			                ]
+			            }
+			        }]
+			    });
 
-
-        rangeSelector: {
-            selected: 1
-        },
-
-        title: {
-            text: '<?php echo $stockName; ?> Stock Price'
-        },
-
-        series: [{
-            name: '<?php echo $stockName; ?> Stock Price',
-            data: data,
-            type: 'areaspline',
-            threshold: null,
-            tooltip: {
-                valueDecimals: 2
-            },
-            fillColor: {
-                linearGradient: {
-                    x1: 0,
-                    y1: 0,
-                    x2: 0,
-                    y2: 1
-                },
-                stops: [
-                    [0, Highcharts.getOptions().colors[0]],
-                    [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
-                ]
-            }
-        }]
-    });
+			    //stop the looping; we've got what we wanted
+			    break;
+				 
+			}
+		}
 });
 
 </script>

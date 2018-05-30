@@ -68,8 +68,8 @@
 				$signInfo = array(
 			   		"pin"        => $code,
 			   		"userId"     => $userId,
-			   		"userName"   => $profileName
-					//csdAccount" => $csdAccount
+			   		"userName"   => $profileName,
+					"csdAccount" => $csdAccount
 			   );
 			}
 		}
