@@ -87,7 +87,7 @@ if($viewid = $_GET['viewid'])
 						<td width="10%"><img src="../assets/images/bnr.jpg"></td>
 						<td width="65%">
 							<center >
-								<h2><b>Central Securities Depository - Rwanda</h2>
+								<h2><b>Central Securities Depository - Nigeria</h2>
 								<h4>Securities Account Opening/Update Form - Individuals: No <b><?php echo $csdAccount??"Pending"; ?></b></h4>
 							</center>
 						</td>
