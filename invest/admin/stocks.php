@@ -479,6 +479,7 @@ if(isset($_POST['newPrice'])){
 					t = current_stock_data[i];
 					stockData.push([new Date(t.date).getTime(), parseInt(t.unitPrice)])
 				}
+
 				// Create the chart
 			    Highcharts.stockChart('chartContainer', {
 
