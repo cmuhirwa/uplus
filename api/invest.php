@@ -127,6 +127,7 @@
 				"feedId"		=> $row['id'],
 				"feedForumId"	=> $row['feedForumId'],
 				"feedTitle"		=> $row['feedTitle']??"",
+				"feedById"		=> $row['createdBy'],
 				"feedBy"		=> $row['feedByName'],
 				"feedByImg"		=> $row['feedByImg']??"",
 				"feedLikes"		=> $row['nlikes'],

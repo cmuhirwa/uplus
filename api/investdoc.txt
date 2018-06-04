@@ -35,6 +35,7 @@ link: https://uplus.rw/api/invest.php
 			feedForumId
 			feedTitle
 			feedBy
+			feedById
 			feedByImg
 			feedLikes
 			feedLikeStatus
