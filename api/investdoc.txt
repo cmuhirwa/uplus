@@ -82,7 +82,7 @@ link: https://uplus.rw/api/invest.php
 			userId
 			feedId
 		<-
-			'Done' or 'Failed'
+			"Done" or 'Failed'
 
 --END FORUM--
 

@@ -322,7 +322,7 @@
 
 	function deleteFeed()
 	{
-		require('db.php');
+		require 'db.php';
 		global $hostname;
 		$request = $_POST;
 		// /delete feeds
@@ -331,9 +331,9 @@
 
         //checking authority
         if(1){
-        	if($user && $feed){
-	            $sql = "UPDATE feeds SET archivedDate = NOW(), archivedBy = \"$user\", archive = 'YES', updatedDate = NOW(), updatedBy = \"$user\" WHERE id = \"$feed\"";
-	            $query = $conn->query($sql) or trigger_error($conn->error);
+        	if($userId && $feedId){
+	            $sql = "UPDATE feeds SET archivedDate = NOW(), archivedBy = \"$userId\", archive = 'YES', updatedDate = NOW(), updatedBy = \"$userId\" WHERE id = \"$feedId\"";
+	            $query = $investDb->query($sql) or trigger_error($investDb->error);
 	            $response = "Done";
 	        }else{
 	            $response = "Failed";
