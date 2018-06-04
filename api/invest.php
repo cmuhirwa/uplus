@@ -412,16 +412,16 @@
 					if ($query) {
 						$response = "Done";
 					}else{
-						$response = "Fail";
+						$response = "Fail 4";
 					}
 				}else{
-					$response = "Fail";
+					$response = "Fail 3";
 				}
 			}else{
-				$response = "Fail";
+				$response = "Fail 2";
 			}
 		}else{
-			$response = "Fail";
+			$response = "Fail 1";
 		}
 		echo json_encode($response);
 	}
