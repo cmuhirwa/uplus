@@ -10,13 +10,14 @@
 		header("Location: logout.php"); 
 		}
 	}
+
 	$_SESSION['timeout'] = time();
 	if (!isset($_SESSION["username"])) 
 	{
 		header("location: login.php"); 
 		exit();
 	}
-	include "db.php";	
+	include_once "db.php";	
  
 	$session_id = preg_replace('#[^0-9]#i', '', $_SESSION["id"]); // filter everything but numbers and letters
 	$username = preg_replace('#[^A-Za-z0-9]#i', '', $_SESSION["username"]); // filter everything but numbers and letters
@@ -32,6 +33,9 @@
 		$userName = $names = $row["names"];
 		$user_profile = $row["profile_picture"];
 		$account_type = $row["account_type"];
+
+		var_dump($account_type);
+
 		if($account_type =='admin')
 		{
 			header("location: admin.php");
@@ -40,11 +44,14 @@
 			//getting brokerage company
 			$query = $db->query("SELECT * FROM broker_user WHERE userCode = \"$thisid\" AND archived = 'NO' LIMIT 1 ") or trigger_error($db->error);
 			$Broker = $query->fetch_assoc();
+		}else if ($account_type == 'bank') {
+			$query = $db->query("SELECT * FROM broker_user WHERE userCode = \"$thisid\" AND archived = 'NO' LIMIT 1 ") or trigger_error($db->error);
+			$Banker = $Broker = $query->fetch_assoc();
+			$currentCompanyId = $Banker['companyId'];
 		}
 
 		//getting user company
-		$sqlseller1 = $db->query("SELECT * FROM company1 WHERE companyUserCode = '$thisid'");
-		$companyQ = $db->query("SELECT * FROM company1 WHERE companyUserCode = \"$thisid\" LIMIT 1 ") or trigger_error($db->error);
+		$companyQ = $db->query("SELECT * FROM company WHERE companyId = \"$currentCompanyId\" LIMIT 1 ") or trigger_error($db->error);
 		if($companyQ->num_rows){
 			$Company = (object)$companyQ->fetch_assoc();
 		}else{

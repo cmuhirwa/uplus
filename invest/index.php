@@ -22,8 +22,8 @@
 	<![endif]--> 
 	<link rel="stylesheet" type="text/css" href="assets/css/quick-view.css" />
 	<link rel="stylesheet" type="text/css" href="assets/css/responsive9.css" />
-	 <link rel="stylesheet" type="text/css" href="assets/css/layout.css" />
-	 <link rel="icon" href="https://www.firstbanknigeria.com/wp-content/uploads/2016/05/w-logo-blue.png" sizes="32x32" />
+	<link rel="stylesheet" type="text/css" href="assets/css/layout.css" />
+	<link rel="icon" href="https://www.firstbanknigeria.com/wp-content/uploads/2016/05/w-logo-blue.png" sizes="32x32" />
 	
 </head>
 <body class="home market-home">
@@ -146,102 +146,102 @@
 	 </div>
 </div>
 <div class="modal fade" id="buyModal" tabindex="-1" role="dialog" aria-labelledby="buyModal" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-	<div class="modal-content">
-	  <div class="modal-header">
-		<h5 class="modal-title" id="exampleModalLabel">Request CSD Account</h5>
-	  </div>
-	  <div class="modal-body">
-		<form>
-			<div class="row">
-				<div class="col-md-2">
-					<label for="title">Title</label>
-					<select name="title" id="title" class="form-control" required="required">
-						<option value="">[--Select--]</option>
-						<option value="H.E.">H.E. </option>
-						<option value="Hon.">Hon. </option>
-						<option value="Prof.">Prof. </option>
-						<option value="Dr.">Dr. </option>
-						<option value="Mr.">Mr. </option>
-						<option value="Mrs.">Mrs. </option>
-						<option value="Ms.">Ms. </option>
-						<option value="Military">Military </option>
-					</select>
-				</div>
-				<div class="col-md-5">
-					<div class="form-group">
-						<label for="exampleInputEmail1">Surname</label>
-						<input type="text" class="form-control" id="sname_input" aria-describedby="emailHelp" placeholder="Enter your name">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<h5 class="modal-title" id="exampleModalLabel">Request CSD Account</h5>
+		  </div>
+		  <div class="modal-body">
+			<form>
+				<div class="row">
+					<div class="col-md-2">
+						<label for="title">Title</label>
+						<select name="title" id="title" class="form-control" required="required">
+							<option value="">[--Select--]</option>
+							<option value="H.E.">H.E. </option>
+							<option value="Hon.">Hon. </option>
+							<option value="Prof.">Prof. </option>
+							<option value="Dr.">Dr. </option>
+							<option value="Mr.">Mr. </option>
+							<option value="Mrs.">Mrs. </option>
+							<option value="Ms.">Ms. </option>
+							<option value="Military">Military </option>
+						</select>
+					</div>
+					<div class="col-md-5">
+						<div class="form-group">
+							<label for="exampleInputEmail1">Surname</label>
+							<input type="text" class="form-control" id="sname_input" aria-describedby="emailHelp" placeholder="Enter your name">
+						</div>
+					</div>
+					<div class="col-md-5">
+						<div class="form-group">
+							<label for="exampleInputEmail1">Other name</label>
+							<input type="text" class="form-control" id="oname_input" aria-describedby="emailHelp" placeholder="Enter your name">
+						</div>
 					</div>
 				</div>
-				<div class="col-md-5">
-					<div class="form-group">
-						<label for="exampleInputEmail1">Other name</label>
-						<input type="text" class="form-control" id="oname_input" aria-describedby="emailHelp" placeholder="Enter your name">
-					</div>
+				
+				<div class="form-group">
+					<label for="exampleInputEmail1">National ID/Passport</label>
+					<input type="number" class="form-control" id="id_input" aria-describedby="emailHelp" placeholder="Enter your national ID card number">
 				</div>
-			</div>
-			
-			<div class="form-group">
-				<label for="exampleInputEmail1">National ID/Passport</label>
-				<input type="number" class="form-control" id="id_input" aria-describedby="emailHelp" placeholder="Enter your national ID card number">
-			</div>
 
-			<div class="row">
-				<div class="col-md-2">
-					<label for="gender_input">Gender</label>
-					<select name="title" id="gender_input" class="form-control" required="required">
-						<option value="">[--Select--]</option>
-						<option value="F">Female </option>
-						<option value="M">Male </option>
-					</select>
-				</div>
-				<div class="col-md-5">
-					<div class="form-group">
-						<label for="dob_input">Date of birth</label>
-						<input type="date" class="form-control" id="dob_input" aria-describedby="emailHelp" placeholder="Enter your name">
+				<div class="row">
+					<div class="col-md-2">
+						<label for="gender_input">Gender</label>
+						<select name="title" id="gender_input" class="form-control" required="required">
+							<option value="">[--Select--]</option>
+							<option value="F">Female </option>
+							<option value="M">Male </option>
+						</select>
+					</div>
+					<div class="col-md-5">
+						<div class="form-group">
+							<label for="dob_input">Date of birth</label>
+							<input type="date" class="form-control" id="dob_input" aria-describedby="emailHelp" placeholder="Enter your name">
+						</div>
+					</div>
+					<div class="col-md-5">
+						<div class="form-group">
+							<label for="nationality_input">Nationality</label>
+							<input type="text" class="form-control" id="nationality_input" aria-describedby="emailHelp" placeholder="Enter your name">
+						</div>
 					</div>
 				</div>
-				<div class="col-md-5">
-					<div class="form-group">
-						<label for="nationality_input">Nationality</label>
-						<input type="text" class="form-control" id="nationality_input" aria-describedby="emailHelp" placeholder="Enter your name">
-					</div>
-				</div>
-			</div>
 
-			<div class="form-group">
-				<label for="phone_input">Phone number</label>
-				<input type="number" class="form-control" id="phone_input" aria-describedby="emailHelp" placeholder="Enter your phone number">
-			</div>
-			<div class="row">
-				<div class="col-md-6">
-					<div class="form-group">
-						<label for="shares_input">Shares</label>
-						<input type="number" class="form-control" id="shares_input" aria-describedby="emailHelp" placeholder="Number of shares">
-					</div>
+				<div class="form-group">
+					<label for="phone_input">Phone number</label>
+					<input type="number" class="form-control" id="phone_input" aria-describedby="emailHelp" placeholder="Enter your phone number">
 				</div>
-				<!-- <div class="col-md-6">
-					Here comes me
-				</div> -->
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="shares_input">Shares</label>
+							<input type="number" class="form-control" id="shares_input" aria-describedby="emailHelp" placeholder="Number of shares">
+						</div>
+					</div>
+					<!-- <div class="col-md-6">
+						Here comes me
+					</div> -->
+				</div>
+			</form>
+		  </div>
+		  <div class="modal-footer" data-role='init'>
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			<button type="button" class="btn btn-primary" id="comfirm_buy">SUBMIT</button>
+		  </div>
+		  <div class="modal-footer display-none" data-role='sending'>
+			<img src="assets/images/rot_loader.gif"> Sending
+		  </div>
+		  <div class="modal-footer display-none" data-role='done'>
+			<div class="status">
 			</div>
-		</form>
-	  </div>
-	  <div class="modal-footer" data-role='init'>
-		<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-		<button type="button" class="btn btn-primary" id="comfirm_buy">SUBMIT</button>
-	  </div>
-	  <div class="modal-footer display-none" data-role='sending'>
-		<img src="assets/images/rot_loader.gif"> Sending
-	  </div>
-	  <div class="modal-footer display-none" data-role='done'>
-		<div class="status">
+			<button class="btn btn-primary">DONE</button>
+		  </div>
+
 		</div>
-		<button class="btn btn-primary">DONE</button>
-	  </div>
-
 	</div>
-  </div>
 </div>
 
 <?php
@@ -367,42 +367,42 @@ function loadChart(stockId){
 				stockName = stock.stockName
 
 				// Create the chart
-			    Highcharts.stockChart('chartContainer', {
+				Highcharts.stockChart('chartContainer', {
 
 
-			        rangeSelector: {
-			            selected: 1
-			        },
+					rangeSelector: {
+						selected: 1
+					},
 
-			        title: {
-			            text: stockName+' Stock Price'
-			        },
+					title: {
+						text: stockName+' Stock Price'
+					},
 
-			        series: [{
-			            name: stockName+' Stock Price',
-			            data: stockData,
-			            type: 'areaspline',
-			            threshold: null,
-			            tooltip: {
-			                valueDecimals: 2
-			            },
-			            fillColor: {
-			                linearGradient: {
-			                    x1: 0,
-			                    y1: 0,
-			                    x2: 0,
-			                    y2: 1
-			                },
-			                stops: [
-			                    [0, Highcharts.getOptions().colors[0]],
-			                    [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
-			                ]
-			            }
-			        }]
-			    });
+					series: [{
+						name: stockName+' Stock Price',
+						data: stockData,
+						type: 'areaspline',
+						threshold: null,
+						tooltip: {
+							valueDecimals: 2
+						},
+						fillColor: {
+							linearGradient: {
+								x1: 0,
+								y1: 0,
+								x2: 0,
+								y2: 1
+							},
+							stops: [
+								[0, Highcharts.getOptions().colors[0]],
+								[1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+							]
+						}
+					}]
+				});
 
-			    //stop the looping; we've got what we wanted
-			    break;
+				//stop the looping; we've got what we wanted
+				break;
 				 
 			}
 		}
