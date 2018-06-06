@@ -473,7 +473,7 @@
 		$sql = "SELECT feeds.*, feeds.id as fid, U.name as feedByName, (SELECT COUNT(*) FROM feed_likes WHERE feedCode = feeds.id) as nlikes, (SELECT COUNT(*) FROM feed_comments  WHERE feedCode = feeds.id) as ncomments, (SELECT COUNT(*) FROM investments.feed_likes WHERE feedCode = id AND userCode = '$memberId') as liked FROM feeds JOIN uplus.users U ON U.id = feeds.createdBy WHERE feeds.feedForumId= \"$forum\" AND $feedq ORDER BY feeds.createdDate DESC";
 		// echo "$sql";	
 
-		$query = $investDb->query($sql) or trigger_error("sdsd".$investDb->error, E_USER_ERROR);
+		$query = $investDb->query($sql) or trigger_error("Error retrieving ".$investDb->error, E_USER_ERROR);
 
 		$posts = array();
 
