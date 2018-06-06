@@ -96,7 +96,7 @@
 
                 <!-- Customers -->
                 <div>
-                    <a href="customers.php?compId=<?php echo $comanyId;?>">
+                    <a href="customers.php">
 					<div class="md-card md-card-hover md-card-overlay">
                         <!-- <div class="md-card-content uk-flex uk-flex-center uk-flex-middle">
                             <span class="peity_conversions_large peity_data">5,3,9,6,5,9,7</span>

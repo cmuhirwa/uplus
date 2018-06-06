@@ -1,0 +1,4 @@
+{"action":"listStocks"}
+
+{"action":"postFeed","feedContent":"Here we are","memberId":"1","attachments":"[]","userType":"admin","platform":"web","targetForum":"18"}
+

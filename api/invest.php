@@ -1,6 +1,7 @@
 <?php
 // START INITIATE
 	include ("db.php");
+	define("DEFAULT_USER_IMAGE", "https://uplus.rw/assets/images/20.jpg");
 
 	//return JSON Content-Type
     header('Content-Type: application/json');
@@ -129,7 +130,7 @@
 				"feedTitle"		=> $row['feedTitle']??"",
 				"feedById"		=> $row['createdBy'],
 				"feedBy"		=> $row['feedByName'],
-				"feedByImg"		=> $row['feedByImg']??"",
+				"feedByImg"		=> $row['feedByImg']??DEFAULT_USER_IMAGE,
 				"feedLikes"		=> $row['nlikes'],
 				"feedLikeStatus"=> $liked, 
 				"feedComments" 	=> $row['ncomments'],
@@ -184,7 +185,7 @@
 				"feedTitle"		=> $row['feedTitle']??"",
 				"feedById"		=> $row['createdBy'],
 				"feedBy"		=> $row['feedByName'],
-				"feedByImg"		=> $row['feedByImg']??"",
+				"feedByImg"		=> $row['feedByImg']??DEFAULT_USER_IMAGE,
 				"feedLikes"		=> $row['nlikes'],
 				"feedLikeStatus"=> $liked,
 				"feedComments" 	=> $row['ncomments'],
