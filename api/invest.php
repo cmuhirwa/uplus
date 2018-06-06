@@ -440,7 +440,7 @@
 		echo json_encode($response);
 	}
 
-	function requestBankAC()
+	function requestBankACC()
 	{
 		// user requesting Bank account
 		require 'db.php';

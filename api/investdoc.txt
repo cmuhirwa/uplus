@@ -199,7 +199,7 @@ link: https://uplus.rw/api/invest.php
 
 
 -- START BANK --
-	requestBankAC
+	requestBankACC
 		->
 		userId
 		gender
