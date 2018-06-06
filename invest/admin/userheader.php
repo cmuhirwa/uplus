@@ -1,4 +1,4 @@
-<?php
+in<?php
 	// Destry session if it hasn't been used for 15 minute.
 	session_start();
 	$inactive = 900;
@@ -18,6 +18,7 @@
 		exit();
 	}
 	include_once "db.php";	
+	require_once "../../scripts/class.user.php";	
  
 	$session_id = preg_replace('#[^0-9]#i', '', $_SESSION["id"]); // filter everything but numbers and letters
 	$username = preg_replace('#[^A-Za-z0-9]#i', '', $_SESSION["username"]); // filter everything but numbers and letters
@@ -163,8 +164,8 @@
 				<li title="Dashboard">					
 				</li>
 
-				<li title="Members">
-					<a href="customers.php?compId=<?php echo $Company->companyId;?>">
+				<li title="Customers">
+					<a href="customers.php">
 						<span class="menu_icon">
 						<i class="material-icons"></i>
 						</span>

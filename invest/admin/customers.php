@@ -56,7 +56,9 @@
                                                 $name = $groupData['groupName'];
                                                 
                                             }else{
-                                                $name = $row['names'];
+                                                $userData = $User->details($row['userCode']);
+                                                // var_dump($userData);
+                                                $name = $userData['name'];
                                                 $country = $row['country'];
                                             }
                                             $country = $client['country'];

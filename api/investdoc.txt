@@ -196,3 +196,16 @@ link: https://uplus.rw/api/invest.php
 				}
 			}
 --END INVESTMENT--
+
+
+-- START BANK --
+	requestBankAC
+		->
+		userId
+		gender
+		dateOfBirth DD/MM/YYYY
+		nationality
+		NID
+		<-
+			"Done"
+-- END BANK --

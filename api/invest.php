@@ -440,6 +440,52 @@
 		echo json_encode($response);
 	}
 
+	function requestBankAC()
+	{
+		// user requesting Bank account
+		require 'db.php';
+		$request = $_POST;
+
+
+		$title = $request['title']??'';
+		$userId = $request['userId']??"";
+		$gender = $request['gender']??"";
+
+
+		$dob = date("Y-m-d", strtotime($request['dateOfBirth']??""));
+		$nationality = $request['nationality']??"";
+		$NID = $request['NID']??"";
+		$passport = $request['passport']??"";
+
+		$country = $request['country']??"";
+		$city = $request['city']??"";
+
+		
+		if($userId && $gender && $dob && $nationality && $NID){
+			//here we fetch details from app
+			$query = $db->query("SELECT * FROM uplus.users WHERE id = \"$userId\" ");
+			$userData = $query->fetch_assoc();
+
+			$query = $investDb->query("INSERT INTO clients(clientOf, userCode, dob, gender, NID, residentIn, nationality, country, city, status, statusOn) VALUES('bank', \"$userId\", \"$dob\", \"$gender\", \"$NID\", \"$nationality\", \"$nationality\", 'Rwanda', 'Kigali', 'pending', NOW()) ");
+
+			if($query){
+				$response = 'Done';
+			}else{
+				$response = 'Fail';
+			}
+			
+
+			if($userData){
+
+			} 
+
+		}else{
+			$response = 'Fail';
+		}
+
+		echo json_encode($response);
+	}
+
 	function requestGroupCSD()
 	{
 		// user requesting CSD group account
