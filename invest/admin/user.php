@@ -67,157 +67,146 @@
 	include'userheader.php';
 	require("functions.php");
 ?>
-
 <!-- main sidebar -->
 <div id="new_comp">
 	<div id="page_content">
 	    <div id="page_content_inner">
-			<h4 class="heading_b uk-margin-bottom">DashBoard</h4>
-			<?php 
-				$sqlseller = $db->query("SELECT * FROM company1 WHERE companyUserCode = '$thisid'");
-				$countComanies = mysqli_num_rows($sqlseller);
-				if($countComanies>0)
-					{
-						while($row = mysqli_fetch_array($sqlseller)) 
-							{
-								$comanyId = $row['companyId'];
-			?>
-				
-				<div class="uk-grid uk-grid-width-small-1-2 uk-grid-width-large-1-3 uk-grid-width-xlarge-1-4 uk-text-center " id="dashboard_sortable_cards" >
-	                <div>
-	                    <a href="forums.php">
-						<div class="md-card md-card-hover md-card-overlay">
-							<div class="md-card-content">
-		                        <div style="vertical-align: middle; margin-top: 10%; font-size: 3rem">
-	                        		<span class="" style=""><span class="countUpMe"><?php echo count(getForums()); ?></span></span>
-	                        	</div>	 
-	                        </div>
-	                        <div class="md-card-overlay-content">
-	                            <div class="uk-clearfix md-card-overlay-header">
-	                                <i class="md-icon material-icons md-card-overlay-toggler">&#xE5D4;</i>
-	                                <h3>
-	                                    Forums
-	                                </h3>
-	                            </div>
-	                            <?php echo $row['companyDescription'];?>
-	                        </div>
-	                    </div>
-	                    </a>
-	                </div>
-
-	                <!-- Customers -->
-	                <div>
-	                    <a href="customers.php?compId=<?php echo $comanyId;?>">
-						<div class="md-card md-card-hover md-card-overlay">
-	                        <!-- <div class="md-card-content uk-flex uk-flex-center uk-flex-middle">
-	                            <span class="peity_conversions_large peity_data">5,3,9,6,5,9,7</span>
-	                        </div> -->
-	                        <div class="md-card-content">
-	                        	<?php
-	                        		$sqlClients = $db->query('SELECT * FROM clients');
-									$countClients = mysqli_num_rows($sqlClients);
-									$countUsers = mysqli_num_rows($db->query('SELECT * FROM uplus.users'));
-	                        	?>
-	                        	<div style="vertical-align: middle; margin-top: 10%; font-size: 3rem">
-	                        		<span class="" style=""><span class="countUpMe"><?php echo $countClients; ?></span>/
-	                        		<span><?php echo $countUsers; ?></span></span>
-	                        	</div>	                        	
-		                        <!-- <div class="epc_chart" data-percent="53" data-bar-color="#009688">
-	                                <span class="epc_chart_text"><span class="countUpMe">53</span>%</span>
-	                            </div> -->
+			<h4 class="heading_b uk-margin-bottom">DashBoard</h4>				
+			<div class="uk-grid uk-grid-width-small-1-2 uk-grid-width-large-1-3 uk-grid-width-xlarge-1-4 uk-text-center " id="dashboard_sortable_cards" >
+                <div>
+                    <a href="forums.php">
+					<div class="md-card md-card-hover md-card-overlay">
+						<div class="md-card-content">
+	                        <div style="vertical-align: middle; margin-top: 10%; font-size: 3rem">
+                        		<span class="" style=""><span class="countUpMe"><?php echo count(getForums()); ?></span></span>
+                        	</div>	 
+                        </div>
+                        <div class="md-card-overlay-content">
+                            <div class="uk-clearfix md-card-overlay-header">
+                                <i class="md-icon material-icons md-card-overlay-toggler">&#xE5D4;</i>
+                                <h3>
+                                    Forums
+                                </h3>
                             </div>
-	                        <div class="md-card-overlay-content">
-	                            <div class="uk-clearfix md-card-overlay-header">
-	                                <i class="md-icon material-icons md-card-overlay-toggler">&#xE5D4;</i>
-	                                <h3>
-	                                    Customers
-	                                </h3>
-	                            </div>
-	                            Users with CSD accounts out of all system users
-	                            <!-- <p>Current Customers:</p> -->
-								<?php
-									// $sqlClients = $db->query('SELECT * FROM clients');
-									// echo $countClients = mysqli_num_rows($sqlClients);
-								?>
-	                        </div>
-	                    </div>
-						</a>
-	                </div>
+                            <?php echo $row['companyDescription'];?>
+                        </div>
+                    </div>
+                    </a>
+                </div>
 
-					<div>
-						<a href="stocks.php">
-						<div class="md-card md-card-hover md-card-overlay">
-	                        <div class="md-card-content uk-flex uk-flex-center uk-flex-middle">
-	                        	<div class="md-card-content">
-	                        		<div style="margin-top: 55%; font-size: 3rem">
-		                        		<span class="" style=""><span class="countUpMe"><?php $summary = brokerTransactionsSummary($Company->companyId); echo $summary['num']; ?></span></span>
-		                        	</div>	 
-	                        	</div>
-	                        </div>
-	                        <div class="md-card-overlay-content">
-	                            <div class="uk-clearfix md-card-overlay-header">
-	                                <i class="md-icon material-icons md-card-overlay-toggler">&#xE5D4;</i>
-	                                <h3>
-	                                    Transactions
-	                                </h3>
-	                            </div>
-	                            Total Share Value:
-	                            <span>
-	                            	<?php
-									$totalHave ="";												 
-									$totalqty="";
-									$sql = $db->query("SELECT I.`itemId`, I.`itemName`,
-									IFNULL((SELECT SUM(T.`qty`) FROM `transactions` T WHERE `operation`='In' AND T.`itemCode` = I.`itemId`),0) Ins,
-									IFNULL((SELECT SUM(T.`qty`) FROM `transactions` T WHERE `operation`='Out' AND T.`itemCode` = I.`itemId`),0)  Outs,
-									IFNULL((SELECT SUM(T.`qty`) FROM `transactions` T WHERE `operation`='In' AND T.`itemCode` = I.`itemId`),0) -
-									IFNULL((SELECT SUM(T.`qty`) FROM `transactions` T WHERE `operation`='Out' AND T.`itemCode` = I.`itemId`),0)  Balance
-									,I.`unit`, I.`unitPrice`
-									FROM `items1` I WHERE I.itemCompanyCode= '$companyid' ORDER BY Balance DESC");
-									$n=0;
-									$countResults = mysqli_num_rows($sql);
-									if($countResults > 0){
-										WHILE($row= mysqli_fetch_array($sql))
-										{
-											$n++;
-											$qty = $row['Balance'];
-											$up = $row['unitPrice'];
-											$outstanding = $qty * $up;
-											$totalqty = $qty + $totalqty;
-											$totalHave = $outstanding + $totalHave;
-										}
-									}else{
-										$totalHave = 0;
+                <!-- Customers -->
+                <div>
+                    <a href="customers.php?compId=<?php echo $comanyId;?>">
+					<div class="md-card md-card-hover md-card-overlay">
+                        <!-- <div class="md-card-content uk-flex uk-flex-center uk-flex-middle">
+                            <span class="peity_conversions_large peity_data">5,3,9,6,5,9,7</span>
+                        </div> -->
+                        <div class="md-card-content">
+                        	<?php
+                        		$sqlClients = $db->query('SELECT * FROM clients');
+								$countClients = mysqli_num_rows($sqlClients);
+								$countUsers = mysqli_num_rows($db->query('SELECT * FROM uplus.users'));
+                        	?>
+                        	<div style="vertical-align: middle; margin-top: 10%; font-size: 3rem">
+                        		<span class="" style=""><span class="countUpMe"><?php echo $countClients; ?></span>/
+                        		<span><?php echo $countUsers; ?></span></span>
+                        	</div>	                        	
+	                        <!-- <div class="epc_chart" data-percent="53" data-bar-color="#009688">
+                                <span class="epc_chart_text"><span class="countUpMe">53</span>%</span>
+                            </div> -->
+                        </div>
+                        <div class="md-card-overlay-content">
+                            <div class="uk-clearfix md-card-overlay-header">
+                                <i class="md-icon material-icons md-card-overlay-toggler">&#xE5D4;</i>
+                                <h3>
+                                    Customers
+                                </h3>
+                            </div>
+                            Users with CSD accounts out of all system users
+                            <!-- <p>Current Customers:</p> -->
+							<?php
+								// $sqlClients = $db->query('SELECT * FROM clients');
+								// echo $countClients = mysqli_num_rows($sqlClients);
+							?>
+                        </div>
+                    </div>
+					</a>
+                </div>
+
+				<div>
+					<a href="stocks.php">
+					<div class="md-card md-card-hover md-card-overlay">
+                        <div class="md-card-content uk-flex uk-flex-center uk-flex-middle">
+                        	<div class="md-card-content">
+                        		<div style="margin-top: 55%; font-size: 3rem">
+	                        		<span class="" style=""><span class="countUpMe"><?php $summary = brokerTransactionsSummary($Company->companyId); echo $summary['num']; ?></span></span>
+	                        	</div>	 
+                        	</div>
+                        </div>
+                        <div class="md-card-overlay-content">
+                            <div class="uk-clearfix md-card-overlay-header">
+                                <i class="md-icon material-icons md-card-overlay-toggler">&#xE5D4;</i>
+                                <h3>
+                                    Transactions
+                                </h3>
+                            </div>
+                            Total Share Value:
+                            <span>
+                            	<?php
+								$totalHave ="";												 
+								$totalqty="";
+								$sql = $db->query("SELECT I.`itemId`, I.`itemName`,
+								IFNULL((SELECT SUM(T.`qty`) FROM `transactions` T WHERE `operation`='In' AND T.`itemCode` = I.`itemId`),0) Ins,
+								IFNULL((SELECT SUM(T.`qty`) FROM `transactions` T WHERE `operation`='Out' AND T.`itemCode` = I.`itemId`),0)  Outs,
+								IFNULL((SELECT SUM(T.`qty`) FROM `transactions` T WHERE `operation`='In' AND T.`itemCode` = I.`itemId`),0) -
+								IFNULL((SELECT SUM(T.`qty`) FROM `transactions` T WHERE `operation`='Out' AND T.`itemCode` = I.`itemId`),0)  Balance
+								,I.`unit`, I.`unitPrice`
+								FROM `items1` I WHERE I.itemCompanyCode= '$companyid' ORDER BY Balance DESC");
+								$n=0;
+								$countResults = mysqli_num_rows($sql);
+								if($countResults > 0){
+									WHILE($row= mysqli_fetch_array($sql))
+									{
+										$n++;
+										$qty = $row['Balance'];
+										$up = $row['unitPrice'];
+										$outstanding = $qty * $up;
+										$totalqty = $qty + $totalqty;
+										$totalHave = $outstanding + $totalHave;
 									}
-									echo number_format($totalHave);
-									?>  Rwf
-								</span>
-								Total ROI: 0 Rwf
-	                        </div>
-	                    </div>
-						</a>
-					</div>
-	            
-	                
-		            <div>
-	                    <div class="md-card md-card-hover md-card-overlay">
-	                        <div class="md-card-content">
-	                            <div class="epc_chart" data-percent="53" data-bar-color="#009688">
-	                                <span class="epc_chart_text"><span class="countUpMe">53</span>%</span>
-	                            </div>
-	                        </div>
-	                        <div class="md-card-overlay-content">
-	                            <div class="uk-clearfix md-card-overlay-header">
-	                                <i class="md-icon material-icons md-card-overlay-toggler">&#xE5D4;</i>
-	                                <h3>
-	                                    Engagement
-	                                </h3>
-	                            </div>
-	                            <p>Feeds View: 11,340</p>
-	                            <p>Feeds Likes: 783</p>
-	                        </div>
-	                    </div>
-	                </div>
-	            </div>
+								}else{
+									$totalHave = 0;
+								}
+								echo number_format($totalHave);
+								?>  Rwf
+							</span>
+							Total ROI: 0 Rwf
+                        </div>
+                    </div>
+					</a>
+				</div>
+            
+                
+	            <div>
+                    <div class="md-card md-card-hover md-card-overlay">
+                        <div class="md-card-content">
+                            <div class="epc_chart" data-percent="53" data-bar-color="#009688">
+                                <span class="epc_chart_text"><span class="countUpMe">53</span>%</span>
+                            </div>
+                        </div>
+                        <div class="md-card-overlay-content">
+                            <div class="uk-clearfix md-card-overlay-header">
+                                <i class="md-icon material-icons md-card-overlay-toggler">&#xE5D4;</i>
+                                <h3>
+                                    Engagement
+                                </h3>
+                            </div>
+                            <p>Feeds View: 11,340</p>
+                            <p>Feeds Likes: 783</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
 	            <!-- tasks -->
 	            <div class="uk-grid" data-uk-grid-margin data-uk-grid-match="{target:'.md-card-content'}">
 	                <div class="uk-width-medium-1-3">
@@ -249,14 +238,7 @@
                             </div>
                         </div>
 	                </div>
-	            </div>
-			<?php
-				}
-				}
-				else{
-					echo'<a href="javascript:void()" onclick="addcomp()">ADD A COMPANY</a>';
-				}
-			?>							 
+	            </div>						 
 	    </div>
 	</div>
 </div>

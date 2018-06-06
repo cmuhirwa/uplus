@@ -34,8 +34,6 @@
 		$user_profile = $row["profile_picture"];
 		$account_type = $row["account_type"];
 
-		var_dump($account_type);
-
 		if($account_type =='admin')
 		{
 			header("location: admin.php");
@@ -44,6 +42,7 @@
 			//getting brokerage company
 			$query = $db->query("SELECT * FROM broker_user WHERE userCode = \"$thisid\" AND archived = 'NO' LIMIT 1 ") or trigger_error($db->error);
 			$Broker = $query->fetch_assoc();
+			$currentCompanyId = $Broker['companyId'];
 		}else if ($account_type == 'bank') {
 			$query = $db->query("SELECT * FROM broker_user WHERE userCode = \"$thisid\" AND archived = 'NO' LIMIT 1 ") or trigger_error($db->error);
 			$Banker = $Broker = $query->fetch_assoc();
