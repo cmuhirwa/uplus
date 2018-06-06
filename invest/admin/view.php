@@ -31,8 +31,9 @@ if($viewid = $_GET['viewid'])
 		$title = $row['title'];
 
 		$clientId = $client['userCode'];
+		$userData = $User->details($clientId);
 					
-		$names = $row['names'];
+		$names = $userData['name'];
 		$dob = $row['dob'];
 		$gender = $row['gender'];			
 		$nidPassport = $row['NID'];
@@ -62,10 +63,12 @@ if($viewid = $_GET['viewid'])
 	
 	$fax = $row['fax'];
 	
-	$bankName = $row['bankName'];
-	$branch = $row['branch'];
+	// $bankName = $row['bankName'];
+	// $branch = $row['branch'];
 	$accountNumber = $row['accountNumber'];
 	$csdAccount= $row['csdAccount'];
+
+	$clientService = $row['service'];
 }
 ?>
 	<style>
@@ -86,10 +89,24 @@ if($viewid = $_GET['viewid'])
 					<tr>
 						<td width="10%"><img src="../assets/images/bnr.jpg"></td>
 						<td width="65%">
-							<center >
-								<h2><b>Central Securities Depository - Nigeria</h2>
-								<h4>Securities Account Opening/Update Form - Individuals: No <b><?php echo $csdAccount??"Pending"; ?></b></h4>
-							</center>
+							<?php
+								if($clientService == 'bank'){
+									?>
+									<center >
+										<h2><b>Bank Acount Opening</h2>
+										<h4>Bank Account Opening/Update Form - Individuals: No <b><?php echo $csdAccount??"Pending"; ?></b></h4>
+									</center>	
+									<?php
+								}else{
+									?>
+									<center >
+										<h2><b>Central Securities Depository - Nigeria</h2>
+										<h4>Securities Account Opening/Update Form - Individuals: No <b><?php echo $csdAccount??"Pending"; ?></b></h4>
+									</center>	
+									<?php
+								}
+							?>
+									
 						</td>
 						<td width="15%">
 						    <div style="
@@ -175,10 +192,23 @@ if($viewid = $_GET['viewid'])
 							<tr>
 								<td width="10%"><img src="../assets/images/bnr.jpg"></td>
 								<td width="65%">
-									<center >
-										<h2><b>Central Securities Depository - Rwanda</h2>
-										<h4>Securities Account Opening/Update Form - Groups: No <b><?php echo $csdAccount??"Pending"; ?></b></h4>
-									</center>
+									<?php
+										if($clientService == 'bank'){
+											?>
+										<center >
+											<h2><b>Bank Acount Opening</h2>
+											<h4>Bank Account Opening/Update Form - Groups: No <b><?php echo $csdAccount??"Pending"; ?></b></h4>
+										</center>
+									<?php
+										}else{
+											?>
+												<center >
+													<h2><b>Central Securities Depository - Rwanda</h2>
+													<h4>Securities Account Opening/Update Form - Groups: No <b><?php echo $csdAccount??"Pending"; ?></b></h4>
+												</center>
+											<?php
+										}
+									?>
 								</td>
 								<td width="15%">
 
