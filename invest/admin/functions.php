@@ -458,18 +458,27 @@
 		return $forums;
 	}
 
-	function forumFeeds($forum)
+	function forumFeeds($forum, $memberId = '', $fromFeedId='')
 	{
-		//function to return the posts in the forum
-		global $db;
-		$query = $db->query("SELECT *, feeds.id as fid, (SELECT COUNT(*) FROM feed_likes WHERE feedCode = feeds.id) as nlikes, (SELECT COUNT(*) FROM feed_comments  WHERE feedCode = feeds.id) as ncomments FROM feeds WHERE feeds.feedForumId= \"$forum\" ORDER BY createdDate DESC ") or trigger_error("sdsd".$db->error, E_USER_ERROR);
+		//function to return the posts in the forum and if $fromFeedId is specified we start from there
+		global $investDb;
+
+		//defining fromfeedclause
+		$feedq = 1;
+		if($fromFeedId){
+			$feedq = "feeds.id > $fromFeedId";
+		}
+
+		$sql = "SELECT feeds.*, feeds.id as fid, U.name as feedByName, (SELECT COUNT(*) FROM feed_likes WHERE feedCode = feeds.id) as nlikes, (SELECT COUNT(*) FROM feed_comments  WHERE feedCode = feeds.id) as ncomments, (SELECT COUNT(*) FROM investments.feed_likes WHERE feedCode = id AND userCode = '$memberId') as liked FROM feeds JOIN uplus.users U ON U.id = feeds.createdBy WHERE feeds.feedForumId= \"$forum\" AND $feedq ORDER BY feeds.createdDate DESC ";
+
+		$query = $investDb->query($sql) or trigger_error("sdsd".$investDb->error, E_USER_ERROR);
 
 		$posts = array();
 
 		while ($data = $query->fetch_assoc()) {
 
 			//getting post attachments
-			$attq = $db->query("SELECT imgUrl FROM investmentimg WHERE investCode = $data[fid]") or trigger_error($investDb->error);
+			$attq = $investDb->query("SELECT imgUrl FROM investmentimg WHERE investCode = $data[fid]") or trigger_error($investDb->error);
 
 			$att = array();
 			while ( $attData = $attq->fetch_assoc()) {

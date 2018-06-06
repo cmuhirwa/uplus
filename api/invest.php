@@ -159,6 +159,61 @@
 		$feeds = json_encode($feeds);
 		echo $feeds;
 	}
+	function loadMoreFeeds()
+	{
+		require('db.php');
+		require_once('../invest/admin/db.php');
+		require_once('../invest/admin/functions.php');
+		$memberId	= $investDb->real_escape_string($_POST['memberId']??"");
+		$forum = $investDb->real_escape_string($_POST['forumId']??"");
+		$lastFeed = $investDb->real_escape_string($_POST['lastFeedId']??"");
+
+		$all_feeds = forumFeeds($forum, $memberId, $lastFeed);
+
+		var_dump($all_feeds);
+
+		// $sql = $investDb->query("SELECT F.id feedId, F.feedForumId, (SELECT COUNT(*) FROM feed_likes WHERE feedCode = F.id) as nlikes, (SELECT COUNT(*) FROM feed_likes WHERE feedCode = F.id AND userCode = '$memberId') as liked, (SELECT COUNT(*) FROM feed_comments  WHERE feedCode = F.id) as comments, F.feedTitle, U.name feedBy, U.userImage feedByImg, F.createdDate feedDate,F.feedContent FROM investments.feeds F INNER JOIN uplus.users U ON F.createdBy = U.id")or die(mysqli_error($investDb));
+		$feeds = array();
+
+		for ($n=0; $n<count($all_feeds); $n++)
+		{
+			$row = $all_feeds[$n];
+			//liked status of the user
+			$liked = $row['liked']==0?"NO":"YES";
+			$feeds[] = array(
+				"feedId"		=> $row['id'],
+				"feedForumId"	=> $row['feedForumId'],
+				"feedTitle"		=> $row['feedTitle']??"",
+				"feedById"		=> $row['createdBy'],
+				"feedBy"		=> $row['feedByName'],
+				"feedByImg"		=> $row['feedByImg']??"",
+				"feedLikes"		=> $row['nlikes'],
+				"feedLikeStatus"=> $liked,
+				"feedComments" 	=> $row['ncomments'],
+				"feedDate"		=> $row['createdDate'],
+				"feedContent"	=> $row['feedContent'],
+			);
+		}
+
+		//getting forum images
+		foreach ($feeds as $i => $feed) 
+		{
+			$feedId 	= $feed['feedId'];
+			$images 	= array();
+            $sql 		= $investDb->query("SELECT `imgUrl` FROM `investmentimg` WHERE `investCode` = '$feedId'")or die (mysqli_error($investDb));
+            while($rowImage = mysqli_fetch_array($sql))
+            {
+                $images[]  = array(
+                    "imgUrl"         => $rowImage['imgUrl']
+                );
+            }
+            $feeds[$i]['feedImage'] = $images;
+		}
+		
+        mysqli_close($db);
+        mysqli_close($eventDb);;
+		echo json_encode($feeds);
+	}
 
 	function likeFeed()
 	{

@@ -43,6 +43,24 @@ link: https://uplus.rw/api/invest.php
 			feedDate
 			feedContent
 			feedImage
+	loadMoreFeeds
+		->
+			memberId
+			forumId
+			lastFeeedId
+		<-
+			feedId
+			feedForumId
+			feedTitle
+			feedBy
+			feedById
+			feedByImg
+			feedLikes
+			feedLikeStatus
+			feedComments
+			feedDate
+			feedContent
+			feedImage
 	likeFeed
 		->
 			userId
