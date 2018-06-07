@@ -97,16 +97,18 @@ ini_set('display_errors', 1);
 					<div class="uk-margin-bottom uk-width-medium-1-3">
 						<div class="md-card">
 							<div class="md-card-content">
+								<?php
+									$filterForum = $_GET['forum']??"";
+								?>
 								<h3 class="heading_c uk-margin-medium-bottom">Filter Feeds</h3>
 								<div class="posts_filter">
+									<li><a href="feeds.php" style="<?php if($filterForum) echo "color:inherit"; ?>">All</a></li>
 									<?php
 										foreach ($forums as $key => $forum) {
+											$forumId = $forum['id'];
 											?>
-												<p>
-													<!-- <input type="radio" name="radio_demo" data-forum_id = "<?php echo $forum['id'] ?>" id="radio_demo_2" class="filter-elem" data-md-icheck /> -->
-													<a href="feeds.php?forum=<?php echo $forum['id'] ?>" style='color: inherit;'><?php echo $forum['title'] ?></a>
-													<!-- <label for="radio_demo_2" class="inline-label"><?php echo $forum['title'] ?></label> -->
-												</p>
+												<li>
+													<a href="feeds.php?forum=<?php echo $forumId; ?>" style='<?php if($filterForum != $forumId) echo "color:inherit"; ?>'><?php echo $forum['title'] ?></a>
 											<?php
 										}
 									?>
