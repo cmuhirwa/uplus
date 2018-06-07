@@ -103,8 +103,9 @@ ini_set('display_errors', 1);
 										foreach ($forums as $key => $forum) {
 											?>
 												<p>
-													<input type="radio" name="radio_demo" data-forum_id = "<?php echo $forum['id'] ?>" id="radio_demo_2" class="filter-elem" data-md-icheck />
-													<label for="radio_demo_2" class="inline-label"><?php echo $forum['title'] ?></label>
+													<!-- <input type="radio" name="radio_demo" data-forum_id = "<?php echo $forum['id'] ?>" id="radio_demo_2" class="filter-elem" data-md-icheck /> -->
+													<a href="feeds.php?forum=<?php echo $forum['id'] ?>" style='color: inherit;'><?php echo $forum['title'] ?></a>
+													<!-- <label for="radio_demo_2" class="inline-label"><?php echo $forum['title'] ?></label> -->
 												</p>
 											<?php
 										}
@@ -118,7 +119,15 @@ ini_set('display_errors', 1);
 				<!-- Posted feeds -->
 				<div class="uk-grid" data-uk-grid-margin="">
 					<?php
-						$posts = listFeeds($thisid);
+
+						$filterForum  = $_GET['forum']??"";
+						if($filterForum){
+							$posts = forumFeeds($filterForum, $thisid);
+						}else{
+							$posts = listFeeds($thisid);
+						}
+
+						
 						foreach ($posts as $key => $post) {
 							$post_title = $post['feedTitle'];
 							$post_content = $post['feedContent'];
