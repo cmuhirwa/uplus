@@ -126,9 +126,10 @@
 	function gmailSignup()
 	{
 		require('db.php');
-		$email	= mysqli_real_escape_string($db, $_POST['gmailAccount']);
-		$phone = $db->real_escape_string($_POST['phoneNumber']??"");
+		$email	= mysqli_real_escape_string($db, $_POST['email']);
+		$phone = $db->real_escape_string($_POST['phoneNumber']??""); ##optional
 		$name = $db->real_escape_string($_POST['name']);
+		$token = $db->real_escape_string($_POST['token']); #firebase token
 		$picture = $db->real_escape_string($_POST['picture']);
 
 		//CLEAN PHONE
@@ -166,7 +167,7 @@
 			}
 			$sql 			= $db->query("UPDATE users SET password = '$code' WHERE id = '$userId'")or die(mysqli_error($db));
 			$signInfo = array(
-		   		"pin"        => $code,
+		   		"pin"        => "",
 		   		"userId"     => $userId,
 		   		"userName"   => $profileName,
 				"csdAccount" => $csdAccount??""
@@ -176,33 +177,22 @@
 		{
 			//Creating user
 			$createUserQuery = $db->query("INSERT INTO `users`(name,
-			phone, email, active, createdDate, password, visits, updatedBy, updatedDate) 
-			VALUES(\"$name\", '$phoneNumber', \"$email\", '0', now(), '$code', '0', '1', now())") or die (mysqli_error());
+			phone, email, token, active, createdDate, password, visits, updatedBy, updatedDate) 
+			VALUES(\"$name\", '$phoneNumber', \"$email\", \"$token\", '0', now(), '$code', '0', '1', now())") or die (mysqli_error());
 
 				$signInfo = array(
-			   		"pin"        => $code,
+			   		"pin"        => "",
 			   		"userId"     => $db->insert_id,
 			   		"userName"   => $name,
 			   		"csdAccount"   => ""
 			   	);
 		}
 
-		$message = "Dear $name, use $code to login to uplus";
-		
-		if($signInfo)
-		{
-			// sleep(3);
-			mysqli_close($db);
-			mysqli_close($outCon);
-		
-			header('Content-Type: application/json');
-			$signInfo = json_encode($signInfo);
-			echo '['.$signInfo.']';
-		}
-		else
-		{
-			echo 'System error';
-		}
+		header('Content-Type: application/json');
+		$signInfo = json_encode($signInfo);
+		echo '['.$signInfo.']';
+
+		// $message = "Dear $name, use $code to login to uplus";
 	}
 
 	function updateProfile()

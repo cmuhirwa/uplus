@@ -9,6 +9,18 @@ UPLUS API V1.1 DOCUMENTATION
 			userId
 			userName
 
+	gmailSignup
+		->
+			email
+			name
+			token
+			picture
+			phoneNumber - optional
+		<-
+			pin
+			userId
+			userName
+
 	updateProfile
 		->
 			userId
