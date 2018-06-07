@@ -637,13 +637,30 @@ if($viewid = $_GET['viewid'])
 		message = $("#denialMessage").val();
 		csdClientId = $("#csdClientId").val();
 
-		$.post('../../api/invest.php', {action:'declineCSD', accountUser:csdClientId, message:message, approvedBy:current_user}, function(data){
-			if(data == 'Done'){
-				location.reload();
+		<?php
+			if($clientService == 'bank'){
+				?>
+					$.post('../../api/invest.php', {action:'declineBankACC', accountUser:csdClientId, message:message, approvedBy:current_user}, function(data){
+						if(data == 'Done'){
+							location.reload();
+						}else{
+							alert("Error Declining the Bank account opening request")
+						}
+					})
+				<?php
 			}else{
-				alert("Error Declining the CSD request")
+				?>
+					$.post('../../api/invest.php', {action:'declineCSD', accountUser:csdClientId, message:message, approvedBy:current_user}, function(data){
+						if(data == 'Done'){
+							location.reload();
+						}else{
+							alert("Error Declining the CSD request")
+						}
+					})
+				<?php
 			}
-		})
+
+		?>
 	});
 
 	//submitting feed comment

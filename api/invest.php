@@ -674,12 +674,67 @@
 			if($query->num_rows){
 				//here user is a  broker we can now assign the CSD
 				$investDb->query("UPDATE clients SET status = 'declined', statusBy = \"$doneBy\", statusOn = NOW() WHERE id = \"$user\" ") or trigger_error($db->error);
+
+				//Client data for messaging
+				$clientData = checkClient($user);
+				$userId = $clientData['userCode'];
+
+				if($userId){
+					//get user details
+					$userData = $User->details($userId);
+					$userphone = $userData['phone'];
+					$feedBankMessage = "Dear $userData[name], Your CSD account request was not approved with reason: $message";
+					sendsms($userphone, $feedBankMessage);
+				}
+
 				$response = "Done";
 			}else{
 				$response = "Failed";
 			}
 		}else{
 			$response = "Failed";
+		}
+		echo json_encode($response);
+	}
+
+	function declineBankACC()
+	{
+		//banker is going to decline the CSD request
+		require 'db.php';
+		require '../invest/admin/functions.php';
+		require '../scripts/class.user.php';
+		$request = $_POST;
+
+		$doneBy = $request['approvedBy']??"";
+		$user = $request['accountUser']??"";
+		$message = $request['message']??"";
+
+		if($user && $doneBy){
+			//checking id the user is a banker
+			$query = $investDb->query("SELECT * FROM users WHERE id = \"$doneBy\" AND account_type = 'bank' LIMIT 1 ") or trigger_error($db->error);
+			if($query->num_rows){
+				//here user is a  banker we can now assign the Bank account
+				$investDb->query("UPDATE clients SET status = 'declined', statusBy = \"$doneBy\", statusOn = NOW() WHERE id = \"$user\" ") or trigger_error($db->error);
+
+
+				//Client data for messaging
+				$clientData = checkClient($user);
+				$userId = $clientData['userCode'];
+
+				if($userId){
+					//get user details
+					$userData = $User->details($userId);
+					$userphone = $userData['phone'];
+					$feedBankMessage = "Dear $userData[name], Your bank account request was not approved with reason: $message";
+					sendsms($userphone, $feedBankMessage);
+				}
+
+				$response = "Done";
+			}else{
+				$response = "Failed 1";
+			}
+		}else{
+			$response = "Failed 2";
 		}
 		echo json_encode($response);
 	}
