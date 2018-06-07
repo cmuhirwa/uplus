@@ -1,11 +1,17 @@
 <?php
 // START INITIATE
 	include ("db.php");
-	// var_dump($_SERVER["REQUEST_METHOD"]);
 	if ($_SERVER["REQUEST_METHOD"] == "POST") 
 	{
 		if(isset($_POST['action']))
 		{
+
+			//Logging
+			//keep api request log for debuggin
+		   $f = fopen("logs/uplus.txt", 'a') or die("Unable to open file!");;
+		   fwrite($f, json_encode($_POST)."\n\n");
+		   fclose($f);
+
 			$_POST['action']();
 		}
 		else
@@ -206,6 +212,7 @@
 		$userId				= mysqli_real_escape_string($db, $_POST['userId']);
 		$userName			= mysqli_real_escape_string($db, $_POST['userName']);
 		$userImage			= mysqli_real_escape_string($db, $_POST['userImage']);
+
 		// GET THE VISITS
 		$sql = $db->query("SELECT visits FROM users WHERE id = '$userId'");
 		$rowVisit = mysqli_fetch_array($sql);
