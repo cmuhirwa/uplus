@@ -44,17 +44,7 @@
 
 		
 		//GET CSD ACCOUNT
-		$sqlCsd = $investDb->query("SELECT * FROM clients WHERE telephone = '$phoneNumber' LIMIT 1");
-		$countScd = mysqli_num_rows($sqlCsd);
-		if($countScd > 0)
-		{
-			$row = mysqli_fetch_array($sqlCsd);
-			$csdAccount = $row['csdAccount'];	
-		}
-		else
-		{
-			$csdAccount = "";
-		}
+		$csdAccount = ""; //It'll change after getting the userId
 
 		//CHECK IF THE USER ALREADY EXISTS
 		$sqlcheckPin 	= $db->query("SELECT *  FROM users WHERE phone = '$phoneNumber' LIMIT 1");
@@ -72,6 +62,15 @@
 					$profileName = "";
 				}
 				$sql 			= $db->query("UPDATE users SET password = '$code' WHERE id = '$userId'")or die(mysqli_error($db));
+
+
+				//Checking the CSD
+				$csdQuery = $investDb->query("SELECT * FROM clients WHERE userCode = $userId AND status = 'approved'");
+				if($csdQuery && $csdQuery->num_rows){
+					$csdData = $csdQuery->fetch_assoc();
+					$csdAccount = $csdData['csdAccount'];
+				}
+
 				$signInfo = array(
 			   		"pin"        => $code,
 			   		"userId"     => $userId,
