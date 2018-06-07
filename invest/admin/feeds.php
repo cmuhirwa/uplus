@@ -95,8 +95,8 @@ ini_set('display_errors', 1);
 						</div>
 					</div>
 					<div class="uk-margin-bottom uk-width-medium-1-3">
-						<div class="md-card">
-							<div class="md-card-content">
+						<div class="md-card" id="filterForum">
+							<div class="md-card-content" style="position: fixed;">
 								<?php
 									$filterForum = $_GET['forum']??"";
 								?>
