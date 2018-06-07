@@ -49,6 +49,7 @@
 		{
 			$csdAccount = "";
 		}
+
 		//CHECK IF THE USER ALREADY EXISTS
 		$sqlcheckPin 	= $db->query("SELECT *  FROM users WHERE phone = '$phoneNumber' LIMIT 1");
 		$countPin 		= mysqli_num_rows($sqlcheckPin);
@@ -104,6 +105,88 @@
 		if($httpcode == 200)
 		{
 			sleep(3);
+			mysqli_close($db);
+			mysqli_close($outCon);
+		
+			header('Content-Type: application/json');
+			$signInfo = json_encode($signInfo);
+			echo '['.$signInfo.']';
+		}
+		else
+		{
+			echo 'System error';
+		}
+	}
+
+	function gmailSignup()
+	{
+		require('db.php');
+		$email	= mysqli_real_escape_string($db, $_POST['gmailAccount']);
+		$phone = $db->real_escape_string($_POST['phoneNumber']??"");
+		$name = $db->real_escape_string($_POST['name']);
+		$picture = $db->real_escape_string($_POST['picture']);
+
+		//CLEAN PHONE
+		// $phoneNumber 	= preg_replace( '/[^0-9]/', '', $phoneNumber );
+		// $phoneNumber 	= substr($phoneNumber, -10); 
+
+		
+		//GET CSD ACCOUNT
+		// $sqlCsd = $investDb->query("SELECT * FROM clients WHERE telephone = '$phoneNumber' LIMIT 1");
+		// $countScd = mysqli_num_rows($sqlCsd);
+		// if($countScd > 0)
+		// {
+		// 	$row = mysqli_fetch_array($sqlCsd);
+		// 	$csdAccount = $row['csdAccount'];	
+		// }
+		// else
+		// {
+		// 	$csdAccount = "";
+		// }
+
+
+		//CHECK IF THE USER ALREADY EXISTS
+		$sqlcheckPin 	= $db->query("SELECT *  FROM users WHERE email = '$email' LIMIT 1");
+		$code 			= rand(1000, 9999);
+		$signInfo 		= array();
+
+		if($sqlcheckPin->num_rows > 0)
+		{
+			//here user with email exists
+			$rowpin = mysqli_fetch_array($sqlcheckPin);
+			$profileName	= $rowpin['name'];
+			$userId			= $rowpin['id'];
+			if($profileName == "NULL" || $profileName == "null" || $profileName == null){
+				$profileName = "";
+			}
+			$sql 			= $db->query("UPDATE users SET password = '$code' WHERE id = '$userId'")or die(mysqli_error($db));
+			$signInfo = array(
+		   		"pin"        => $code,
+		   		"userId"     => $userId,
+		   		"userName"   => $profileName,
+				"csdAccount" => $csdAccount??""
+		   );
+		}
+		else
+		{
+			//Creating user
+			$createUserQuery = $db->query("INSERT INTO `users`(name,
+			phone, email, active, createdDate, password, visits, updatedBy, updatedDate) 
+			VALUES(\"$name\", '$phoneNumber', \"$email\", '0', now(), '$code', '0', '1', now())") or die (mysqli_error());
+
+				$signInfo = array(
+			   		"pin"        => $code,
+			   		"userId"     => $db->insert_id,
+			   		"userName"   => $name,
+			   		"csdAccount"   => ""
+			   	);
+		}
+
+		$message = "Dear $name, use $code to login to uplus";
+		
+		if($signInfo)
+		{
+			// sleep(3);
 			mysqli_close($db);
 			mysqli_close($outCon);
 		
