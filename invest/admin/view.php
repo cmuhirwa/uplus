@@ -461,13 +461,13 @@ if($viewid = $_GET['viewid'])
 	<div class="uk-modal" id="approve_csd_modal" aria-hidden="true" style="display: none; overflow-y: auto;">
 		<div class="uk-modal-dialog" style="top: 339.5px;">
 			<div class="uk-modal-header uk-tile uk-tile-default">
-				<h3 class="d_inline">Approve CSD Account Request</h3>
+				<h3 class="d_inline">Approve <?php if($clientService == 'bank'){echo 'Bank';}else{echo "CSD";} ?> Account Request</h3>
 			</div>
 			<form id="csdRequest" method="POST" enctype="multipart/form-data">				
 				<div class="md-card">
 					<div class="md-card-content">
 						<div class="md-input-wrapper md-input-filled">
-							<label>CSD Account Number</label>
+							<label><?php if($clientService == 'bank'){echo 'Bank';}else{echo "CSD";} ?> Account Number</label>
 							<input type="text" name="forumtitle" id="csd_account_input" class="md-input" required="required">
 							<span class="md-input-bar "></span>
 						</div>
@@ -596,20 +596,40 @@ if($viewid = $_GET['viewid'])
     </script>
 <script>
 	const current_user = <?php echo $thisid; ?>;
+
 	$("#csdRequest").on('submit', function(e){
 
 		e.preventDefault();
 		csd_account = $("#csd_account_input").val();
 		csdClientId = $("#csdClientId").val();
 
-
-		$.post('../../api/invest.php', {action:'approveCSD', CSDAccount:csd_account, clientId:csdClientId, approvedBy:current_user}, function(data){
-			if(data == 'Done'){
-				location.reload();
+		<?php
+			if($clientService == 'bank'){
+				?>
+					$.post('../../api/invest.php', {action:'approveBankACC', account:csd_account, clientId:csdClientId, approvedBy:current_user}, function(data){
+						if(data == 'Done'){
+							location.reload();
+						}else{
+							alert("Error approving the Bank account request")
+						}
+					})
+				<?php
 			}else{
-				alert("Error approving the CSD request")
+				?>
+					$.post('../../api/invest.php', {action:'approveCSD', CSDAccount:csd_account, clientId:csdClientId, approvedBy:current_user}, function(data){
+						if(data == 'Done'){
+							location.reload();
+						}else{
+							alert("Error approving the CSD request")
+						}
+					})
+				<?php
 			}
-		})
+
+		?>
+
+
+				
 	});
 
 	$("#denyCSDform").on('submit', function(e){

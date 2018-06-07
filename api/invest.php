@@ -534,7 +534,7 @@
 		require '../scripts/class.group.php';
 		$request = $_POST;
 
-		$csd = $request['CSDAccount']??"";
+		$csd = $request['CSDAccount']??""; #for bank service this is also bank account but no time for gramma
 		$doneBy = $request['approvedBy']??"";
 		$clientId = $request['clientId']??"";
 
@@ -576,6 +576,73 @@
 					if($userphone){
 						//Sending the message to the user					
 						$message = "Dear $clientName, your csd account has been approved with account number: $csd in $brokerData[companyName] broker, you can now start investing today";
+
+						sendsms($userphone, $message);
+					}
+				}
+				$response = "Done";
+			}else{
+				$response = "Failed";
+			}
+		}else{
+			$response = "Failed";
+		}
+
+		echo json_encode($response);
+	}
+
+	function approveBankACC()
+	{
+		//banker approves the bank acc request
+		require 'db.php';
+		require '../invest/admin/functions.php';
+		require '../scripts/class.group.php';
+		$request = $_POST;
+
+		$account = $request['account']??"";
+		$doneBy = $request['approvedBy']??"";
+		$clientId = $request['clientId']??"";
+
+		//Cient data
+		$clientData = checkClient($clientId);
+
+		if($clientData && $account && $doneBy){
+			//client exists
+			$clientType = $clientData['clientType'];
+			
+			//checking id the user is a broker
+			$query = $investDb->query("SELECT * FROM users WHERE id = \"$doneBy\" AND account_type = 'bank' LIMIT 1 ") or trigger_error($investDb->error);
+
+			if($query->num_rows){
+				//User doing this is a bank associate we can assign account
+				$investDb->query("UPDATE clients SET accountNumber = \"$account\", status = 'approved', statusBy = \"$doneBy\", statusOn = NOW() WHERE id = \"$clientId\" ") or trigger_error($db->error);
+
+				//broker data
+				$brokerQ = $investDb->query("SELECT C.companyName FROM broker_user B JOIN company C ON B.companyId = C.companyId WHERE B.userCode = '$doneBy'");
+				$brokerData = $brokerQ->fetch_assoc();
+
+				if($clientType == 'group'){
+					$groupId = $clientData['groupCode'];
+					$groupData = $Group->details($groupId);
+					$groupName = $groupData['groupName'];
+
+					//getting group admin's phone
+					$adminPhone = $groupData['adminPhone'];
+					if($adminPhone){
+						//Sending the message to the user					
+						$message = "Dear admin of $groupName, Bank account for your group has been approved with account number: $account in $brokerData[companyName], you can now start banking today";
+						sendsms($adminPhone, $message);
+					}
+
+				}else{
+					$userId = $clientData['userCode'];
+					$userData = user_details($userId);
+					$userphone = $userData['phone'];
+
+					$clientName = $userData['names'];
+					if($userphone){
+						//Sending the message to the user					
+						$message = "Dear $clientName, your Bank account has been approved with account number: $account in $brokerData[companyName], you can now start banking today";
 
 						sendsms($userphone, $message);
 					}
