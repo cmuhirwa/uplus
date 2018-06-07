@@ -639,7 +639,7 @@
 					$userData = user_details($userId);
 					$userphone = $userData['phone'];
 
-					$clientName = $userData['names'];
+					$clientName = $userData['name'];
 					if($userphone){
 						//Sending the message to the user					
 						$message = "Dear $clientName, your Bank account has been approved with account number: $account in $brokerData[companyName], you can now start banking today";
