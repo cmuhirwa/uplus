@@ -404,34 +404,45 @@
 	{
 		// user requesting CSD account
 		require 'db.php';
+		require_once('../invest/admin/functions.php');
+
 		$request = $_POST;
 		$title = $request['tilte']??'';
 
 		$userId = $request['userId']??"";
 		if($userId){
 			//here we fetch details from app
-			$query = $db->query("SELECT * FROM uplus.users WHERE id = \"$userId\" ");
-			$userData = $query->fetch_assoc();
+			$userData = user_details($userId);
 
-			$gender = $userData['gender']??"Male";
-			if (!$gender) {
-				$gender = 'Male';
-			}
+			#checking if the user has already asked for the investment account
+			$investData  = checkClientUser($userId, 'invest');
+			$csdAccount = getUserCSD($userId);
 
-			$dob = date("Y-m-d", strtotime($request['dateOfBirth']??""));
-			$nationality = $request['nationality']??"";
-			$NID = $request['NID']??"";
-			$passport = $request['passport']??"";
-			$country = $request['country']??"";
-			$city = $request['city']??"";
-
-			if($gender && $dob && $nationality){
-				$query = $investDb->query("INSERT INTO clients(userCode, dob, gender, NID, residentIn, nationality, country, city, status, statusOn) VALUES(\"$userId\", \"$dob\", \"$gender\", \"$NID\", \"$nationality\", \"$nationality\", 'Rwanda', 'Kigali', 'pending', NOW()) ") OR trigger_error($investDb->error);
-				$response = 'Done';
+			if($investData){
+				//here the user has asked the the CSD already
+				if($investData['status'] != 'declined'){
+					$response = "Already opened account, $csdAccount";
+				}
 			}else{
-				$response =  "Failed";
-			}			
+				$gender = $userData['gender']??"Male";
+				if (!$gender) {
+					$gender = 'Male';
+				}
 
+				$dob = date("Y-m-d", strtotime($request['dateOfBirth']??""));
+				$nationality = $request['nationality']??"";
+				$NID = $request['NID']??"";
+				$passport = $request['passport']??"";
+				$country = $request['country']??"";
+				$city = $request['city']??"";
+
+				if($gender && $dob && $nationality){
+					$query = $investDb->query("INSERT INTO clients(userCode, dob, gender, NID, residentIn, nationality, city, status, statusOn, service) VALUES(\"$userId\", \"$dob\", \"$gender\", \"$NID\", \"$nationality\", \"$country\", \"$city\", 'pending', NOW(), 'invest') ") OR trigger_error($investDb->error);
+					$response = 'Done';
+				}else{
+					$response =  "Failed";
+				}
+			}
 		}else{
 			$response = 'Failed';
 		}
