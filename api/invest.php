@@ -413,30 +413,29 @@
 			$query = $db->query("SELECT * FROM uplus.users WHERE id = \"$userId\" ");
 			$userData = $query->fetch_assoc();
 
-			$names = $userData['name'];
-			$phone = $userData['phone']; 
+			$gender = $userData['gender']??"Male";
+			if (!$gender) {
+				$gender = 'Male';
+			}
+
+			$dob = date("Y-m-d", strtotime($request['dateOfBirth']??""));
+			$nationality = $request['nationality']??"";
+			$NID = $request['NID']??"";
+			$passport = $request['passport']??"";
+			$country = $request['country']??"";
+			$city = $request['city']??"";
+
+			if($gender && $dob && $nationality){
+				$query = $investDb->query("INSERT INTO clients(userCode, dob, gender, NID, residentIn, nationality, country, city, status, statusOn) VALUES(\"$userId\", \"$dob\", \"$gender\", \"$NID\", \"$nationality\", \"$nationality\", 'Rwanda', 'Kigali', 'pending', NOW()) ") OR trigger_error($investDb->error);
+				$response = 'Done';
+			}else{
+				$response =  "Failed";
+			}			
 
 		}else{
-			$names = $request['names']??"";
-			$phone = $request['phone']??"";
-			$gender = $request['gender']??"";
+			$response = 'Failed';
 		}
-
-		$gender = $request['gender']??"";
 		
-		$dob = date("Y-m-d", strtotime($request['dateOfBirth']??""));
-		$nationality = $request['nationality']??"";
-		$NID = $request['NID']??"";
-		$passport = $request['passport']??"";
-		$country = $request['country']??"";
-		$city = $request['city']??"";
-
-		if($names && $phone && $gender && $dob && $nationality){
-			$query = $investDb->query("INSERT INTO clients(names, dob, gender, telephone, NID, residentIn, nationality, country, city, status, statusOn) VALUES(\"$names\", \"$dob\", \"$gender\", \"$phone\", \"$NID\", \"$nationality\", \"$nationality\", 'Rwanda', 'Kigali', 'pending', NOW()) ") OR trigger_error($investDb->error);
-			$response = 'Done';
-		}else{
-			$response =  "Failed";
-		}
 		echo json_encode($response);
 	}
 
