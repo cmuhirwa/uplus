@@ -8,6 +8,8 @@ UPLUS API V1.1 DOCUMENTATION
 			pin
 			userId
 			userName
+			csdAccount
+			bankAccount
 
 	gmailSignup
 		->
@@ -20,6 +22,9 @@ UPLUS API V1.1 DOCUMENTATION
 			pin
 			userId
 			userName
+			csdAccount
+			bankAccount
+			userImage
 
 	updateProfile
 		->

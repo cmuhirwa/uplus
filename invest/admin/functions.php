@@ -188,15 +188,42 @@
 		
 	}
 
-	function checkClientUser($userId){
-		//checks the investment info of the user
+	function checkClientUser($userId, $service = ''){
+		//checks the investment info of the user of the service = invest or bank
 		global $investDb;
-		$query = $investDb->query("SELECT * FROM clients WHERE userCode = \"$userId\" ") or trigger_error($investDb->error);
+		$sql  = "SELECT * FROM clients WHERE userCode = \"$userId\" AND service LIKE \"%$service%\" ";
+		// echo "$sql";
+		$query = $investDb->query($sql) or trigger_error($investDb->error);
 		if($query->num_rows){
 			$data = $query->fetch_assoc();
 			return $data;
 		}else return false;
 		
+	}
+	function getUserCSD($userId){
+		global $investDb;
+		//returns the CSD account of the user
+
+		$investData = checkClientUser($userId, 'invest');
+		if(is_array($investData)){
+			$csdAccount = $investData['csdAccount']??"";
+		}else{
+			$csdAccount = '';
+		}
+		return $csdAccount;
+	}
+
+	function getUserBankAccount($userId){
+		global $investDb;
+		//returns the Bank account of the user
+
+		$investData = checkClientUser($userId, 'bank');
+		if(is_array($investData)){
+			$account = $investData['accountNumber']??"";
+		}else{
+			$account = '';
+		}
+		return $account;
 	}
 
 	function checkClient($clientId){

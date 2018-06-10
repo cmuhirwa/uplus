@@ -1,6 +1,7 @@
 <?php
 // START INITIATE
 	include ("db.php");
+	include ("../invest/admin/functions.php");
 	if ($_SERVER["REQUEST_METHOD"] == "POST") 
 	{
 		if(isset($_POST['action']))
@@ -65,17 +66,15 @@
 
 
 				//Checking the CSD
-				$csdQuery = $investDb->query("SELECT * FROM clients WHERE userCode = $userId AND status = 'approved'");
-				if($csdQuery && $csdQuery->num_rows){
-					$csdData = $csdQuery->fetch_assoc();
-					$csdAccount = $csdData['csdAccount'];
-				}
+				$csdAccount = getUserCSD($userId);
+				$bankAccount = getUserBankAccount($userId);
 
 				$signInfo = array(
 			   		"pin"        => $code,
 			   		"userId"     => $userId,
 			   		"userName"   => $profileName,
-					"csdAccount" => $csdAccount
+					"csdAccount" => $csdAccount,
+					"bankAccount" => $bankAccount,
 			   );
 			}
 		}
@@ -92,7 +91,9 @@
 				$signInfo = array(
 			   		"pin"        => $rowpin['password'],
 			   		"userId"     => $rowpin['id'],
-			   		"userName"   => $rowpin['name']
+			   		"userName"   => $rowpin['name'],
+			   		"bankAccount" => $bankAccount,
+			   		"csdAccount" => "$csdAccount",
 			   );
 			}
 		}
@@ -162,15 +163,27 @@
 			$rowpin = mysqli_fetch_array($sqlcheckPin);
 			$profileName	= $rowpin['name'];
 			$userId			= $rowpin['id'];
+
+
+
 			if($profileName == "NULL" || $profileName == "null" || $profileName == null){
 				$profileName = "";
 			}
+
+			//getting investment data of the user
+			$csdAccount = getUserCSD($userId);
+
+			//bank account
+			$bankAccount  = getUserBankAccount($userId);
+
 			$sql 			= $db->query("UPDATE users SET password = '$code' WHERE id = '$userId'")or die(mysqli_error($db));
 			$signInfo = array(
 		   		"pin"        => "",
 		   		"userId"     => $userId,
 		   		"userName"   => $profileName,
-				"csdAccount" => $csdAccount??""
+				"csdAccount" => $csdAccount,
+				"bankAccount" => $bankAccount,
+				'userImage'	 => $picture
 		   );
 		}
 		else
@@ -184,7 +197,9 @@
 			   		"pin"        => "",
 			   		"userId"     => $db->insert_id,
 			   		"userName"   => $name,
-			   		"csdAccount"   => ""
+			   		"csdAccount"   => "",
+			   		"bankAccount"   => "",
+			   		'userImage'  => $picture
 			   	);
 		}
 
