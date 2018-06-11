@@ -103,6 +103,12 @@ link: https://uplus.rw/api/invest.php
 		<-
 			"Done" or 'Failed'
 
+	uploadAttachment
+		->
+			file
+		<-
+			filepath or 'Failed'
+
 --END FORUM--
 
 
