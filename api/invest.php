@@ -450,7 +450,7 @@
 			if($investData){
 				//here the user has asked the the CSD already
 				if($investData['status'] != 'declined'){
-					$response = "Already opened account, $csdAccount";
+					$response = "Done";
 				}
 			}else{
 				$gender = $userData['gender']??"Male";
