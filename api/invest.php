@@ -539,6 +539,8 @@
 		if($groupId){
 			//here we fetch details from app
 			$groupData = $Group->details($groupId);
+
+
 			//check if group exists
 			if($groupData && $groupData['archive']!='yes'){
 				//check the group CSD status
@@ -547,18 +549,20 @@
 				//check group investmet data
 				$groupCsd = $Group->csd($groupId);
 
-				if(empty($groupInvestData) || $groupInvestData['status'] == 'declined' ){
-					//here we can request new CSD
+				$csdStatus  = $groupInvestData['status'];
+
+				if($csdStatus == 'pending'){
+					$response = 'CSD Account request is pending';
+				}else if($csdStatus == 'approved'){
+					$response = "CSD Account request is approved with $groupCsd";
+				}else{
+					//here we can
 					$query = $investDb->query("INSERT INTO clients(groupCode, clientType, country, nationality) VALUES(\"$groupId\", 'group', \"$country\", \"$country\")") or trigger_error($investDb->error);
 					if ($query) {
 						$response = "Done";
 					}else{
 						$response = "Fail 4";
 					}
-				}else if($groupCsd || $groupInvestData['status'] == 'pending'){
-					$response = 'Done';
-				}else{
-					$response = "Fail 3";
 				}
 			}else{
 				$response = "Done";
