@@ -539,11 +539,13 @@
 		if($groupId){
 			//here we fetch details from app
 			$groupData = $Group->details($groupId);
-
 			//check if group exists
 			if($groupData && $groupData['archive']!='yes'){
 				//check the group CSD status
 				$groupInvestData = checkGroup($groupId);
+
+				//check group investmet data
+				$groupCsd = $Group->csd($groupId);
 
 				if(empty($groupInvestData) || $groupInvestData['status'] == 'declined' ){
 					//here we can request new CSD
@@ -553,11 +555,13 @@
 					}else{
 						$response = "Fail 4";
 					}
+				}else if($groupCsd || $groupInvestData['status'] == 'pending'){
+					$response = 'Done';
 				}else{
 					$response = "Fail 3";
 				}
 			}else{
-				$response = "Fail 2";
+				$response = "Done";
 			}
 		}else{
 			$response = "Fail 1";

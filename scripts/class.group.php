@@ -45,7 +45,27 @@
 				return $data['memberContribution'];
 			}else return 0;
 		}
+		public function csd($groupId)
+	{
+		global $investDb;
+			//returns the csd of the group
+			$query = $investDb->query("SELECT * FROM clients WHERE groupCode = \"$groupId\" ") or trigger_error($investDb->error);
+			if($query->num_rows){
+				$data = $query->fetch_assoc();
+				$csd = $data['csdAccount'];
+
+				if($data['status'] != 'declined'){
+					return $csd;
+				}else return false;
+
+				
+			}else{
+				return false;
+			}
+		}
 	}
+
+	
 
 	//instating new class
 	$Group = new group();
