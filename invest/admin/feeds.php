@@ -542,7 +542,7 @@
 					ret = this.responseText 
 					setTimeout(function(){
 						console.log(ret)
-						// location.reload()
+						location.reload()
 					}, 1500)                    
 				})
 			}else{
