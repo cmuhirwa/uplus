@@ -282,6 +282,11 @@
         //target forum
         $target_audience = $request['targetForum']??$request['feedId'];
 
+        //check if target is public
+        if(!is_numeric($target_audience) || $target_audience == 'public' ){
+        	$target_audience = '';
+        }
+
         // title
         $title = $request['title']??"";
 
