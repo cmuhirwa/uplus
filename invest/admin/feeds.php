@@ -69,7 +69,6 @@ ini_set('display_errors', 1);
 											<div class="uk-width-1-4">
 												<div>
 													<select class="md-input" id='postTo' data-uk-tooltip="{pos:'top'}" title="Choose the target of this feed">
-														<option>-- Target --</option>
 														<option value="public">Public</option>
 														<?php
 															$forums = getForums();
