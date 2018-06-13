@@ -508,13 +508,12 @@
         $user = $request['user']??""; //who deleted this feed
 
         if($user && $feed){
-            $sql = "UPDATE feeds SET archivedDate = NOW(), archivedBy = \"$user\", archive = 'YES', updatedDate = NOW(), updatedBy = \"$user\" WHERE id = \"$feed\"";
+            $sql = "UPDATE feeds SET archivedDate = NOW(), archivedBy = \"$user\", archive = 'yes', updatedDate = NOW(), updatedBy = \"$user\" WHERE id = \"$feed\"";
             $query = $conn->query($sql) or trigger_error($conn->error);
             $response = array('status'=>true);
         }else{
             $response = array('status'=>false, 'msg'=>"Provide details");
         }
-
     }
     else if($action ==  'create_forum'){
         //creating forum
