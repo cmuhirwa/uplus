@@ -1,4 +1,4 @@
-in<?php
+<?php
 	// Destry session if it hasn't been used for 15 minute.
 	session_start();
 	$inactive = 900;

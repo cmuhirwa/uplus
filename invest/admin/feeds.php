@@ -2,7 +2,6 @@
 error_reporting(E_ALL); 
 ini_set('display_errors', 1);			
 ?>
-
 <!doctype html>
 <!--[if lte IE 9]> <html class="lte-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 9]><!--> <html lang="en"> <!--<![endif]-->
@@ -10,7 +9,6 @@ ini_set('display_errors', 1);
 	include 'userheader.php';
 	include 'functions.php';
 ?>
-
 <!-- main sidebar -->
 <div id="new_comp">
 <div id="page_content">
