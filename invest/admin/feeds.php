@@ -542,8 +542,8 @@
 					ret = this.responseText 
 					setTimeout(function(){
 						console.log(ret)
-						// location.reload()
-					}, 1500)                    
+						location.reload()
+					}, 500)                    
 				})
 			}else{
 				alert("Specify details")

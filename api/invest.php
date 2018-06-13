@@ -18,6 +18,12 @@
 	{
 		if(isset($_POST['action']))
 		{
+
+			//sanitizing all the stuffs
+			foreach ($_POST as $key => $value) {
+				$_POST[$key] = $investDb->real_escape_string($value);
+			}
+
 			//check if the function is defined
 			if(function_exists($_POST['action'])){
 				$_POST['action']();
@@ -274,7 +280,7 @@
 		$request = $_POST;
 		// /post feeds
         $userId = $request['memberId']??"";
-        $post_content = $investDb->real_escape_string($request['feedContent']??"");
+        $post_content = $request['feedContent']??"";
 
         //type of the post
         $type = $request['type']??"";
