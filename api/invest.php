@@ -296,8 +296,12 @@
         //the type of person who posted - admin or member if empty it'll be elisa app
         $userType = $request['userType']??'member';        
 
-        $sql = "INSERT INTO feeds(feedContent, createdBy, feedForumId) VALUES(\"$post_content\", \"$userId\", \"$target_audience\")";
-        echo "$sql";
+        //setting empty forum ffeed id for public feeds
+        if($target_audience){
+        	$sql = "INSERT INTO feeds(feedContent, createdBy, feedForumId) VALUES(\"$post_content\", \"$userId\", \"$target_audience\")";
+        }else{
+        	$sql = "INSERT INTO feeds(feedContent, createdBy) VALUES(\"$post_content\", \"$userId\")";
+        }
         $query = $investDb->query($sql) or trigger_error($investDb->error);
 
         if($query){
