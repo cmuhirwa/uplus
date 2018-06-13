@@ -274,7 +274,7 @@
 		$request = $_POST;
 		// /post feeds
         $userId = $request['memberId']??"";
-        $post_content = $request['feedContent']??"";
+        $post_content = $investDb->real_escape_string($request['feedContent']??"");
 
         //type of the post
         $type = $request['type']??"";
@@ -303,6 +303,7 @@
         	$sql = "INSERT INTO feeds(feedContent, createdBy) VALUES(\"$post_content\", \"$userId\")";
         }
         $query = $investDb->query($sql) or trigger_error($investDb->error);
+
 
         if($query){
             $feed_id = $investDb->insert_id;
