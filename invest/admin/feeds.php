@@ -539,11 +539,18 @@
 				ajax.send(formdata);
 
 				ajax.addEventListener("load", function(){
-					ret = this.responseText 
-					setTimeout(function(){
-						console.log(ret)
-						location.reload()
-					}, 500)                    
+					ret = this.responseText
+					ret = JSON.parse(ret);
+
+					if(ret.toLowerCase() == 'done'){
+						setTimeout(function(){
+							console.log(ret)
+							location.reload()
+						}, 500) 
+					}else{
+						alert("Error: "+ret.toString())
+					}
+					                   
 				})
 			}else{
 				alert("Specify details")
