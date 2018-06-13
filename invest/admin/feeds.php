@@ -1,6 +1,6 @@
 <?php
-error_reporting(E_ALL); 
-ini_set('display_errors', 1);			
+	error_reporting(E_ALL); 
+	ini_set('display_errors', 1);			
 ?>
 <!doctype html>
 <!--[if lte IE 9]> <html class="lte-ie9" lang="en"> <![endif]-->
@@ -414,213 +414,213 @@ ini_set('display_errors', 1);
 		});
 	</script>
 
-<script type="text/javascript">
-	const current_user = <?php echo $thisid; ?>;
-	$('.dropify').dropify({
-		messages: {
-			'default': 'Drag and drop a podcast here or click',
+	<script type="text/javascript">
+		const current_user = <?php echo $thisid; ?>;
+		$('.dropify').dropify({
+			messages: {
+				'default': 'Drag and drop a podcast here or click',
+			}
+		});
+
+
+		filter_elems = $(".posts_filter input.filter-elem");
+		for(n=0; n<filter_elems.length; n++){
+			filter = filter_elems[n];
+			$(filter).on('click', function(){
+				alert();
+			})
 		}
-	});
 
-
-	filter_elems = $(".posts_filter input.filter-elem");
-	for(n=0; n<filter_elems.length; n++){
-		filter = filter_elems[n];
-		$(filter).on('click', function(){
+		$(".posts_filter input.filter-elem").on('change', function(){
 			alert();
 		})
-	}
-
-	$(".posts_filter input.filter-elem").on('change', function(){
-		alert();
-	})
 
 
-	var feeds_attachment = [];
-	$("#feeds_attachment_input").on('change', function(data){
-		uploaded = document.querySelector("#feeds_attachment_input").files[0];
-		// log(uploaded);
+		var feeds_attachment = [];
+		$("#feeds_attachment_input").on('change', function(data){
+			uploaded = document.querySelector("#feeds_attachment_input").files[0];
+			// log(uploaded);
 
-		filename = uploaded.name
-		file_size = uploaded.size
+			filename = uploaded.name
+			file_size = uploaded.size
 
-		//here we want to check the extension
-		ext = filename.substr(-3).toLowerCase();
+			//here we want to check the extension
+			ext = filename.substr(-3).toLowerCase();
 
-		allowed_extensions = ['png', 'jpg', 'mp3', 'aac', 'mp4'];
-		if(allowed_extensions.indexOf(ext)>-1){
-			//file is allowed
-			//create an elemt thumbnail for file
-			thumbnail = $("#feed-thumbnail-tpl").clone()
-			thumbnail.css('display', 'inherit');
+			allowed_extensions = ['png', 'jpg', 'mp3', 'aac', 'mp4'];
+			if(allowed_extensions.indexOf(ext)>-1){
+				//file is allowed
+				//create an elemt thumbnail for file
+				thumbnail = $("#feed-thumbnail-tpl").clone()
+				thumbnail.css('display', 'inherit');
 
-			//Adding the title
-			thumbnail.find(".thumb-title").html(filename);
+				//Adding the title
+				thumbnail.find(".thumb-title").html(filename);
 
-			$("#feed-thumbnail-tpl-cont").append(thumbnail);
+				$("#feed-thumbnail-tpl-cont").append(thumbnail);
 
-			//Start to upload
-			var formdata = new FormData();
+				//Start to upload
+				var formdata = new FormData();
 
-			formdata.append('action', 'upload_feed_attachment');
-			formdata.append('file', uploaded);
+				formdata.append('action', 'upload_feed_attachment');
+				formdata.append('file', uploaded);
 
-			var ajax = new XMLHttpRequest();
+				var ajax = new XMLHttpRequest();
 
-			ajax.upload.addEventListener("progress", function(evt){
-				uploaded = evt.loaded;
-				total = evt.total;
+				ajax.upload.addEventListener("progress", function(evt){
+					uploaded = evt.loaded;
+					total = evt.total;
 
-				percentage = (uploaded/total)*100;
-				
-				thumbnail.find(".feed_attachment_progress").attr('value', percentage);
+					percentage = (uploaded/total)*100;
+					
+					thumbnail.find(".feed_attachment_progress").attr('value', percentage);
 
-				console.log(percentage)
-			}, false);
+					console.log(percentage)
+				}, false);
 
 
-			ajax.addEventListener("load", function(){
-				response = this.responseText;
-				try{
-					ret = JSON.parse(response);
-					if(ret.status){
-						//create successfully(Giving notification and closing the modal);
-						feeds_attachment.push(host+ret.msg)
+				ajax.addEventListener("load", function(){
+					response = this.responseText;
+					try{
+						ret = JSON.parse(response);
+						if(ret.status){
+							//create successfully(Giving notification and closing the modal);
+							feeds_attachment.push(host+ret.msg)
 
-					}else{
-						msg = ret.msg;
+						}else{
+							msg = ret.msg;
+						}
+					}catch(e){
+						console.log(e);
 					}
-				}catch(e){
-					console.log(e);
-				}
 
-			}, false);
+				}, false);
 
-			ajax.open("POST", "api/index.php");
-			ajax.send(formdata);
-		}else{
-			alert("File of "+ext+ " type not allowed")
-		}
-	})
-
-	//creating feed
-	$("#feed_create_form").on('submit', function(e){
-		e.preventDefault();
-
-		//ask for confirmation
-		conf = confirm("Do you want to post?");
-
-
-		if(!conf)
-			return false;
-
-
-		//disabling submit button
-		$("#submit_feed").addClass('display-none');
-		$("#submit_feed").attr('disabled', 'disabled');
-		$(".progress-cont").removeClass('display-none');
-
-		//we can save now
-		var formdata = new FormData();
-		var ajax = new XMLHttpRequest();
-
-		var post_content = $("#post_content").val();
-		var postTo = $("#postTo").val();
-		if(post_content && postTo){
-			formdata.append('action', 'postFeed');
-			formdata.append('feedContent', post_content);
-			formdata.append('memberId', <?php echo $thisid; ?>);
-			formdata.append('attachments', JSON.stringify(feeds_attachment));
-			formdata.append('userType', 'admin');
-			formdata.append('platform', 'web');
-			formdata.append('targetForum', postTo);
-
-			ajax.open("POST", host+"api/invest.php");        
-			ajax.send(formdata);
-
-			ajax.addEventListener("load", function(){
-				ret = this.responseText 
-				setTimeout(function(){
-					console.log(ret)
-					location.reload()
-				}, 1500)                    
-			})
-		}else{
-			alert("Specify details")
-		}            
-	})
-
-	$(".like_feed_button").on('click', function(){
-		//liking a feed
-		feed = $(this).data('post');
-		like_btn = $(this)
-		$.post('../../api/invest.php', {action:'likeFeed', userId:current_user, feedId:feed}, function(data){
-			log(data)
-			if(data == 'Done'){
-				//Indicate a like
-				like_btn.addClass('md-color-green-500');
-				like_btn.find("i").addClass('md-color-green-500');
-
-				//increasing the number of likes
-				like_btn.find('small').html(parseInt(like_btn.find('small').html())+1);
+				ajax.open("POST", "api/index.php");
+				ajax.send(formdata);
+			}else{
+				alert("File of "+ext+ " type not allowed")
 			}
 		})
-	});
 
-	//feed commenting btn and activation visibility
-	$(".comment_feed_button").on('click', function(){
-		feed = $(this).data('feed');
+		//creating feed
+		$("#feed_create_form").on('submit', function(e){
+			e.preventDefault();
 
-		//make comment element visible
-		$(".commentsContainer[data-feed='"+feed+"']").removeClass('uk-hidden')
+			//ask for confirmation
+			conf = confirm("Do you want to post?");
 
-	});
 
-	//submitting feed comment
-	$(".commentForm").on('submit', function(e){
-		e.preventDefault();
-		feed = $(this).data('feed');
-		comment = $(this).find('textarea').val()
+			if(!conf)
+				return false;
 
-		if(comment.length>1){
-			//submitting a comment
-			$.post('../../api/invest.php', {action:'commentFeed', userId:current_user, feedId:feed, feedComment:comment}, function(data){
-				if(data.toLowerCase() == 'done'){
-					location.reload();
-				}else{
-					alert("Problem with commenting, try again later")
+
+			//disabling submit button
+			$("#submit_feed").addClass('display-none');
+			$("#submit_feed").attr('disabled', 'disabled');
+			$(".progress-cont").removeClass('display-none');
+
+			//we can save now
+			var formdata = new FormData();
+			var ajax = new XMLHttpRequest();
+
+			var post_content = $("#post_content").val();
+			var postTo = $("#postTo").val();
+			if(post_content && postTo){
+				formdata.append('action', 'postFeed');
+				formdata.append('feedContent', post_content);
+				formdata.append('memberId', <?php echo $thisid; ?>);
+				formdata.append('attachments', JSON.stringify(feeds_attachment));
+				formdata.append('userType', 'admin');
+				formdata.append('platform', 'web');
+				formdata.append('targetForum', postTo);
+
+				ajax.open("POST", host+"api/invest.php");        
+				ajax.send(formdata);
+
+				ajax.addEventListener("load", function(){
+					ret = this.responseText 
+					setTimeout(function(){
+						console.log(ret)
+						location.reload()
+					}, 1500)                    
+				})
+			}else{
+				alert("Specify details")
+			}            
+		})
+
+		$(".like_feed_button").on('click', function(){
+			//liking a feed
+			feed = $(this).data('post');
+			like_btn = $(this)
+			$.post('../../api/invest.php', {action:'likeFeed', userId:current_user, feedId:feed}, function(data){
+				log(data)
+				if(data == 'Done'){
+					//Indicate a like
+					like_btn.addClass('md-color-green-500');
+					like_btn.find("i").addClass('md-color-green-500');
+
+					//increasing the number of likes
+					like_btn.find('small').html(parseInt(like_btn.find('small').html())+1);
 				}
 			})
-		}else{
-			alert("Please type comment")
+		});
+
+		//feed commenting btn and activation visibility
+		$(".comment_feed_button").on('click', function(){
+			feed = $(this).data('feed');
+
+			//make comment element visible
+			$(".commentsContainer[data-feed='"+feed+"']").removeClass('uk-hidden')
+
+		});
+
+		//submitting feed comment
+		$(".commentForm").on('submit', function(e){
+			e.preventDefault();
+			feed = $(this).data('feed');
+			comment = $(this).find('textarea').val()
+
+			if(comment.length>1){
+				//submitting a comment
+				$.post('../../api/invest.php', {action:'commentFeed', userId:current_user, feedId:feed, feedComment:comment}, function(data){
+					if(data.toLowerCase() == 'done'){
+						location.reload();
+					}else{
+						alert("Problem with commenting, try again later")
+					}
+				})
+			}else{
+				alert("Please type comment")
+			}
+
+		});
+
+		//removing feed
+		$(".post_remove").on('click', function(){
+			feedId = $(this).data("post");
+			parent_elem = $(this).parents('.uk-margin-bottom');
+
+			del_prompt = window.confirm("Delete this feed?");
+			if(del_prompt){
+				$.post('api/index.php', {action:'delete_feed', feed:feedId, user:<?php echo $thisid; ?>}, function(data){
+					if(typeof(data) == 'object')
+						ret = data
+					else
+						ret = JSON.parse(data)
+					if(ret.status){
+						// parent container cleanin
+						location.reload();
+						parent_elem.hide(100);
+						$(this).parents('.uk-margin-bottom').remove();
+					}
+				});
+			}            
+		});
+		function log(data){
+			console.log(data)
 		}
-
-	});
-
-	//removing feed
-	$(".post_remove").on('click', function(){
-		feedId = $(this).data("post");
-		parent_elem = $(this).parents('.uk-margin-bottom');
-
-		del_prompt = window.confirm("Delete this feed?");
-		if(del_prompt){
-			$.post('api/index.php', {action:'delete_feed', feed:feedId, user:<?php echo $thisid; ?>}, function(data){
-				if(typeof(data) == 'object')
-					ret = data
-				else
-					ret = JSON.parse(data)
-				if(ret.status){
-					// parent container cleanin
-					location.reload();
-					parent_elem.hide(100);
-					$(this).parents('.uk-margin-bottom').remove();
-				}
-			});
-		}            
-	});
-	function log(data){
-		console.log(data)
-	}
 	</script>
 </body>
 </html>

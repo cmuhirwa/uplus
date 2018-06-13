@@ -292,6 +292,7 @@
         $userType = $request['userType']??'member';        
 
         $sql = "INSERT INTO feeds(feedContent, createdBy, feedForumId) VALUES(\"$post_content\", \"$userId\", \"$target_audience\")";
+        echo "$sql";
         $query = $investDb->query($sql) or trigger_error($investDb->error);
 
         if($query){
