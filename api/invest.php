@@ -809,7 +809,7 @@
 		$request = array_merge($_POST, $_GET);
 		$userId = $request['userId'];
 
-		$response = array('csdStatus'=>"", 'csdAccount'=>"", 'bankStatus'=>"", 'bankAccount'=>"");
+		$response = array('csdStatus'=>"none", 'csdAccount'=>"none", 'bankStatus'=>"none", 'bankAccount'=>"none");
 
 		//getting csd info
 		$investData = checkClientUser($userId, 'invest');
@@ -820,7 +820,7 @@
 			//return account if account is approved
 			if(strtolower($status) == 'approved')
 			{
-				$response['csdAccount'] = $investData['csdAccount']??"";
+				$response['csdAccount'] = $investData['csdAccount']??"none";
 			}
 		}
 
@@ -832,7 +832,7 @@
 			//return account if account is approved
 			if(strtolower($status) == 'approved')
 			{
-				$response['bankAccount'] = $bankData['accountNumber']??"";
+				$response['bankAccount'] = $bankData['accountNumber']??"none";
 			}
 		}
 
