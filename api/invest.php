@@ -9,10 +9,10 @@
     //hostname for file referencing
     $hostname = $_SERVER['REQUEST_SCHEME']."://".$_SERVER['HTTP_HOST']."/";
 
-    //keep api request log for debuggin
-   // $f = fopen("logs/invest.txt", 'a') or die("Unable to open file!");;
-   // fwrite($f, json_encode($_POST)."\n\n");
-   // fclose($f);
+    // keep api request log for debuggin
+	$f = fopen("logs/invest.txt", 'a') or die("Unable to open file!");;
+	fwrite($f, json_encode($_POST)."\n\n");
+	fclose($f);
 
 	if ($_SERVER["REQUEST_METHOD"] == "POST") 
 	{
