@@ -41,7 +41,7 @@
 		$phoneNumber	= mysqli_real_escape_string($db, $_POST['phoneNumber']);
 		//CLEAN PHONE
 		$phoneNumber 	= preg_replace( '/[^0-9]/', '', $phoneNumber );
-		$phoneNumber 	= substr($phoneNumber, -10); 
+		$phoneNumber 	= substr($phoneNumber, -12); 
 
 		
 		//GET CSD ACCOUNT
@@ -100,7 +100,7 @@
 		$results="";
 		// 'went to require sms class';
 
-		$recipients = '+25'.$phoneNumber;
+		$recipients = '+'.$phoneNumber;
 		$message    = 'Welcome to UPLUS, please use '.$code.' to log into your account.';
 		$data = array(
 			"sender"		=>'UPLUS',
