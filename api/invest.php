@@ -945,7 +945,7 @@
 						'securityId'=>$data['securityId'],
 						'prevPrice'=>$data['prevPrice'],
 						// 'change'=>(string)( ( ($data['unitPrice'] - $data['prevPrice'])/$data['unitPrice'])*100),
-						'change'=>round( ( ($data['unitPrice'] - $data['prevPrice'])/$data['unitPrice'])*100, 1),
+						'change'=> String(round( ( ($data['unitPrice'] - $data['prevPrice'])/$data['unitPrice'])*100, 1)),
 					);
 			if(isset($companies[$data['companyId']])){				
 				//here we'll concatenate				
