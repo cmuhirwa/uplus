@@ -633,7 +633,7 @@
 					$userData = user_details($userId);
 					$userphone = $userData['phone'];
 
-					$clientName = $userData['names'];
+					$clientName = $userData['name'];
 					if($userphone){
 						//Sending the message to the user					
 						$message = "Dear $clientName, your csd account has been approved with account number: $csd in $brokerData[companyName] broker, you can now start investing today";
