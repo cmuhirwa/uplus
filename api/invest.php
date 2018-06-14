@@ -939,13 +939,14 @@
 		
 		while ($data = $query->fetch_assoc()) {
 			$prevPriceDiv = $data['prevPrice']==0?1:$data['prevPrice']; //prevPrice for division omitting 0
+			$change = round( ( ($data['unitPrice'] - $data['prevPrice'])/$data['unitPrice'])*100, 1));
 			$compData = $cd = array(
 						'unitPrice'=>$data['unitPrice'],
 						'date'=>$data['createdDate'],
 						'securityId'=>$data['securityId'],
 						'prevPrice'=>$data['prevPrice'],
 						// 'change'=>(string)( ( ($data['unitPrice'] - $data['prevPrice'])/$data['unitPrice'])*100),
-						'change'=> String(round( ( ($data['unitPrice'] - $data['prevPrice'])/$data['unitPrice'])*100, 1)),
+						'change'=>  "$change",
 					);
 			if(isset($companies[$data['companyId']])){				
 				//here we'll concatenate				
