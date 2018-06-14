@@ -800,6 +800,44 @@
 		echo json_encode($response);
 	}
 
+	function userAccounts(){
+		//company adding stocks
+		require 'db.php';
+		require '../invest/admin/functions.php';
+
+		$request = array_merge($_POST, $_GET);
+		$userId = $request['userId'];
+
+		$response = array('csdStatus'=>"", 'csdAccount'=>"", 'bankStatus'=>"", 'bankAccount'=>"");
+
+		//getting csd info
+		$investData = checkClientUser($userId, 'invest');
+		if($investData){
+			$status = $investData['status'];
+			$response['csdStatus'] = $status;
+
+			//return account if account is approved
+			if(strtolower($status) == 'approved')
+			{
+				$response['csdAccount'] = $investData['csdAccount']??"";
+			}
+		}
+
+		$bankData = checkClientUser($userId, 'bank');
+		if($investData){
+			$status = $bankData['status'];
+			$response['bankStatus'] = $status;
+
+			//return account if account is approved
+			if(strtolower($status) == 'approved')
+			{
+				$response['bankAccount'] = $bankData['accountNumber']??"";
+			}
+		}
+
+		echo json_encode($response);
+	}
+
 	function messageBrokerClient()
 	{
 		# Broker messaging a client
