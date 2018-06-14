@@ -92,7 +92,7 @@
 			   		"pin"        => $rowpin['password'],
 			   		"userId"     => $rowpin['id'],
 			   		"userName"   => $rowpin['name'],
-			   		"bankAccount" => $bankAccount,
+			   		"bankAccount" => $bankAccount??"",
 			   		"csdAccount" => "$csdAccount",
 			   );
 			}
@@ -100,28 +100,30 @@
 		$results="";
 		// 'went to require sms class';
 
-		$recipients = '+'.$phoneNumber;
-		$message    = 'Welcome to UPLUS, please use '.$code.' to log into your account.';
-		$data = array(
-			"sender"		=>'UPLUS',
-			"recipients"	=>$recipients,
-			"message"		=>$message,
-		);
-		include 'sms.php';
-		if($httpcode == 200)
-		{
-			sleep(3);
-			mysqli_close($db);
-			mysqli_close($outCon);
+		// $recipients = '+'.$phoneNumber;
+		// $message    = 'Welcome to UPLUS, please use '.$code.' to log into your account.';
+		// $data = array(
+		// 	"sender"		=>'UPLUS',
+		// 	"recipients"	=>$recipients,
+		// 	"message"		=>$message,
+		// );
+		// include 'sms.php';
+		// if($httpcode == 200)
+		// {
+		// 	sleep(3);
+		// 	mysqli_close($db);
+		// 	mysqli_close($outCon);
 		
-			header('Content-Type: application/json');
-			$signInfo = json_encode($signInfo);
-			echo '['.$signInfo.']';
-		}
-		else
-		{
-			echo 'System error';
-		}
+			
+		// }
+		// else
+		// {
+		// 	echo 'System error';
+		// }
+
+		header('Content-Type: application/json');
+		$signInfo = json_encode($signInfo);
+		echo '['.$signInfo.']';
 	}
 
 	function gmailSignup()
