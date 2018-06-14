@@ -939,7 +939,7 @@
 		
 		while ($data = $query->fetch_assoc()) {
 			$prevPriceDiv = $data['prevPrice']==0?1:$data['prevPrice']; //prevPrice for division omitting 0
-			$change = round( ( ($data['unitPrice'] - $data['prevPrice'])/$data['unitPrice'])*100, 1));
+			$change = round( ( ($data['unitPrice'] - $data['prevPrice'])/$data['unitPrice'])*100, 1);
 			$compData = $cd = array(
 						'unitPrice'=>$data['unitPrice'],
 						'date'=>$data['createdDate'],
