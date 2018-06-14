@@ -2,6 +2,7 @@
 	// include_once("db.php");
 
 	$standard_date = "d F Y";
+	$hostname = $_SERVER['REQUEST_SCHEME']."://".$_SERVER['HTTP_HOST']."/";
 
 	function total_users()
 	{
@@ -475,11 +476,12 @@
 
 	function getForums(){
 		//returns all the forums
-		global $investDb;
+		global $investDb, $hostname;
 
 		$query = $investDb->query("SELECT * FROM forums WHERE archive = 'NO' ") or trigger_error($investDb->error);
 		$forums = array();
 		while ($data = $query->fetch_assoc()) {
+			$data['logo'] = $hostname;
 			$forums[] = $data;
 		}
 		return $forums;

@@ -490,10 +490,9 @@
     else if($action == 'list_forums' || $action == 'listForums' )
     {
         //listing forums
-        $query = $conn->query("SELECT * FROM forums")or die(mysqli_error($conn));
-        $forums = array();
-        while ($data = mysqli_fetch_array($query))
-        {
+        $forums = get_forums();
+        var_dump($forums);
+        foreach ($forums as $key => $data) {
             $forums[] = array(
                 "forumId"          => $data['id'],
                 "forumTitle"        => $data['forumtitle'],
@@ -542,7 +541,7 @@
         }
 
         //Creating forum in db
-        $filename = $hostname.$filename;
+        // $filename = $filename;
         $sql = "INSERT INTO forums(title, createdBy, subtitle, icon) VALUES(\"$title\", \"$admin\", \"$intro\", \"$filename\") ";
         $insert = $conn->query($sql);
 
