@@ -448,9 +448,19 @@
 
 		$request = $_POST;
 		$title = $request['tilte']??'';
+		$nationality = $request['nationality']??"";
+		$gender = $request['gender']??"";
 
 		$userId = $request['userId']??"";
-		if($userId){
+
+		$dob = date("Y-m-d", strtotime($request['dateOfBirth']??""));
+		$NID = $request['NID']??"";
+		$passport = $request['passport']??"";
+		$country = $request['country']??"";
+		$city = $request['city']??"";
+
+
+		if($userId && $gender && $dob && $NID){
 			//here we fetch details from app
 			$userData = user_details($userId);
 
@@ -458,29 +468,27 @@
 			$investData  = checkClientUser($userId, 'invest');
 			$csdAccount = getUserCSD($userId);
 
+			$createCSD = false; #flag for creating a CSD account
+
 			if($investData){
-				//here the user has asked the the CSD already
-				if($investData['status'] != 'declined'){
-					$response = "Done";
+				//here the user has asked the the CSD already so let's check status
+				$csdStatus = $investData['status'];
+
+				if($csdStatus == 'declined'){
+					$createCSD = true;
+				}else{
+					$response = $csdStatus;
 				}
 			}else{
-				$gender = $userData['gender']??"Male";
-				if (!$gender) {
-					$gender = 'Male';
-				}
+				$createCSD = true;
+			}
 
-				$dob = date("Y-m-d", strtotime($request['dateOfBirth']??""));
-				$nationality = $request['nationality']??"";
-				$NID = $request['NID']??"";
-				$passport = $request['passport']??"";
-				$country = $request['country']??"";
-				$city = $request['city']??"";
-
-				if($gender && $dob && $nationality){
-					$query = $investDb->query("INSERT INTO clients(userCode, dob, gender, NID, residentIn, nationality, city, status, statusOn, service) VALUES(\"$userId\", \"$dob\", \"$gender\", \"$NID\", \"$nationality\", \"$country\", \"$city\", 'pending', NOW(), 'invest') ") OR trigger_error($investDb->error);
+			if($createCSD){
+				$query = $investDb->query("INSERT INTO clients(userCode, dob, gender, NID, residentIn, nationality, city, status, statusOn, service) VALUES(\"$userId\", \"$dob\", \"$gender\", \"$NID\", \"$nationality\", \"$country\", \"$city\", 'pending', NOW(), 'invest') ");
+				if($query){
 					$response = 'Done';
 				}else{
-					$response =  "Failed";
+					$response = "Failed $investDb->error";
 				}
 			}
 		}else{
@@ -521,13 +529,8 @@
 			if($query){
 				$response = 'Done';
 			}else{
-				$response = 'Fail';
+				$response = "Failed $investDb->error";
 			}
-			
-
-			if($userData){
-
-			} 
 
 		}else{
 			$response = 'Fail';
