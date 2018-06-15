@@ -28,5 +28,7 @@
 		include_once($fileDb);
 	}else{
 		die("localhost is not good for now.");
-	}         
+	}
+
+	define("HOSTNAME", $_SERVER['REQUEST_SCHEME']."://".$_SERVER['HTTP_HOST']."/");       
 ?>

@@ -17,13 +17,13 @@
 		header("location: login.php"); 
 		exit();
 	}
-	include_once "db.php";	
+	require_once "../db.php";	
 	require_once "../../scripts/class.user.php";	
  
 	$session_id = preg_replace('#[^0-9]#i', '', $_SESSION["id"]); // filter everything but numbers and letters
 	$username = preg_replace('#[^A-Za-z0-9]#i', '', $_SESSION["username"]); // filter everything but numbers and letters
 	$password = preg_replace('#[^A-Za-z0-9]#i', '', $_SESSION["password"]); // filter everything but numbers and letters
-	$sql = $db->query("SELECT * FROM users WHERE loginId='$username' AND pwd='$password' LIMIT 1"); // query the person
+	$sql = $investDb->query("SELECT * FROM users WHERE loginId='$username' AND pwd='$password' LIMIT 1") or trigger_error($db->error); // query the person
 	// ------- MAKE SURE PERSON EXISTS IN DATABASE ---------
 	$existCount = mysqli_num_rows($sql); // count the row nums
 
@@ -41,7 +41,7 @@
 			exit();
 		}else if($account_type =='broker'){
 			//getting brokerage company
-			$query = $db->query("SELECT * FROM broker_user WHERE userCode = \"$thisid\" AND archived = 'NO' LIMIT 1 ") or trigger_error($db->error);
+			$query = $investDb->query("SELECT * FROM broker_user WHERE userCode = \"$thisid\" AND archived = 'NO' LIMIT 1 ") or trigger_error($investDb->error);
 			$Broker = $query->fetch_assoc();
 			$currentCompanyId = $Broker['companyId'];
 		}else if ($account_type == 'bank') {
@@ -51,7 +51,7 @@
 		}
 
 		//getting user company
-		$companyQ = $db->query("SELECT * FROM company WHERE companyId = \"$currentCompanyId\" LIMIT 1 ") or trigger_error($db->error);
+		$companyQ = $investDb->query("SELECT * FROM company WHERE companyId = \"$currentCompanyId\" LIMIT 1 ") or trigger_error($db->error);
 		if($companyQ->num_rows){
 			$Company = (object)$companyQ->fetch_assoc();
 		}else{
@@ -210,6 +210,14 @@
 					}
 
 				?>
+				<li title="Customers">
+					<a href="view_users.php">
+						<span class="menu_icon">
+						<i class="material-icons"></i>
+						</span>
+						<span class="menu_title">Users</span>
+					</a>
+				</li>
 				                 
 			</ul>
 		</div>

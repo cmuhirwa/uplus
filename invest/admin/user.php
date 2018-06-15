@@ -1,62 +1,7 @@
 
 <?php
 	error_reporting(E_ALL); 
-	ini_set('display_errors', 1);
-	if(isset($_POST['addpst']))
-	{
-		$itemName = $_POST['itemName'];
-		$productCode = $_POST['productCode'];
-		$itemCompanyCode = $_POST['itemCompanyCode'];
-		$unit = $_POST['unit'];
-		$unityPrice = $_POST['unityPrice'];
-		$quantity = $_POST['quantity'];
-		$description = $_POST['description'];
-		echo $itemName;
-		echo' itemName<br/>';
-		echo $productCode;echo' productCode<br/>';
-		echo $itemCompanyCode;echo' itemCompanyCode<br/>';
-		echo $unit;echo' unit<br/>';
-		echo $unityPrice;echo' unityPrice<br/>';
-		echo $quantity;echo' quantity<br/>';
-		echo $description ;echo' description<br/>';
-		$addtheitem = $db->query("INSERT INTO `items1`(`itemName`, `productCode`, `itemCompanyCode`, `unit`, `unityPrice`, description) 
-		VALUES ('$itemName','$productCode','$itemCompanyCode','$unit','$unityPrice','$description')
-		")or die (mysqli_error());
-		
-		
-		$sql2 = $db->query("SELECT * FROM items1 ORDER BY itemId DESC limit 1");
-			while($row = mysqli_fetch_array($sql2)){
-				$Imagename = $row['itemId'];
-			}
-			
-		$sql5 = $db->query("INSERT INTO `bids`
-		(`trUnityPrice`, `qty`, `itemCode`, `operation`,`companyId`,`operationStatus`, doneBy) 
-		VALUES  ('$unityPrice','$quantity','$Imagename','In','$itemCompanyCode','1','$thisid')")or die(mysqli_error());
-		
-		if ($_FILES['fileField']['tmp_name'] != "") {																	 										 
-			$newname = ''.$Imagename.'.jpg';
-			move_uploaded_file( $_FILES['fileField']['tmp_name'], "../products/$newname");
-		}
-		header("location: user.php");
-	}
-	elseif(isset($_POST['editpst']))
-	{
-		$postId = $_POST['postId'];
-		$postTitle = $_POST['postTitle'];
-		$productCode = $_POST['productCode'];
-		$quantity = $_POST['quantity'];
-		$price = $_POST['price'];
-		$priceStatus = $_POST['priceStatus'];
-		$postDesc = $_POST['postDesc'];
-		$postedBy = $username; //$_POST['postedBy'];
-		$postDeadline = $_POST['postDeadline'];
-		$productLocation = $_POST['productLocation'];
-		
-		include ("db.php");		
-		$sql = $db->query("UPDATE posts SET postTitle='$postTitle',productCode='$productCode',quantity='$quantity',price='$price',priceStatus='$priceStatus',postDesc='$postDesc',postedBy='$postedBy',postDeadline='$postDeadline',productLocation='$productLocation' WHERE postId = '$postId'")or die (mysqli_error());
-		
-		header("location: user.php");
-	}			
+	ini_set('display_errors', 1);		
 ?>
 
 <!doctype html>
@@ -66,6 +11,7 @@
 	include ("../db.php");
 	include'userheader.php';
 	require("functions.php");
+	
 ?>
 <!-- main sidebar -->
 <div id="new_comp">
@@ -103,7 +49,7 @@
                         </div> -->
                         <div class="md-card-content">
                         	<?php
-                        		$sqlClients = $db->query('SELECT * FROM clients');
+                        		$sqlClients = $investDb->query('SELECT * FROM clients') or trigger_error($investDb->error);
 								$countClients = mysqli_num_rows($sqlClients);
 								$countUsers = mysqli_num_rows($db->query('SELECT * FROM uplus.users'));
                         	?>

@@ -15,24 +15,13 @@
         
         <div class="menu_section">
             <ul>
-                <?php 
-                    $sqlseller1 = $db->query("SELECT * FROM company1 WHERE companyUserCode = '$thisid'");
-                    $countComanies1 = mysqli_num_rows($sqlseller1);
-                    if($countComanies1>0)
-                        {
-                            while($row = mysqli_fetch_array($sqlseller1)) 
-                                            {
-                                                $companyid = $row['companyId'];
-                                                $companyName = $row['companyName'];
-                                                ?>
-                                            <li title="Dashboard">
-                                                <a href="user.php">
-                                                        <span class="menu_icon"><i class="material-icons">home</i></span>
-                                                        <span class="menu_title"><?php echo $row['companyName'];?></span>
-                                                 </a>
-                                            </li>
-                                            <li title="Dashboard">
-                    
+                <li title="Dashboard">
+                    <a href="user.php">
+                            <span class="menu_icon"><i class="material-icons">home</i></span>
+                            <span class="menu_title"><?php echo $row['companyName'];?></span>
+                     </a>
+                </li>
+                <li title="Dashboard">                    
                 </li>
                 <li title="Members">
                     <a href="javascript:void()">
@@ -73,11 +62,7 @@
                             <a href="feeds.php">Feeds</a>
                         </li>
                     </ul>
-                </li>
-                                            <?php
-                                        }
-                                    }
-                                ?>                    
+                </li>                
             </ul>
         </div>
     </aside><!-- main sidebar end -->

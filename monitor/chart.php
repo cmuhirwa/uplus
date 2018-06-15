@@ -108,7 +108,7 @@ function users()
                         verticalAlign: 'middle',
                         borderWidth: 0
                     },
-                    series: []
+                    series: [],
                 };
                 $.getJSON("data.php?datapage=users", function(json) {
                     options.xAxis.categories = json[0]['data']; //xAxis: {categories: []}

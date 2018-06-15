@@ -11,8 +11,20 @@
 			}else return false;
 			
 		}
-	}
 
+		function listAll()
+		{
+			global $db;
+			$result = $db->query("SELECT * FROM users WHERE archived = 'no' ORDER BY createdDate") or trigger_error($db->error);
+
+			$ret = array();
+			while ($data = $result->fetch_assoc()) {
+				$ret[] = $data;
+			}
+			return $ret;
+		}
+	}
+	
 	//instating new class
 	$User = new user();
 ?>
