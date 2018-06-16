@@ -539,8 +539,8 @@
 	function getForum($forumId)
 	{
 		//returns forum data
-		global $db;
-		$query = $db->query("SELECT * FROM forums WHERE id = \"$forumId\" ") or trigger_error($db->error);
+		global $investDb;
+		$query = $investDb->query("SELECT * FROM forums WHERE id = \"$forumId\" ") or trigger_error($investDb->error);
 
 		return $query->fetch_assoc();
 	}

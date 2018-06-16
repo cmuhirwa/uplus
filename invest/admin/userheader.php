@@ -17,7 +17,7 @@
 		header("location: login.php"); 
 		exit();
 	}
-	require_once "../db.php";	
+	require_once "../../db.php";	
 	require_once "../../scripts/class.user.php";	
  
 	$session_id = preg_replace('#[^0-9]#i', '', $_SESSION["id"]); // filter everything but numbers and letters

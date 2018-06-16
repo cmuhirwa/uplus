@@ -8,9 +8,8 @@
 <!--[if lte IE 9]> <html class="lte-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 9]><!--> <html lang="en"> <!--<![endif]-->
 <?php
-
-include'userheader.php';
-include'functions.php';
+	include'userheader.php';
+	include'functions.php';
 ?>
 
 <!-- main sidebar -->
@@ -181,6 +180,7 @@ include'functions.php';
 											<thead>
 												<tr>
 													<th>#</th>
+													<th>Image</th>
 													<th>Names</th>
 													<th>Gender</th>
 													<th>Joined Date</th>
@@ -194,8 +194,15 @@ include'functions.php';
 														$n++;
 														$memberData = user_details($member['userCode']);
 														$gender  = empty($memberData['gender'])?"Male":"Female";
+
+														$userImage = $memberData['userImage'];
+														if(!$userImage){
+															$userImage = $HOSTNAME."frontassets/img/logo_main_3.png";
+														}
+
 														echo '<tr>
 														<td>'.$n.'</td>
+														<td><img class="md-user-image" style="width:42px;height:42px" src="'.$userImage.'"/></td>
 														<td>'.$memberData['name'].'</td>
 														<td>'.$gender.'</td>
 														<td>'.date($standard_date, strtotime($member['createdDate']) ).'</td>';
