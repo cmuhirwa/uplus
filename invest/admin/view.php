@@ -10,7 +10,7 @@
 <?php
 if($viewid = $_GET['viewid'])
 {	
-	$sqlview = $db->query("SELECT * FROM clients where id = '$viewid' LIMIT 1");
+	$sqlview = $investDb->query("SELECT * FROM clients where id = '$viewid' LIMIT 1");
 
 	$client = $row = mysqli_fetch_array($sqlview);
 	

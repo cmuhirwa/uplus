@@ -197,7 +197,7 @@
 
 														$userImage = $memberData['userImage'];
 														if(!$userImage){
-															$userImage = $HOSTNAME."frontassets/img/logo_main_3.png";
+															$userImage = HOSTNAME."frontassets/img/logo_main_3.png";
 														}
 
 														echo '<tr>
