@@ -161,7 +161,7 @@
                 );   
             }
             $feeds[$i]['feedImage'] = $images;
-            $feeds[$i]['feedVideo'] = $video;
+            $feeds[$i]['video'] = $video;
 		}
 		
         mysqli_close($db);
