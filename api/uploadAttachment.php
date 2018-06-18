@@ -23,6 +23,5 @@
 	}else{
 	    $response = "Failed";
 	}
-
-	echo json_encode($response);
+	echo "$response";
 ?>

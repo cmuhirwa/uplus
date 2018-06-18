@@ -292,6 +292,9 @@
         $title = $request['title']??"";
 
         //attachments link
+        $attachments = $request['attachments']??"";
+        // $attachments = stripslashes($attachments);
+        // $attachments = str_ireplace("'", "\"", $attachments);
         $attachments = json_decode($request['attachments']??"", true);
 
         //the type of person who posted - admin or member if empty it'll be elisa app
@@ -321,12 +324,7 @@
 
 
 	        	//attachments from Android
-	        	$attachments = $request['feedAttachments'];
-
-	        	$attachments = trim($attachments, '{');
-	        	$attachments = trim($attachments, '}');
-
-	        	$attachments = explode(",", $attachments);
+	        	$attachments = json_decode($request['attachments']??"", true);
 	        	
 	        	if(is_array($attachments)){
 
