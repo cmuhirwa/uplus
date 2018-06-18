@@ -483,10 +483,9 @@
 					response = this.responseText;
 					try{
 						ret = JSON.parse(response);
-						if(ret.status){
+						if(ret.toString().length>10){
 							//create successfully(Giving notification and closing the modal);
-							feeds_attachment.push(host+ret.msg)
-
+							feeds_attachment.push(ret);
 						}else{
 							msg = ret.msg;
 						}
