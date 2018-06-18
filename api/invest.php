@@ -296,7 +296,7 @@
         // $attachments = stripslashes($attachments);
         // $attachments = str_ireplace("'", "\"", $attachments);
         $attachments = json_decode($request['attachments']??"", true);
-        var_dump($attachments);
+        // var_dump($attachments);
 
         //the type of person who posted - admin or member if empty it'll be elisa app
         $userType = $request['userType']??'member';        
