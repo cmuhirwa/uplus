@@ -83,7 +83,7 @@
 										<div class="user_heading" data-uk-sticky="{ top: 48, media: 960 }">
 											<div class="user_heading_avatar fileinput fileinput-new" data-provides="fileinput">
 												<div class="fileinput-new thumbnail">
-													<img src="<?php echo $forumData['icon']; ?>" alt="user avatar"/>
+													<img src="/<?php echo $forumData['icon']; ?>" alt="user avatar"/>
 												</div>
 												<div class="fileinput-preview fileinput-exists thumbnail"></div>
 												<div class="user_avatar_controls">
