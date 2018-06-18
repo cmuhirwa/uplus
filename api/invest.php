@@ -532,7 +532,7 @@
 			$query = $db->query("SELECT * FROM uplus.users WHERE id = \"$userId\" ");
 			$userData = $query->fetch_assoc();
 
-			$query = $investDb->query("INSERT INTO clients(clientOf, userCode, dob, gender, NID, residentIn, nationality, country, city, status, statusOn) VALUES('bank', \"$userId\", \"$dob\", \"$gender\", \"$NID\", \"$nationality\", \"$nationality\", 'Rwanda', 'Kigali', 'pending', NOW()) ");
+			$query = $investDb->query("INSERT INTO clients(service, userCode, dob, gender, NID, residentIn, nationality, country, city, status, statusOn) VALUES('bank', \"$userId\", \"$dob\", \"$gender\", \"$NID\", \"$nationality\", \"$nationality\", 'Rwanda', 'Kigali', 'pending', NOW()) ");
 
 			if($query){
 				$response = 'Done';
