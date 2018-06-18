@@ -82,6 +82,7 @@ link: https://uplus.rw/api/invest.php
 			targetForum
 			feedContent
 			feedAttachments - array of base64 encoded images
+			attachments - array of attachments' paths
 			platform - 'app' for android
 
 		<-
