@@ -152,7 +152,6 @@
             	$ext = strtolower(pathinfo($rowImage['imgUrl'], PATHINFO_EXTENSION)); //extension
 
             	//checking for video
-            	// var_dump($ext);
             	if(strtolower($ext) == 'mp4'){
             		$video = $rowImage['imgUrl'];
             	}
