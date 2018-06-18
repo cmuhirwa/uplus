@@ -27,12 +27,12 @@
 		}
 		else
 		{
-			echo 'Please read the API documentation';
+			echo 'Action could not be found! Please read the API documentation';
 		}
 	}
 	else
 	{
-		echo 'UPLUS API V02';
+		echo 'POST ONLY UPLUS API V02';
 	}
 // END INITIATE
 
@@ -296,6 +296,7 @@
         // $attachments = stripslashes($attachments);
         // $attachments = str_ireplace("'", "\"", $attachments);
         $attachments = json_decode($request['attachments']??"", true);
+        var_dump($attachments);
 
         //the type of person who posted - admin or member if empty it'll be elisa app
         $userType = $request['userType']??'member';        
@@ -314,6 +315,7 @@
             //checking sent attachments
 
             if(!empty($attachments)){
+            	echo "thrererer";
             	//already uploaded attachments
 	            for($n=0; $n<count($attachments); $n++){
 	                $att = $attachments[$n];

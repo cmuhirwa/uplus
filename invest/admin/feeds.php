@@ -462,7 +462,7 @@
 				//Start to upload
 				var formdata = new FormData();
 
-				formdata.append('action', 'upload_feed_attachment');
+				formdata.append('action', 'uploadAttachment');
 				formdata.append('file', uploaded);
 
 				var ajax = new XMLHttpRequest();
@@ -496,7 +496,7 @@
 
 				}, false);
 
-				ajax.open("POST", "api/index.php");
+				ajax.open("POST", "../../api/invest.php");
 				ajax.send(formdata);
 			}else{
 				alert("File of "+ext+ " type not allowed")

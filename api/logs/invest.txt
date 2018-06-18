@@ -142,3 +142,45 @@
 
 {"action":"postFeed","memberId":"1","targetForum":"18","feedContent":"hello","platform":"app","attachments":"['http:\/\/uplus.com\/invest\/gallery\/feeds\/home-bg_1529308864.jpg']"}
 
+{"action":"postFeed","feedContent":"Yees thisis video on demand","memberId":"530","attachments":"[]","userType":"admin","platform":"web","targetForum":"20"}
+
+{"action":"postFeed","feedContent":"khjhhj","memberId":"530","attachments":"[\"http:\/\/uplus.com\/invest\/gallery\/feeds\/home-bg_1529310034.jpg\"]","userType":"admin","platform":"web","targetForum":"public"}
+
+{"action":"postFeed","feedContent":"dsadsdsa","memberId":"530","attachments":"[]","userType":"admin","platform":"web","targetForum":"18"}
+
+{"action":"postFeed","feedContent":"sdsdsd","memberId":"530","attachments":"[]","userType":"admin","platform":"web","targetForum":"18"}
+
+[]
+
+[]
+
+{"action":"postFeed","feedContent":"dsadasd","memberId":"530","attachments":"[]","userType":"admin","platform":"web","targetForum":"18"}
+
+[]
+
+{"action":"uploadAttachment","memberId":"1","targetForum":"18","feedContent":"hello","platform":"app","attachments":"['http:\/\/uplus.com\/invest\/gallery\/feeds\/home-bg_1529308864.jpg']"}
+
+[]
+
+[]
+
+[]
+
+[]
+
+{"action":"uploadAttachment"}
+
+{"action":"postFeed","feedContent":"sdasds","memberId":"530","attachments":"[]","userType":"admin","platform":"web","targetForum":"19"}
+
+{"action":"listStocks"}
+
+{"action":"uploadAttachment"}
+
+{"action":"uploadAttachment"}
+
+[]
+
+{"action":"uploadAttachment"}
+
+{"action":"postFeed","feedContent":"There we go","memberId":"530","attachments":"[]","userType":"admin","platform":"web","targetForum":"20"}
+
