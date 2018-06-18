@@ -145,14 +145,24 @@
 		{
 			$feedId 	= $feed['feedId'];
 			$images 	= array();
+			$video = 'None';
             $sql 		= $investDb->query("SELECT `imgUrl` FROM `investmentimg` WHERE `investCode` = '$feedId'")or die (mysqli_error($investDb));
             while($rowImage = mysqli_fetch_array($sql))
             {
-                $images[]  = array(
+            	$ext = strtolower(pathinfo($rowImage['imgUrl'], PATHINFO_EXTENSION)); //extension
+
+            	//checking for video
+            	// var_dump($ext);
+            	if(strtolower($ext) == 'mp4'){
+            		$video = $rowImage['imgUrl'];
+            	}
+
+        		$images[]  = array(
                     "imgUrl"         => $rowImage['imgUrl']
-                );
+                );   
             }
             $feeds[$i]['feedImage'] = $images;
+            $feeds[$i]['feedVideo'] = $video;
 		}
 		
         mysqli_close($db);
@@ -315,16 +325,13 @@
             //checking sent attachments
 
             if(!empty($attachments)){
-            	echo "thrererer";
             	//already uploaded attachments
 	            for($n=0; $n<count($attachments); $n++){
 	                $att = $attachments[$n];
-	                var_dump($att);
 	                $sql = "INSERT INTO investmentimg(imgUrl, investCode) VALUES(\"$att\", $feed_id) ";
 	                $investDb->query($sql) or trigger_error($investDb->error);
 	            }
 	        }else if(!empty($request['feedAttachments'])){
-
 
 	        	//attachments from Android
 	        	$attachments = json_decode($request['attachments']??"", true);

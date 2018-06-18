@@ -1,4 +1,6 @@
 <?php
+	error_reporting(E_ALL);
+	set_time_limit(0);
 	$hostname = $_SERVER['REQUEST_SCHEME']."://".$_SERVER['HTTP_HOST']."/";
 	//uploading the file for attachments
 	$attachment = $_FILES['file'];
@@ -23,5 +25,5 @@
 	}else{
 	    $response = "Failed";
 	}
-	echo "$response";
+	echo "\"$response\"";
 ?>
