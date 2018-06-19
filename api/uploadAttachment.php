@@ -25,5 +25,5 @@
 	}else{
 	    $response = "Failed";
 	}
-	echo "\"$response\"";
+	echo "$response";
 ?>
