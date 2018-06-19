@@ -333,7 +333,8 @@
 	        }else if(!empty($request['feedAttachments'])){
 
 	        	//attachments from Android
-	        	$attachments = json_decode($request['attachments']??"", true);
+	        	$attachments = $request['attachments']??"";
+	        	$attachments = json_decode($attachments, true);
 	        	
 	        	if(is_array($attachments)){
 
@@ -358,7 +359,7 @@
 	                	$investDb->query($sql) or trigger_error($investDb->error);
 		        	}
 	        	}else{
-	        		die("Failed");
+	        		// die("Failed, Not attachments");
 	        	}
 	        }else if(!empty($_FILES) ){
 	        	//here we've to upload these files, this oftenly happens for android requests
@@ -870,16 +871,17 @@
 			$userq = $investDb->query("SELECT * FROM clients WHERE id = \" $client\" ") or trigger_error($investDb->error);
 			if($userq){
 				$userdata = $userq->fetch_assoc();
-				$phone = $userdata['telephone'];
+				$userId = $userdata['userCode'];
+				
+				$clientUserData = user_details($userId);
+				$phone = $clientUserData['phone'];
+				$email = $clientUserData['email'];
 
 				if(array_search('email', $channels_array) !== false){
-					$sql = "SELECT * FROM uplus.users WHERE phone = \"$phone\" ";
-					$userq = $investDb->query($sql) or trigger_error($investDb->error);
-					$userqdata = $userq->fetch_assoc();
-					// Semail($userqdata['email'], "Uplus broker message", $message);
+					// Semail($email, "Uplus broker message", $message);
 				}
 
-				if($userdata['telephone'] && array_search('sms', $channels_array) !== false){
+				if($phone && array_search('sms', $channels_array) !== false){
 					sendsms($phone, $message);
 				}
 			}

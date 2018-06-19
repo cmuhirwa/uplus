@@ -378,7 +378,11 @@ if($viewid = $_GET['viewid'])
 												</div>
 											</div>
 											<div style="height: 12px; width: 100%; padding: 0px; margin: 0 -100px;"></div>
-											<div class="clearfix uk-margin-top">                                                    
+											<div class="clearfix uk-margin-top">
+											<?php
+
+											// var_dump($Company);
+											?>                                                
 												<ul class="uk-list uk-list-line">
 													<?php
 														foreach ($messages as $key => $message) {
@@ -387,7 +391,7 @@ if($viewid = $_GET['viewid'])
 																<div class="uk-grid">
 																	<div class="comment-head">
 																		<div class="thumbnail">
-																			<img class="user avatar inline" style="height: 72px; width: 72px; border-radius: 50%" src="<?php echo $Company->standardLogo ?>">
+																			<img class="user avatar inline" style="height: 72px; width: 72px; border-radius: 50%" src="<?php echo $Company->logo ?>">
 																			<div class="inline">
 																				<p style="vertical-align: middle; font-family: verdana; color: #0a3482">
 																					<i><?php echo $userName ?></i>

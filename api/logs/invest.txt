@@ -184,3 +184,55 @@
 
 {"action":"postFeed","feedContent":"There we go","memberId":"530","attachments":"[]","userType":"admin","platform":"web","targetForum":"20"}
 
+{"action":"messageBrokerClient","brokerId":"530","clientId":"49","message":"Hello","channels":["email"]}
+
+{"action":"messageBrokerClient","brokerId":"530","clientId":"49","message":"Hello","channels":["email"]}
+
+{"action":"messageBrokerClient","brokerId":"530","clientId":"49","message":"Hello","channels":["sms"]}
+
+{"action":"messageBrokerClient","brokerId":"530","clientId":"49","message":"Hello","channels":["sms"]}
+
+{"action":"messageBrokerClient","brokerId":"530","clientId":"49","message":"Hello","channels":["sms"]}
+
+{"action":"messageBrokerClient","brokerId":"530","clientId":"49","message":"Hello","channels":["sms"]}
+
+{"action":"messageBrokerClient","brokerId":"530","clientId":"49","message":"Hello","channels":["sms"]}
+
+{"action":"messageBrokerClient","brokerId":"530","clientId":"49","message":"It's all good","channels":["email"]}
+
+{"action":"messageBrokerClient","brokerId":"530","clientId":"49","message":"fdfdfd","channels":["email"]}
+
+{"\"action\":\"postFeed\"\r\n\"memberId\":\"612\"\r\n\"targetForum\":\"18\"\r\n\"feedContent\":\"nskskskdd_dndmx_xmxxmx_xmzz_z_zzmzmz_zmmz\"\r\n\"platform\":\"app\"\r\n\"attachments\":\"":{"'none'":""}}
+
+{"action":"postFeed","memberId":"612","targetForum":"18","feedContent":"nskskskdd dndmx xmxxmx xmzz.z.zzmzmz.zmmz","platform":"app","attachments":"['none']","feedAttachments":"{'none','none','none'}"}
+
+{"action":"postFeed","memberId":"612","targetForum":"18","feedContent":"nskskskdd dndmx xmxxmx xmzz.z.zzmzmz.zmmz","platform":"app","attachments":"[\"None\"']","feedAttachments":"{'none','none','none'}"}
+
+{"action":"postFeed","memberId":"612","targetForum":"18","feedContent":"Can we get it working","platform":"app","attachments":"[\"None\"']","feedAttachments":"{'none','none','none'}"}
+
+{"action":"postFeed","memberId":"612","targetForum":"18","feedContent":"Can we get it working","platform":"app","attachments":"[\"None\"']","feedAttachments":"{'none','none','none'}"}
+
+{"action":"postFeed","memberId":"612","targetForum":"18","feedContent":"Can we get it working","platform":"app","attachments":"[\"None\"']","feedAttachments":"{'none','none','none'}"}
+
+{"action":"postFeed","memberId":"612","targetForum":"18","feedContent":"Can we get it working","platform":"app","attachments":"[\"None\"']"}
+
+{"action":"postFeed","memberId":"612","targetForum":"18","feedContent":"Can we get it working","platform":"app","attachments":"[\"None\"']","feedAttachments":"{'none','none','none'}"}
+
+{"action":"postFeed","memberId":"612","targetForum":"18","feedContent":"Can we get it working","platform":"app","attachments":"[\"None\"']","feedAttachments":"{'none','none','none'}"}
+
+{"action":"postFeed","memberId":"612","targetForum":"18","feedContent":"Can we get it working","platform":"app","attachments":"[\"None\"']","feedAttachments":"{'none','none','none'}"}
+
+{"action":"postFeed","memberId":"612","targetForum":"18","feedContent":"Can we get it working","platform":"app","attachments":"[\"None\"]","feedAttachments":"{'none','none','none'}"}
+
+{"action":"postFeed","memberId":"612","targetForum":"18","feedContent":"Can we get it working","platform":"app","attachments":"['\\\"https:\\\/\\\/uplus.rw\\\/invest\\\/gallery\\\/feeds\\\/ridermanriderzo-20180215-0001_1529420410.mp4\\\"']","feedAttachments":"{'none','none','none'}"}
+
+{"action":"postFeed","memberId":"612","targetForum":"18","feedContent":"Can we get it working","platform":"app","attachments":"['\\\"https:\\\/\\\/uplus.rw\\\/invest\\\/gallery\\\/feeds\\\/ridermanriderzo-20180215-0001_1529420410.mp4\\\"']","feedAttachments":"{'none','none','none'}"}
+
+{"action":"postFeed","memberId":"612","targetForum":"18","feedContent":"Can we get it working","platform":"app","attachments":"['\\\"https:\\\/\\\/uplus.rw\\\/invest\\\/gallery\\\/feeds\\\/ridermanriderzo-20180215-0001_1529420410.mp4\\\"']","feedAttachments":"{'none','none','none'}"}
+
+{"action":"postFeed","memberId":"612","targetForum":"18","feedContent":"Can we get it working","platform":"app","attachments":"['\\\"https:\\\/\\\/uplus.rw\\\/invest\\\/gallery\\\/feeds\\\/ridermanriderzo-20180215-0001_1529420410.mp4\\\"']","feedAttachments":"{'none','none','none'}"}
+
+{"action":"postFeed","memberId":"612","targetForum":"18","feedContent":"Can we get it working","platform":"app","attachments":"['\\\"https:\\\/\\\/uplus.rw\\\/invest\\\/gallery\\\/feeds\\\/ridermanriderzo-20180215-0001_1529420410.mp4\\\"']","feedAttachments":"{'none','none','none'}"}
+
+{"action":"postFeed","memberId":"612","targetForum":"18","feedContent":"Can we get it working","platform":"app","attachments":"['\\\"https:\\\/\\\/uplus.rw\\\/invest\\\/gallery\\\/feeds\\\/ridermanriderzo-20180215-0001_1529420410.mp4\\\"']","feedAttachments":"{'none','none','none'}"}
+

@@ -123,7 +123,7 @@
 				<div class="uk-navbar-flip">
 					<ul class="uk-navbar-nav user_actions">
 						<li data-uk-dropdown="{mode:'click',pos:'bottom-right'}">
-							<a href="#" class="user_action_image"><img class="md-user-image" src="/<?php echo($user_profile); ?>" alt=""/></a>
+							<a href="#" class="user_action_image"><img class="md-user-image" src="<?php echo($user_profile); ?>" alt=""/></a>
 							<div class="uk-dropdown uk-dropdown-small">
 								<ul class="uk-nav js-uk-prevent">
 									<li><a href="page_user_profile.html">My profile</a></li>
