@@ -304,8 +304,8 @@
         $attachments = $request['attachments']??"";
         // $attachments = stripslashes($attachments);
         // $attachments = str_ireplace("'", "\"", $attachments);
-        $attachments = json_decode($request['attachments']??"", true);
-        // var_dump($attachments);
+        $attachments = stripslashes($request['attachments']??"");
+        $attachments = json_decode($attachments);
 
         //the type of person who posted - admin or member if empty it'll be elisa app
         $userType = $request['userType']??'member';        
@@ -321,8 +321,9 @@
 
         if($query){
             $feed_id = $investDb->insert_id;
-            //checking sent attachments
+            
 
+            //link attachments like videos on android and everything from admin
             if(!empty($attachments)){
             	//already uploaded attachments
 	            for($n=0; $n<count($attachments); $n++){
@@ -330,7 +331,10 @@
 	                $sql = "INSERT INTO investmentimg(imgUrl, investCode) VALUES(\"$att\", $feed_id) ";
 	                $investDb->query($sql) or trigger_error($investDb->error);
 	            }
-	        }else if(!empty($request['feedAttachments'])){
+	        }
+
+	        //Android images in base64
+	        if(!empty($request['feedAttachments'])){
 
 	        	//attachments from Android
 	        	$attachments = $request['attachments']??"";
@@ -361,7 +365,10 @@
 	        	}else{
 	        		// die("Failed, Not attachments");
 	        	}
-	        }else if(!empty($_FILES) ){
+	        };
+
+	        //If images were sent in form - Not working now
+	        if(!empty($_FILES) && 0){
 	        	//here we've to upload these files, this oftenly happens for android requests
 	        	$attachments = $_FILES;
 	        	foreach ($attachments as $handlename => $attachment) {
