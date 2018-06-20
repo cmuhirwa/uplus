@@ -25,6 +25,7 @@
 										<th>Image</th>
 										<th>userName</th>
 										<th>Phone</th>                                        
+										<th>Email</th>                                        
 										<th>Joined Date</th>
 									</tr>
 								</thead>
@@ -35,6 +36,7 @@
 										<th>Image</th>
 										<th>userName</th>
 										<th>Phone</th>                                        
+										<th>Email</th>                                        
 										<th>Joined Date</th>
 									</tr>
 								</tfoot>
@@ -50,6 +52,7 @@
 												$userImage = HOSTNAME."frontassets/img/logo_main_3.png";
 											}
 											$phone = $userData['phone'];
+											$email = $userData['email']??"-";
 											$createdDate = $userData['createdDate'];
 											echo '
 												<tr>
@@ -57,6 +60,7 @@
 													<td><img class="md-user-image" style="width:60px;height:60px;" src="'.$userImage.'" /></td>
 													<td>'.$name.'</td>
 													<td>'.$phone.'</td>
+													<td>'.$email.'</td>
 													<td>'.$createdDate.'</td>
 												</tr>';
 										}
