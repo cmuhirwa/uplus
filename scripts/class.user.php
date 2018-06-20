@@ -15,13 +15,13 @@
 		function listAll()
 		{
 			global $db;
-			$result = $db->query("SELECT * FROM users WHERE archived = 'no' ORDER BY createdDate") or trigger_error($db->error);
+			$result = $db->query("SELECT * FROM users WHERE archived = 'no' ORDER BY createdDate DESC") or trigger_error($db->error);
 
-			$ret = array();
-			while ($data = $result->fetch_assoc()) {
-				$ret[] = $data;
-			}
-			return $ret;
+			// $ret = array();
+			// while ($data = $result->fetch_assoc()) {
+			// 	$ret[] = $data;
+			// }
+			return $result->fetch_all(MYSQLI_ASSOC);
 		}
 	}
 	
