@@ -124,7 +124,7 @@
 						}else{
 							$posts = listFeeds($thisid);
 						}
-						
+
 						foreach ($posts as $key => $post) {
 							$post_title = $post['feedTitle'];
 							$post_content = $post['feedContent'];
@@ -137,13 +137,20 @@
 
 							$feedId = $postId = $post['id'];
 
+							$forumData = getForum($post['feedForumId']);
+							if($forumData){
+								$postedTo = $forumData['title'];
+							}else{
+								$postedTo = 'Public';
+							}
+
 							$comments = feedComments($postId);
 							?>
 								<div class="uk-margin-bottom uk-width-medium-2-3 uk-width-1-1" data-target-forum="<?php echo $post['feedForumId'] ?>">
 									<div class="md-card">
 										<div class="md-card-content">
 											<div class="blog_list_teaser" style="margin-bottom: 12px;">
-												<h2 class="blog_list_teaser_title uk-text-truncate"><?php echo $posted_by; ?></h2>
+												<h2 class="blog_list_teaser_title uk-text-truncate"><?php echo $posted_by." > $postedTo"; ?></h2>
 													
 												<p>
 													<?php echo $post_content; ?>
