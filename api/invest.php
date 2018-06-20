@@ -305,7 +305,9 @@
         // $attachments = stripslashes($attachments);
         // $attachments = str_ireplace("'", "\"", $attachments);
         $attachments = stripslashes($request['attachments']??"");
-        $attachments = json_decode($attachments);
+        $attachments = str_ireplace("'", "\"", $attachments); #repairing android sent strings with single quote
+
+        $attachments = json_decode($attachments, true);
 
         //the type of person who posted - admin or member if empty it'll be elisa app
         $userType = $request['userType']??'member';        
