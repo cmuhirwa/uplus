@@ -34,7 +34,7 @@
                                     Forums
                                 </h3>
                             </div>
-                            <?php echo $row['companyDescription'];?>
+                            A place where people learn financial skills
                         </div>
                     </div>
                     </a>
@@ -96,37 +96,7 @@
                                     Transactions
                                 </h3>
                             </div>
-                            Total Share Value:
-                            <span>
-                            	<?php
-								$totalHave ="";												 
-								$totalqty="";
-								$sql = $db->query("SELECT I.`itemId`, I.`itemName`,
-								IFNULL((SELECT SUM(T.`qty`) FROM `transactions` T WHERE `operation`='In' AND T.`itemCode` = I.`itemId`),0) Ins,
-								IFNULL((SELECT SUM(T.`qty`) FROM `transactions` T WHERE `operation`='Out' AND T.`itemCode` = I.`itemId`),0)  Outs,
-								IFNULL((SELECT SUM(T.`qty`) FROM `transactions` T WHERE `operation`='In' AND T.`itemCode` = I.`itemId`),0) -
-								IFNULL((SELECT SUM(T.`qty`) FROM `transactions` T WHERE `operation`='Out' AND T.`itemCode` = I.`itemId`),0)  Balance
-								,I.`unit`, I.`unitPrice`
-								FROM `items1` I WHERE I.itemCompanyCode= '$companyid' ORDER BY Balance DESC");
-								$n=0;
-								$countResults = mysqli_num_rows($sql);
-								if($countResults > 0){
-									WHILE($row= mysqli_fetch_array($sql))
-									{
-										$n++;
-										$qty = $row['Balance'];
-										$up = $row['unitPrice'];
-										$outstanding = $qty * $up;
-										$totalqty = $qty + $totalqty;
-										$totalHave = $outstanding + $totalHave;
-									}
-								}else{
-									$totalHave = 0;
-								}
-								echo number_format($totalHave);
-								?>  Rwf
-							</span>
-							Total ROI: 0 Rwf
+                            Stock transactions including sell and buy of stocks
                         </div>
                     </div>
 					</a>
