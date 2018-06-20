@@ -381,7 +381,7 @@
 		return $data;
 	}
 
-	function listFeeds($memberId='')
+	function listFeeds($memberId = 1)
 	{
 		//function to return the posts from $user
 		global $db;		

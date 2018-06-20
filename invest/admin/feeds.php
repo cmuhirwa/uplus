@@ -124,7 +124,6 @@
 						}else{
 							$posts = listFeeds($thisid);
 						}
-
 						
 						foreach ($posts as $key => $post) {
 							$post_title = $post['feedTitle'];
