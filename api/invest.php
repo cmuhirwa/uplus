@@ -829,7 +829,7 @@
 		//getting csd info
 		$investData = checkClientUser($userId, 'invest');
 		if($investData){
-			$status = $investData['status'];
+			$status = $investData['status']??"none";
 			$response['csdStatus'] = $status;
 
 			//return account if account is approved
@@ -841,7 +841,7 @@
 
 		$bankData = checkClientUser($userId, 'bank');
 		if($investData){
-			$status = $bankData['status'];
+			$status = $bankData['status']??"none";
 			$response['bankStatus'] = $status;
 
 			//return account if account is approved

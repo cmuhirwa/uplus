@@ -250,3 +250,9 @@
 
 {"action":"postFeed","memberId":"612","targetForum":"18","feedContent":"Can we get it working","platform":"app","attachments":"[\"https:\\\/\\\/uplus.rw\\\/invest\\\/gallery\\\/feeds\\\/ridermanriderzo-20180215-0001_1529420410.mp4\\\"]","feedAttachments":"{'none','none','none'}"}
 
+{"action":"userAccounts","userId":"1"}
+
+{"action":"userAccounts","userId":"1"}
+
+{"action":"userAccounts","userId":"2"}
+

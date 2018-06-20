@@ -130,6 +130,15 @@ link: https://uplus.rw/api/invest.php
 		<-
 			'Done'
 
+	userAccounts
+		->
+			userId
+		<-
+			csdStatus
+			csdAccount
+			bankStatus
+			bankAccount
+
 	listStocks
 		->
 		<-
