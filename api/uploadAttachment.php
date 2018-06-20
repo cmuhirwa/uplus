@@ -3,8 +3,9 @@
 	set_time_limit(0);
 	$hostname = $_SERVER['REQUEST_SCHEME']."://".$_SERVER['HTTP_HOST']."/";
 	//uploading the file for attachments
+
 	$attachment = $_FILES['file'];
-	$sent_file_name = $attachment['name'];
+	$sent_file_name = strtolower($attachment['name']);
 	$ext = strtolower(pathinfo($sent_file_name, PATHINFO_EXTENSION)); //extension
 
 	$filename = "invest/gallery/feeds/".substr($sent_file_name, 0, -4)."_".time().".".$ext;
@@ -23,7 +24,7 @@
 
 	    $response = $filename??"";
 	}else{
-	    $response = "Failed";
+	    $response = "Failed, extension not allowed";
 	}
 	echo "$response";
 ?>
