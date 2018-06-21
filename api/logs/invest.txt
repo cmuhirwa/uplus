@@ -306,3 +306,5 @@
 
 {"action":"loopFeeds","memberId":"104"}
 
+{"action":"listStocks"}
+

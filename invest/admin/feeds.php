@@ -124,7 +124,6 @@
 						}else{
 							$posts = listFeeds($thisid);
 						}
-
 						foreach ($posts as $key => $post) {
 							$post_title = $post['feedTitle'];
 							$post_content = $post['feedContent'];
@@ -145,6 +144,11 @@
 							}
 
 							$comments = feedComments($postId);
+
+
+							$feedVideo = $post['video'];
+							$feedVideoThumbnail = $post['videoThumbnail'];
+
 							?>
 								<div class="uk-margin-bottom uk-width-medium-2-3 uk-width-1-1" data-target-forum="<?php echo $post['feedForumId'] ?>">
 									<div class="md-card">
@@ -171,10 +175,13 @@
 																<audio src="<?php echo $attachment ?>" controls></audio>
 															<?php 
 														}
-														else if($ext == 'mp4'){
+
+
+
+														if($feedVideo){
 															//video
 															?>
-																<video src="<?php echo $attachment ?>" width='100%' style="max-height:300px" controls></video>
+																<video src="<?php echo $feedVideo ?>" width='100%' style="max-height:300px" controls></video>
 															<?php 
 														}
 													}
