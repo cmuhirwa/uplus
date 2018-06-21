@@ -141,6 +141,7 @@ link: https://uplus.rw/api/invest.php
 
 	listStocks
 		->
+			userId
 		<-
 			stockName
 			stockId

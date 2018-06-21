@@ -1010,11 +1010,13 @@
 
 		//android format
 		foreach ($companyDetails as $key => $data) {
+			//check the balance of the use
 			$ret[] = array(
 				'stockName'=>$data['companyName'],
 				'stockId'=>$data['companyId'],
 				'brokerName'=>$data['brokerName'],
 				'brokerId'=>$data['brokerId'],
+				'walletBalance'=>(string)userWallet($userId),
 				'data'=>$companies[$data['companyId']]
 			);
 
