@@ -146,7 +146,7 @@
 	<script src="bower_components/c3js-chart/c3.min.js"></script>
 	
 	<!--  charts functions -->
-	<script src="assets/js/pages/plugins_charts.min.js"></script>
+	<!-- <script src="assets/js/pages/plugins_charts.min.js"></script> -->
 	
 	<script>
 		$(function() {

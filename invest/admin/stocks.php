@@ -26,7 +26,7 @@ if(isset($_POST['newPrice'])){
 <!-- main sidebar -->
 <div id="new_comp">
 	<?php
-	$stock = $_GET['id']??"";
+	$stock = $currentStockId = $_GET['id']??"";
 		if(!empty($stock)){
 
 			//If submit request is issued
@@ -197,7 +197,7 @@ if(isset($_POST['newPrice'])){
 												<td><a href="stocks.php?id='.$data['companyId'].'">'.$data['companyName'].'</a></td>
 												<td>'.$data['prevPrice'].'</td>
 												<td>'.$data['unitPrice'].' ('.number_format($data['change']).'%)</td>
-												<td><form method="post" action="stocks.php"><input name="newPrice" /><input type="hidden" name="companyId" value=
+												<td><form method="post" action="stocks.php"><input name="newPrice" type="number" min="1" /><input type="hidden" name="companyId" value=
 												"'.$data['companyId'].'"><button>CHANGE</button></form></td>
 												</tr>';
 											}
@@ -319,7 +319,7 @@ if(isset($_POST['newPrice'])){
 	<script src="bower_components/clndr/clndr.min.js"></script>
 
 	<!--  dashbord functions -->
-	<script src="assets/js/pages/dashboard.min.js"></script>
+	<!-- <script src="assets/js/pages/dashboard.min.js"></script> -->
 
 	<!-- Dropify -->
 	<script src="bower_components/dropify/dist/js/dropify.min.js"></script>
@@ -330,7 +330,7 @@ if(isset($_POST['newPrice'])){
 	<script src="assets/js/custom/uikit_fileinput.min.js"></script>
 
 	<!--  user edit functions -->
-	<script src="assets/js/pages/page_user_edit.min.js"></script>
+	<!-- <script src="assets/js/pages/page_user_edit.min.js"></script> -->
 
 	<!-- Firebase -->
 	<script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
@@ -338,13 +338,9 @@ if(isset($_POST['newPrice'])){
 	<!-- HighStock -->
 	<script src="https://code.highcharts.com/stock/highstock.js"></script>
 
-	<script src="js/uploadFile.js"></script>
-
-	<script type="text/javascript" src="js/forums.js"></script>
-
 	<script type="text/javascript">
 		const current_user = <?php echo $thisid; ?>;
-		const current_stock = <?php echo $stock; ?>;
+		const current_stock = <?php echo $currentStockId != '' ?$currentStockId:"0"; ?>;
 		$(".input-number").on('keypress', function(e){
             if(isNaN(e.key) && e.key != '.'){
                 alert("Numbers only allowed")
@@ -441,6 +437,76 @@ if(isset($_POST['newPrice'])){
 			}
 
 		})
+
+		//Load chart if we are on stock page
+		<?php
+			if($currentStockId){
+				?>
+					$.post('../../api/invest.php', {action: 'listStocks'}, function (data) {
+						stockData = []
+						//looping through to find our stock
+						for(n=0; n<data.length; n++)
+						{
+
+							stock = data[n];
+							if(stock.stockId == current_stock){
+								current_stock_data = stock.data;
+
+								//Loop ovewr data
+								for (var i = current_stock_data.length - 1; i >= 0; i--) {
+									t = current_stock_data[i];
+									stockData.push([new Date(t.date).getTime(), parseInt(t.unitPrice)])
+								}
+
+								// Create the chart
+							    Highcharts.stockChart('chartContainer', {
+
+
+							        rangeSelector: {
+							            selected: 1
+							        },
+
+							        title: {
+							            text: '<?php echo $stockName; ?> Stock Price'
+							        },
+
+							        series: [{
+							            name: '<?php echo $stockName; ?> Stock Price',
+							            data: stockData,
+							            type: 'areaspline',
+							            threshold: null,
+							            tooltip: {
+							                valueDecimals: 2
+							            },
+							            fillColor: {
+							                linearGradient: {
+							                    x1: 0,
+							                    y1: 0,
+							                    x2: 0,
+							                    y2: 1
+							                },
+							                stops: [
+							                    [0, Highcharts.getOptions().colors[0]],
+							                    [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+							                ]
+							            }
+							        }]
+							    });
+
+							    //stop the looping; we've got what we wanted
+							    break;
+								 
+							}
+						}
+					});
+				<?php
+			}
+		?>
+		if(current_stock){
+			
+		}
+
+
 	</script>
 
 	<script>
@@ -461,68 +527,7 @@ if(isset($_POST['newPrice'])){
 		// ie fixes
 		altair_helpers.ie_fix();
 	});
-
-	$.post('../../api/invest.php', {action: 'listStocks'}, function (data) {
-		console.log(data)
-
-		stockData = []
-		//looping through to find our stock
-		for(n=0; n<data.length; n++)
-		{
-
-			stock = data[n];
-			if(stock.stockId == current_stock){
-				current_stock_data = stock.data;
-
-				//Loop ovewr data
-				for (var i = current_stock_data.length - 1; i >= 0; i--) {
-					t = current_stock_data[i];
-					stockData.push([new Date(t.date).getTime(), parseInt(t.unitPrice)])
-				}
-
-				console.log(stockData);
-
-				// Create the chart
-			    Highcharts.stockChart('chartContainer', {
-
-
-			        rangeSelector: {
-			            selected: 1
-			        },
-
-			        title: {
-			            text: '<?php echo $stockName; ?> Stock Price'
-			        },
-
-			        series: [{
-			            name: '<?php echo $stockName; ?> Stock Price',
-			            data: stockData,
-			            type: 'areaspline',
-			            threshold: null,
-			            tooltip: {
-			                valueDecimals: 2
-			            },
-			            fillColor: {
-			                linearGradient: {
-			                    x1: 0,
-			                    y1: 0,
-			                    x2: 0,
-			                    y2: 1
-			                },
-			                stops: [
-			                    [0, Highcharts.getOptions().colors[0]],
-			                    [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
-			                ]
-			            }
-			        }]
-			    });
-
-			    //stop the looping; we've got what we wanted
-			    break;
-				 
-			}
-		}
-	});
+	
 
 </script>
 </body>

@@ -504,6 +504,24 @@
 	<!-- CLNDR -->
 	<script src="bower_components/clndr/clndr.min.js"></script>
 
+	<!-- datatables -->
+	<script src="bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+	<!-- datatables buttons-->
+	<script src="bower_components/datatables-buttons/js/dataTables.buttons.js"></script>
+	<script src="assets/js/custom/datatables/buttons.uikit.js"></script>
+	<script src="bower_components/jszip/dist/jszip.min.js"></script>
+	<script src="bower_components/pdfmake/build/pdfmake.min.js"></script>
+	<script src="bower_components/pdfmake/build/vfs_fonts.js"></script>
+	<script src="bower_components/datatables-buttons/js/buttons.colVis.js"></script>
+	<script src="bower_components/datatables-buttons/js/buttons.html5.js"></script>
+	<script src="bower_components/datatables-buttons/js/buttons.print.js"></script>
+	
+	<!-- datatables custom integration -->
+	<script src="assets/js/custom/datatables/datatables.uikit.min.js"></script>
+
+	<!--  datatables functions -->
+	<script src="assets/js/pages/plugins_datatables.min.js"></script>
+
 	<!--  dashbord functions -->
 	<!-- <script src="assets/js/pages/dashboard.min.js"></script> -->
 
