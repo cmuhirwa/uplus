@@ -176,13 +176,15 @@
 										<h4 class="heading_a uk-margin-bottom">Forum members</h4>
 										<div class="dt_colVis_buttons">
 										</div>
-										<table id="dt_tableExport" class="uk-table" cellspacing="0" width="100%">
+										<table id="dt_individual_search" class="uk-table" cellspacing="0" width="100%">
 											<thead>
 												<tr>
 													<th>#</th>
 													<th>Image</th>
-													<th>Names</th>
+													<th>Names</th>													
 													<th>Gender</th>
+													<th>Phone</th>
+													<th>Email</th>
 													<th>Joined Date</th>
 												</tr>
 											</thead>
@@ -205,6 +207,8 @@
 														<td><img class="md-user-image" style="width:42px;height:42px" src="'.$userImage.'"/></td>
 														<td>'.$memberData['name'].'</td>
 														<td>'.$gender.'</td>
+														<td>'.$memberData['phone'].'</td>
+														<td>'.$memberData['email']??"-".'</td>
 														<td>'.date($standard_date, strtotime($member['createdDate']) ).'</td>';
 													}
 												?> 
