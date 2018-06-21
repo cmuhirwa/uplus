@@ -352,6 +352,8 @@
 
 					    //putting this in video table
 					    $query = $investDb->query("INSERT INTO feed_videos(video, thumbnail, feedCode, createdBy) VALUES (\"$video_path\", \"$thumbnail_path\", \"$feed_id\", \"$userId\")") or trigger_error($investDb->error);
+
+					    break;
 	            	}else{
 	            		//put images
 	            		$att = $attachments[$n];
