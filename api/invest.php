@@ -323,7 +323,6 @@
         }
         $query = $investDb->query($sql) or trigger_error($investDb->error);
 
-
         if($query){
             $feed_id = $investDb->insert_id;
             
@@ -365,21 +364,27 @@
 
 	        //Android images in base64
 	        if(!empty($request['feedAttachments'])){
-
 	        	//attachments from Android
-	        	$attachments = $request['attachments']??"";
-	        	$attachments = json_decode($attachments, true);
-	        	
+	        	$attachments = str_ireplace("'", "", stripslashes($request['feedAttachments']??""));
+	        	$attachments = trim($attachments, "}");
+	        	$attachments = trim($attachments, "{");
+	        	// $attachments = str_ireplace("'", "\"", stripslashes($request['feedAttachments']??""));
+	        	// var_dump($attachments);
+
+
+	        	$attachments = explode(",", $attachments);
+	        	// foreach ($attachments as $key => $value) {
+	        	// 	echo $value[0]."<br />";
+	        	// }
+
+	        	// $attachments = json_decode($attachments, true);
+	        	// var_dump($attachments);
 	        	if(is_array($attachments)){
-
-
 	        		//looping through image
 	        		foreach ($attachments as $key => $value) {
 	        			if($value == "'none'"){
 	        				continue;
 	        			}
-
-
 		        		$filename = "invest/gallery/feeds/";
 					    // $image_parts = explode(";base64,", $value);
 					    // $image_type_aux = explode("image/", $image_parts[0]);
