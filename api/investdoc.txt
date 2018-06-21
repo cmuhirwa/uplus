@@ -141,7 +141,7 @@ link: https://uplus.rw/api/invest.php
 
 	groupAccounts
 		->
-			userId
+			groupId
 		<-
 			csdStatus
 			csdAccount
