@@ -1,6 +1,6 @@
 <?php
 // START INITIATE
-	include ("db.php");
+	include ("../db.php");
 	define("DEFAULT_USER_IMAGE", "https://uplus.rw/assets/images/20.jpg");
 
 	//return JSON Content-Type
@@ -110,12 +110,14 @@
 
 	function loopFeeds()
 	{
+		global $hostname;
 		require('db.php');
 		require_once('../invest/admin/db.php');
 		require_once('../invest/admin/functions.php');
 		$memberId	= mysqli_real_escape_string($db, $_POST['memberId']??"");
 
 		$all_feeds = listFeeds($memberId);
+		var_dump($all_feeds);
 
 		// $sql = $investDb->query("SELECT F.id feedId, F.feedForumId, (SELECT COUNT(*) FROM feed_likes WHERE feedCode = F.id) as nlikes, (SELECT COUNT(*) FROM feed_likes WHERE feedCode = F.id AND userCode = '$memberId') as liked, (SELECT COUNT(*) FROM feed_comments  WHERE feedCode = F.id) as comments, F.feedTitle, U.name feedBy, U.userImage feedByImg, F.createdDate feedDate,F.feedContent FROM investments.feeds F INNER JOIN uplus.users U ON F.createdBy = U.id")or die(mysqli_error($investDb));
 		$feeds = array();
@@ -137,6 +139,8 @@
 				"feedComments" 	=> $row['ncomments'],
 				"feedDate"		=> $row['createdDate'],
 				"feedContent"	=> $row['feedContent'],
+				"video"			=> $row['video'],
+				"videoThumbnail"	=> HOSTNAME.$row['videoThumbnail'],
 			);
 		}
 
@@ -152,16 +156,15 @@
             	$ext = strtolower(pathinfo($rowImage['imgUrl'], PATHINFO_EXTENSION)); //extension
 
             	//checking for video
-            	if(strtolower($ext) == 'mp4'){
-            		$video = $rowImage['imgUrl'];
-            	}
+            	// if(strtolower($ext) == 'mp4'){
+            	// 	$video = $rowImage['imgUrl'];
+            	// }
 
         		$images[]  = array(
                     "imgUrl"         => $rowImage['imgUrl']
                 );   
             }
             $feeds[$i]['feedImage'] = $images;
-            $feeds[$i]['video'] = $video;
 		}
 		
         mysqli_close($db);
@@ -308,6 +311,7 @@
         $attachments = str_ireplace("'", "\"", $attachments); #repairing android sent strings with single quote
 
         $attachments = json_decode($attachments, true);
+        // var_dump($attachments);
 
         //the type of person who posted - admin or member if empty it'll be elisa app
         $userType = $request['userType']??'member';        
@@ -329,9 +333,32 @@
             if(!empty($attachments)){
             	//already uploaded attachments
 	            for($n=0; $n<count($attachments); $n++){
-	                $att = $attachments[$n];
-	                $sql = "INSERT INTO investmentimg(imgUrl, investCode) VALUES(\"$att\", $feed_id) ";
-	                $investDb->query($sql) or trigger_error($investDb->error);
+
+	            	//check if video from android is sent
+	            	$ext = strtolower(pathinfo($attachments[$n], PATHINFO_EXTENSION));
+
+	            	if($ext == 'mp4' || $ext == 'mpg'){
+	            		//here first attachment is video path
+	            		//second is thumbnail
+	            		$video_path = $attachments[0];
+
+
+	            		$thumbnail_base64 = $attachments[1];
+
+
+	     				$directory = "invest/gallery/feeds/";
+	            		$image_base64 = base64_decode($thumbnail_base64);
+					    $thumbnail_path = $directory . uniqid() . '.png';
+					    file_put_contents("../".$thumbnail_path, $image_base64);
+
+					    //putting this in video table
+					    $query = $investDb->query("INSERT INTO feed_videos(video, thumbnail, feedCode, createdBy) VALUES (\"$video_path\", \"$thumbnail_path\", \"$feed_id\", \"$userId\")") or trigger_error($investDb->error);
+	            	}else{
+	            		//put images
+	            		$att = $attachments[$n];
+		                $sql = "INSERT INTO investmentimg(imgUrl, investCode) VALUES(\"$att\", $feed_id) ";
+		                $investDb->query($sql) or trigger_error($investDb->error);
+	            	}	                
 	            }
 	        }
 
@@ -397,6 +424,7 @@
 			        }
 	        	}
 	        }
+
             $response = 'Done';
         }else{
             $response = 'Failed';   
