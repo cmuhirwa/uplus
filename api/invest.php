@@ -139,7 +139,7 @@
 				"feedDate"		=> $row['createdDate'],
 				"feedContent"	=> $row['feedContent'],
 				"video"			=> $row['video'],
-				"videoThumbnail"	=> HOSTNAME.$row['videoThumbnail'],
+				"videoThumbnail"	=> $row['videoThumbnail'],
 			);
 		}
 

@@ -411,7 +411,7 @@
 			if($vidQ && $vidQ->num_rows){
 				$videoData = $vidQ->fetch_assoc();
 				$data['video'] = $videoData['video'];
-				$data['videoThumbnail'] = $videoData['thumbnail'];
+				$data['videoThumbnail'] = HOSTNAME.$videoData['thumbnail'];
 			}
 			$posts[] = $data;
 		}
