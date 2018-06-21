@@ -23,7 +23,8 @@
 										<th>Names</th>
 										<th>Type</th>
 										<th>Date</th>                                        
-										<th>Country</th>
+										<th>Phone</th>
+										<th>Email</th>
 										<th>Status</th>
 										<th>Action</th>
 									</tr>
@@ -35,7 +36,8 @@
 										<th>Names</th>
 										<th>Type</th>                                        
 										<th>Date</th>
-										<th>Country</th>
+										<th>Phone</th>
+										<th>Email</th>
 										<th>Status</th>
 										<th>Action</th>
 									</tr>
@@ -74,7 +76,8 @@
 													<td>'.$name.'</td>
 													<td>'.ucfirst($row['clientType']).'</td>
 													<td>'.date("d-M-Y", strtotime($row['statusOn'])).'</td>
-													<td>'. $country.'</td>
+													<td>'. $userData['phone'].'</td>
+													<td>'. $userData['email'].'</td>
 													<td>'.$row['status'].'</td>
 													<td><a href="view.php?viewid='.$row['id'].'">View</a></td>
 												</tr>';

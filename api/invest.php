@@ -1277,6 +1277,4 @@
 		echo json_encode($data);		
 	}
 // END INVESTMENT
-
-
 ?>
