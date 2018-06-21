@@ -138,7 +138,7 @@
 				"feedComments" 	=> $row['ncomments'],
 				"feedDate"		=> $row['createdDate'],
 				"feedContent"	=> $row['feedContent'],
-				"video"			=> $row['video'],
+				"video"			=> $row['video'] != ""?$row['video'] : "None",
 				"videoThumbnail"	=> $row['videoThumbnail'],
 			);
 		}
