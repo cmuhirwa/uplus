@@ -139,6 +139,13 @@ link: https://uplus.rw/api/invest.php
 			bankStatus
 			bankAccount
 
+	groupAccounts
+		->
+			userId
+		<-
+			csdStatus
+			csdAccount
+
 	listStocks
 		->
 			userId

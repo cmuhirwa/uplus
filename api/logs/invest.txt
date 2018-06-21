@@ -308,3 +308,11 @@
 
 {"action":"listStocks"}
 
+{"action":"postFeed","feedContent":"Feeds","memberId":"530","attachments":"[]","userType":"admin","platform":"web","targetForum":"public"}
+
+{"action":"uploadAttachment"}
+
+{"action":"postFeed","feedContent":"Ok there we go","memberId":"530","attachments":"[\"http:\/\/uplus.com\/invest\/gallery\/feeds\/home-bg_1529570748.jpg\"]","userType":"admin","platform":"web","targetForum":"18"}
+
+{"action":"groupAccounts","userId":"1","groupId":"1"}
+

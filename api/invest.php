@@ -883,6 +883,33 @@
 		echo json_encode($response);
 	}
 
+	function groupAccounts(){
+		//company adding stocks
+		require 'db.php';
+		require '../invest/admin/functions.php';
+
+		$request = array_merge($_POST, $_GET);
+		$groupId = $request['groupId'];
+		$userId = $request['userId'];
+
+		$response = array('csdStatus'=>"none", 'csdAccount'=>"none");
+
+		//getting csd info
+		$investData = checkGroup($groupId, 'invest');
+		if($investData){
+			$status = $investData['status']??"none";
+			$response['csdStatus'] = $status;
+
+			//return account if account is approved
+			if(strtolower($status) == 'approved')
+			{
+				$response['csdAccount'] = $investData['csdAccount']??"none";
+			}
+		}
+
+		echo json_encode($response);
+	}
+
 	function messageBrokerClient()
 	{
 		# Broker messaging a client
