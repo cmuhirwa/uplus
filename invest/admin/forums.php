@@ -491,7 +491,7 @@
 	<!-- metrics graphics (charts) -->
 	<script src="bower_components/metrics-graphics/dist/metricsgraphics.min.js"></script>
 	<!-- chartist (charts) -->
-	<script src="bower_components/chartist/dist/chartist.min.js"></script>
+	<!-- <script src="bower_components/chartist/dist/chartist.min.js"></script> -->
 	 <!-- peity (small charts) -->
 	<script src="bower_components/peity/jquery.peity.min.js"></script>
 	<!-- easy-pie-chart (circular statistics) -->
@@ -505,7 +505,7 @@
 	<script src="bower_components/clndr/clndr.min.js"></script>
 
 	<!--  dashbord functions -->
-	<script src="assets/js/pages/dashboard.min.js"></script>
+	<!-- <script src="assets/js/pages/dashboard.min.js"></script> -->
 
 	<!-- Dropify -->
 	<script src="bower_components/dropify/dist/js/dropify.min.js"></script>
@@ -663,99 +663,6 @@
 			altair_helpers.ie_fix();
 		});
 	</script>
-	
-<script>
-// <!--0 Add Company-->
-function addcomp(){
-
-	var comp = 'yes';
-		
-	$.ajax({
-			type : "GET",
-			url : "createCompany.php",
-			dataType : "html",
-			cache : "false",
-			data : {
-				
-				comp : comp,
-			},
-			success : function(html, textStatus){
-				$("#new_comp").html(html);
-			},
-			error : function(xht, textStatus, errorThrown){
-				alert("Error : " + errorThrown);
-			}
-	});
-}
-</script>	
-<script>
-	// <!--1 Show subcat-->
-function get_sub(){
-	var catId =$("#catId").val();
-	//alert(catId);
-	$.ajax({
-			type : "GET",
-			url : "userscript.php",
-			dataType : "html",
-			cache : "false",
-			data : {
-				
-				catId : catId,
-			},
-			success : function(html, textStatus){
-				$("#suboption").html(html);
-			},
-			error : function(xht, textStatus, errorThrown){
-				alert("Error : " + errorThrown);
-			}
-	});
-}
-</script>
-<script>
-	// <!--2 Show products-->
-	function get_prod(){
-		var subCatId =$("#subCatId").val();
-		//alert(subCatId);
-		$.ajax({
-				type : "GET",
-				url : "userscript.php",
-				dataType : "html",
-				cache : "false",
-				data : {
-					
-					subCatId : subCatId,
-				},
-				success : function(html, textStatus){
-					$("#prodoption").html(html);
-				},
-				error : function(xht, textStatus, errorThrown){
-					alert("Error : " + errorThrown);
-				}
-		});
-	}
-</script>
-<script>
-	// <!--3 start new post-->
-	function new_post(){
-		var productId =$("#productId").val();
-		//alert(productId);
-		$.ajax({
-				type : "GET",
-				url : "userscript.php",
-				dataType : "html",
-				cache : "false",
-				data : {
-					
-					productId : productId,
-				},
-				success : function(html, textStatus){
-					$("#new_post_show").html(html);
-				},
-				error : function(xht, textStatus, errorThrown){
-					alert("Error : " + errorThrown);
-				}
-		});
-	}
 </script>
 </body>
 </html>

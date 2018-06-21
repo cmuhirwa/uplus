@@ -143,12 +143,12 @@
 		<div class="sidebar_main_header">
 			<div class="sidebar_logo">
 				<a href="user.php" class="sSidebar_hide sidebar_logo_large">
-					<img class="logo_regular" src="/<?php echo $Company->logo ?>" alt="" height="25" width="71"/>
-					<img class="logo_light" src="/<?php echo $Company->logo ?>" alt="" height="15" width="71"/>
+					<img class="logo_regular" src="<?php echo $Company->logo ?>" alt="" height="25" width="71"/>
+					<img class="logo_light" src="<?php echo $Company->logo ?>" alt="" height="15" width="71"/>
 				</a>
 				<a href="user.php" class="sSidebar_show sidebar_logo_small">
-					<img class="logo_regular" src="/<?php echo $Company->logo ?>" alt="" height="32" width="32"/>
-					<img class="logo_light" src="/<?php echo $Company->logo ?>" alt="" height="32" width="32"/>
+					<img class="logo_regular" src="<?php echo $Company->logo ?>" alt="" height="32" width="32"/>
+					<img class="logo_light" src="<?php echo $Company->logo ?>" alt="" height="32" width="32"/>
 				</a>
 			</div>
 		</div>
