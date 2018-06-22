@@ -316,6 +316,8 @@ if(isset($_POST['newPrice'])){
 	<!-- CLNDR -->
 	<script src="bower_components/clndr/clndr.min.js"></script>
 
+	<script src="bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+
 	<!-- datatables buttons-->
 	<script src="bower_components/datatables-buttons/js/dataTables.buttons.js"></script>
 	<script src="assets/js/custom/datatables/buttons.uikit.js"></script>

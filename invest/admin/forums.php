@@ -376,9 +376,8 @@
 							?>
 							<div id="status"></div>
 							<div class="md-card-content">
-								<div class="dt_colVis_buttons">
-								</div>
-								<table id="dt_tableExport" class="uk-table" cellspacing="0" width="100%">
+								<!-- <div class="dt_colVis_buttons"></div> -->
+								<table id="dt_individual_search" class="uk-table" cellspacing="0" width="100%">
 									<thead>
 										<tr>
 											<th>#</th>
