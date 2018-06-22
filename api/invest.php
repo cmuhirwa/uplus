@@ -331,7 +331,6 @@
             if(!empty($attachments)){
             	//already uploaded attachments
 	            for($n=0; $n<count($attachments); $n++){
-
 	            	//check if video from android is sent
 	            	$ext = strtolower(pathinfo($attachments[$n], PATHINFO_EXTENSION));
 
@@ -339,7 +338,6 @@
 	            		//here first attachment is video path
 	            		//second is thumbnail
 	            		$video_path = $attachments[0];
-
 
 	            		$thumbnail_base64 = $attachments[1];
 
@@ -383,8 +381,7 @@
 	        		//looping through image
 	        		foreach ($attachments as $key => $value) {
 	        			if($value == "'none'" || $value == "none"){
-	        				continue;
-	        				
+	        				continue;	        				
 	        			}
 
 		        		$filename = "invest/gallery/feeds/";
