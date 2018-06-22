@@ -902,18 +902,19 @@
 		$userId = $request['userId'];
 
 		$response = array('csdStatus'=>"none", 'csdAccount'=>"none");
+		$response = "None";
 
 		//getting csd info
 		$investData = checkGroup($groupId, 'invest');
 		if($investData){
 			$status = $investData['status']??"none";
-			$response['csdStatus'] = $status;
+			$response = $status??"None";
 
 			//return account if account is approved
-			if(strtolower($status) == 'approved')
-			{
-				$response['csdAccount'] = $investData['csdAccount']??"none";
-			}
+			// if(strtolower($status) == 'approved')
+			// {
+			// 	$response['csdAccount'] = $investData['csdAccount']??"none";
+			// }
 		}
 
 		echo json_encode($response);
