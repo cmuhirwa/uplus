@@ -356,3 +356,51 @@
 
 {"action":"addStock","company":"3","numberOfShares":"12","unitPrice":"432","createdBy":"530"}
 
+{"action":"listStocks"}
+
+{"action":"postFeed","feedContent":"hELLO","memberId":"530","attachments":"[]","userType":"admin","platform":"web","targetForum":"20"}
+
+{"action":"uploadAttachment"}
+
+{"action":"postFeed","feedContent":"SZZZZZZZZZZZZZZZ","memberId":"530","attachments":"[\"http:\/\/uplus.com\/invest\/gallery\/feeds\/home-bg_1529642290.jpg\"]","userType":"admin","platform":"web","targetForum":"19"}
+
+{"action":"listStocks"}
+
+{"action":"listStocks"}
+
+{"action":"listStocks"}
+
+{"action":"listStocks"}
+
+{"action":"listStocks"}
+
+{"action":"postFeed","memberId":"1","targetForum":"18","feedContent":"Can we get it working, now","platform":"app","attachments":"['https:\\\/\\\/uplus.rw\\\/invest\\\/gallery\\\/feeds\\\/vid-20180526-wa0013_1529476836.mp4', 'image cover']","feedAttachments":"{'none','none','none'}"}
+
+{"action":"postFeed","memberId":"1","targetForum":"18","feedContent":"Can we get it working, now","platform":"app","attachments":"['https:\\\/\\\/uplus.rw\\\/invest\\\/gallery\\\/feeds\\\/vid-20180526-wa0013_1529476836.mp4', 'image cover']","feedAttachments":"{'none','none','none'}"}
+
+{"action":"postFeed","memberId":"1","targetForum":"18","feedContent":"Can we get it working, now","platform":"app","attachments":"['https:\\\/\\\/uplus.rw\\\/invest\\\/gallery\\\/feeds\\\/vid-20180526-wa0013_1529476836.mp4', 'image cover']","feedAttachments":"{'none','none','none'}"}
+
+{"action":"loopFeeds","memberId":"104"}
+
+{"action":"loopFeeds","memberId":"104"}
+
+{"action":"loopFeeds","memberId":"104"}
+
+{"action":"loopFeeds","memberId":"104"}
+
+{"action":"loopFeeds","memberId":"104"}
+
+{"action":"postFeed","memberId":"1","targetForum":"18","feedContent":"Can we get it working, now","platform":"app","attachments":"['https:\\\/\\\/uplus.rw\\\/invest\\\/gallery\\\/feeds\\\/vid-20180526-wa0013_1529476836.mp4', 'image cover']","feedAttachments":"{'none','none','none'}"}
+
+{"action":"postFeed","memberId":"1","targetForum":"18","feedContent":"Can we get it working, now","platform":"app","attachments":"['https:\\\/\\\/uplus.rw\\\/invest\\\/gallery\\\/feeds\\\/vid-20180526-wa0013_1529476836.mp4', 'image cover']","feedAttachments":"{'none','none','none'}"}
+
+{"action":"postFeed","memberId":"1","targetForum":"18","feedContent":"Can we get it working, now","platform":"app","attachments":"['https:\\\/\\\/uplus.rw\\\/invest\\\/gallery\\\/feeds\\\/vid-20180526-wa0013_1529476836.mp4', 'image cover']","feedAttachments":"{'none','none','none'}"}
+
+{"action":"postFeed","memberId":"1","targetForum":"18","feedContent":"Can we get it working, now","platform":"app","attachments":"['https:\\\/\\\/uplus.rw\\\/invest\\\/gallery\\\/feeds\\\/vid-20180526-wa0013_1529476836.mp4', 'image cover']","feedAttachments":"{'none','none','none'}"}
+
+{"action":"postFeed","memberId":"1","targetForum":"18","feedContent":"Can we get it working, now","platform":"app","attachments":"['https:\\\/\\\/uplus.rw\\\/invest\\\/gallery\\\/feeds\\\/vid-20180526-wa0013_1529476836.mp4', 'image cover']","feedAttachments":"{'none','none','none'}"}
+
+{"action":"postFeed","memberId":"1","targetForum":"18","feedContent":"Can we get it working, nowksjhsdjhsdj sdsajdsd","platform":"app","attachments":"['https:\\\/\\\/uplus.rw\\\/invest\\\/gallery\\\/feeds\\\/vid-20180526-wa0013_1529476836.mp4', 'image cover']","feedAttachments":"{'none','none','none'}"}
+
+{"action":"loopFeeds","memberId":"104"}
+

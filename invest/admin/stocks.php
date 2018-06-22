@@ -26,9 +26,8 @@ if(isset($_POST['newPrice'])){
 <!-- main sidebar -->
 <div id="new_comp">
 	<?php
-	$stock = $currentStockId = $_GET['id']??"";
+		$stock = $currentStockId = $_GET['id']??"";
 		if(!empty($stock)){
-
 			//If submit request is issued
 			if(!empty($_POST)){
 				$title = $_POST['forumtitle']??"";
@@ -173,9 +172,8 @@ if(isset($_POST['newPrice'])){
 							?>
 							<div id="status"></div>
 							<div class="md-card-content">
-								<div class="dt_colVis_buttons">
-								</div>
-								<table id="dt_tableExport" class="uk-table" cellspacing="0" width="100%">
+								<!-- <div class="dt_colVis_buttons"></div> -->
+								<table id="dt_individual_search" class="uk-table" cellspacing="0" width="100%">
 									<thead>
 										<tr>
 											<th>#</th>
@@ -317,6 +315,22 @@ if(isset($_POST['newPrice'])){
 	<script src="assets/js/custom/handlebars_helpers.min.js"></script>
 	<!-- CLNDR -->
 	<script src="bower_components/clndr/clndr.min.js"></script>
+
+	<!-- datatables buttons-->
+	<script src="bower_components/datatables-buttons/js/dataTables.buttons.js"></script>
+	<script src="assets/js/custom/datatables/buttons.uikit.js"></script>
+	<script src="bower_components/jszip/dist/jszip.min.js"></script>
+	<script src="bower_components/pdfmake/build/pdfmake.min.js"></script>
+	<script src="bower_components/pdfmake/build/vfs_fonts.js"></script>
+	<script src="bower_components/datatables-buttons/js/buttons.colVis.js"></script>
+	<script src="bower_components/datatables-buttons/js/buttons.html5.js"></script>
+	<script src="bower_components/datatables-buttons/js/buttons.print.js"></script>
+	
+	<!-- datatables custom integration -->
+	<script src="assets/js/custom/datatables/datatables.uikit.min.js"></script>
+
+	<!--  datatables functions -->
+	<script src="assets/js/pages/plugins_datatables.min.js"></script>
 
 	<!--  dashbord functions -->
 	<!-- <script src="assets/js/pages/dashboard.min.js"></script> -->
@@ -510,25 +524,23 @@ if(isset($_POST['newPrice'])){
 	</script>
 
 	<script>
-	$(function() {
-		if(isHighDensity()) {
-			$.getScript( "bower_components/dense/src/dense.js", function() {
-				// enable hires images
-				altair_helpers.retina_images();
-			});
-		}
-		if(Modernizr.touch) {
-			// fastClick (touch devices)
-			FastClick.attach(document.body);
-		}
-	});
+		$(function() {
+			if(isHighDensity()) {
+				$.getScript( "bower_components/dense/src/dense.js", function() {
+					// enable hires images
+					altair_helpers.retina_images();
+				});
+			}
+			if(Modernizr.touch) {
+				// fastClick (touch devices)
+				FastClick.attach(document.body);
+			}
+		});
 
-	$window.load(function() {
-		// ie fixes
-		altair_helpers.ie_fix();
-	});
-	
-
+		$window.load(function() {
+			// ie fixes
+			altair_helpers.ie_fix();
+		});
 </script>
 </body>
 </html>

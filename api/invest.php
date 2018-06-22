@@ -382,9 +382,10 @@
 	        	if(is_array($attachments)){
 	        		//looping through image
 	        		foreach ($attachments as $key => $value) {
-	        			if($value == "'none'"){
+	        			if($value == "'none'" || $value == "none"){
 	        				continue;
 	        			}
+	        			
 		        		$filename = "invest/gallery/feeds/";
 					    // $image_parts = explode(";base64,", $value);
 					    // $image_type_aux = explode("image/", $image_parts[0]);
