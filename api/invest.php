@@ -334,6 +334,8 @@
 	            	//check if video from android is sent
 	            	$ext = strtolower(pathinfo($attachments[$n], PATHINFO_EXTENSION));
 
+	            	$att = $attachments[$n];
+
 	            	if($ext == 'mp4' || $ext == 'mpg'){
 	            		//here first attachment is video path
 	            		//second is thumbnail
@@ -351,7 +353,7 @@
 					    $query = $investDb->query("INSERT INTO feed_videos(video, thumbnail, feedCode, createdBy) VALUES (\"$video_path\", \"$thumbnail_path\", \"$feed_id\", \"$userId\")") or trigger_error($investDb->error);
 
 					    break;
-	            	}else{
+	            	}else if($att != 'none'){
 	            		//put images
 	            		$att = $attachments[$n];
 		                $sql = "INSERT INTO investmentimg(imgUrl, investCode) VALUES(\"$att\", $feed_id) ";
@@ -382,19 +384,20 @@
 	        		foreach ($attachments as $key => $value) {
 	        			if($value == "'none'" || $value == "none"){
 	        				continue;	        				
+	        			}else{
+	        				$filename = "invest/gallery/feeds/";
+						    // $image_parts = explode(";base64,", $value);
+						    // $image_type_aux = explode("image/", $image_parts[0]);
+						    // $image_type = $image_type_aux[1];
+						    $image_base64 = base64_decode($value);
+						    $file = $filename . uniqid() . '.png';
+						    file_put_contents("../".$file, $image_base64);
+
+						    //storing in the database
+						    $sql = "INSERT INTO investmentimg(imgUrl, investCode) VALUES(\"$hostname$file\", $feed_id) ";
+		                	$investDb->query($sql) or trigger_error($investDb->error);
 	        			}
-
-		        		$filename = "invest/gallery/feeds/";
-					    // $image_parts = explode(";base64,", $value);
-					    // $image_type_aux = explode("image/", $image_parts[0]);
-					    // $image_type = $image_type_aux[1];
-					    $image_base64 = base64_decode($value);
-					    $file = $filename . uniqid() . '.png';
-					    file_put_contents("../".$file, $image_base64);
-
-					    //storing in the database
-					    $sql = "INSERT INTO investmentimg(imgUrl, investCode) VALUES(\"$hostname$file\", $feed_id) ";
-	                	$investDb->query($sql) or trigger_error($investDb->error);
+		        		
 		        	}
 	        	}else{
 	        		// die("Failed, Not attachments");
