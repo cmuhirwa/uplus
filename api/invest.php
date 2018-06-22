@@ -899,7 +899,7 @@
 
 		$request = array_merge($_POST, $_GET);
 		$groupId = $request['groupId'];
-		$userId = $request['userId'];
+		$userId = $request['userId']??"";
 
 		$response = array('csdStatus'=>"none", 'csdAccount'=>"none");
 		$response = "None";
