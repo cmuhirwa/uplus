@@ -333,7 +333,7 @@
 							<?php
 								$sales = stockPurchases($Company->companyId);
 							?>
-							<div id="status"></div>
+							<!-- <div id="status"></div> -->
 							<div class="md-card-content">
 								<h2>Client Stock Sales</h2>
 								<div class="dt_colVis_buttons">
@@ -394,7 +394,7 @@
 								<h2>Purchased</h2>
 								<div class="dt_colVis_buttons">
 								</div>
-								<table id="dt_tableExport" class="uk-table" cellspacing="0" width="100%" style="max-height: 500px; overflow-y: scroll;">
+								<table id="dt_individual_search" class="uk-table" cellspacing="0" width="100%" style="max-height: 500px; overflow-y: scroll;">
 									<thead>
 										<tr>
 											<th>#</th>
@@ -526,7 +526,7 @@
 	<script src="bower_components/clndr/clndr.min.js"></script>
 
 	<!--  dashbord functions -->
-	<script src="assets/js/pages/dashboard.min.js"></script>
+	<!-- <script src="assets/js/pages/dashboard.min.js"></script> -->
 
 	<!-- Dropify -->
 	<script src="bower_components/dropify/dist/js/dropify.min.js"></script>
@@ -537,9 +537,8 @@
 	<script src="assets/js/custom/uikit_fileinput.min.js"></script>
 
 	<!--  user edit functions -->
-	<script src="assets/js/pages/page_user_edit.min.js"></script>
+	<!-- <script src="assets/js/pages/page_user_edit.min.js"></script> -->
 
-	<!-- Datatables -->
 	<script src="bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
 
 	<!-- datatables buttons-->
@@ -561,9 +560,6 @@
 	<!-- Firebase -->
 	<script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
 
-	<script src="js/uploadFile.js"></script>
-
-	<script type="text/javascript" src="js/forums.js"></script>
 
 	<script type="text/javascript">
 		const currentUser = <?php echo $thisid; ?>;

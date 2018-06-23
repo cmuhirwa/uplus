@@ -367,44 +367,6 @@ if(isset($_POST['newPrice'])){
 		$('.dropify#input-forum-logo').dropify();
 		$(".selectize").selectize();
 
-		$("#delete_forum_btn").on('click', function(){
-			//when the foru, is to be deleted
-			forum_id = $(this).data('forum');
-
-			//ask for confirmation
-			UIkit.modal.confirm("Do you want to archive this forum?", function(){
-				// will be executed on confirm.
-				$.post('api/index.php', {action:'archive_forum', forum:forum_id, user:<?php echo $thisid; ?>}, function(data){
-					// alert(data)
-					if(typeof(data) != 'object'){
-						ret = JSON.parse(data);
-					}else{
-						ret = data;
-					}
-					location = 'forums.php';
-				})
-			});
-		})
-
-		$("#activate_forum_btn").on('click', function(){
-			//when the foru, is to be activated
-			forum_id = $(this).data('forum');
-
-			//ask for confirmation
-			UIkit.modal.confirm("Do you want to Re-Activate this forum?", function(){
-				// will be executed on confirm.
-				$.post('api/index.php', {action:'activate_forum', forum:forum_id, user:<?php echo $thisid; ?>}, function(data){
-					if(typeof(data) != 'object'){
-						ret = JSON.parse();
-					}else{
-						ret = data;
-					}
-
-					location.reload();
-				})
-			})
-		})
-
 		function log(data){
 			console.log(data)
 		}
