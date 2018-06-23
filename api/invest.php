@@ -625,7 +625,7 @@
 					$response = "CSD Account request is approved with $groupCsd";
 				}else{
 					//here we can
-					$query = $investDb->query("INSERT INTO clients(groupCode, clientType, country, nationality) VALUES(\"$groupId\", 'group', \"$country\", \"$country\")") or trigger_error($investDb->error);
+					$query = $investDb->query("INSERT INTO clients(groupCode, clientType, country, nationality, service) VALUES(\"$groupId\", 'group', \"$country\", \"$country\", 'invest')") or trigger_error($investDb->error);
 					if ($query) {
 						$response = "Done";
 					}else{
