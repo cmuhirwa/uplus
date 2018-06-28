@@ -1,6 +1,5 @@
 <?php
 // START INITIATE
-	define("DEFUALTPICTURE", "https://uplus.rw/frontassets/img/logo_main_3.png");
 	include ("db.php");
 	include ("../invest/admin/functions.php");
 	if ($_SERVER["REQUEST_METHOD"] == "POST") 
@@ -39,57 +38,31 @@
 	function signup()
 	{
 		require('db.php');
-		require('../scripts/class.user.php');
-		$phoneNumber	= mysqli_real_escape_string($db, $_POST['phoneNumber']??"");
+		$phoneNumber	= mysqli_real_escape_string($db, $_POST['phoneNumber']);
 		//CLEAN PHONE
 		$phoneNumber 	= preg_replace( '/[^0-9]/', '', $phoneNumber );
-		$phoneNumber 	= substr($phoneNumber, -12);
-
-		//check if the email and password are sent
-		$email = $_POST['email']??"";
-		$password = $_POST['password']??"";
+		$phoneNumber 	= substr($phoneNumber, -12); 
 
 		
 		//GET CSD ACCOUNT
 		$csdAccount = ""; //It'll change after getting the userId
 
-		//template for return 
-		$signInfo = array("pin"        => '',"userId"     => '',"userName"   => '',"bankAccount" => '',"csdAccount" => "");
-
-		if(!empty($email) && !empty($password)){
-			//when the email and password are provided; here new app is being use
-			//check login
-			$userData = $User->checkUserLogin($email, $password);
-			if($userData && $userData != 'incorrect' ){
-				$userId = $userData['id'];
-				$signInfo['userId'] = $userId;
-				$signInfo['userName'] = $userData['name'];
-			}else if($userData == 'incorrect'){
-				$signInfo['userId'] = '';
-			}else{
-				//here we can sign up the user
-				$userId = $User->create('', DEFUALTPICTURE, $email, '', $password, '', 1);
-				$signInfo['userId'] = $userId;
-				$signInfo['userName'] = ""; #user name is empty now
-			}
-		}else{
-			//using normal phone
-			//CHECK IF THE USER ALREADY EXISTS
-			$sqlcheckPin 	= $db->query("SELECT *  FROM users WHERE phone = '$phoneNumber' LIMIT 1");
-			$countPin 		= mysqli_num_rows($sqlcheckPin);
-			$code 			= rand(1000, 9999);
-			$signInfo 		= array();
-
-			if($sqlcheckPin->num_rows > 0)
+		//CHECK IF THE USER ALREADY EXISTS
+		$sqlcheckPin 	= $db->query("SELECT *  FROM users WHERE phone = '$phoneNumber' LIMIT 1");
+		$countPin 		= mysqli_num_rows($sqlcheckPin);
+		$code 			= rand(1000, 9999);
+		$signInfo 		= array();
+		if($countPin > 0)
+		{
+			
+			while ($rowpin = mysqli_fetch_array($sqlcheckPin)) 
 			{
-				$rowpin = mysqli_fetch_array($sqlcheckPin);
 				$profileName	= $rowpin['name'];
 				$userId			= $rowpin['id'];
 				if($profileName == "NULL" || $profileName == "null" || $profileName == null){
 					$profileName = "";
 				}
-
-				$sql = $db->query("UPDATE users SET password = '$code' WHERE id = '$userId'")or die($db->error);
+				$sql 			= $db->query("UPDATE users SET password = '$code' WHERE id = '$userId'")or die(mysqli_error($db));
 
 
 				//Checking the CSD
@@ -104,27 +77,26 @@
 					"bankAccount" => $bankAccount,
 			   );
 			}
-			else
-			{
-				
-				$sqlsavePin = $db->query("INSERT INTO `users`(
-				phone, active, createdDate, password, visits, updatedBy, updatedDate) 
-				VALUES('$phoneNumber', '0', now(), '$code', '0', '1', now())")or die (mysqli_error());
+		}
+		else
+		{
+			
+			$sqlsavePin = $db->query("INSERT INTO `users`(
+			phone, active, createdDate, password, visits, updatedBy, updatedDate) 
+			VALUES('$phoneNumber', '0', now(), '$code', '0', '1', now())")or die (mysqli_error());
 
-				$sqlcheckPin = $db->query("SELECT * FROM users ORDER BY id DESC LIMIT 1");
-				while ($rowpin = mysqli_fetch_array($sqlcheckPin)) {
-					$code = $rowpin['password'];
-					$signInfo = array(
-				   		"pin"        => $rowpin['password'],
-				   		"userId"     => $rowpin['id'],
-				   		"userName"   => $rowpin['name'],
-				   		"bankAccount" => $bankAccount??"",
-				   		"csdAccount" => "$csdAccount",
-				   );
-				}
+			$sqlcheckPin = $db->query("SELECT * FROM users ORDER BY id DESC LIMIT 1");
+			while ($rowpin = mysqli_fetch_array($sqlcheckPin)) {
+				$code = $rowpin['password'];
+				$signInfo = array(
+			   		"pin"        => $rowpin['password'],
+			   		"userId"     => $rowpin['id'],
+			   		"userName"   => $rowpin['name'],
+			   		"bankAccount" => $bankAccount??"",
+			   		"csdAccount" => "$csdAccount",
+			   );
 			}
 		}
-
 		$results="";
 		// 'went to require sms class';
 
