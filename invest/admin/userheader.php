@@ -18,22 +18,20 @@
 		exit();
 	}
 	require_once "../../db.php";	
-	require_once "../../scripts/class.user.php";	
+	require_once "../../scripts/class.user.php";
+	require_once "../../scripts/class.investuser.php";
  
 	$session_id = preg_replace('#[^0-9]#i', '', $_SESSION["id"]); // filter everything but numbers and letters
 	$username = preg_replace('#[^A-Za-z0-9]#i', '', $_SESSION["username"]); // filter everything but numbers and letters
 	$password = preg_replace('#[^A-Za-z0-9]#i', '', $_SESSION["password"]); // filter everything but numbers and letters
-	$sql = $investDb->query("SELECT * FROM users WHERE loginId='$username' AND pwd='$password' LIMIT 1") or trigger_error($db->error); // query the person
-	// ------- MAKE SURE PERSON EXISTS IN DATABASE ---------
-	$existCount = mysqli_num_rows($sql); // count the row nums
 
-	if ($existCount > 0) {
-		$row = mysqli_fetch_array($sql);
 
-		$thisid = $row["id"];
-		$userName = $names = $row["names"];
-		$user_profile = $row["profile_picture"];
-		$account_type = $row["account_type"];
+	$userData = $InvestUser->investLogin($username, $password);
+	if($userData){
+		$thisid = $userData["id"];
+		$userName = $names = $userData["names"];
+		$user_profile = $userData["profile_picture"];
+		$account_type = $userData["account_type"];
 
 		if($account_type =='admin')
 		{
@@ -55,16 +53,60 @@
 		if($companyQ->num_rows){
 			$Company = (object)$companyQ->fetch_assoc();
 		}else{
-			die("You don't have company, contact admin");
+			die("You don't have company, contact admin (+25) 0784848236");
 		}
-	}
-	else{
+	}else{
 		echo "			
 			<br/><br/><br/><h3>Your account has been temporarily deactivated</h3>
 			<p>Please contact: <br/><em>(+25) 0784848236</em><br/><b>muhirwaclement@gmail.com</b></p>		
 			Or<p><a href='logout.php'>Click Here to login again</a></p>";
 		exit();
 	}
+
+	// $sql = $investDb->query("SELECT * FROM users WHERE loginId='$username' AND pwd='$password' LIMIT 1") or trigger_error($db->error); // query the person
+	// // ------- MAKE SURE PERSON EXISTS IN DATABASE ---------
+	// $existCount = mysqli_num_rows($sql); // count the row nums
+
+	// if ($existCount > 0) {
+	// 	$row = mysqli_fetch_array($sql);
+
+	// 	$thisid = $row["id"];
+	// 	$userName = $names = $row["names"];
+	// 	$user_profile = $row["profile_picture"];
+	// 	$account_type = $row["account_type"];
+
+	// 	if($account_type =='admin')
+	// 	{
+	// 		header("location: admin.php");
+	// 		exit();
+	// 	}else if($account_type =='broker'){
+	// 		//getting brokerage company
+	// 		$query = $investDb->query("SELECT * FROM broker_user WHERE userCode = \"$thisid\" AND archived = 'NO' LIMIT 1 ") or trigger_error($investDb->error);
+	// 		$Broker = $query->fetch_assoc();
+	// 		$currentCompanyId = $Broker['companyId'];
+	// 	}else if ($account_type == 'bank') {
+	// 		$query = $investDb->query("SELECT * FROM broker_user WHERE userCode = \"$thisid\" AND archived = 'NO' LIMIT 1 ") or trigger_error($investDb->error);
+	// 		$Banker = $Broker = $query->fetch_assoc();
+	// 		$currentCompanyId = $Banker['companyId'];
+	// 	}
+
+
+
+	// 	//getting user company
+	// 	$companyQ = $investDb->query("SELECT * FROM company WHERE companyId = \"$currentCompanyId\" LIMIT 1 ") or trigger_error($db->error);
+	// 	if($companyQ->num_rows){
+	// 		$Company = (object)$companyQ->fetch_assoc();
+	// 	}else{
+	// 		die("You don't have company, contact admin (+25) 0784848236");
+	// 	}
+	// }
+	// else{
+	// 	echo "			
+	// 		<br/><br/><br/><h3>Your account has been temporarily deactivated</h3>
+	// 		<p>Please contact: <br/><em>(+25) 0784848236</em><br/><b>muhirwaclement@gmail.com</b></p>		
+	// 		Or<p><a href='logout.php'>Click Here to login again</a></p>";
+	// 	exit();
+	// }
 ?>
 <head>
 	<meta charset="UTF-8">

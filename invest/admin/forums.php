@@ -123,7 +123,7 @@
 												<span class="md-input-bar "></span>
 											</div>
 											<div class="md-input-wrapper md-input-filled">
-												<textarea cols="20" rows="2" id="forum_intro" name="intro" class="md-input autosized" placeholder="What's the forum about?" style="overflow-x: hidden; word-wrap: break-word;"><?php echo $forumData['subtitle']; ?></textarea>
+												<textarea cols="20" maxlength="120" rows="2" id="forum_intro" name="intro" class="md-input autosized" placeholder="What's the forum about?" style="overflow-x: hidden; word-wrap: break-word;"><?php echo $forumData['subtitle']; ?></textarea>
 												<span class="md-input-bar "></span>
 											</div>
 											<div class="md-input-wrapper">
@@ -261,10 +261,12 @@
 															foreach($forum_not_joined as $key=> $member)
 																{
 																	$n++;
-																	$memberData = user_details($member['id']);
+																	$memberData = $InvestUser->details($member['id']);
+
+																	// var_dump($memberData);
 																	echo '<tr>
 																	<td> <input type="checkbox" class="uk-checkbox checkbox_elem" data-id='.$memberData['id'].'> </td>
-																	<td>'.$memberData['names'].'</td>
+																	<td>'.$memberData['name'].'</td>
 																	<td>'.$memberData['gender'].'</td>
 																	<td>'.$memberData['account_type'].'</td>';
 																}
