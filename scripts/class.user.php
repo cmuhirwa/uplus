@@ -12,16 +12,47 @@
 			
 		}
 
-		public function investLogin($userName, $password)
+		public function checkUserLogin($email, $password)
 		{
-			global $investDb;
-			$userName = $investDb->real_escape_string($userName);
-			$password = $investDb->real_escape_string($password);
-			$query = $investDb->query("SELECT * FROM users WHERE loginId = \"$userName\" AND pwd = \"$password\" LIMIT 1 ") or trigger_error("Can't get user data $investDb->error");
-
+			global $db;
+			//checks if the login credentials are correct
+			$email = $db->real_escape_string($email);
+			$password = $db->real_escape_string($password);
+			$sql = "SELECT * FROM users WHERE email = \"$email\" LIMIT 1 ";
+			$query = $db->query($sql) or trigger_error("Can't get user data $db->error");
 			if($query->num_rows){
-				return $query->fetch_assoc();
+				$data = $query->fetch_assoc();
+				if(password_verify($password, $data['loginPassword'])){
+					return $data;
+				}else{
+					return "incorrect";
+				}
 			}else return false;
+			
+		}
+
+		public function create($name, $image, $email, $password, $loginPassword = '', $gender = '', $phone, $createdBy=1)
+		{
+			//creates the user in uplus
+			global $db;
+
+			$phone 	= preg_replace( '/[^0-9]/', '', $phone );
+			$phone 	= substr($phone, -12);
+
+			$loginPassword = password_hash($db->real_escape_string($loginPassword), PASSWORD_DEFAULT);
+
+			//check if the phone or email or already exists to avoid duplicates
+			$c = $db->query("SELECT * FROM users WHERE (email = \"$email\" AND email != '' ) OR (phone = \"$phone\" AND phone != '') ") or trigger_error($db->error);
+			if($c->num_rows < 1){
+				$query = $db->query("INSERT INTO users(name, userImage, phone, email, password, loginPassword, gender, createdBy) VALUES(\"$name\", \"$image\", \"$phone\", \"$email\", \"$password\", \"$loginPassword\", \"$gender\", \"$createdBy\")") or trigger_error($db->error);
+				if($query){
+					return $db->insert_id;
+				}else return false;
+			}else{
+				return false;
+			}
+
+			
 			
 		}
 
