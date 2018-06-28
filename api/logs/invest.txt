@@ -404,3 +404,5 @@
 
 {"action":"loopFeeds","memberId":"104"}
 
+{"action":"messageBrokerClient","brokerId":"530","clientId":"49","message":"Hello guys","channels":["email"]}
+

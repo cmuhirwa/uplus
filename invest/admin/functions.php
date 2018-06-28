@@ -517,12 +517,29 @@
 
 		while ($data = $query->fetch_assoc()) {
 
+			//curre feed id
+			$feedId = $data['fid'];
+
 			//getting post attachments
 			$attq = $investDb->query("SELECT imgUrl FROM investmentimg WHERE investCode = $data[fid]") or trigger_error($investDb->error);
 
 			$att = array();
 			while ( $attData = $attq->fetch_assoc()) {
 				$att[] = $attData['imgUrl'];
+			}
+
+			//Adding video
+			$data['video'] = "";
+			$data['videoThumbnail'] = "";
+
+			//checking images and videos
+			$vidQ = $investDb->query("SELECT * FROM feed_videos WHERE feedCode = $feedId AND archived = 'no' ORDER BY createdDate DESC LIMIT 1 ") or trigger_error($investDb->error);
+
+
+			if($vidQ && $vidQ->num_rows){
+				$videoData = $vidQ->fetch_assoc();
+				$data['video'] = $videoData['video'];
+				$data['videoThumbnail'] = HOSTNAME.$videoData['thumbnail'];
 			}
 
 			$data['feedAttachments'] = $att;

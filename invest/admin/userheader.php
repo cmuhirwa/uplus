@@ -20,6 +20,7 @@
 	require_once "../../db.php";	
 	require_once "../../scripts/class.user.php";
 	require_once "../../scripts/class.investuser.php";
+	require_once "../../scripts/class.forum.php";
  
 	$session_id = preg_replace('#[^0-9]#i', '', $_SESSION["id"]); // filter everything but numbers and letters
 	$username = preg_replace('#[^A-Za-z0-9]#i', '', $_SESSION["username"]); // filter everything but numbers and letters
@@ -33,6 +34,9 @@
 		$user_profile = $userData["profile_picture"];
 		$account_type = $userData["account_type"];
 
+		//array of the services this user in charge of
+		$userData["serviceOffering"] = array();
+
 		if($account_type =='admin')
 		{
 			header("location: admin.php");
@@ -42,10 +46,16 @@
 			$query = $investDb->query("SELECT * FROM broker_user WHERE userCode = \"$thisid\" AND archived = 'NO' LIMIT 1 ") or trigger_error($investDb->error);
 			$Broker = $query->fetch_assoc();
 			$currentCompanyId = $Broker['companyId'];
+
+			//service in charge
+			array_push($userData["serviceOffering"], 'invest');
+
 		}else if ($account_type == 'bank') {
 			$query = $investDb->query("SELECT * FROM broker_user WHERE userCode = \"$thisid\" AND archived = 'NO' LIMIT 1 ") or trigger_error($investDb->error);
 			$Banker = $Broker = $query->fetch_assoc();
 			$currentCompanyId = $Banker['companyId'];
+
+			array_push($userData["serviceOffering"], 'bank');
 		}
 
 		//getting user company

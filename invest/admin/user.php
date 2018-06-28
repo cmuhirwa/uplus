@@ -11,7 +11,6 @@
 	include ("../db.php");
 	include'userheader.php';
 	require("functions.php");
-	
 ?>
 <!-- main sidebar -->
 <div id="new_comp">
@@ -49,8 +48,15 @@
                         </div> -->
                         <div class="md-card-content">
                         	<?php
-                        		$sqlClients = $investDb->query('SELECT * FROM clients') or trigger_error($investDb->error);
-								$countClients = mysqli_num_rows($sqlClients);
+                                $countClients = 0;
+                                //checking the clients by looping through the services
+                                foreach ($userData['serviceOffering'] as $key => $service) {
+                                    $sqlClients = $investDb->query("SELECT * FROM clients WHERE service = \"$service\" ") or trigger_error($investDb->error);
+
+                                    if($sqlClients->num_rows){
+                                        $countClients += $sqlClients->num_rows;
+                                    }
+                                }
 								$countUsers = mysqli_num_rows($db->query('SELECT * FROM uplus.users'));
                         	?>
                         	<div style="vertical-align: middle; margin-top: 10%; font-size: 3rem">
@@ -106,8 +112,15 @@
 	            <div>
                     <div class="md-card md-card-hover md-card-overlay">
                         <div class="md-card-content">
-                            <div class="epc_chart" data-percent="53" data-bar-color="#009688">
-                                <span class="epc_chart_text"><span class="countUpMe">53</span>%</span>
+                            <?php 
+                                //check users in at least a forum
+                                $usersWithForum = $Forum->usersWithForum();
+                                $countUsersWithForum = count($Forum->usersWithForum());
+
+                                //percentage of interaction
+                            ?>
+                            <div class="epc_chart" data-percent="<?php echo $interaPerc ?>" data-bar-color="#009688">
+                                <span class="epc_chart_text"><span class="countUpMe"><?php echo $interaPerc ?></span>%</span>
                             </div>
                         </div>
                         <div class="md-card-overlay-content">
@@ -117,8 +130,8 @@
                                     Engagement
                                 </h3>
                             </div>
-                            <p>Feeds View: 11,340</p>
-                            <p>Feeds Likes: 783</p>
+                            <p>Users in forum: <?php echo $countUsersWithForum ?></p>
+                            <!-- <p>Feeds Likes: 783</p> -->
                         </div>
                     </div>
                 </div>
