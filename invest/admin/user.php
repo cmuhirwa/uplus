@@ -118,6 +118,7 @@
                                 $countUsersWithForum = count($Forum->usersWithForum());
 
                                 //percentage of interaction
+                                $interaPerc = ($countUsersWithForum/$countUsers)*100;
                             ?>
                             <div class="epc_chart" data-percent="<?php echo $interaPerc ?>" data-bar-color="#009688">
                                 <span class="epc_chart_text"><span class="countUpMe"><?php echo $interaPerc ?></span>%</span>
