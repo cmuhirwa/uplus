@@ -1,5 +1,5 @@
 <?php
-	//class to handle uplus user details and tasks
+	//class to handle uplus user details and tasks ..
 	class user{
 		public function details($userId)
 		{
