@@ -34,6 +34,16 @@ UPLUS API V1.1 DOCUMENTATION
 			Done
 			Not user
 
+	forgotPassword
+		->
+			email
+			password
+			PIN
+		<-
+			Done
+			Failed
+			Not user
+
 	updateProfile
 		->
 			userId

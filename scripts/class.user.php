@@ -46,6 +46,21 @@
 			
 		}
 
+		public function changePassword($userId, $password)
+		{
+			//changes password
+			global $db;
+			$userId = $db->real_escape_string($userId);
+			$password = password_hash($db->real_escape_string($password), PASSWORD_DEFAULT);
+
+			$query = $db->query("UPDATE users SET loginPassword = \"$password\" WHERE id = \"$userId\" ") or trigger_error($db->error);
+			if($query){
+				return true;
+			}else{
+				return false;
+			}
+		}
+
 		public function create($name, $image, $email, $password, $loginPassword = '', $gender = '', $phone, $createdBy=1)
 		{
 			//creates the user in uplus

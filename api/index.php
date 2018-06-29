@@ -290,6 +290,33 @@
 		}
 	}
 
+	function changePassword(){
+		require('db.php');
+		require('../scripts/class.user.php');
+		require('../scripts/class.email.php');
+		//for password
+		$email = $_POST['email']??"";
+		$password = $_POST['password']??"";
+		$PIN = $_POST['PIN']??"";
+
+		//check if the user already exists
+		$userId = $User->checkEmail($email);
+
+		if($userId){
+			//here we can send the email
+			$changeStatus = $User->changePassword($userId, $password);
+			if($changeStatus){
+				echo "Done";
+			}else{
+				echo "Failed";
+			}
+			
+			
+		}else{
+			echo "Not User";
+		}
+	}
+
 	function attachdvc()
 	{
 		require('db.php');
