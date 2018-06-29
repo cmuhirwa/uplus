@@ -38,7 +38,7 @@
 	function signup()
 	{
 		require('db.php');
-		$phoneNumber	= mysqli_real_escape_string($db, $_POST['phoneNumber']);
+		$phoneNumber	= mysqli_real_escape_string($db, $_POST['phoneNumber']??"");
 		//CLEAN PHONE
 		$phoneNumber 	= preg_replace( '/[^0-9]/', '', $phoneNumber );
 		$phoneNumber 	= substr($phoneNumber, -12); 
