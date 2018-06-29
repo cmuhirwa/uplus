@@ -31,6 +31,21 @@
 			
 		}
 
+		public function checkEmail($email)
+		{
+			global $db;
+			//checks if the email belongs to someone or not
+			$email = $db->real_escape_string($email);
+
+			$sql = "SELECT * FROM users WHERE email = \"$email\" LIMIT 1";
+			$query = $db->query($sql) or trigger_error("Can't get user data $db->error");
+			if($query->num_rows){
+				$data = $query->fetch_assoc();
+				return $data['id'];
+			}else return false;
+			
+		}
+
 		public function create($name, $image, $email, $password, $loginPassword = '', $gender = '', $phone, $createdBy=1)
 		{
 			//creates the user in uplus

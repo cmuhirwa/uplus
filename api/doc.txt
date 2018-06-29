@@ -26,6 +26,14 @@ UPLUS API V1.1 DOCUMENTATION
 			bankAccount
 			userImage
 
+	forgotPassword
+		->
+			email
+			PIN
+		<-
+			Done
+			Not user
+
 	updateProfile
 		->
 			userId
