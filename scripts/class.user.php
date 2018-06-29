@@ -42,7 +42,7 @@
 			$loginPassword = password_hash($db->real_escape_string($loginPassword), PASSWORD_DEFAULT);
 
 			//check if the phone or email or already exists to avoid duplicates
-			$c = $db->query("SELECT * FROM users WHERE (email = \"$email\" AND email != '' ) OR (phone = \"$phone\" AND phone != '') ") or trigger_error($db->error);
+			$c = $db->query("SELECT * FROM users WHERE email = \"$email\" OR phone = \"$phone\") ") or trigger_error($db->error);
 			if($c->num_rows < 1){
 				$query = $db->query("INSERT INTO users(name, userImage, phone, email, password, loginPassword, gender, createdBy) VALUES(\"$name\", \"$image\", \"$phone\", \"$email\", \"$password\", \"$loginPassword\", \"$gender\", \"$createdBy\")") or trigger_error($db->error);
 				if($query){
