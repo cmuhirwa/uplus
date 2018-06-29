@@ -39,10 +39,7 @@
 	function signup()
 	{
 		require('db.php');
-<<<<<<< HEAD
-=======
 		require('../scripts/class.user.php');
->>>>>>> parent of 7a0a8b5... Revert "new signup with email"
 		$phoneNumber	= mysqli_real_escape_string($db, $_POST['phoneNumber']??"");
 		//CLEAN PHONE
 		$phoneNumber 	= preg_replace( '/[^0-9]/', '', $phoneNumber );
