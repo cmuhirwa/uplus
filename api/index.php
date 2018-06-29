@@ -68,7 +68,7 @@
 				$signInfo['userId'] = '';
 			}else{
 				//here we can sign up the user
-				$userId = $User->create('', DEFUALTPICTURE, $email, '', $password, '', 1);
+				$userId = $User->create('', DEFUALTPICTURE, $email, '', $password, '', '');
 				$signInfo['userId'] = $userId;
 				$signInfo['userName'] = ""; #user name is empty now
 			}
