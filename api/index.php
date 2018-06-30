@@ -281,9 +281,9 @@
 		$userId = $User->checkEmail($email);
 
 		if($userId){
-			//here we can send the email
-			$email = $Email->send($email, 'uPlus password recovery', "Dear User, If You have requested the password change, use <b>$PIN</b> to recover your account<br />Please disregard this e-mail if you did not request a password reset.<br />Thanks for using uPlus services");
 			echo "Done";
+			//here we can send the email
+			$email = $Email->send($email, 'uPlus password recovery', "Dear User, If You have requested the password change, use <b>$PIN</b> to recover your account<br />Please disregard this e-mail if you did not request a password reset.<br />Thanks for using uPlus services");			
 			
 		}else{
 			echo "Not User";
