@@ -282,6 +282,10 @@
 
 		if($userId){
 			echo "Done";
+			header("Connection: close"); //close the waiting
+			ob_end_flush();
+		    ob_flush();
+		    flush();
 			//here we can send the email
 			$email = $Email->send($email, 'uPlus password recovery', "Dear User, If You have requested the password change, use <b>$PIN</b> to recover your account<br />Please disregard this e-mail if you did not request a password reset.<br />Thanks for using uPlus services");			
 			
