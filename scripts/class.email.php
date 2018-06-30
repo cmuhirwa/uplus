@@ -48,15 +48,12 @@
 					 //  else{
 					 //      $data = false;
 					 //  }
-
-						$data = false;
+					$data = false;
 				}
 				else
 				{
-					 $data = true;
+					$data = true;
 				}
-
-				echo json_encode($data);
 		}
 	}
 	
