@@ -270,6 +270,9 @@
 	}
 
 	function forgotPassword(){
+		// Buffer all upcoming output...
+    	ob_start();
+
 		require('db.php');
 		require('../scripts/class.user.php');
 		require('../scripts/class.email.php');
@@ -282,11 +285,23 @@
 
 		if($userId){
 			echo "Done";
+
+			// Get the size of the output.
+    		$size = ob_get_length();
+
+    		// Disable compression (in case content length is compressed).
+		    header("Content-Encoding: none");
+
+		    // Set the content length of the response.
+		    header("Content-Length: {$size}");
+
 			header("Connection: close"); //close the waiting
 			ob_end_flush();
 		    ob_flush();
 		    flush();
-			//here we can send the email
+
+
+			//here we can send the email after the request
 			$email = $Email->send($email, 'uPlus password recovery', "Dear User, If You have requested the password change, use <b>$PIN</b> to recover your account<br />Please disregard this e-mail if you did not request a password reset.<br />Thanks for using uPlus services");			
 			
 		}else{
