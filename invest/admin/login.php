@@ -111,7 +111,7 @@ else{
 				<form method="post" action="login.php" class="form-group">
 					<div class="md-input-wrapper md-input-filled">
 						<label for="username">Username</label>
-						<input class="md-input label-fixed" type="text" id="username" name="username" />
+						<input class="md-input" type="text" id="username" name="username" />
 					</div>
 					<div class="md-input-wrapped md-input-filled">
 						<label for="password">Password</label>
