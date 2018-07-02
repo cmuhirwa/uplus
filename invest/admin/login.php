@@ -1,10 +1,14 @@
 <?php 
-session_start();
-if (isset($_SESSION["username"])) {
-	header("location: user.php"); 
-	exit();
-}
-error_reporting(0);
+	session_start();
+	if (isset($_SESSION["username"])) {
+		header("location: user.php"); 
+		exit();
+	}
+	error_reporting(0);
+
+	require '../../db.php';
+	require_once "../../scripts/class.user.php";
+	require_once "../../scripts/class.investuser.php";
 ?>
 <?php
 if(isset($_GET['page']))
@@ -26,7 +30,6 @@ if (isset($_POST['Signup']))
 	$names = $_POST['names'];
 	$phone = $_POST['phone'];
 	$email = $_POST['email'];
-	require 'db.php';
 	$sql = $db->query("INSERT INTO users (`loginId`, `pwd`, `names`, `phone`, `email`) 
 	VALUES ('$loginId', '$pwd', '$names', '$phone', '$email')");
 	$pid = mysqli_insert_id();
@@ -36,19 +39,16 @@ if (isset($_POST['Signup']))
 	header("location: ".$page."");
 	exit();	
 }
+
 if (isset($_POST['login'])){
-	
 	$username = $_POST['username'];
 	$password = $_POST['password'];
 	$page = $_POST['page'];
-	require 'db.php';
 	$help ="";
-	$sql_check_user = $db->query("SELECT * FROM users WHERE loginId = '$username' AND pwd = '$password' limit 1")or die ($db->error);
-	$existCount= mysqli_num_rows($sql_check_user);
 
+	$userData = $InvestUser->investLogin($username, $password);
+	if ($userData) {
 
-	if ($sql_check_user->num_rows>0) {
-		$userData = $sql_check_user->fetch_array();
 		$id = $userData["id"];
 		$account_type = $userData["account_type"];
 		
@@ -66,14 +66,14 @@ if (isset($_POST['login'])){
 		{
 			header("location: ".$page."");
 			exit();
-		}else if($account_type == 'broker'){
+		}else if($account_type == 'broker' || $account_type == 'bank'){
 			header("location: user.php");
 			exit();
 		}
 	}else {$help.="try!";}
 }
 else{
-	 $help="";
+	$help="";
 }
 
 ?>
@@ -89,7 +89,7 @@ else{
 	<meta name="msapplication-tap-highlight" content="no"/>
 	<link rel="icon" type="image/png" href="../assets/images/fbn-logo-blue.png" sizes="32x32">
 
-	<title>Admin</title>
+	<title>Admin Login</title>
 
 	<link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500' rel='stylesheet' type='text/css'>
 

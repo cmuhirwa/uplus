@@ -1,6 +1,9 @@
 <?php
+	
+	if(!session_id())
+		session_start();
+	
 	// Destry session if it hasn't been used for 15 minute.
-	session_start();
 	$inactive = 900;
 	if(isset($_SESSION['timeout']) ) 
 	{
