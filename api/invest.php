@@ -1,4 +1,4 @@
-<?php
+a?php
 // START INITIATE
 	include ("../db.php");
 	define("DEFAULT_USER_IMAGE", "https://uplus.rw/assets/images/20.jpg");
