@@ -291,17 +291,26 @@
 	function userWallet($userId){
 		global $investDb;
 
-		$sql = "SELECT (SELECT SUM(quantity) as shares FROM transactions WHERE status = 'approved' AND archived = 'no' AND type = 'buy' AND userCode = \"$userId\" ) - (SELECT SUM(quantity) as shares FROM transactions WHERE status = 'approved' AND archived = 'no' AND type = 'sell' AND userCode = \"$userId\" ) * (SELECT unitPrice FROM broker_security ORDER BY createdDate DESC LIMIT 1) AS balance";
+		// $sql = "SELECT COALESCE((SELECT SUM(totalAmount) FROM transactions WHERE status = 'approved' AND archived = 'no' AND type = 'buy' AND userCode = \"$userId\" ) - ( COALESCE(SELECT SUM(quantity) as shares FROM transactions WHERE status = 'approved' AND archived = 'no' AND type = 'sell' AND userCode = \"$userId\" ), 0) * (SELECT unitPrice FROM broker_security ORDER BY createdDate DESC LIMIT 1), 0) AS balance";
+		$sql = "SELECT T.stockId, SUM(T.quantity) as purchases, COALESCE( (SELECT SUM(quantity) FROM transactions AS T1 WHERE T1.userCode = \"$userId\" AND T1.type = 'sell' AND T.status = 'approved'), 0) as sold FROM transactions as T WHERE T.userCode = \"$userId\" AND T.type = 'buy' GROUP BY T.stockId, T.userCode";
 		$query = $investDb->query($sql) or trigger_error($investDb->error);
 
 		// $modularQ = "SELECT SUM(sell.quantity) sellShare, SUM(buy.quantity) buyShare, buy.stockId buyStock, sell.stockId sellStock FROM transactions as sell JOIN transactions AS buy ON(sell.type = 'sell' AND buy.type = 'buy' ) WHERE sell.archived = 'no' AND buy.archived = 'no' AND sell.status = 'approved' AND buy.status = 'approved' GROUP BY sell.stockId, buy.stockId";
 
-		$data = $query->fetch_assoc();
+		$data = $query->fetch_all(MYSQLI_ASSOC);
 
-		$balanceShares = $data['balance']; 
+		$totalBalance = 0; #initialize total wallet worth
 
+		//looping through all, finding currrent worth of shares
+		foreach ($data as $key => $stockBal) {
+			$stockBalance = $stockBal['purchases'] - $stockBal['sold'];
+			$balWorth = $stockBalance * latestStockPrice($stockBal['stockId']);
+			$data[$key]['shares'] = $stockBalance;
+			$data[$key]['balanceWorth'] = $balWorth;
+			$totalBalance += $balWorth;
+		}
 
-		return $balanceShares;
+		return $totalBalance;
 	}
 
 	function userInvestProfile($userId){

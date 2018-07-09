@@ -1056,12 +1056,6 @@
 				'walletBalance'=>(string)userWallet($userId),
 				'data'=>$companies[$data['companyId']]
 			);
-
-			if($userId)
-			{
-				//add his balance
-				$ret['walletBalance'] = (string)userWallet($userId);
-			}
 		}
 
 		$response = $ret;		
