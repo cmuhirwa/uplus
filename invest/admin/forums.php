@@ -83,7 +83,7 @@
 										<div class="user_heading" data-uk-sticky="{ top: 48, media: 960 }">
 											<div class="user_heading_avatar fileinput fileinput-new" data-provides="fileinput">
 												<div class="fileinput-new thumbnail">
-													<img src="/<?php echo $forumData['icon']; ?>" alt="user avatar"/>
+													<img src="/<?php echo if(strrpos($forumData['icon'], "http")){ echo $forumData['icon']}else{echo '/'.$forumData['icon']}; ?>" alt="user avatar"/>
 												</div>
 												<div class="fileinput-preview fileinput-exists thumbnail"></div>
 												<div class="user_avatar_controls">
@@ -92,7 +92,7 @@
 														<span class="fileinput-exists"><i class="material-icons">&#xE86A;</i></span>
 														<input type="file" name="forum_logo" id="user_edit_avatar_control">
 													</span>
-													<a href="#" class="btn-file fileinput-exists" data-dismiss="fileinput"><i class="material-icons">&#xE5CD;</i></a>
+													<a href="#" class="btn-file fileinput-new-exists" data-dismiss="fileinput"><i class="material-icons">&#xE5CD;</i></a>
 												</div>
 											</div>
 											<div class="user_heading_content">
