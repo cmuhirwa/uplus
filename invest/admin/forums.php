@@ -83,10 +83,11 @@
 										<div class="user_heading" data-uk-sticky="{ top: 48, media: 960 }">
 											<div class="user_heading_avatar fileinput fileinput-new" data-provides="fileinput">
 												<?php
-												
-													if( strrpos($forumData['icon'], "http") != false){
+													if( strrpos($forumData['icon'], "http") == false){
+														$ficon =  '/'.$forumData['icon'];
+													}else{
 														$ficon =  $forumData['icon'];
-													}else{ $ficon =  '/'.$forumData['icon'];};
+													}
 												?>
 												<div class="fileinput-new thumbnail">
 													<img src="<?php echo $ficon; ?>" alt="user avatar"/>
