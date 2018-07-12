@@ -84,9 +84,9 @@
 											<div class="user_heading_avatar fileinput fileinput-new" data-provides="fileinput">
 												<?php
 													if( strrpos($forumData['icon'], "http") == false){
-														$ficon =  '/'.$forumData['icon'];
-													}else{
 														$ficon =  $forumData['icon'];
+													}else{
+														$ficon =  '/'.$forumData['icon'];
 													}
 												?>
 												<div class="fileinput-new thumbnail">
