@@ -58,11 +58,19 @@
 			
 			$countQuery = $investDb->query("SELECT * FROM forummember WHERE forumId = '$forumId' AND mine = 'NO'")or die(mysqli_error($investDb));
 		   	$joinedCount = mysqli_num_rows($countQuery);
+
+		   	//getting the absolute icon
+		   	if( strrpos($forum['icon'], "http") == false){
+				$ficon =  $forum['icon'];
+			}else{
+				$ficon =  $hostname.$forum['icon'];
+			}
+
 		    $forums[] = array(
 				"forumId"		=> $forumId,
 				"forumTitle"	=> $forum['title'],
 				"forumSubtitle"	=> $forum['subtitle'],
-				"forumIcon"		=> $hostname.$forum['icon'],
+				"forumIcon"		=> $ficon,
 				"joined"		=> $joined,
 				"joinedCount"	=> $joinedCount
 			);
