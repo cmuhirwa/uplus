@@ -41,7 +41,7 @@
 	{
 		require('db.php');
 		global $hostname;
-		$memberId		= mysqli_real_escape_string($db, $_POST['memberId']);
+		$memberId		= mysqli_real_escape_string($db, $_POST['memberId']??"");
 		$query = $investDb->query("SELECT F.id forumId, F.title, F.subtitle, F.icon, IFNULL((SELECT M.mine FROM forummember M WHERE M.memberId = '$memberId' AND M.forumId = F.id),'YES') AS mine  FROM forums F WHERE archive <> 'YES'")or die(mysqli_error($investDb));
 		$forums = array();
 		while ($forum = mysqli_fetch_array($query))
@@ -60,7 +60,9 @@
 		   	$joinedCount = mysqli_num_rows($countQuery);
 
 		   	//getting the absolute icon
-		   	if( strrpos($forum['icon'], "http") == false){
+		   	// var_dump(strrpos($forum['icon'], "http"), $forum['icon']);
+		   	$tempFinder = strrpos(strtolower($forum['icon']), "http"); //look for HTTP in the link
+		   	if( is_int($tempFinder) && $tempFinder == false){
 				$ficon =  $forum['icon'];
 			}else{
 				$ficon =  $hostname.$forum['icon'];

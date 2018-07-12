@@ -82,7 +82,7 @@
 									<div class="md-card">
 										<div class="user_heading" data-uk-sticky="{ top: 48, media: 960 }">
 											<div class="user_heading_avatar fileinput fileinput-new" data-provides="fileinput">
-												<?php
+												<?php													
 													if( strrpos($forumData['icon'], "http") == false){
 														$ficon =  $forumData['icon'];
 													}else{
