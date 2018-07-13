@@ -296,7 +296,19 @@
 			if($token == 'ireebe'){
 				if($phone && $message){
 					//Sending the message
-					$sms = sendsms($phone, $message, '', 'Ireebe');
+					$url = "http://rslr.connectbind.com:8080/bulksms/bulksms?username=infk-kiza&password=lab250&type=0&dlr=1&destination=$phone&source=Ireebe&message=$message";
+					// Get cURL resource
+					$curl = curl_init();
+					// Set some options - we are passing in a useragent too here
+					curl_setopt_array($curl, array(
+					    CURLOPT_RETURNTRANSFER => 1,
+					    CURLOPT_URL => $url,
+					    CURLOPT_USERAGENT => 'Ireebe service'
+					));
+					// Send the request & save response to $resp
+					$resp = curl_exec($curl);
+					// Close request to clear up some resources
+					curl_close($curl);
 					$response = 'done';
 				}else{
 					$response = 'Failed';
