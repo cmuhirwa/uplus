@@ -1034,9 +1034,10 @@
 			$change = round( ( ($data['unitPrice'] - $data['prevPrice'])/$data['unitPrice'])*100, 1);
 			$compData = $cd = array(
 						'unitPrice'=>'₦'.$data['unitPrice'],
+						'unitPrice'=>$data['unitPrice'],
 						'date'=>$data['createdDate'],
 						'securityId'=>$data['securityId'],
-						'prevPrice'=>'₦'.$data['prevPrice'],
+						'prevPrice'=>$data['prevPrice'],
 						// 'change'=>(string)( ( ($data['unitPrice'] - $data['prevPrice'])/$data['unitPrice'])*100),
 						'change'=>  "$change",
 					);
