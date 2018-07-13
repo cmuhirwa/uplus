@@ -406,3 +406,19 @@
 
 {"action":"messageBrokerClient","brokerId":"530","clientId":"49","message":"Hello guys","channels":["email"]}
 
+{"action":"listStocks","userId":"613","feedId":"283"}
+
+{"action":"listStocks","userId":"613","feedId":"283"}
+
+{"action":"listStocks","userId":"613","feedId":"283"}
+
+{"action":"listStocks","userId":"613","feedId":"283"}
+
+{"action":"listStocks","userId":"613","feedId":"283"}
+
+{"action":"listStocks","userId":"613","feedId":"283"}
+
+{"action":"listStocks","userId":"613","feedId":"283"}
+
+{"action":"listStocks","userId":"613","feedId":"283"}
+
