@@ -1060,7 +1060,6 @@
 		foreach ($companyDetails as $key => $data) {
 			//check the balance of the use
 			$ret[] = array(
-				'ok' => '₦',
 				'stockName'=>$data['companyName'],
 				'stockId'=>$data['companyId'],
 				'brokerName'=>$data['brokerName'],
