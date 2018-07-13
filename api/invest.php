@@ -1138,7 +1138,6 @@
 
 		$query = $investDb->query("UPDATE transactions SET status = \"$act\", updatedBy = \"$doneBy\", updatedDate = NOW() WHERE id = \"$transId\" ") or trigger_error($investDb->error);
 		if($query){
-
 			//notifying the client
 			$phone = $clientData['phone'];
 			if($transType == 'sell'){
