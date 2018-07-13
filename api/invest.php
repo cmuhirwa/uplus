@@ -263,7 +263,7 @@
 		$feed = $_POST['feedId']??"";
 
 		if($feed){
-			$query = $investDb->query("SELECT C.comment, C.commentDatetime as commentDate, U.name as commentByName, U.userImage as commentByImg FROM feed_comments as C JOIN uplus.users as U ON C.userCode = U.id WHERE C.feedCode = \"$feed\" ORDER BY commentDatetime DESC ") or trigger_error($investDb->error);
+			$query = $investDb->query("SELECT C.comment, C.commentDatetime as commentDate, U.name as commentByName, U.userImage as commentByImg FROM feed_comments as C JOIN uplus.users as U ON C.userCode = U.id WHERE C.feedCode = \"$feed\" ORDER BY commentDatetime ASC") or trigger_error($investDb->error);
 			$comments = array();
 
 			while ($data = $query->fetch_assoc()) {
@@ -1033,10 +1033,10 @@
 			$prevPriceDiv = $data['prevPrice']==0?1:$data['prevPrice']; //prevPrice for division omitting 0
 			$change = round( ( ($data['unitPrice'] - $data['prevPrice'])/$data['unitPrice'])*100, 1);
 			$compData = $cd = array(
-						'unitPrice'=>$data['unitPrice'],
+						'unitPrice'=>'₦'+$data['unitPrice'],
 						'date'=>$data['createdDate'],
 						'securityId'=>$data['securityId'],
-						'prevPrice'=>$data['prevPrice'],
+						'prevPrice'=>'₦'+$data['prevPrice'],
 						// 'change'=>(string)( ( ($data['unitPrice'] - $data['prevPrice'])/$data['unitPrice'])*100),
 						'change'=>  "$change",
 					);
