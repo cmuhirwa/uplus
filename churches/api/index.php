@@ -293,7 +293,7 @@
 			$message = $request['message']??"";
 			$token = $request['token']??"";
 
-			if(len($phone) ==  10){
+			if(strlen($phone) ==  10){
 				$phone = '25'.$phone;
 			}
 
