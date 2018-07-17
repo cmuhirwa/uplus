@@ -296,9 +296,9 @@
 			$phone 	= preg_replace( '/[^0-9]/', '', $phone );
 			$phone 	= substr($phone, -12);
 
-			if(strlen($phone) ==  10){
-				$phone = '25'.$phone;
-			}
+			// if(strlen($phone) ==  10){
+			// 	// $phone = '25'.$phone;
+			// }
 
 			if($token == 'ireebe'){
 				if($phone && $message){
