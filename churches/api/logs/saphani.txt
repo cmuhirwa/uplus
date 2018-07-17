@@ -1,2 +1,8 @@
 {"action":"sendSms","token":"ireebe","phone":"0784762982","message":"Hello"}
 http://rslr.connectbind.com:8080/bulksms/bulksms?username=infk-kiza&password=lab250&type=0&dlr=1&destination=250784762982&source=ireebe&message=Hello
+{"action":"sendSms","token":"ireebe","phone":"0784762982","message":"Hello Here I am "}
+http%3A%2F%2Frslr.connectbind.com%3A8080%2Fbulksms%2Fbulksms%3Fusername%3Dinfk-kiza%26password%3Dlab250%26type%3D0%26dlr%3D1%26destination%3D250784762982%26source%3Direebe%26message%3DHello+Here+I+am+
+{"action":"sendSms","token":"ireebe","phone":"0784762982","message":"Hello Here I am "}
+http%3A%2F%2Frslr.connectbind.com%3A8080%2Fbulksms%2Fbulksms%3Fusername%3Dinfk-kiza%26password%3Dlab250%26type%3D0%26dlr%3D1%26destination%3D250784762982%26source%3Direebe%26message%3DHello%20Here%20I%20am%20
+{"action":"sendSms","token":"ireebe","phone":"0784762982","message":"Hello Here I am "}
+http://rslr.connectbind.com:8080/bulksms/bulksms?username=infk-kiza&password=lab250&type=0&dlr=1&destination=250784762982&source=ireebe&message=Hello%20Here%20I%20am%20

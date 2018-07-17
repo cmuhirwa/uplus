@@ -303,9 +303,8 @@
 			if($token == 'ireebe'){
 				if($phone && $message){
 					//Sending the message
-					$url = "http://rslr.connectbind.com:8080/bulksms/bulksms?username=infk-kiza&password=lab250&type=0&dlr=1&destination=$phone&source=ireebe&message=$message";
+					$url = "http://rslr.connectbind.com:8080/bulksms/bulksms?username=infk-kiza&password=lab250&type=0&dlr=1&destination=$phone&source=ireebe&message=".rawurlencode($message);
 					// Get cURL resource
-
 					// keep api request log for debuggin
 					$f = fopen("logs/saphani.txt", 'a') or die("Unable to open file!");;
 					fwrite($f, json_encode($_POST)."\n$url\n");
