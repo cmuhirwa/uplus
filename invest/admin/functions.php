@@ -412,6 +412,7 @@
 			$data['feedAttachments'] = $att;
 			$data['video'] = "";
 			$data['videoThumbnail'] = "";
+			$data['createdDateText'] = textDiffDates(date(DATE_ATOM), $data['createdDate']);
 
 			//checking images and videos
 			$vidQ = $investDb->query("SELECT * FROM feed_videos WHERE feedCode = $feedId AND archived = 'no' ORDER BY createdDate DESC LIMIT 1 ") or trigger_error($investDb->error);
@@ -701,5 +702,47 @@
 		 }
 		 curl_close($ch);
 		 return $result;
+	}
+	function diffDates($date1, $date2, $format = false) 
+	{
+		$diff = date_diff( date_create($date1), date_create($date2));
+
+		if ($format)
+			return $diff->format($format);
+		
+		return array('y' => $diff->y,
+				'm' => $diff->m,
+				'd' => $diff->d,
+				'h' => $diff->h,
+				'i' => $diff->i,
+				's' => $diff->s
+			);	
+	}
+	function textDiffDates($date1, $date2, $format = false){
+		//returns textual differents in dates
+		$diff = (object)diffDates($date1, $date2, $format = false);
+		$text = '';
+		if($diff->y >0){
+			$text = "$diff->y year".($diff->y>1?'s':'');
+		}else if($diff->m >0){
+			$text = "$diff->m month".($diff->m>1?'s':'');	
+		}else if($diff->m >0){
+			$text = "$diff->m month".($diff->m>1?'s':'');	
+		}else if($diff->d >0){
+			if($diff->m == 1){
+				$text = "Yesterday";	
+			}else{
+				$text = "$diff->d day".($diff->d>1?'s':'');
+			}
+		}else if($diff->h >0){
+			$text = "$diff->h hour".($diff->h>1?'s':'');
+		}else if($diff->i >0){
+			if($diff->i < 3){
+				$text = 'Just now';
+			}else{
+				$text = "$diff->i mins";
+			}
+		}
+		return $text;
 	}
 ?>

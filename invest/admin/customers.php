@@ -3,6 +3,7 @@
 <!--[if gt IE 9]><!--> <html lang="en"> <!--<![endif]-->
 <?php
 	include("userheader.php");
+	include_once("functions.php");
 	//including group class
 	include("../../scripts/class.group.php");
 ?>
@@ -11,6 +12,19 @@
 		<div id="page_content_inner">
 
 			<h4 class="heading_a uk-margin-bottom"><?php if($account_type == 'bank') echo "Bank account";else echo "CSD"; ?> REQUESTS &amp; Clients</h4>
+			<?php
+				if($account_type == 'bank'){
+				   $sqlClients = $investDb->query("SELECT * FROM clients WHERE service = 'bank'"); 
+				}else{
+					$sqlClients = $investDb->query("SELECT * FROM clients WHERE service != 'bank'") or trigger_error($investDb->error);
+				} 
+
+				$n="";
+				while($row = mysqli_fetch_array($sqlClients))
+				{
+					$diff = textDiffDates(date(DATE_ATOM), $row['statusOn']);
+				}
+			?>
 		   
 			<div class="uk-grid uk-grid-medium" data-uk-grid-margin>
 				<div class="uk-width-large-4-4">
@@ -53,7 +67,7 @@
 										$n="";
 										while($row = mysqli_fetch_array($sqlClients))
 										{
-
+											$diff = diffDates(date(DATE_ATOM), $row['statusOn']);
 											$client = $row;
 											$clientType = $client['clientType'];
 											if($clientType == 'group'){

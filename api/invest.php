@@ -147,6 +147,7 @@
 				"feedLikeStatus"=> $liked, 
 				"feedComments" 	=> $row['ncomments'],
 				"feedDate"		=> $row['createdDate'],
+				"feedDateText"		=> $row['createdDateText'],
 				"feedContent"	=> $row['feedContent'],
 				"video"			=> $row['video'] != ""?$row['video'] : "None",
 				"videoThumbnail"	=> $row['videoThumbnail'],
@@ -1038,7 +1039,8 @@
 						'date'=>$data['createdDate'],
 						'securityId'=>$data['securityId'],
 						'prevPrice'=>$data['prevPrice'],
-						// 'change'=>(string)( ( ($data['unitPrice'] - $data['prevPrice'])/$data['unitPrice'])*100),
+						'currency'=>'N',
+						'currencySymbol'=>'₦',
 						'change'=>  "$change",
 					);
 
@@ -1054,7 +1056,6 @@
 				//keep once only
 				$companyDetails[$data['companyId']] = $data;
 			}
-
 		}
 
 		//android format
