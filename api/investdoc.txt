@@ -41,6 +41,7 @@ link: https://uplus.rw/api/invest.php
 			feedLikeStatus
 			feedComments
 			feedDate
+			feedDateText
 			feedContent
 			feedImage
 	loadMoreFeeds
@@ -161,6 +162,8 @@ link: https://uplus.rw/api/invest.php
 				unitPrice
 				prevPrice
 				change
+				currency
+				currencySymbol
 				}]
 
 	purchase
