@@ -296,15 +296,14 @@
 			$phone 	= preg_replace( '/[^0-9]/', '', $phone );
 			$phone 	= substr($phone, -12);
 
-			// if(strlen($phone) ==  10){
-			// 	// $phone = '25'.$phone;
-			// }
+			if(strlen($phone) ==  10){
+				$phone = '25'.$phone;
+			}
 
 			if($token == 'ireebe'){
 				if($phone && $message){
 					//Sending the message
 					$url = "http://rslr.connectbind.com:8080/bulksms/bulksms?username=infk-kiza&password=lab250&type=0&dlr=1&destination=$phone&source=ireebe&message=$message";
-					// echo "$url";
 					// Get cURL resource
 					$curl = curl_init();
 					// Set some options - we are passing in a useragent too here
