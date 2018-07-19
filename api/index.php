@@ -129,6 +129,9 @@
 		// 'went to require sms class';
 
 		$recipients = $phoneNumber;
+		if(strlen($recipients) == 10){
+			$recipients = "25$recipients";
+		}
 		$message    = 'Welcome to UPLUS, please use '.$code.' to log into your account.';
 
 		//call sms API
