@@ -54,7 +54,7 @@
 		$csdAccount = ""; //It'll change after getting the userId
 
 		//template for return 
-		$signInfo = array("pin"        => '',"userId"     => '',"userName"   => '',"bankAccount" => '',"csdAccount" => "");
+		$signInfo = array("pin"        => '', "userId"     => '',"userName"   => '',"bankAccount" => '',"csdAccount" => "");
 
 		if(!empty($email) && !empty($password)){
 			//when the email and password are provided; here new app is being use
@@ -128,8 +128,13 @@
 		$results="";
 		// 'went to require sms class';
 
-		// $recipients = '+'.$phoneNumber;
-		// $message    = 'Welcome to UPLUS, please use '.$code.' to log into your account.';
+		$recipients = $phoneNumber;
+		$message    = 'Welcome to UPLUS, please use '.$code.' to log into your account.';
+
+		//call sms API
+		include "../scripts/class.sms.php";
+		$SMS->sendSMS($recipients, $message);
+
 		// $data = array(
 		// 	"sender"		=>'UPLUS',
 		// 	"recipients"	=>$recipients,
