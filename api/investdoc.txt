@@ -1,4 +1,60 @@
-UPLUS API V1.1 DOCUMENTATION
+U-Invest API V1.1 DOCUMENTATION
+
+uPlus-uInvest integration
+https://uplus.rw/api/index.php
+--START ACCOUNTS--
+	signup
+		->
+			phoneNumber
+		<-
+			pin
+			userId
+			userName
+			csdAccount
+			bankAccount
+
+	gmailSignup
+		->
+			email
+			name
+			token
+			picture
+			phoneNumber - optional
+		<-
+			pin
+			userId
+			userName
+			csdAccount
+			bankAccount
+			userImage
+
+	forgotPassword
+		->
+			email
+			PIN
+		<-
+			Done
+			Not user
+
+	forgotPassword
+		->
+			email
+			password
+			PIN
+		<-
+			Done
+			Failed
+			Not user
+
+	updateProfile
+		->
+			userId
+			userName
+			userImage
+		<-
+			1 (success)/ 0 (fail)
+--END ACCOUNTS--
+
 
 link: https://uplus.rw/api/invest.php
 

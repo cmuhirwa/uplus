@@ -1,4 +1,8 @@
 <?php
+$amount = Rand(2000, 5000);
+	$amount	= floor($amount/1000)*1000; 
+echo $amount;
+/*
 error_reporting(E_ALL); 
 ini_set('display_errors', 1);
 include 'db.php';
@@ -17,10 +21,10 @@ include 'db.php';
 			$phone 	= '0'.substr($phone, -9); 
 
 		$sql = $db->query("INSERT INTO 
-			contacts 
+			users 
 			(name, phone) 
 			VALUES ('$names', '$phone');");
 		
 		}echo "<a href='company.php'>Click here</a>";
-	}
+	*/
 ?>
