@@ -349,7 +349,14 @@
 		require('db.php');
 		$userId				= mysqli_real_escape_string($db, $_POST['userId']);
 		$token				= mysqli_real_escape_string($db, $_POST['Token']);
-		$db->query("UPDATE users SET token = '$token' WHERE id = '$userId'");
+		$tokenType				= mysqli_real_escape_string($db, $_POST['tokenType']);
+
+		if($tokenType == 'uinvest'){
+			$db->query("UPDATE users SET investToken = '$token' WHERE id = '$userId'");
+		}else{
+			$db->query("UPDATE users SET token = '$token' WHERE id = '$userId'");
+		}
+		
 		if($db){
 			echo "yes";
 		}else{
