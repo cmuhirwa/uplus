@@ -1041,6 +1041,7 @@
 						'prevPrice'=>$data['prevPrice'],
 						'currency'=>'N',
 						'currencySymbol'=>'₦',
+						'currencySymbol'=>'NAIRA',
 						'change'=>  "$change",
 					);
 
