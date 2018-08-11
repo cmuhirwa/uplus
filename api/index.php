@@ -123,20 +123,20 @@
 				   );
 				}
 			}
-		}
+
+			//sending message to the user
+			$recipients = $phoneNumber;
+			if(strlen($recipients) == 10){
+				$recipients = "25$recipients";
+			}
+			$message    = 'Welcome to UPLUS, please use '.$code.' to log into your account.';
+
+			//call sms API
+			include "../scripts/class.sms.php";
+			$SMS->sendSMS($recipients, $message);
+			}
 
 		$results="";
-		// 'went to require sms class';
-
-		$recipients = $phoneNumber;
-		if(strlen($recipients) == 10){
-			$recipients = "25$recipients";
-		}
-		$message    = 'Welcome to UPLUS, please use '.$code.' to log into your account.';
-
-		//call sms API
-		include "../scripts/class.sms.php";
-		$SMS->sendSMS($recipients, $message);
 
 		// $data = array(
 		// 	"sender"		=>'UPLUS',
