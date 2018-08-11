@@ -680,6 +680,17 @@
 	function send_notification ($tokens, $message)
 	{
 			$url = 'https://fcm.googleapis.com/fcm/send';
+
+			//tokens should be array
+			if(!is_array($tokens)){
+				$tokens = array($tokens);
+			}
+
+			//tokens should be array
+			if(!is_array($message)){
+				$message = array('message'=>$tokens);
+			}
+
 			$fields = array(
 					 'registration_ids' => $tokens,
 					 'data' => $message

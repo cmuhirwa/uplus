@@ -2961,7 +2961,7 @@
 		require('db.php');
 		$selection 		= mysqli_real_escape_string($db, $_POST['selection']);
 			
-		function send_notification ($tokens, $message)
+		function Send_notifications ($tokens, $message)
 		{
 			$url = 'https://fcm.googleapis.com/fcm/send';
 			$fields = array(
@@ -2972,7 +2972,7 @@
 			$headers = array(
 				'Authorization:key = AIzaSyCVsbSeN2qkfDfYq-IwKrnt05M1uDuJxjg',
 				'Content-Type: application/json'
-				);
+			);
 
 		   $ch = curl_init();
 	       curl_setopt($ch, CURLOPT_URL, $url);
@@ -3012,7 +3012,28 @@
 		mysqli_close($db);
 
 		$message = array("message" => $_POST['message']);
-		$message_status = send_notification($tokens, $message);
+		$message_status = Send_notifications($tokens, $message);
+		header('Content-Type: application/json');
+		echo $message_status;
+	}
+
+	function sendNotification()
+	{
+		require('db.php');
+		$token = mysqli_real_escape_string($db, $_POST['tokens']);
+		$notification = mysqli_real_escape_string($db, $_POST['notification']);
+
+		if(is_array($token))
+		{
+			foreach ($token as $key => $n_token) {
+				$message_status = send_notification($n_token, $notification);
+			}
+			
+		}else{
+			$message_status = send_notification($token, $notification);
+		}
+
+		mysqli_close($db);
 		header('Content-Type: application/json');
 		echo $message_status;
 	}
