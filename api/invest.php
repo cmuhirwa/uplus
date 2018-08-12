@@ -42,7 +42,7 @@ function notification($premessage)
 	require('db.php');
 
 	// CLEAN MESSAGE TO TITLE
-	$premessage = substr($premessage, -30);
+	$premessage = substr($premessage, -35);
 
 	function Send_notifications ($tokens, $message)
 	{
