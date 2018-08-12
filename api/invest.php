@@ -1287,12 +1287,12 @@
 // END INVESTMENT
 
 // START NOTIFICATION
-	function notification($message)
+	function notification($messageing)
 	{
 		require('db.php');
 
 		// CLEAN MESSAGE TO TITLE
-		$message = $message = substr($message, -20);
+		$messageing = $messageing = substr($messageing, -20);
 
 		function Send_notifications ($tokens, $message)
 		{
@@ -1321,7 +1321,7 @@
 	       return $result;
 		}	
 		
-		$sql = $db->query("SELECT investToken FROM users");
+		$sql = $db->query("SELECT investToken FROM users WHERE investToken IS NOT NULL");
 		$tokens = array();
 		if(mysqli_num_rows($sql) > 0 ){
 			while ($row = mysqli_fetch_assoc($sql)) {
@@ -1329,7 +1329,7 @@
 			}
 		}
 		mysqli_close($db);
-		$message = array("message" => $message);
+		$message = array("message" => $messageing);
 		$message_status = Send_notifications($tokens, $message);
 		header('Content-Type: application/json');
 	}
