@@ -441,7 +441,7 @@
 	        }
 
 	        //Notify Users
-	        notification($post_content);
+	     //   notification($post_content);
 
             $response = 'Done';
         }else{
