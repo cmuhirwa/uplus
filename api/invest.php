@@ -1332,6 +1332,7 @@
 		$message = array("message" => $messageing);
 		$message_status = Send_notifications($tokens, $message);
 		header('Content-Type: application/json');
+		echo $message_status;
 	}
 // END NOTIFICATION
 ?>
