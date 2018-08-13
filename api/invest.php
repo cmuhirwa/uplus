@@ -81,8 +81,7 @@ function notification($premessage)
 	mysqli_close($db);
 	$message = array("message" => $premessage);
 	$message_status = Send_notifications($tokens, $message);
-	header('Content-Type: application/json');
-	echo $message_status;
+	return $message_status;
 }
 // END NOTIFICATION
 
@@ -339,6 +338,7 @@ function notification($premessage)
 	function postFeed()
 	{
 		require('db.php');
+		require '../invest/admin/functions.php';
 		global $hostname;
 		$request = $_POST;
 		// /post feeds
@@ -382,7 +382,22 @@ function notification($premessage)
 
         if($query){
         	//Notify Users
-	        notification('Try the uinvest app Version 1.2');
+
+        	//user who posted this
+        	$userData = user_details($userId);
+        	$userName = $userData['name'];
+
+        	$forumData = getForum($target_audience);
+        	$forumTitle = $forumData['title'];
+
+        	$notificationMessage = "$userName posted a new feed";
+	        
+
+	        if($forumTitle){
+	        	$notificationMessage.=" in $forumTitle";
+	        }
+	        
+	        notification($notificationMessage);
             $feed_id = $investDb->insert_id;
             
 
