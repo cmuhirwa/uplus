@@ -42,7 +42,7 @@ function notification($premessage)
 	require('db.php');
 
 	// CLEAN MESSAGE TO TITLE
-	$premessage = substr($premessage, -35);
+	$title = substr($premessage, -35);
 
 	function Send_notifications ($tokens, $message)
 	{
@@ -390,11 +390,13 @@ function notification($premessage)
         	$forumData = getForum($target_audience);
         	$forumTitle = $forumData['title'];
 
+        	$postTitle = substr($post_content, -100);
+
         	$notificationMessage = "$userName posted a new feed";
 	        
 
 	        if($forumTitle){
-	        	$notificationMessage.=" in $forumTitle";
+	        	$notificationMessage.=" in $forumTitle\n$postTitle...";
 	        }
 	        
 	        notification($notificationMessage);
