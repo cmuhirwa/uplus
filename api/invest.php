@@ -446,10 +446,11 @@ function testNote()
 	        $forumUsers = forum_users($target_audience);
 
 	        foreach ($forumUsers as $key => $user) {
-	        	# code...
+	        	$user = user_details($user['userCode']);
+	        	$investToken = $user['investToken'];
+	        	sendNotification($investToken, $notificationMessage);
 	        }
 	        
-	        notification($notificationMessage);
             $feed_id = $investDb->insert_id;
             
 
