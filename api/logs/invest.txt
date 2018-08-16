@@ -448,3 +448,5 @@
 
 {"action":"testNote","token":"dUB2xB0r0d4:APA91bHJKpSYjw0w8g-uUD30C6VtPYZN2XK4bncuRA5QsztJoOeMPibm9pv1U6cUYQF3ZipGjJwyBaKD0l_4eUMGbvHCfL_gMmEdcFSZXWLwMQyglLvmdVBFefTfVsH36x7e9xSEHbIi7CB2GXXsT2NxzsHSIqgk-g","message":"Hello Dr,\r\nThis is Placide testing notifications. Let me know if you received it."}
 
+{"action":"listStocks","token":"dUB2xB0r0d4:APA91bHJKpSYjw0w8g-uUD30C6VtPYZN2XK4bncuRA5QsztJoOeMPibm9pv1U6cUYQF3ZipGjJwyBaKD0l_4eUMGbvHCfL_gMmEdcFSZXWLwMQyglLvmdVBFefTfVsH36x7e9xSEHbIi7CB2GXXsT2NxzsHSIqgk-g","message":"Hello Dr,\r\nThis is Placide testing notifications. Let me know if you received it."}
+
