@@ -1,0 +1,10 @@
+.form-block {
+    display: inline-block;
+    max-width: 29%;
+    min-width: 100px;
+}
+.sc-ppic-hold img {
+    width: 150px;
+    height: 150px;
+    border-radius: 70%;
+}

@@ -1,0 +1,17 @@
+@charset "utf-8";
+/* CSS Document */
+
+@font-face{
+	src:url(fonts/PT_Serif-Web-Regular.ttf);
+	font-family:serifa;
+	}
+	
+@font-face{
+	src:url(fonts/PT_Sans-Web-Regular.ttf);
+	font-family:sansa;
+	}
+
+@font-face{
+	src:url(fonts/OpenSans-Regular.ttf);
+	font-family:"Open Sans";
+	}
