@@ -1,0 +1,109 @@
+	
+/*
+================================================
+21. Media Quries 
+================================================
+*/
+@media (min-width: 768px) and (max-width: 991px) {
+.navigation {
+	padding: 0;
+}
+.logo {
+  float: left;
+}
+.menu-bg .logo {
+  padding-top: 29px;
+}
+.navbar-toggle {
+  margin-right: 0;
+  margin-top: -34px;
+}
+.navbar-default .navbar-nav li a {
+  font-size: 12px;
+  padding: 23px 10px;
+}
+.navbar-collapse {
+  margin: 6px 0 0;
+}
+.navigation .navbar-collapse {
+	padding: 0;
+}
+.navbar {
+	margin-top:0px;
+}
+.sidebar-gallery li{
+width: 14%;
+}
+}
+@media (max-width: 767px) {
+section h2 {
+	font-size: 25px;
+}
+	.navigation{
+	display:none;
+	}
+	.mobile-nav{
+	display:block;
+	}
+	.navbar-header{
+	display:none;
+	}
+.header-top-area .slicknav_menu{
+    background: transparent;
+    padding: 15px 0px;
+}
+.header-top-area .slicknav_nav {
+    background: #333;
+    margin-top: 10px;
+    padding: 10px;
+}
+.header-top-area .slicknav_btn{
+background-color:#3597db;
+}
+.header-top-area .slicknav_nav a:hover, .header-top-area .slicknav_nav a:focus, .header-top-area .slicknav_nav a:active{
+color:#FFFFFF;
+}
+.header-top-area .slicknav_nav a:hover{
+background-color:#3597db;
+}
+.header-top-area .slicknav_nav .slicknav_row{
+padding:8px 10px;
+}
+.header-top-area .slicknav_nav a{
+padding:8px 10px;
+}
+.header-top-area .slicknav_nav .slicknav_arrow{
+float:right;
+}
+.logo{
+float:left;
+}
+.banner-text .font-55 {
+    font-size: 50px !important;
+	line-height:50px;
+}
+.banner-text h3 {
+	line-height:30px;
+}
+.sidebar-gallery li{
+width: 14%;
+}
+.cd-intro .font-28{
+font-size:21px !important;
+}
+.tb-about-2-content h1{
+font-size:25px;
+}
+.slide-text .font-70{
+line-height:70px;
+}
+.color-bg-b .pull-right{
+float:none !important;
+}
+.features-colmun{
+margin-bottom:10px;
+}
+.bg-color h2{
+line-height:40px;
+}
+}	

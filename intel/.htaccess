@@ -1,0 +1,11 @@
+<IfModule mod_rewrite.c>
+	RewriteEngine on
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule ^[^win] index.php [L]
+
+	RewriteCond %(REQUEST_FILENAME) !-f
+	RewriteCond %(REQUEST_FILENAME) !-d
+	RewriteRule ^win/([a-z0-9]+)$ /win/index.php [L]
+
+</Ifmodule>

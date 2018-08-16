@@ -1,0 +1,5 @@
+RewriteEngine On
+RewriteRule ^dash index1.php [NC,L]
+RewriteRule ^home index.php [NC,L]
+RewriteRule ^products products.php [NC,L]
+RewriteRule ^group([0-9]+) invoices.php?invoiceNo=$1 [NC,L]

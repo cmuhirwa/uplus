@@ -424,3 +424,27 @@
 
 {"action":"listStocks","userId":"613","feedId":"283"}
 
+{"action":"testNote","token":"f6cMyfM9VW0:APA91bHuxgKI6UXewJTDSMGQN_0u4pdxe4s2JQKU0o69zX6zy6ZdV1Ov-1uMG79RpmXNyLfj6kXsAQNQyBeOoZHxj1gzn5Acvr124fYIXme8xAODj8sVqz45wNbs0fyWBFPcNSLcTvDXXfBL4wmBn53NJ-ux8CUFUw","message":"Helo test"}
+
+{"action":"testNote","token":"f6cMyfM9VW0:APA91bHuxgKI6UXewJTDSMGQN_0u4pdxe4s2JQKU0o69zX6zy6ZdV1Ov-1uMG79RpmXNyLfj6kXsAQNQyBeOoZHxj1gzn5Acvr124fYIXme8xAODj8sVqz45wNbs0fyWBFPcNSLcTvDXXfBL4wmBn53NJ-ux8CUFUw","message":"Helo test"}
+
+{"action":"testNote","token":"f6cMyfM9VW0:APA91bHuxgKI6UXewJTDSMGQN_0u4pdxe4s2JQKU0o69zX6zy6ZdV1Ov-1uMG79RpmXNyLfj6kXsAQNQyBeOoZHxj1gzn5Acvr124fYIXme8xAODj8sVqz45wNbs0fyWBFPcNSLcTvDXXfBL4wmBn53NJ-ux8CUFUw","message":"Helo test"}
+
+{"action":"testNote","token":"f6cMyfM9VW0:APA91bHuxgKI6UXewJTDSMGQN_0u4pdxe4s2JQKU0o69zX6zy6ZdV1Ov-1uMG79RpmXNyLfj6kXsAQNQyBeOoZHxj1gzn5Acvr124fYIXme8xAODj8sVqz45wNbs0fyWBFPcNSLcTvDXXfBL4wmBn53NJ-ux8CUFUw","message":"Helo test"}
+
+{"action":"testNote","token":"f6cMyfM9VW0:APA91bHuxgKI6UXewJTDSMGQN_0u4pdxe4s2JQKU0o69zX6zy6ZdV1Ov-1uMG79RpmXNyLfj6kXsAQNQyBeOoZHxj1gzn5Acvr124fYIXme8xAODj8sVqz45wNbs0fyWBFPcNSLcTvDXXfBL4wmBn53NJ-ux8CUFUw","message":"Helo test"}
+
+{"action":"testNote","token":"f6cMyfM9VW0:APA91bHuxgKI6UXewJTDSMGQN_0u4pdxe4s2JQKU0o69zX6zy6ZdV1Ov-1uMG79RpmXNyLfj6kXsAQNQyBeOoZHxj1gzn5Acvr124fYIXme8xAODj8sVqz45wNbs0fyWBFPcNSLcTvDXXfBL4wmBn53NJ-ux8CUFUw","message":"Helo test"}
+
+{"action":"testNote","token":"f6cMyfM9VW0:APA91bHuxgKI6UXewJTDSMGQN_0u4pdxe4s2JQKU0o69zX6zy6ZdV1Ov-1uMG79RpmXNyLfj6kXsAQNQyBeOoZHxj1gzn5Acvr124fYIXme8xAODj8sVqz45wNbs0fyWBFPcNSLcTvDXXfBL4wmBn53NJ-ux8CUFUw","message":"Helo test"}
+
+{"action":"testNote","token":"f6cMyfM9VW0:APA91bHuxgKI6UXewJTDSMGQN_0u4pdxe4s2JQKU0o69zX6zy6ZdV1Ov-1uMG79RpmXNyLfj6kXsAQNQyBeOoZHxj1gzn5Acvr124fYIXme8xAODj8sVqz45wNbs0fyWBFPcNSLcTvDXXfBL4wmBn53NJ-ux8CUFUw","message":"Helo test"}
+
+{"action":"testNote","token":"f6cMyfM9VW0:APA91bHuxgKI6UXewJTDSMGQN_0u4pdxe4s2JQKU0o69zX6zy6ZdV1Ov-1uMG79RpmXNyLfj6kXsAQNQyBeOoZHxj1gzn5Acvr124fYIXme8xAODj8sVqz45wNbs0fyWBFPcNSLcTvDXXfBL4wmBn53NJ-ux8CUFUw","message":"Helo test"}
+
+{"action":"testNote","token":"f6cMyfM9VW0:APA91bHuxgKI6UXewJTDSMGQN_0u4pdxe4s2JQKU0o69zX6zy6ZdV1Ov-1uMG79RpmXNyLfj6kXsAQNQyBeOoZHxj1gzn5Acvr124fYIXme8xAODj8sVqz45wNbs0fyWBFPcNSLcTvDXXfBL4wmBn53NJ-ux8CUFUw","message":"Helo test"}
+
+{"action":"testNote","token":"dfzMMBDmvWA:APA91bHNFR_mkI1Vjcq4NlDUVXcmZqBmxZhZcfZzilcQHKFHBnQXC0RvmuyMV95PI6iNY_oQDi5PTPsfQk8D5ydemU3g2bGjFmNK21vPztn4cOj3j65-4zeb9Tt62ot9CQlIsjVETgrCiFxG8HdEkoR70vmdK3kH5w","message":"Hello Dr,\r\nThis is Placide testing notifications. Let me know if you received it."}
+
+{"action":"testNote","token":"dUB2xB0r0d4:APA91bHJKpSYjw0w8g-uUD30C6VtPYZN2XK4bncuRA5QsztJoOeMPibm9pv1U6cUYQF3ZipGjJwyBaKD0l_4eUMGbvHCfL_gMmEdcFSZXWLwMQyglLvmdVBFefTfVsH36x7e9xSEHbIi7CB2GXXsT2NxzsHSIqgk-g","message":"Hello Dr,\r\nThis is Placide testing notifications. Let me know if you received it."}
+
