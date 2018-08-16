@@ -18,7 +18,9 @@
 		//function to return all the users of the forum
 		global $investDb;
 		$forumId = $investDb->real_escape_string($forumId);
-		$query = $investDb->query("SELECT * FROM forumuser WHERE forumCode = \"$forumId\" and archive = 'NO' ") or trigger_error($investDb->error);
+		$sql = "SELECT * FROM forumuser WHERE forumCode = \"$forumId\" and archive = 'NO' ";
+
+		$query = $investDb->query($sql) or trigger_error($investDb->error);
 
 		$users = array();
 		while ($data = $query->fetch_assoc()) {
