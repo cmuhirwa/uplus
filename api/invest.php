@@ -440,6 +440,13 @@ function testNote()
 
 	        if($forumTitle){
 	        	$notificationMessage.=" in $forumTitle\n$postTitle...";
+	        };
+
+	        //get the forum users and send them notifications
+	        $forumUsers = forum_users($target_audience);
+
+	        foreach ($forumUsers as $key => $user) {
+	        	# code...
 	        }
 	        
 	        notification($notificationMessage);

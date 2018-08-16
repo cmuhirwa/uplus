@@ -1,0 +1,128 @@
+@charset "utf-8";
+/* CSS Document */
+
+body {
+	/*font-family:'Open Sans', sans-serif;*/
+}
+
+.select-item{
+	background: #7362b7;
+	padding: 10px;
+	color: #FFF;
+	/* margin-bottom: 10px; */
+}
+
+select, select:focus {
+    padding: 10px;
+    outline: 0px none;
+    border: 0px;
+    outline-offset: 0;
+    font-family: inherit;
+    font-size: inherit;
+}
+.input-elem p, .input-elem select{
+	display: inline-block;
+	} 
+.input-elem:not(:last-child){
+	margin-bottom: 5px;
+	}
+.input-elem select{
+	width:50%;
+	}
+
+*, *:before, *:after {
+	margin: 0; 
+	padding: 0; 
+	box-sizing: border-box;
+}
+.tab-title {
+	font-weight: 600;
+    text-align: center;
+    font-size: 1.3em;
+	}
+p {
+	margin: 0 0 20px;
+	line-height: 1.5;
+	}
+.tab-container {
+	margin: 0 auto;
+	min-width: 320px;
+	max-width: 800px;
+	}
+.tabs-content {
+	background: #fff;
+	color: #373737;
+}
+.tabs-content > div {
+	display: none;
+	/* padding: 20px 25px 5px; */
+}
+.tab-container input[type='radio'] {display: none;}
+label {
+	display: inline-block; 
+	padding: 15px 25px; 
+	font-weight: 600; text-align: center;
+}
+label:hover {
+    background: #ed5a6a;
+    color: #fff;
+    transition: background .3s ease-in;
+    cursor: pointer;
+}
+
+input.sload {
+    display: inline-block;
+    min-width: 50px;
+    width: 20%;
+    padding: 6px;
+    max-width: 150px;
+}
+
+input.sload:hover {
+}
+
+input:checked + label {background: #ed5a6a; color: #fff;}
+#tab1:checked ~ .tabs-content #content1,
+#tab2:checked ~ .tabs-content #content2,
+#tab3:checked ~ .tabs-content #content3,
+#tab4:checked ~ .tabs-content #content4 {
+	display: block;
+}
+
+.name {
+    font-size: 1.53em;
+    color: #0894DB;
+	margin: 10px 0;
+    font-weight: 800;
+}
+
+.profile-picture {
+    width: 20%;
+    float: left;
+}
+
+.info {
+    width: 70%;
+    float: left;
+    margin: 0 5%;
+}
+.school-cta {
+    margin-top: 12px;
+}
+.school-panel {
+    border: 1px groove #2196f3;
+    padding: 10px;
+    transition: .5s all linear;
+}
+.school-panel:not(:last-child){
+	margin-bottom: 10px;
+}
+
+.school-welcome p.p_intro {
+    margin: 20px 0;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+.main-info li {
+    
+}
