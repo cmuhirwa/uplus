@@ -2,9 +2,12 @@
 // START INITIATE
 	if ($_SERVER["REQUEST_METHOD"] == "POST") 
 	{
-		if(isset($_POST['action']))
+
+		$request = array_merge($_POST, $_GET);
+
+		if(isset($request['action']))
 		{
-			$_POST['action']();
+			$request['action']();
 		}
 		else
 		{
