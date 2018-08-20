@@ -1,6 +1,6 @@
 <?php
 // START INITIATE
-	if ($_SERVER["REQUEST_METHOD"] == "POST") 
+	if (1) 
 	{
 
 		$request = array_merge($_POST, $_GET);
