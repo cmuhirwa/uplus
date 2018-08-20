@@ -10,4 +10,3 @@ monitor/db.php
 *.mp4
 api/logs/*
 api/logs/invest.txt
-casual/
