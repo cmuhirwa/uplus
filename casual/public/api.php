@@ -1,13 +1,10 @@
 <?php
 // START INITIATE
-	if (1) 
+	if ($_SERVER["REQUEST_METHOD"] == "POST") 
 	{
-
-		$request = array_merge($_POST, $_GET);
-
-		if(isset($request['action']))
+		if(isset($_POST['action']))
 		{
-			$request['action']();
+			$_POST['action']();
 		}
 		else
 		{
@@ -20,9 +17,9 @@
 	}
 // END INITIATE
 // START LOG
-    /*$f = fopen("logs/casual.txt", 'a') or die("Unable to open file!");;
+    $f = fopen("logs/casual.txt", 'a') or die("Unable to open file!");;
     fwrite($f, json_encode($_POST)."\n\n");
-    fclose($f);*/
+    fclose($f);
 // END LOG
 
 // START EMPLOYEE
@@ -364,12 +361,13 @@
 		$row =mysqli_fetch_array($sql);
 		echo $categoryCode = $row['categoryCode'];
 		echo $amount = $row['amount'];
-		echo '</br>startOn: '.$startOn = $row['startOn'];
-		echo '</br>startOff: '.$startOff = $row['startOff'];
-		echo 'stopOn: '.$stopOn = $row['stopOn'];
-		echo ' </br>stopOff: '.$stopOff = $row['stopOff'];
-		echo ' </br>Now: '.$now= date("H:i:s", time());
+		$startOn = $row['startOn'];
+		$startOff = $row['startOff'];
+		$stopOn = $row['stopOn'];
+		$stopOff = $row['stopOff'];
+		$now= date("H:i:s", time());
 		
+		/*
 		if($now > $startOn && $now < $startOff){
 			echo "CHECKIN";
 
@@ -379,14 +377,16 @@
 		}
 		elseif($now > $stopOn && $now < $stopOff) {
 			echo "CHECKOUT";
-
+		*/
 			$db->query("INSERT INTO payrolltransactions(payrollCode, amount, casualCode, categoryCode)
 			VALUES('$payrollCode','$amount','$casualCode','$categoryCode')")or die(mysql_error($db));
 			if ($db) {echo "done";		}else{echo "wapi";}	
+		/*
 		}
 		else{ 
 			echo"OUT OF TIME"; 
 		}
+		*/
 	}
 // END ATTENDANCE
 
@@ -584,25 +584,12 @@
 	function loadMoney()
 	{
 		require('db.php');
-		$account		= mysqli_real_escape_string($db, $_POST['account']??"");
+		$account			= mysqli_real_escape_string($db, $_POST['account']??"");
 		$amount			= mysqli_real_escape_string($db, $_POST['amount']??"");
 		$sql 			= $db->query("INSERT INTO 
 				transactions (amount, operation, account, createdBy)
 				VALUES ('$amount', 'IN', '$account', '1')
 				") or die(mysqli_error($db));
-		$url = 'https://www.uplus.rw/api/index.php';
-		$data 					= array();
-		$data["amount"] 		= $amount;
-		$data["senderPhone"] 	= $account;
-		$options = array(
-			'http' => array(
-				'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
-				'method'  => 'POST',
-				'content' => http_build_query($data)
-			)
-		);
-		$context  = stream_context_create($options);
-		$result = file_get_contents($url, false, $context);
 		
 	}
 
@@ -752,7 +739,7 @@ function resolveHandle()
 		}
 		elseif($row['state'] == "ATTEND")
 		{
-			worked();
+			//worked();
 			$return = array('action' => 'ATTEND','message' => 'NAME XYZ attended' );
 			echo $return;
 		}
