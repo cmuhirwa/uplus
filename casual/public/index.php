@@ -9,7 +9,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Dashboard</title>
+  <title>CASUAL PAYROLL</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -145,10 +145,6 @@
             <div class="box-body">
               <div class="row">
                 <div class="col-md-8">
-                  <p class="text-center">
-                    <strong>Sales: 1 Jan, 2014 - 30 Jul, 2014</strong>
-                  </p>
-
                   <div class="chart">
                     <!-- Sales Chart Canvas -->
                     <canvas id="salesChart" style="height: 180px;"></canvas>
@@ -162,7 +158,7 @@
                   </p>
 
                   <div class="progress-group">
-                    <span class="progress-text">Add Products to Cart</span>
+                    <span class="progress-text">SITE A</span>
                     <span class="progress-number"><b>160</b>/200</span>
 
                     <div class="progress sm">
@@ -171,7 +167,7 @@
                   </div>
                   <!-- /.progress-group -->
                   <div class="progress-group">
-                    <span class="progress-text">Complete Purchase</span>
+                    <span class="progress-text">SITE B</span>
                     <span class="progress-number"><b>310</b>/400</span>
 
                     <div class="progress sm">
@@ -180,7 +176,7 @@
                   </div>
                   <!-- /.progress-group -->
                   <div class="progress-group">
-                    <span class="progress-text">Visit Premium Page</span>
+                    <span class="progress-text">SITE C</span>
                     <span class="progress-number"><b>480</b>/800</span>
 
                     <div class="progress sm">
@@ -189,7 +185,7 @@
                   </div>
                   <!-- /.progress-group -->
                   <div class="progress-group">
-                    <span class="progress-text">Send Inquiries</span>
+                    <span class="progress-text">SITE D</span>
                     <span class="progress-number"><b>250</b>/500</span>
 
                     <div class="progress sm">
@@ -208,8 +204,8 @@
                 <div class="col-sm-3 col-xs-6">
                   <div class="description-block border-right">
                     <span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 17%</span>
-                    <h5 class="description-header">$35,210.43</h5>
-                    <span class="description-text">TOTAL REVENUE</span>
+                    <h5 class="description-header">35,210,000RWF</h5>
+                    <span class="description-text">WALLET BALANCE</span>
                   </div>
                   <!-- /.description-block -->
                 </div>
@@ -217,8 +213,8 @@
                 <div class="col-sm-3 col-xs-6">
                   <div class="description-block border-right">
                     <span class="description-percentage text-yellow"><i class="fa fa-caret-left"></i> 0%</span>
-                    <h5 class="description-header">$10,390.90</h5>
-                    <span class="description-text">TOTAL COST</span>
+                    <h5 class="description-header">10,390,000RWF</h5>
+                    <span class="description-text">UNPAID PAYROLLS</span>
                   </div>
                   <!-- /.description-block -->
                 </div>
@@ -226,8 +222,8 @@
                 <div class="col-sm-3 col-xs-6">
                   <div class="description-block border-right">
                     <span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 20%</span>
-                    <h5 class="description-header">$24,813.53</h5>
-                    <span class="description-text">TOTAL PROFIT</span>
+                    <h5 class="description-header">24,813,000RWF</h5>
+                    <span class="description-text">PAID PAYROLLS</span>
                   </div>
                   <!-- /.description-block -->
                 </div>
@@ -235,8 +231,8 @@
                 <div class="col-sm-3 col-xs-6">
                   <div class="description-block">
                     <span class="description-percentage text-red"><i class="fa fa-caret-down"></i> 18%</span>
-                    <h5 class="description-header">1200</h5>
-                    <span class="description-text">GOAL COMPLETIONS</span>
+                    <h5 class="description-header">35</h5>
+                    <span class="description-text">TOTAL EMPLOYES</span>
                   </div>
                   <!-- /.description-block -->
                 </div>
