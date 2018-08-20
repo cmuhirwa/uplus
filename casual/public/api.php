@@ -17,9 +17,9 @@
 	}
 // END INITIATE
 // START LOG
-    $f = fopen("logs/casual.txt", 'a') or die("Unable to open file!");;
+  /*  $f = fopen("logs/casual.txt", 'a') or die("Unable to open file!");;
     fwrite($f, json_encode($_POST)."\n\n");
-    fclose($f);
+    fclose($f);*/
 // END LOG
 
 // START EMPLOYEE
