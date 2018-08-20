@@ -2,6 +2,9 @@
   if (isset($_GET['payroll'])) {
     $payrollId = $_GET['payroll'];
    } 
+  require_once('Controllers/Authentication.php');
+  $auth = new Authentication();
+  $auth->checkAuthentication();
 ?>
 <!DOCTYPE html>
 <html>
@@ -72,12 +75,11 @@
           <img src="images/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Manager Names</p>
-          
+          <p><?php  echo $_SESSION["first_name"].' '.$_SESSION["last_name"]; ?></p>
         </div>
       </div>
        <ul class="sidebar-menu" data-widget="tree">
-        <li> <a href="#">
+        <li> <a href="index.php">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
         </li>
@@ -106,6 +108,9 @@
         </li>
         <li>
             <a href="setup.php"><i class="fa fa-gear"></i> <span>Setup</span></a>
+        </li>
+        <li>
+            <a href="Controllers/logout.php"><i class="fa fa-sign-out text-red"></i> <span>Logout</span></a>
         </li>
       </ul>
     </section>
@@ -407,6 +412,7 @@
         payrollCode  = handleElem.dataset.gender;
         amount       = handleElem.dataset.amount;
         account       = handleElem.dataset.account;
+        handleId       = handleElem.dataset.handleId;
         //alert(amount);
         $.ajax({
           type: "POST",
@@ -419,7 +425,8 @@
             casualCode    : casualCode,
             payrollCode   : payrollCode,
             amount        : amount,
-            account       : account
+            account       : account,
+            handleId       : handleId
           },
           success: function(html, textStatus){
             //progress changing

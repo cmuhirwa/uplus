@@ -1,3 +1,8 @@
+<?php
+  require_once('Controllers/Authentication.php');
+  $auth = new Authentication();
+  $auth->checkAuthentication();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,12 +56,11 @@
           <img src="images/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Manager Names</p>
-          
+          <p><?php  echo $_SESSION["first_name"].' '.$_SESSION["last_name"]; ?></p>
         </div>
       </div>
        <ul class="sidebar-menu" data-widget="tree">
-        <li> <a href="#">
+        <li> <a href="index.php">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
         </li>
@@ -87,6 +91,9 @@
         <li>
             <a href="setup.php"><i class="fa fa-gear"></i> <span>Setup</span></a>
         </li>
+        <li>
+            <a href="Controllers/logout.php"><i class="fa fa-sign-out text-red"></i> <span>Logout</span></a>
+        </li>
       </ul>
     </section>
     <!-- /.sidebar -->
@@ -107,7 +114,7 @@
               <p class="h4baner">Employees</p>
             </div>
             <div class="col-xs-1">
-             <a class="btn btn-success add_new_employee"><i class="fa fa-plus"></i></a>
+             <a class="btn btn-success add_new_employee" onclick="loopzamu()"><i class="fa fa-plus"></i></a>
             </div>
           </div>
         </div>
@@ -229,9 +236,8 @@
             </tbody>
           </table>
           <div class="clearfix"></div>
-          <div class="modal-footer">
-            <button type="button" id="save-criteria-job" onclick="saveEmploye()" class="btn btn-primary" >Submit</button>
-            <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Cancel</button>
+          <div class="modal-footer" id="addCasualAction">
+              <button type="button" class="btn btn-primary pull-right">WAITING FOR THE FINGER</button>
           </div>
           <div id="loadEmp"></div>
           
@@ -309,6 +315,8 @@
         },
         success : function(html, textStatus){
           $("#alert-box").html(html);
+
+                    document.getElementById("addCasualAction").innerHTML = '<button type="button" class="btn btn-success pull-right" data-dismiss="modal">DONE</button>';
           loopEmpData();
         },
         error : function(xht, textStatus, errorThrown){
@@ -361,11 +369,47 @@
         }
     });
   }
+var loopingfunction;
+  function loopzamu(argument) {
+   
+   var n = 0;
+    function checkzamustate() {
+        
+      loopingfunction =  setTimeout(function() 
+        {
+            $.ajax({
+                type : "POST",
+                url : "api.php",
+                dataType : "html",
+                cache : "false",
+                data : {
+                  action      : 'checkzamustate'
+                },
+                success : function(html, textStatus){
+                  $("#zamustate").html(html);
+                  console.log(html);
+                  if(html == "RECORDED"){saveEmploye();clearTimeout(loopingfunction);
+                    document.getElementById("addCasualAction").innerHTML = '<button type="button" class="btn btn-warning pull-right">ADDING CASUSAL</button>';
+                  }else if(html == "WAITING"){
+                    document.getElementById("addCasualAction").innerHTML = ' <button type="button" class="btn btn-primary pull-right">WAITING FOR THE FINGER</button>';
+                  }
+                  ;
+                },
+                error : function(xht, textStatus, errorThrown){
+                  alert("Error : " + errorThrown);
+                }
+            });
+          n++;
+            checkzamustate();
+        }, 3000)
+    };
+    checkzamustate();
+  };
 </script>
 
 <script src="js/casual.js"></script>
 <script src="js/chartjs/Chart.js"></script>
-
+<!--
 <script>
   $(function () {
     /* ChartJS
@@ -572,5 +616,6 @@
     barChart.Bar(barChartData, barChartOptions)
   })
 </script>
+-->
 </body>
 </html>

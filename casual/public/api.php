@@ -54,7 +54,8 @@
 				VALUES (
 				'$empName', '$nid', '$phoneNumber', 'avatar/1.jpg', '1', '1')");
 			if($db){
-				echo '<div style="color: green">'.$empName.' is Added!</div>';
+				echo '<div class="callout callout-success">
+                <h4><i class="icon fa fa-check"></i> '.$empName.' is Added!</h4></div>';
 				$lastId = $db->insert_id;
 				createNidHandle($lastId,$nid,$phoneNumber,$empName);
 			}
@@ -125,7 +126,9 @@
 			VALUES (
 			'$fromDate', '$toDate', '$startOn','$startOff','$endOn','$endOff', 1)")or die(mysqli_error($db));
 		if($db){
-			echo '<div style="color: green">'.$fromDate.' Payroll is Added!</div>';
+			echo '<div class="callout callout-success">
+                <h4><i class="icon fa fa-check"></i>'.$fromDate.' Payroll is Added!</h4>
+              </div>';
 		}
 		else {
 			echo 'Error!';
@@ -223,7 +226,9 @@
 					VALUES (
 					'$empId', '$catCode', '$payrollCode', 1)")or die(mysqli_error($db));
 				if($db){
-					echo '<div style="color: green">'.$empId.' Payroll is Added!</div>';
+					echo '<div class="callout callout-success">
+                <h4><i class="icon fa fa-check"></i>'.$empId.' Payroll is Added!</h4>
+              </div>';
 				}
 				else {
 					echo 'Error!';
@@ -269,7 +274,7 @@
 		<tbody id="peopleTable">
            <?php 
                 include 'db.php';
-                $sql = $db->query("SELECT C.name, CT.catName category, CP.casualCode, C.phone,
+                $sql = $db->query("SELECT C.name, C.handleid, CT.catName category, CP.casualCode, C.phone,
 						              IFNULL((SELECT SUM(PT.amount) FROM payrolltransactions PT WHERE PT.casualCode = CP.casualCode AND PT.payrollCode = '$payrollId'),0)amount,
 						              IFNULL((SELECT SUM(PT.amount) FROM payrolltransactions PT WHERE PT.casualCode = CP.casualCode AND (PT.payrollCode = '$payrollId' AND paymentStatus <> 'APPROVED')),0)unpaidAmount,
 						              IFNULL((SELECT COUNT(PT.casualCode) FROM payrolltransactions PT WHERE PT.casualCode = CP.casualCode AND PT.payrollCode = '$payrollId'),0)casuals,
@@ -290,7 +295,7 @@
                 		$row['paymentStatus'] = 'UNPAID';
                 	}
                   echo '
-                    <tr class="'.$tr.'" data-names="'.$row['casualCode'].'" data-gender="'.$payrollId.'" data-amount="'.$row['amount'].'" data-account="'.$row['phone'].'">
+                    <tr class="'.$tr.'" data-names="'.$row['casualCode'].'" data-handleId="'.$row['handleid'].'" data-gender="'.$payrollId.'" data-amount="'.$row['amount'].'" data-account="'.$row['phone'].'">
                       <td>'.$n.'</td>
                       <td>'.$row['name'].'</td>
                       <td>'.$row['category'].'</td>
@@ -346,18 +351,39 @@
 		$payrollCode	= mysqli_real_escape_string($db, $_POST['payrollCode']??"");
 		
 		
-		$sql = $db->query("SELECT CP.categoryCode, C.catAmount amount
+		$sql = $db->query("SELECT CP.categoryCode, C.catAmount amount, P.startOn, P.startOff, P.stopOn, P.stopOff
 		FROM casualpayroll CP
 		INNER JOIN categories C 
 		ON C.id = CP.categoryCode
+        INNER JOIN payrolls P
+        ON P.id = CP.payrollCode
 		WHERE CP.casualCode = '$casualCode' AND CP.payrollCode = '$payrollCode'");
 		$row =mysqli_fetch_array($sql);
 		echo $categoryCode = $row['categoryCode'];
 		echo $amount = $row['amount'];
+		echo '</br>startOn: '.$startOn = $row['startOn'];
+		echo '</br>startOff: '.$startOff = $row['startOff'];
+		echo 'stopOn: '.$stopOn = $row['stopOn'];
+		echo ' </br>stopOff: '.$stopOff = $row['stopOff'];
+		echo ' </br>Now: '.$now= date("H:i:s", time());
 		
-		$db->query("INSERT INTO payrolltransactions(payrollCode, amount, casualCode, categoryCode)
-		VALUES('$payrollCode','$amount','$casualCode','$categoryCode')")or die(mysql_error($db));
-		if ($db) {echo "done";		}else{echo "wapi";}
+		if($now > $startOn && $now < $startOff){
+			echo "CHECKIN";
+
+			$db->query("INSERT INTO payrolltransactions(payrollCode, amount, casualCode, categoryCode)
+			VALUES('$payrollCode','$amount','$casualCode','$categoryCode')")or die(mysql_error($db));
+			if ($db) {echo "done";		}else{echo "wapi";}
+		}
+		elseif($now > $stopOn && $now < $stopOff) {
+			echo "CHECKOUT";
+
+			$db->query("INSERT INTO payrolltransactions(payrollCode, amount, casualCode, categoryCode)
+			VALUES('$payrollCode','$amount','$casualCode','$categoryCode')")or die(mysql_error($db));
+			if ($db) {echo "done";		}else{echo "wapi";}	
+		}
+		else{ 
+			echo"OUT OF TIME"; 
+		}
 	}
 // END ATTENDANCE
 
@@ -372,7 +398,8 @@
 	        $headers[] = 'Authorization: LBE7YRZPUCOCLQOXBMPJUWKS0EMUZ8MJ';
 	         
 	        $handleid= "25.001/CREDITSCORE/".$nid;
-	        $url ="https://197.243.0.244:8880/".$handleid;
+	        $url ="https://188.166.243.121:8880/".$handleid;
+    		//$url ="https://197.243.0.244:8880/".$handleid;
 	     	$data = '
 	        			{
 		                    "authkey": "LGAGZYYRP5SUYPKPHQLFW9NGKUHHZJBC",
@@ -421,9 +448,9 @@
 					CURLOPT_POSTFIELDS => ($data)
 		    ));
 	       
-	       	 echo $output = curl_exec($curl);
+	       	// echo $output = curl_exec($curl);
 	       	// echo $handleid;
-	        echo '<div style="color: green">(On DOA)</div>';
+	        //echo '<div style="color: green">(On DOA)</div>';
 				
 			//	END GENERATE A HANDLE
 
@@ -440,6 +467,7 @@
 		$casualCode		= mysqli_real_escape_string($db, $_POST['casualCode']??"");
 		$payrollCode	= mysqli_real_escape_string($db, $_POST['payrollCode']??"");
 		$account		= mysqli_real_escape_string($db, $_POST['account']??"");
+		$handleId		= mysqli_real_escape_string($db, $_POST['handleId']??"");
 		
 		$sql 	= $db->query("SELECT SUM(amount) amount FROM payrolltransactions WHERE casualCode = '$casualCode' AND (payrollCode = '$payrollCode' AND paymentStatus = 'HOLD')") or die(mysql_error($db));
 		$row 	= mysqli_fetch_array($sql);
@@ -592,7 +620,8 @@ function resolveHandle()
     $headers[] = 'Content-Type: application/json';
     $headers[] = 'Authorization: LBE7YRZPUCOCLQOXBMPJUWKS0EMUZ8MJ';
      
-    $url ="https://197.243.0.244:8880/".$handleid;
+    $url ="https://188.166.243.121:8880/".$handleid;
+    //$url ="https://197.243.0.244:8880/".$handleid;
        
    	$curl = curl_init();
     curl_setopt_array($curl, array(
@@ -687,3 +716,47 @@ function resolveHandle()
 		}	
 	}      
 }
+
+// START ZAMU
+	function zamuiot()
+	{
+		include 'db.php';
+		$zamuId = $_POST['zamuId'];
+		$sql = $db->query("SELECT state FROM zamu WHERE zamuname = '$zamuId'");
+		$row = mysqli_fetch_array($sql);
+		if($row['state'] == "RECORD")
+		{
+			$sql = $db->query("SELECT id FROM casuals ORDER BY id DESC LIMIT 1");
+			$row = mysqli_fetch_array($sql);
+			$sql = $db->query("UPDATE zamu SET state = 'RECORDED' WHERE zamuname = '$zamuId'");
+			$return = array('action' => 'RECORD','casualId' => $row['id']+1 );
+			header('Content-Type: application/json');
+			$return = json_encode($return);
+			echo '['.$return.']';
+		}
+		elseif($row['state'] == "ATTEND")
+		{
+			worked();
+			$return = array('action' => 'ATTEND','message' => 'NAME XYZ attended' );
+			echo $return;
+		}
+		else{$return = array('action' => 'WAITING','message' => 'Waiting for the app to register' );
+			echo $return;}
+	}
+
+	function checkzamustate()
+	{
+		include 'db.php';
+		$sql = $db->query("SELECT id, state FROM zamu WHERE state = 'RECORDED'");
+		if(mysqli_num_rows($sql)>0)
+		{
+			$zamuId = mysqli_fetch_array($sql)['id'];
+			$sql = $db->query("UPDATE zamu SET state = 'ATTEND' WHERE zamuname = '$zamuId'");
+			echo "RECORDED";	
+		}else{
+			$sql = $db->query("UPDATE zamu SET state = 'RECORD'")or die(mysql_error($db));
+			echo "WAITING";
+		}
+		
+	}
+// END ZAMU

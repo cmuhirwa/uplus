@@ -1,3 +1,8 @@
+<?php
+  require_once('Controllers/Authentication.php');
+  $auth = new Authentication();
+  $auth->checkAuthentication();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,12 +55,11 @@
           <img src="images/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Manager Names</p>
-          
+          <p><?php  echo $_SESSION["first_name"].' '.$_SESSION["last_name"]; ?></p>          
         </div>
       </div>
-       <ul class="sidebar-menu" data-widget="tree">
-        <li> <a href="#">
+      <ul class="sidebar-menu" data-widget="tree">
+        <li> <a href="index.php">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
         </li>
@@ -86,7 +90,9 @@
         <li class="active">
             <a href="#"><i class="fa fa-gear"></i> <span>Setup</span></a>
         </li>
-
+        <li>
+            <a href="Controllers/logout.php"><i class="fa fa-sign-out text-red"></i> <span>Logout</span></a>
+        </li>
       </ul>
     </section>
     <!-- /.sidebar -->
