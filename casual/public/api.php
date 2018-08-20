@@ -584,12 +584,25 @@
 	function loadMoney()
 	{
 		require('db.php');
-		$account			= mysqli_real_escape_string($db, $_POST['account']??"");
+		$account		= mysqli_real_escape_string($db, $_POST['account']??"");
 		$amount			= mysqli_real_escape_string($db, $_POST['amount']??"");
 		$sql 			= $db->query("INSERT INTO 
 				transactions (amount, operation, account, createdBy)
 				VALUES ('$amount', 'IN', '$account', '1')
 				") or die(mysqli_error($db));
+		$url = 'https://www.uplus.rw/api/index.php';
+		$data 					= array();
+		$data["amount"] 		= $amount;
+		$data["senderPhone"] 	= $account;
+		$options = array(
+			'http' => array(
+				'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+				'method'  => 'POST',
+				'content' => http_build_query($data)
+			)
+		);
+		$context  = stream_context_create($options);
+		$result = file_get_contents($url, false, $context);
 		
 	}
 
