@@ -2,9 +2,10 @@
 // START INITIATE
 	if ($_SERVER["REQUEST_METHOD"] == "POST") 
 	{
-		if(isset($_POST['action']))
+		$request = array_merge($_POST, $_GET);
+		if(isset($request['action']))
 		{
-			$_POST['action']();
+			$request['action']();
 		}
 		else
 		{
@@ -503,8 +504,7 @@
 
 
 // START SETUP
-	function loopCategories()
-		{
+	function loopCategories(){
 			require('db.php');
 			
 			?>
@@ -575,10 +575,7 @@
 	           	</tbody>
 	         </table>
 	          
-			<?php
-				
-				
-
+			<?php	
 		}
 
 	function loadMoney()
@@ -589,8 +586,22 @@
 		$sql 			= $db->query("INSERT INTO 
 				transactions (amount, operation, account, createdBy)
 				VALUES ('$amount', 'IN', '$account', '1')
-				") or die(mysqli_error($db));
+				") or die(mysqli_error($db));	
 		
+		$url = 'https://www.uplus.rw/api/index.php';
+		$data 					= array();
+		$data["amount"] 		= $amount;
+		$data["senderPhone"] 	= $account;
+		$options = array(
+			'http' => array(
+				'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+				'method'  => 'POST',
+				'content' => http_build_query($data)
+			)
+		);
+		$context  = stream_context_create($options);
+		$result = file_get_contents($url, false, $context);
+
 	}
 
 	function addCategory()
