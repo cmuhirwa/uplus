@@ -1,6 +1,6 @@
 <?php
 // START INITIATE
-	if ($_SERVER["REQUEST_METHOD"] == "POST") 
+	if ($_SERVER["REQUEST_METHOD"] == "POST" || $_SERVER["REQUEST_METHOD"] == "GET") 
 	{
 		$request = array_merge($_POST, $_GET);
 		if(isset($request['action']))
@@ -728,8 +728,9 @@ function resolveHandle()
 // START ZAMU
 	function zamuiot()
 	{
+		global $request;
 		include 'db.php';
-		$zamuId = $_POST['zamuId'];
+		$zamuId = $request['zamuId'];
 		$sql = $db->query("SELECT state FROM zamu WHERE zamuname = '$zamuId'");
 		$row = mysqli_fetch_array($sql);
 		if($row['state'] == "RECORD")
@@ -744,11 +745,13 @@ function resolveHandle()
 		}
 		elseif($row['state'] == "ATTEND")
 		{
-			//worked();
+			worked();
 			$return = array('action' => 'ATTEND','message' => 'NAME XYZ attended' );
+			$return = json_encode($return);
 			echo $return;
 		}
 		else{$return = array('action' => 'WAITING','message' => 'Waiting for the app to register' );
+			$return = json_encode($return);
 			echo $return;}
 	}
 
