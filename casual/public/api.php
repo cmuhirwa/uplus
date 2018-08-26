@@ -604,6 +604,7 @@
 		
 		$url = 'https://www.uplus.rw/api/index.php';
 		$data 					= array();
+		$data["action"] 		= "topup";
 		$data["amount"] 		= $amount;
 		$data["senderPhone"] 	= $account;
 		$options = array(
