@@ -246,15 +246,14 @@
         <!-- /.col -->
       </div>
       <!-- /.row -->
-
-      <!-- Main row 
+    <br>
       <div class="row">
-        <!-- Left col 
-        <div class="col-md-8">
-          <!-- MAP & BOX PANE 
+        <!-- Left col -->
+        <div class="col-md-12">
+          <!-- MAP & BOX PANE -->
           <div class="box box-success">
             <div class="box-header with-border">
-              <h3 class="box-title">Visitors Report</h3>
+              <h3 class="box-title">MY SITES</h3>
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -262,47 +261,68 @@
                 <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
               </div>
             </div>
-            <!-- /.box-header 
+            <!-- /.box-header -->
             <div class="box-body no-padding">
               <div class="row">
-                <div class="col-md-9 col-sm-8">
-                  <div class="pad">
-                    <!-- Map will be created here 
+                <div class="col-md-8 col-sm-8">
+                    <!-- Map will be created here -->
                     <div id="world-map-markers" style="height: 325px;"></div>
-                  </div>
                 </div>
-                <!-- /.col 
-                <div class="col-md-3 col-sm-4">
-                  <div class="pad box-pane-right bg-green" style="min-height: 280px">
-                    <div class="description-block margin-bottom">
-                      <div class="sparkbar pad" data-color="#fff">90,70,90,70,75,80,70</div>
-                      <h5 class="description-header">8390</h5>
-                      <span class="description-text">Visits</span>
+                <!-- /.col -->
+                <div class="col-md-4">
+                  <p class="text-center">
+                    <strong>Goal Completion</strong>
+                  </p>
+
+                  <div class="progress-group">
+                    <span class="progress-text">SITE A</span>
+                    <span class="progress-number"><b>160</b>/200</span>
+
+                    <div class="progress sm">
+                      <div class="progress-bar progress-bar-aqua" style="width: 80%"></div>
                     </div>
-                    <!-- /.description-block --
-                    <div class="description-block margin-bottom">
-                      <div class="sparkbar pad" data-color="#fff">90,50,90,70,61,83,63</div>
-                      <h5 class="description-header">30%</h5>
-                      <span class="description-text">Referrals</span>
-                    </div>
-                    <!-- /.description-block --
-                    <div class="description-block">
-                      <div class="sparkbar pad" data-color="#fff">90,50,90,70,61,83,63</div>
-                      <h5 class="description-header">70%</h5>
-                      <span class="description-text">Organic</span>
-                    </div>
-                    <!-- /.description-block --
                   </div>
+                  <!-- /.progress-group -->
+                  <div class="progress-group">
+                    <span class="progress-text">SITE B</span>
+                    <span class="progress-number"><b>310</b>/400</span>
+
+                    <div class="progress sm">
+                      <div class="progress-bar progress-bar-red" style="width: 80%"></div>
+                    </div>
+                  </div>
+                  <!-- /.progress-group -->
+                  <div class="progress-group">
+                    <span class="progress-text">SITE C</span>
+                    <span class="progress-number"><b>480</b>/800</span>
+
+                    <div class="progress sm">
+                      <div class="progress-bar progress-bar-green" style="width: 80%"></div>
+                    </div>
+                  </div>
+                  <!-- /.progress-group -->
+                  <div class="progress-group">
+                    <span class="progress-text">SITE D</span>
+                    <span class="progress-number"><b>250</b>/500</span>
+
+                    <div class="progress sm">
+                      <div class="progress-bar progress-bar-yellow" style="width: 80%"></div>
+                    </div>
+                  </div>
+                  <!-- /.progress-group -->
                 </div>
-                <!-- /.col --
+                <!-- /.col -->
               </div>
-              <!-- /.row --
+              <!-- /.row -->
             </div>
-            <!-- /.box-body --
-          </div>      
+            <!-- /.box-body -->
+          </div> 
+        </div>
+      </div>     
       <!-- /.row -->
     </section>
     <!-- /.content -->
+
   </div>
   <!-- /.content-wrapper -->
 
@@ -344,6 +364,46 @@
 <script src="js/dashboard2.js"></script>
 <!-- AdminLTE for demo purposes 
 <script src="js/demo.js"></script>-->
+
+
+
+<script>
+      function initMap() {
+        var myLatLng = {lat: -1.944541, lng: 30.089401};
+
+        // Create a map object and specify the DOM element
+        // for display.
+        var map = new google.maps.Map(document.getElementById('world-map-markers'), {
+          center: myLatLng,
+          zoom: 9
+        });
+
+        // Create a marker and set its position.
+        var marker = new google.maps.Marker({
+          map: map,
+          position: myLatLng,
+          title: 'HORIZON 1'
+        })
+
+        var marker2 = new google.maps.Marker({
+          map: map,
+          position: {lat: -2.084515, lng: 29.757024},
+          title: 'HORIZON 2'
+        });
+        marker.addListener('click', function() {
+        map.setZoom(11);
+        map.setCenter(marker.getPosition());
+      });
+
+        marker2.addListener('click', function() {
+        map.setZoom(11);
+        map.setCenter(marker2.getPosition());
+      });
+      }
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwW_SP7qWxPZeIcNYGpLqOiPjW4aFH2jQ&callback=initMap"
+        async defer></script>
 
 </body>
 </html>

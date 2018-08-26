@@ -91,3 +91,20 @@ CREATE TABLE casual.transactions (
  PRIMARY KEY (`id`)
   ) ENGINE = InnoDB;
 
+
+----------------------------------------------------------------------------
+
+CREATE TABLE casual.attendance (
+ id INT(11) NOT NULL AUTO_INCREMENT , 
+ casualId VARCHAR(255) NOT NULL , 
+ payrollId VARCHAR(255) NOT NULL , 
+ attendanceType ENUM('CHECKIN','CHECKOUT') NULL , 
+ createdBy VARCHAR(255) NULL , 
+ createdDate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ updatedBy VARCHAR(255) NULL , 
+ updatedDate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ arhived ENUM('NO','YES') NOT NULL DEFAULT 'NO',
+ archivedBy VARCHAR(255) NULL,
+ archivedDate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, 
+ PRIMARY KEY (`id`)
+  ) ENGINE = InnoDB;

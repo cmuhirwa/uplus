@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>test</title>
+	<link rel="stylesheet" href="https://cloud.google.com/maps-platform/maps/maps/documentation/javascript/cgc/demos.css">
+  </head>
+</head>
+<body>
+
+     <div id="map" style="height: 800px; width: 800px;"></div>
+    <script>
+      function initMap() {
+      	var myLatLng = {lat: -1.944541, lng: 30.089401};
+
+        // Create a map object and specify the DOM element
+        // for display.
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: myLatLng,
+          zoom: 9
+        });
+
+        // Create a marker and set its position.
+        var marker = new google.maps.Marker({
+          map: map,
+          position: myLatLng,
+          title: 'HORIZON 1'
+        })
+
+        var marker2 = new google.maps.Marker({
+          map: map,
+          position: {lat: -2.084515, lng: 29.757024},
+          title: 'HORIZON 2'
+        });
+        marker.addListener('click', function() {
+		    map.setZoom(11);
+		    map.setCenter(marker.getPosition());
+		  });
+
+        marker2.addListener('click', function() {
+		    map.setZoom(11);
+		    map.setCenter(marker2.getPosition());
+		  });
+      }
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwW_SP7qWxPZeIcNYGpLqOiPjW4aFH2jQ&callback=initMap"
+        async defer></script>
+
+
+</body>
+</html>

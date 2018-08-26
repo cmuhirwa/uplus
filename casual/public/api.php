@@ -370,17 +370,29 @@
 		$now= date("H:i:s", time());
 		
 		
-		if($now > $startOn && $now < $startOff){
-						$db->query("INSERT INTO payrolltransactions(payrollCode, amount, casualCode, categoryCode)
+		if($now > $startOn && $now < $startOff)
+		{
+			$db->query("INSERT INTO attendance (casualId, payrollId, attendanceType, createdBy) 
+				VALUES ('$casualCode','$payrollCode','CHECKIN', '1')")or die(mysql_error($db));
+			$db->query("INSERT INTO payrolltransactions(payrollCode, amount, casualCode, categoryCode)
 			VALUES('$payrollCode','$amount','$casualCode','$categoryCode')")or die(mysql_error($db));
 			if ($db) {$message = "CHECKED IN AT ".$now;		}else{$mesage = "ERROR TRYAGAIN";}
 		}
-		elseif($now > $stopOn && $now < $stopOff) {
-			$db->query("INSERT INTO payrolltransactions(payrollCode, amount, casualCode, categoryCode)
-			VALUES('$payrollCode','$amount','$casualCode','$categoryCode')")or die(mysql_error($db));
-			if ($db) {$message = "CHECKED OUT AT ".$now;}else{$mesage = "ERROR TRYAGAIN";}
-		
-		
+		elseif($now > $stopOn && $now < $stopOff) 
+		{
+			// CHECK IF THE CASUAL CHECKED IN FIRST
+			$sql = $sql = $db->query("SELECT * FROM `attendance` WHERe (`casualId` AND `payrollId`) AND (`attendanceType` = 'CHECKIN' AND (SELECT DATE(createdDate)) = (SELECT CURDATE()))")or die(mysqli_error($db));
+			if(mysqli_num_rows($sql)>0)
+			{
+				$db->query("INSERT INTO attendance (casualId, payrollId, attendanceType, createdBy) 
+					VALUES ('$casualCode','$payrollCode','CHECKOUT', '1')")or die(mysql_error($db));
+				$db->query("INSERT INTO payrolltransactions(payrollCode, amount, casualCode, categoryCode)
+				VALUES('$payrollCode','$amount','$casualCode','$categoryCode')")or die(mysql_error($db));
+				$message = "CHECKED OUT AT ".$now;
+			}
+			else{
+				$message = "SORRY YOU NEVER CHECKED IN TODAY";
+			}
 		}
 		else{ 
 			$message = "OUT OF TIME AT ".$now; 
