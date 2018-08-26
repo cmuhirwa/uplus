@@ -152,14 +152,14 @@
             <!-- /.box-header -->
             <div class="box-body no-padding">
               <div class="row">
-                <div class="col-md-8 col-sm-8">
+                <div class="col-md-8 col-sm-12">
                     <!-- Map will be created here -->
                     <div id="world-map-markers" style="height: 500px;"></div>
                 </div>
                 <!-- /.col -->
-                <div class="col-md-4" style="width: 32%;">
+                <div class="col-md-4 col-sm-12" >
 
-                  <div class="progress-group">
+                  <div class="progress-group" style="padding: 10px">
                     <span class="progress-text">SITE A</span>
                     <span class="progress-number"><b>160</b>/200</span>
 
@@ -168,7 +168,7 @@
                     </div>
                   </div>
                   <!-- /.progress-group -->
-                  <div class="progress-group">
+                  <div class="progress-group" style="padding: 10px">
                     <span class="progress-text">SITE B</span>
                     <span class="progress-number"><b>310</b>/400</span>
 
@@ -177,7 +177,7 @@
                     </div>
                   </div>
                   <!-- /.progress-group -->
-                  <div class="progress-group">
+                  <div class="progress-group" style="padding: 10px">
                     <span class="progress-text">SITE C</span>
                     <span class="progress-number"><b>480</b>/800</span>
 
@@ -186,7 +186,7 @@
                     </div>
                   </div>
                   <!-- /.progress-group -->
-                  <div class="progress-group">
+                  <div class="progress-group" style="padding: 10px">
                     <span class="progress-text">SITE D</span>
                     <span class="progress-number"><b>250</b>/500</span>
 
