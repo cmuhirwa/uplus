@@ -381,7 +381,8 @@
 		*/
 			$db->query("INSERT INTO payrolltransactions(payrollCode, amount, casualCode, categoryCode)
 			VALUES('$payrollCode','$amount','$casualCode','$categoryCode')")or die(mysql_error($db));
-			if ($db) {echo "done";		}else{echo "wapi";}	
+			if ($db) {//echo "done";
+					}else{echo "wapi";}	
 		/*
 		}
 		else{ 
@@ -497,7 +498,7 @@
 			//action: 'liquidate',
 			//amount: '$amount',
 			//fromphone: '$account'
-			echo "DONE!";
+			//echo "DONE!";
 		}
 	}
 // END PEYMENT
