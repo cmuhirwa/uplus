@@ -347,9 +347,10 @@
 // START ATTENDANCE
 	function worked()
 	{
+		global $request;
 		require('db.php');
-		$casualCode		= mysqli_real_escape_string($db, $_POST['casualCode']??"");
-		$payrollCode	= mysqli_real_escape_string($db, $_POST['payrollCode']??"");
+		$casualCode		= $request['casualCode'];
+		$payrollCode	= $request['payrollCode'];
 		
 		
 		$sql = $db->query("SELECT CP.categoryCode, C.catAmount amount, P.startOn, P.startOff, P.stopOn, P.stopOff
@@ -360,35 +361,35 @@
         ON P.id = CP.payrollCode
 		WHERE CP.casualCode = '$casualCode' AND CP.payrollCode = '$payrollCode'");
 		$row =mysqli_fetch_array($sql);
-		echo $categoryCode = $row['categoryCode'];
-		echo $amount = $row['amount'];
+		$categoryCode = $row['categoryCode'];
+		$amount = $row['amount'];
 		$startOn = $row['startOn'];
 		$startOff = $row['startOff'];
 		$stopOn = $row['stopOn'];
 		$stopOff = $row['stopOff'];
 		$now= date("H:i:s", time());
 		
-		/*
+		
 		if($now > $startOn && $now < $startOff){
-			echo "CHECKIN";
-
-			$db->query("INSERT INTO payrolltransactions(payrollCode, amount, casualCode, categoryCode)
+						$db->query("INSERT INTO payrolltransactions(payrollCode, amount, casualCode, categoryCode)
 			VALUES('$payrollCode','$amount','$casualCode','$categoryCode')")or die(mysql_error($db));
-			if ($db) {echo "done";		}else{echo "wapi";}
+			if ($db) {$message = "CHECKED IN AT ".$now;		}else{$mesage = "ERROR TRYAGAIN";}
 		}
 		elseif($now > $stopOn && $now < $stopOff) {
-			echo "CHECKOUT";
-		*/
 			$db->query("INSERT INTO payrolltransactions(payrollCode, amount, casualCode, categoryCode)
 			VALUES('$payrollCode','$amount','$casualCode','$categoryCode')")or die(mysql_error($db));
-			if ($db) {//echo "done";
-					}else{echo "wapi";}	
-		/*
+			if ($db) {$message = "CHECKED OUT AT ".$now;}else{$mesage = "ERROR TRYAGAIN";}
+		
+		
 		}
 		else{ 
-			echo"OUT OF TIME"; 
+			$message = "OUT OF TIME AT ".$now; 
 		}
-		*/
+		$return = array('action' => 'ATTENDED','message' => $message);
+		$return = json_encode($return);
+		echo $return;
+			
+		
 	}
 // END ATTENDANCE
 
@@ -746,14 +747,23 @@ function resolveHandle()
 		}
 		elseif($row['state'] == "ATTEND")
 		{
+			$return = array('action' => 'ATTEND','message' => 'Requesting the ID of the casual to attend' );
+			$return = json_encode($return);
+			echo $return;
+			$sql = $db->query("UPDATE zamu SET state = 'GETATTID' WHERE zamuname = '$zamuId'");
+			
+		}
+		elseif($row['state'] == 'GETATTID')
+		{
 			worked();
-			$return = array('action' => 'ATTEND','message' => 'NAME XYZ attended' );
+			
+		}
+
+		else{
+			$return = array('action' => 'WAITING','message' => 'Waiting for the app to register' );
 			$return = json_encode($return);
 			echo $return;
 		}
-		else{$return = array('action' => 'WAITING','message' => 'Waiting for the app to register' );
-			$return = json_encode($return);
-			echo $return;}
 	}
 
 	function checkzamustate()
