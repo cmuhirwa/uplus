@@ -9,7 +9,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>CASUAL PAYROLL</title>
+  <title>AdminLTE 2 | Dashboard</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -43,7 +43,7 @@
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="#" class="logo">
+    <a href="../../index2.html" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
@@ -134,33 +134,35 @@
 
     <!-- Main content -->
     <section class="content">
-      
       <div class="row">
-        <!-- Left col -->
         <div class="col-md-12">
-          <!-- MAP & BOX PANE -->
-          <div class="box box-success">
+          <div class="box">
             <div class="box-header with-border">
-              <h3 class="box-title">HORIZON GROUP SITES</h3>
+              <h3 class="box-title">Monthly Recap Report</h3>
 
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-              </div>
             </div>
             <!-- /.box-header -->
-            <div class="box-body no-padding">
+            <div class="box-body">
               <div class="row">
-                <div class="col-md-8 col-sm-12">
-                    <!-- Map will be created here -->
-                    <div id="world-map-markers" style="height: 500px;"></div>
+                <div class="col-md-8">
+                  <p class="text-center">
+                    <strong>Sales: 1 Jan, 2014 - 30 Jul, 2014</strong>
+                  </p>
+
+                  <div class="chart">
+                    <!-- Sales Chart Canvas -->
+                    <canvas id="salesChart" style="height: 180px;"></canvas>
+                  </div>
+                  <!-- /.chart-responsive -->
                 </div>
                 <!-- /.col -->
-                <div class="col-md-4 col-sm-12" >
+                <div class="col-md-4">
+                  <p class="text-center">
+                    <strong>Goal Completion</strong>
+                  </p>
 
-                  <div class="progress-group" style="padding: 10px">
-                    <span class="progress-text">SITE A</span>
+                  <div class="progress-group">
+                    <span class="progress-text">Add Products to Cart</span>
                     <span class="progress-number"><b>160</b>/200</span>
 
                     <div class="progress sm">
@@ -168,8 +170,8 @@
                     </div>
                   </div>
                   <!-- /.progress-group -->
-                  <div class="progress-group" style="padding: 10px">
-                    <span class="progress-text">SITE B</span>
+                  <div class="progress-group">
+                    <span class="progress-text">Complete Purchase</span>
                     <span class="progress-number"><b>310</b>/400</span>
 
                     <div class="progress sm">
@@ -177,8 +179,8 @@
                     </div>
                   </div>
                   <!-- /.progress-group -->
-                  <div class="progress-group" style="padding: 10px">
-                    <span class="progress-text">SITE C</span>
+                  <div class="progress-group">
+                    <span class="progress-text">Visit Premium Page</span>
                     <span class="progress-number"><b>480</b>/800</span>
 
                     <div class="progress sm">
@@ -186,8 +188,8 @@
                     </div>
                   </div>
                   <!-- /.progress-group -->
-                  <div class="progress-group" style="padding: 10px">
-                    <span class="progress-text">SITE D</span>
+                  <div class="progress-group">
+                    <span class="progress-text">Send Inquiries</span>
                     <span class="progress-number"><b>250</b>/500</span>
 
                     <div class="progress sm">
@@ -200,15 +202,14 @@
               </div>
               <!-- /.row -->
             </div>
-            <!-- /.box-body -->
             <!-- ./box-body -->
             <div class="box-footer">
               <div class="row">
                 <div class="col-sm-3 col-xs-6">
                   <div class="description-block border-right">
                     <span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 17%</span>
-                    <h5 class="description-header">35,210,000RWF</h5>
-                    <span class="description-text">WALLET BALANCE</span>
+                    <h5 class="description-header">$35,210.43</h5>
+                    <span class="description-text">TOTAL REVENUE</span>
                   </div>
                   <!-- /.description-block -->
                 </div>
@@ -216,8 +217,8 @@
                 <div class="col-sm-3 col-xs-6">
                   <div class="description-block border-right">
                     <span class="description-percentage text-yellow"><i class="fa fa-caret-left"></i> 0%</span>
-                    <h5 class="description-header">10,390,000RWF</h5>
-                    <span class="description-text">UNPAID PAYROLLS</span>
+                    <h5 class="description-header">$10,390.90</h5>
+                    <span class="description-text">TOTAL COST</span>
                   </div>
                   <!-- /.description-block -->
                 </div>
@@ -225,8 +226,8 @@
                 <div class="col-sm-3 col-xs-6">
                   <div class="description-block border-right">
                     <span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 20%</span>
-                    <h5 class="description-header">24,813,000RWF</h5>
-                    <span class="description-text">PAID PAYROLLS</span>
+                    <h5 class="description-header">$24,813.53</h5>
+                    <span class="description-text">TOTAL PROFIT</span>
                   </div>
                   <!-- /.description-block -->
                 </div>
@@ -234,8 +235,8 @@
                 <div class="col-sm-3 col-xs-6">
                   <div class="description-block">
                     <span class="description-percentage text-red"><i class="fa fa-caret-down"></i> 18%</span>
-                    <h5 class="description-header">35</h5>
-                    <span class="description-text">TOTAL EMPLOYES</span>
+                    <h5 class="description-header">1200</h5>
+                    <span class="description-text">GOAL COMPLETIONS</span>
                   </div>
                   <!-- /.description-block -->
                 </div>
@@ -243,42 +244,69 @@
               <!-- /.row -->
             </div>
             <!-- /.box-footer -->
-
-          </div> 
-        </div>
-      </div>     
-      <!-- /.row --
-<br>
-<div class="row">
-        <div class="col-md-12">
-          <div class="box">
-            <div class="box-header with-border">
-              <h3 class="box-title">Monthly Recap Report</h3>
-
-            </div>
-            <!-- /.box-header --
-            <div class="box-body">
-              <div class="row">
-                <div class="col-md-8">
-                  <div class="chart">
-                    <!-- Sales Chart Canvas --
-                    <canvas id="salesChart" style="height: 180px;"></canvas>
-                  </div>
-                  <!-- /.chart-responsive --
-                </div>
-              </div>
-              <!-- /.row -->
-            </div>
-            
           </div>
           <!-- /.box -->
         </div>
         <!-- /.col -->
       </div>
       <!-- /.row -->
+
+      <!-- Main row 
+      <div class="row">
+        <!-- Left col 
+        <div class="col-md-8">
+          <!-- MAP & BOX PANE 
+          <div class="box box-success">
+            <div class="box-header with-border">
+              <h3 class="box-title">Visitors Report</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
+            <!-- /.box-header 
+            <div class="box-body no-padding">
+              <div class="row">
+                <div class="col-md-9 col-sm-8">
+                  <div class="pad">
+                    <!-- Map will be created here 
+                    <div id="world-map-markers" style="height: 325px;"></div>
+                  </div>
+                </div>
+                <!-- /.col 
+                <div class="col-md-3 col-sm-4">
+                  <div class="pad box-pane-right bg-green" style="min-height: 280px">
+                    <div class="description-block margin-bottom">
+                      <div class="sparkbar pad" data-color="#fff">90,70,90,70,75,80,70</div>
+                      <h5 class="description-header">8390</h5>
+                      <span class="description-text">Visits</span>
+                    </div>
+                    <!-- /.description-block --
+                    <div class="description-block margin-bottom">
+                      <div class="sparkbar pad" data-color="#fff">90,50,90,70,61,83,63</div>
+                      <h5 class="description-header">30%</h5>
+                      <span class="description-text">Referrals</span>
+                    </div>
+                    <!-- /.description-block --
+                    <div class="description-block">
+                      <div class="sparkbar pad" data-color="#fff">90,50,90,70,61,83,63</div>
+                      <h5 class="description-header">70%</h5>
+                      <span class="description-text">Organic</span>
+                    </div>
+                    <!-- /.description-block --
+                  </div>
+                </div>
+                <!-- /.col --
+              </div>
+              <!-- /.row --
+            </div>
+            <!-- /.box-body --
+          </div>      
+      <!-- /.row -->
     </section>
     <!-- /.content -->
-
   </div>
   <!-- /.content-wrapper -->
 
@@ -320,46 +348,6 @@
 <script src="js/dashboard2.js"></script>
 <!-- AdminLTE for demo purposes 
 <script src="js/demo.js"></script>-->
-
-
-
-<script>
-      function initMap() {
-        var myLatLng = {lat: -1.944541, lng: 30.089401};
-
-        // Create a map object and specify the DOM element
-        // for display.
-        var map = new google.maps.Map(document.getElementById('world-map-markers'), {
-          center: myLatLng,
-          zoom: 9
-        });
-
-        // Create a marker and set its position.
-        var marker = new google.maps.Marker({
-          map: map,
-          position: myLatLng,
-          title: 'HORIZON 1'
-        })
-
-        var marker2 = new google.maps.Marker({
-          map: map,
-          position: {lat: -2.084515, lng: 29.757024},
-          title: 'HORIZON 2'
-        });
-        marker.addListener('click', function() {
-        map.setZoom(11);
-        map.setCenter(marker.getPosition());
-      });
-
-        marker2.addListener('click', function() {
-        map.setZoom(11);
-        map.setCenter(marker2.getPosition());
-      });
-      }
-
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwW_SP7qWxPZeIcNYGpLqOiPjW4aFH2jQ&callback=initMap"
-        async defer></script>
 
 </body>
 </html>
