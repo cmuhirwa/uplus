@@ -1460,6 +1460,7 @@
 
 {"action":"zamuiot","zamuId":"1"}
 
+<<<<<<< HEAD
 {"action":"zamuiot","zamuId":"1"}
 
 {"action":"zamuiot","zamuId":"1"}
@@ -1607,4 +1608,69 @@
 {"action":"zamuiot","zamuId":"1"}
 
 {"action":"zamuiot","zamuId":"1"}
+=======
+{"action":"checkzamustate"}
+
+{"action":"registerEmployee","empName":"EMANUEL PIKO","nid":"009","phoneNumber":"009"}
+
+{"action":"loopEmpData"}
+
+{"action":"loopPayrollData"}
+
+{"action":"resolveHandle","handleId":"1"}
+
+{"action":"resolveHandle","handleId":"1"}
+
+{"action":"resolveHandle","handleId":"2"}
+
+{"action":"resolveHandle","handleId":"1"}
+
+{"action":"resolveHandle","handleId":"3"}
+
+{"action":"resolveHandle","handleId":"4"}
+
+{"action":"resolveHandle","handleId":"5"}
+
+{"action":"resolveHandle","handleId":"2"}
+
+{"action":"resolveHandle","handleId":"9"}
+
+{"casualCode":"1","payrollCode":"1","action":"worked"}
+
+{"casualCode":"1","payrollCode":"1","action":"worked"}
+
+{"casualCode":"1","payrollCode":"1","action":"worked"}
+
+{"casualCode":"1","payrollCode":"1","action":"worked"}
+
+{"casualCode":"1","payrollCode":"1","action":"worked"}
+
+{"casualCode":"1","payrollCode":"1","action":"worked"}
+
+{"casualCode":"1","payrollCode":"1","action":"worked"}
+
+{"casualCode":"1","payrollCode":"2","action":"worked"}
+
+{"casualCode":"1","payrollCode":"2","action":"worked"}
+
+{"casualCode":"1","payrollCode":"2","action":"worked"}
+
+{"casualCode":"1","payrollCode":"2","action":"worked"}
+
+{"casualCode":"1","payrollCode":"2","action":"worked"}
+
+{"casualCode":"1","payrollCode":"2","action":"worked"}
+
+{"casualCode":"1","payrollCode":"2","action":"worked"}
+
+{"casualCode":"1","payrollCode":"2","action":"worked"}
+
+{"casualCode":"1","payrollCode":"2","action":"worked"}
+
+{"casualCode":"1","payrollCode":"2","action":"worked"}
+
+{"casualCode":"1","payrollCode":"2","action":"worked"}
+
+{"casualCode":"1","payrollCode":"2","action":"worked"}
+>>>>>>> dd1729f11bd0b432ff50467cc6e4a6a6330f19c7
 

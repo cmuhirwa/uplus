@@ -1,11 +1,10 @@
 <?php
 // START INITIATE
-	if ($_SERVER["REQUEST_METHOD"] == "POST" || $_SERVER["REQUEST_METHOD"] == "GET") 
+	if ($_SERVER["REQUEST_METHOD"] == "POST") 
 	{
-		$request = array_merge($_POST, $_GET);
-		if(isset($request['action']))
+		if(isset($_POST['action']))
 		{
-			$request['action']();
+			$_POST['action']();
 		}
 		else
 		{
@@ -19,7 +18,11 @@
 // END INITIATE
 // START LOG
     $f = fopen("logs/casual.txt", 'a') or die("Unable to open file!");;
+<<<<<<< HEAD
     fwrite($f, json_encode($request)."\n\n");
+=======
+    fwrite($f, json_encode($_POST)."\n\n");
+>>>>>>> dd1729f11bd0b432ff50467cc6e4a6a6330f19c7
     fclose($f);
 // END LOG
 
@@ -347,10 +350,9 @@
 // START ATTENDANCE
 	function worked()
 	{
-		global $request;
 		require('db.php');
-		$casualCode		= $request['casualCode'];
-		$payrollCode	= $request['payrollCode'];
+		$casualCode		= mysqli_real_escape_string($db, $_POST['casualCode']??"");
+		$payrollCode	= mysqli_real_escape_string($db, $_POST['payrollCode']??"");
 		
 		
 		$sql = $db->query("SELECT CP.categoryCode, C.catAmount amount, P.startOn, P.startOff, P.stopOn, P.stopOff
@@ -361,47 +363,31 @@
         ON P.id = CP.payrollCode
 		WHERE CP.casualCode = '$casualCode' AND CP.payrollCode = '$payrollCode'");
 		$row =mysqli_fetch_array($sql);
-		$categoryCode = $row['categoryCode'];
-		$amount = $row['amount'];
-		$startOn = $row['startOn'];
-		$startOff = $row['startOff'];
-		$stopOn = $row['stopOn'];
-		$stopOff = $row['stopOff'];
-		$now= date("H:i:s", time());
+		echo $categoryCode = $row['categoryCode'];
+		echo $amount = $row['amount'];
+		echo '</br>startOn: '.$startOn = $row['startOn'];
+		echo '</br>startOff: '.$startOff = $row['startOff'];
+		echo 'stopOn: '.$stopOn = $row['stopOn'];
+		echo ' </br>stopOff: '.$stopOff = $row['stopOff'];
+		echo ' </br>Now: '.$now= date("H:i:s", time());
 		
-		
-		if($now > $startOn && $now < $startOff)
-		{
-			$db->query("INSERT INTO attendance (casualId, payrollId, attendanceType, createdBy) 
-				VALUES ('$casualCode','$payrollCode','CHECKIN', '1')")or die(mysql_error($db));
+		if($now > $startOn && $now < $startOff){
+			echo "CHECKIN";
+
 			$db->query("INSERT INTO payrolltransactions(payrollCode, amount, casualCode, categoryCode)
 			VALUES('$payrollCode','$amount','$casualCode','$categoryCode')")or die(mysql_error($db));
-			if ($db) {$message = "CHECKED IN AT ".$now;		}else{$mesage = "ERROR TRYAGAIN";}
+			if ($db) {echo "done";		}else{echo "wapi";}
 		}
-		elseif($now > $stopOn && $now < $stopOff) 
-		{
-			// CHECK IF THE CASUAL CHECKED IN FIRST
-			$sql = $sql = $db->query("SELECT * FROM `attendance` WHERe (`casualId` AND `payrollId`) AND (`attendanceType` = 'CHECKIN' AND (SELECT DATE(createdDate)) = (SELECT CURDATE()))")or die(mysqli_error($db));
-			if(mysqli_num_rows($sql)>0)
-			{
-				$db->query("INSERT INTO attendance (casualId, payrollId, attendanceType, createdBy) 
-					VALUES ('$casualCode','$payrollCode','CHECKOUT', '1')")or die(mysql_error($db));
-				$db->query("INSERT INTO payrolltransactions(payrollCode, amount, casualCode, categoryCode)
-				VALUES('$payrollCode','$amount','$casualCode','$categoryCode')")or die(mysql_error($db));
-				$message = "CHECKED OUT AT ".$now;
-			}
-			else{
-				$message = "SORRY YOU NEVER CHECKED IN TODAY";
-			}
+		elseif($now > $stopOn && $now < $stopOff) {
+			echo "CHECKOUT";
+
+			$db->query("INSERT INTO payrolltransactions(payrollCode, amount, casualCode, categoryCode)
+			VALUES('$payrollCode','$amount','$casualCode','$categoryCode')")or die(mysql_error($db));
+			if ($db) {echo "done";		}else{echo "wapi";}	
 		}
 		else{ 
-			$message = "OUT OF TIME AT ".$now; 
+			echo"OUT OF TIME"; 
 		}
-		$return = array('action' => 'ATTENDED','message' => $message);
-		$return = json_encode($return);
-		echo $return;
-			
-		
 	}
 // END ATTENDANCE
 
@@ -511,14 +497,15 @@
 			//action: 'liquidate',
 			//amount: '$amount',
 			//fromphone: '$account'
-			//echo "DONE!";
+			echo "DONE!";
 		}
 	}
 // END PEYMENT
 
 
 // START SETUP
-	function loopCategories(){
+	function loopCategories()
+		{
 			require('db.php');
 			
 			?>
@@ -589,7 +576,10 @@
 	           	</tbody>
 	         </table>
 	          
-			<?php	
+			<?php
+				
+				
+
 		}
 
 	function loadMoney()
@@ -600,8 +590,9 @@
 		$sql 			= $db->query("INSERT INTO 
 				transactions (amount, operation, account, createdBy)
 				VALUES ('$amount', 'IN', '$account', '1')
-				") or die(mysqli_error($db));	
+				") or die(mysqli_error($db));
 		
+<<<<<<< HEAD
 		$url = 'http://www.uplus.rw/api/index.php';
 		$data 					= array();
 		$data["action"] 		= "topup";
@@ -617,6 +608,8 @@
 		$context  = stream_context_create($options);
 		echo $result = file_get_contents($url, false, $context);
 
+=======
+>>>>>>> dd1729f11bd0b432ff50467cc6e4a6a6330f19c7
 	}
 
 	function addCategory()
@@ -679,11 +672,17 @@ function resolveHandle()
 			Experiance: <i class="fa fa-trophy">5</i></br>
 			Current Job:</br>
 			Disciplinebeing: 70% ontime</br>
+			Jobs history Ocurrency(chart):</br>
 			Average salary: 7,500Rwf</br>
 			<div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Jobs history Ocurrency</h3>
+              <h3 class="box-title">Area Chart</h3>
 
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
             </div>
             <div class="box-body">
               <div class="chart">
@@ -743,9 +742,8 @@ function resolveHandle()
 // START ZAMU
 	function zamuiot()
 	{
-		global $request;
 		include 'db.php';
-		$zamuId = $request['zamuId'];
+		$zamuId = $_POST['zamuId'];
 		$sql = $db->query("SELECT state FROM zamu WHERE zamuname = '$zamuId'");
 		$row = mysqli_fetch_array($sql);
 		if($row['state'] == "RECORD")
@@ -760,23 +758,13 @@ function resolveHandle()
 		}
 		elseif($row['state'] == "ATTEND")
 		{
-			$return = array('action' => 'ATTEND','message' => 'Requesting the ID of the casual to attend' );
-			$return = json_encode($return);
-			echo $return;
-			$sql = $db->query("UPDATE zamu SET state = 'GETATTID' WHERE zamuname = '$zamuId'");
-			
-		}
-		elseif($row['state'] == 'GETATTID')
-		{
-			worked();
-			
-		}
-
-		else{
-			$return = array('action' => 'WAITING','message' => 'Waiting for the app to register' );
-			$return = json_encode($return);
+			//$casualId
+			//$zamuId
+			$return = array('action' => 'ATTEND','message' => 'NAME XYZ attended' );
 			echo $return;
 		}
+		else{$return = array('action' => 'WAITING','message' => 'Waiting for the app to register' );
+			echo $return;}
 	}
 
 	function checkzamustate()

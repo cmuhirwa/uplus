@@ -445,11 +445,11 @@ function testNote()
 	        //get the forum users and send them notifications
 	        $forumUsers = forum_users($target_audience);
 
-	        foreach ($forumUsers as $key => $user) {
-	        	$user = user_details($user['userCode']);
-	        	$investToken = $user['investToken'];
-	        	sendNotification($investToken, $notificationMessage);
-	        }
+	        // foreach ($forumUsers as $key => $user) {
+	        // 	$user = user_details($user['userCode']);
+	        // 	$investToken = $user['investToken'];
+	        // 	sendNotification($investToken, $notificationMessage);
+	        // }
 	        
             $feed_id = $investDb->insert_id;
             
@@ -499,12 +499,13 @@ function testNote()
 	        	// var_dump($attachments);
 
 
-	        	$attachments = explode(",", $attachments);
+	        	// $attachments = explode(",", $attachments);
+	        	// var_dump($attachments);
 	        	// foreach ($attachments as $key => $value) {
 	        	// 	echo $value[0]."<br />";
 	        	// }
 
-	        	// $attachments = json_decode($attachments, true);
+	        	$attachments = json_decode($attachments, true);
 	        	// var_dump($attachments);
 	        	if(is_array($attachments)){
 	        		//looping through image
