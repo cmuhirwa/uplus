@@ -18,9 +18,9 @@
 	}
 // END INITIATE
 // START LOG
-  /*  $f = fopen("logs/casual.txt", 'a') or die("Unable to open file!");;
-    fwrite($f, json_encode($_POST)."\n\n");
-    fclose($f);*/
+    $f = fopen("logs/casual.txt", 'a') or die("Unable to open file!");;
+    fwrite($f, json_encode($request)."\n\n");
+    fclose($f);
 // END LOG
 
 // START EMPLOYEE
@@ -602,7 +602,7 @@
 				VALUES ('$amount', 'IN', '$account', '1')
 				") or die(mysqli_error($db));	
 		
-		$url = 'https://www.uplus.rw/api/index.php';
+		$url = 'http://www.uplus.rw/api/index.php';
 		$data 					= array();
 		$data["action"] 		= "topup";
 		$data["amount"] 		= $amount;
@@ -615,7 +615,7 @@
 			)
 		);
 		$context  = stream_context_create($options);
-		$result = file_get_contents($url, false, $context);
+		echo $result = file_get_contents($url, false, $context);
 
 	}
 
@@ -756,7 +756,7 @@ function resolveHandle()
 			$return = array('action' => 'RECORD','casualId' => $row['id']+1 );
 			header('Content-Type: application/json');
 			$return = json_encode($return);
-			echo '['.$return.']';
+			echo $return;
 		}
 		elseif($row['state'] == "ATTEND")
 		{
