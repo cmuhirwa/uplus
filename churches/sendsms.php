@@ -1,6 +1,6 @@
 <?php
     include_once '../db.php';
-    // die("Hello guys, take care");
+    die("Hello guys, take care");
     $users = $db->query("SELECT * FROM sms.inyatsi");
     set_time_limit(0);
 
