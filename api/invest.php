@@ -445,11 +445,11 @@ function testNote()
 	        //get the forum users and send them notifications
 	        $forumUsers = forum_users($target_audience);
 
-	        // foreach ($forumUsers as $key => $user) {
-	        // 	$user = user_details($user['userCode']);
-	        // 	$investToken = $user['investToken'];
-	        // 	sendNotification($investToken, $notificationMessage);
-	        // }
+	        foreach ($forumUsers as $key => $user) {
+	        	$user = user_details($user['userCode']);
+	        	$investToken = $user['investToken'];
+	        	sendNotification($investToken, $notificationMessage);
+	        }
 	        
             $feed_id = $investDb->insert_id;
             
