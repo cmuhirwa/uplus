@@ -433,7 +433,7 @@ function testNote()
         	$forumData = getForum($target_audience);
         	$forumTitle = $forumData['title'];
 
-        	$postTitle = substr($post_content, -100);
+        	$postTitle = substr($post_content, 100);
 
         	$notificationMessage = "$userName posted a new feed";
 	        
