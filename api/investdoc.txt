@@ -56,7 +56,7 @@ https://uplus.rw/api/index.php
 --END ACCOUNTS--
 
 
-link: https://uplus.rw/api/invest.php
+API endpoint: https://uplus.rw/api/invest.php
 
 --START FORUM--
 	listForums
@@ -292,3 +292,12 @@ link: https://uplus.rw/api/invest.php
 		<-
 			"Done"
 -- END BANK --
+
+-- START CUSTOMIZATION --
+	userTabs
+		->
+		userId
+		platform
+		<-
+			['groups', 'forums', 'invest'] - array of tabs
+-- END CUSTOMIZATION --
