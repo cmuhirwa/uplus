@@ -1406,4 +1406,25 @@ function testNote()
 	}
 // END INVESTMENT
 
+// START CUSTOMIZATION
+	function userTabs(){
+		//check the tabs activated by the user
+		global $conn, $request;
+		$userId = $request['userId']??"";
+		$userId = $request['platform']??"";
+
+		$userTabs = array();
+
+		//check if the tab exists and is activated
+		$query = $conn->query("SELECT * FROM tabs WHERE status = 'active'  ") or trigger_error($conn->error);
+		if($query->num_rows){
+			$tabsData = $query->fetch_assoc();
+			foreach ($tabsData as $key => $tabData) {
+				$userTabs = array_merge($userTabs, array());
+			}
+		}
+		echo json_encode($userTabs);
+	}
+// END CUSTOMIZATION
+
 ?>
