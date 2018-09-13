@@ -1420,7 +1420,7 @@ function testNote()
 		if($query->num_rows){
 			$tabsData = $query->fetch_all(MYSQLI_ASSOC);
 			foreach ($tabsData as $key => $tabData) {
-				$userTabs = array_merge($userTabs, array($tabData));
+				$userTabs = array_merge($userTabs, array($tabData['name']));
 			}
 		}
 		echo json_encode($userTabs);
