@@ -1419,10 +1419,8 @@ function testNote()
 		$query = $conn->query("SELECT * FROM tabs WHERE status = 'active'") or trigger_error($conn->error);
 		if($query->num_rows){
 			$tabsData = $query->fetch_all(MYSQLI_ASSOC);
-			var_dump($tabsData);
 			foreach ($tabsData as $key => $tabData) {
-				echo("N");
-				$userTabs = array_merge($userTabs, array());
+				$userTabs = array_merge($userTabs, array($tabData));
 			}
 		}
 		echo json_encode($userTabs);
