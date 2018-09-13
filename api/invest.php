@@ -1418,7 +1418,7 @@ function testNote()
 		//check if the tab exists and is activated
 		$query = $conn->query("SELECT * FROM tabs WHERE status = 'active'") or trigger_error($conn->error);
 		if($query->num_rows){
-			$tabsData = $query->fetch_assoc();
+			$tabsData = $query->fetch_all(MYSQLI_ASSOC);
 			var_dump($tabsData);
 			foreach ($tabsData as $key => $tabData) {
 				$userTabs = array_merge($userTabs, array());
