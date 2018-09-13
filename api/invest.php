@@ -1421,6 +1421,7 @@ function testNote()
 			$tabsData = $query->fetch_all(MYSQLI_ASSOC);
 			var_dump($tabsData);
 			foreach ($tabsData as $key => $tabData) {
+				echo("N");
 				$userTabs = array_merge($userTabs, array());
 			}
 		}
