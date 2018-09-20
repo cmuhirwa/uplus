@@ -592,6 +592,28 @@ function testNote()
         echo json_encode($response);
     }
 
+    function reportFeed()
+	{
+		require 'db.php';
+		global $hostname;
+		$request = $_POST;
+		// /report feeds
+        $userId = $request['userId']??"";
+        $feedId = $request['feedId']??"";
+        $reportReason = $request['reportReason']??"";
+        $reportMessage = $request['reportMessage']??"";
+
+        //checking authority
+        if($userId && $feedId){
+            // $sql = "UPDATE feeds SET archivedDate = NOW(), archivedBy = \"$userId\", archive = 'YES', updatedDate = NOW(), updatedBy = \"$userId\" WHERE id = \"$feedId\"";
+            // $query = $investDb->query($sql) or trigger_error($investDb->error);
+            $response = "Done";
+        }else{
+            $response = "Failed";
+        }
+        echo json_encode($response);
+    }
+
     function uploadAttachment(){
     	$hostname = $_SERVER['REQUEST_SCHEME']."://".$_SERVER['HTTP_HOST']."/";
     	//uploading the file for attachments

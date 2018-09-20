@@ -161,6 +161,15 @@ API endpoint: https://uplus.rw/api/invest.php
 		<-
 			"Done" or 'Failed'
 
+	reportFeed
+		->			
+			userId
+			feedId
+			reportReason -optional if either reportReason or reportMessage is set
+			reportMessage -optional if either reportReason or reportMessage is set
+		<-
+			"Done" or 'Failed'
+
 	uploadAttachment
 		->
 			file
