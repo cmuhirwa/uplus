@@ -10,9 +10,9 @@
 
 			//Logging
 			//keep api request log for debuggin
-		   // $f = fopen("logs/uplus.txt", 'a') or die("Unable to open file!");;
-		   // fwrite($f, json_encode($_POST)."\n\n");
-		   // fclose($f);
+		    $f = fopen("logs/uplus.txt", 'a') or die("Unable to open file!");;
+		    fwrite($f, json_encode($_POST)."\n\n");
+		    fclose($f);
 
 			$_POST['action']();
 		}
