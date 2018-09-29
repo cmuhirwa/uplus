@@ -42,7 +42,7 @@
               <h3 class="panel-title">
                 Groups Status <span class="badge badge-info" style="background-color: #00897b;">
 				<?php
-				$sql = $db->query("SELECT * FROM groups G INNER JOIN groupuser GU ON GU.groupId = G.id  WHERE G.adminId ='$thisid' AND GU.archive <> 'YES' ORDER BY id DESC");
+				$sql = $db->query("SELECT * FROM groups G INNER JOIN groupuser GU ON GU.groupId = G.id  WHERE G.adminId ='$thisid' AND GU.archive <> 'YES' ORDER BY G.id DESC");
 				echo $countAll = mysqli_num_rows($sql);
 				?></span>
               </h3>
@@ -66,7 +66,7 @@
 					<tbody>
 						<?php
 						$n=0;
-						$sql = $db->query("SELECT * FROM `groups` WHERE adminId ='$thisid' ORDER BY visits DESC, id DESC");
+						$sql = $db->query("SELECT * FROM groups G INNER JOIN groupuser GU ON GU.groupId = G.id  WHERE G.adminId ='$thisid' AND GU.archive <> 'YES' ORDER BY G.visits DESC, G.id DESC");
 						while($row = mysqli_fetch_array($sql))
 						{
 							$groupId = $row['id'];
