@@ -624,7 +624,7 @@
 		
 		//CLEAN PHONE
 		$invitedPhone 	= preg_replace( '/[^0-9]/', '', $invitedPhone );
-		$invitedPhone 	= substr($invitedPhone, -10); 
+		//$invitedPhone 	= substr($invitedPhone, -10); 
 
 		//CHECK FOR POISON
 		$sqlPoison = $db->query("SELECT id FROM groups WHERE id =  '$groupId'") or (mysqli_error());
