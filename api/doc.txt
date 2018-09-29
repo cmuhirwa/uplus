@@ -249,3 +249,13 @@ UPLUS API V1.1 DOCUMENTATION
 		<-
 			null
 --END EVENTS--
+
+-- START SERVICES --
+	serviceProvidersList
+		->
+		<-
+			name
+			categories
+			location
+			
+-- END SERVICES --
