@@ -3434,7 +3434,7 @@
 			$reData = array('id'=>$providerId, 'name'=>$data['name'], 'location'=>$data['location'], 'categories'=>array());
 
 			//getting categories
-			$catQ = $conn->query("SELECT SC.name FROM serviceproviderscategory as spc join servicecategories AS SC ON SPC.categoryCode = SC.id WHERE providerCode = \"$providerId\" ") or trigger_error($conn->error);
+			$catQ = $conn->query("SELECT SC.name FROM serviceproviderscategory as spc join servicecategories AS SC ON SPC.categorycode = SC.id WHERE providerCode = \"$providerId\" ") or trigger_error($conn->error);
 			$cats = array();
 			if($catQ){
 				while ($data = $catQ->fetch_assoc()) {
