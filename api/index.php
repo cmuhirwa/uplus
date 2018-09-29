@@ -3420,4 +3420,33 @@
 		echo $forums;
 	}
 // End test forum
+
+
+//START SERVICES
+	function serviceProvidersList(){
+		require('db.php');
+		$conn = $db;
+		$query = $conn->query("SELECT * FROM serviceproviders WHERE archived = 'no' ") or trigger_error($conn->error);
+		$list = array();
+
+		while ($data = $query->fetch_assoc()) {
+			$providerId = $data['id'];
+			$reData = array('id'=>$providerId, 'name'=>$data['name'], 'location'=>$data['location'], 'categories'=>array());
+
+			//getting categories
+			$catQ = $conn->query("SELECT SC.name FROM serviceproviderscategory as spc join servicecategories AS SC ON SPC.categoryCode = SC.id WHERE providerCode = \"$providerId\" ") or trigger_error($conn->error);
+			$cats = array();
+			if($catQ){
+				while ($data = $catQ->fetch_assoc()) {
+					$cats = array_merge($cats, array($data['name']));
+				}
+			}
+
+			//addding categories to the object
+			$reData['categories'] = $cats;
+			$list[] = $reData;
+		}
+		echo json_encode($list);
+	}
+//END SERVICES
 ?>
