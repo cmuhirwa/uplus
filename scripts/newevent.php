@@ -49,8 +49,8 @@ if (isset($_POST['eventTitle'])) {
 */
 	//mysql_query for inserting of the events
 	$eventDb->query("INSERT INTO 
-		events (Event_Name, Event_Cover, Event_Desc, Event_Location, phone, Event_Start, Event_End, user_id, createdBy) 
-		VALUES('$eventTitle', \"$event_cover\", 'testDesc', '$eventLocation', '0788556677', '$eventStarting', '$eventEnding', '1', '1')")or die(mysqli_error($eventDb));
+		events (Event_Name, Event_Cover, Event_Desc, Event_Location, phone, Event_Start, Event_End, user_id, createdBy, Event_organizer) 
+		VALUES('$eventTitle', \"$event_cover\", 'testDesc', '$eventLocation', '0788556677', '$eventStarting', '$eventEnding', '1', '1', '1')")or die(mysqli_error($eventDb));
 	if($eventDb){
 	 $event_last_id =mysqli_insert_id($eventDb);
 	}
