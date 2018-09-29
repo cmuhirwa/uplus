@@ -399,8 +399,8 @@ WHERE E.user_id ='$thisid' GROUP BY E.id_event");
               <input type="text" class="form-control" id="eventLocation" required name="eventLocation" placeholder="Event Location">
             </div>
             <div class="form-group">
-              <label class="control-label" for="eventLocation">Cover Image</label>
-              <input type="text" class="form-control" id="eventLocation" required name="event_cover" placeholder="Event Cover Image">
+              <label class="control-label" for="event_cover">Cover Image</label>
+              <input type="text" class="form-control" id="event_cover" required name="event_cover" placeholder="Event Cover Image">
             </div>
 						<div class="row">
 							<div class="col-md-6">
@@ -547,6 +547,11 @@ function nexttoaccounts(){
 				//alert("contType must be filled out");
 				return false;
 			}
+      var event_cover = document.getElementById('event_cover').value;
+      if (event_cover == null || event_cover == "") {
+        //alert("contType must be filled out");
+        return false;
+      }
 		  var eventStarting = document.getElementById('eventStarting').value;
 		  
 		  var eventEnding = document.getElementById('eventEnding').value;

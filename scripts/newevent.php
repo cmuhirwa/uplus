@@ -29,10 +29,11 @@ if (isset($_POST['eventTitle'])) {
 
 	$withdrawAccount 	= $_POST['withdrawAccount'];
 	$withdrawAccountNo 	= $_POST['withdrawAccountNo'];
-	$event_cover = $_POST['event_cover']??"";
+	$event_cover 		= $_POST['event_cover']??"";
 
 
 	//checking file
+	/*
 	$file_input_name = 'event_cover';
 	if($_FILES[$file_input_name]['size']>0){
 
@@ -45,7 +46,7 @@ if (isset($_POST['eventTitle'])) {
 	}else{
 		echo "No file uploaded";
 	}
-
+*/
 	//mysql_query for inserting of the events
 	$eventDb->query("INSERT INTO 
 		events (Event_Name, Event_Cover, Event_Desc, Event_Location, phone, Event_Start, Event_End, user_id, createdBy) 
