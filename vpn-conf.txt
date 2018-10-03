@@ -1,0 +1,37 @@
+ipsec pki --self --ca --lifetime 3650 --in ~/pki/private/ca-key.pem \
+    --type rsa --dn "CN=blaiva2" --outform pem > ~/pki/cacerts/ca-cert.pem
+
+    ipsec pki --pub --in ~/pki/private/server-key.pem --type rsa \
+    | ipsec pki --issue --lifetime 1825 \
+        --cacert ~/pki/cacerts/ca-cert.pem \
+        --cakey ~/pki/private/ca-key.pem \
+        --dn "CN=192.81.214.112" --san "192.81.214.112" \
+        --flag serverAuth --flag ikeIntermediate --outform pem \
+    >  ~/pki/certs/server-cert.pem
+
+config setup
+    charondebug="ike 1, knl 1, cfg 0"
+    uniqueids=no
+
+conn uplus
+    auto=add
+    compress=no
+    type=tunnel
+    keyexchange=ikev2
+    fragmentation=yes
+    forceencaps=yes
+    dpdaction=clear
+    dpddelay=300s
+    rekey=no
+    left=%any
+    leftid=@
+    leftcert=server-cert.pem
+    leftsendcert=always
+    leftsubnet=0.0.0.0/0
+    right=%any
+    rightid=%any
+    rightauth=eap-mschapv2
+    rightsourceip=10.10.10.0/24
+    rightdns=8.8.8.8,8.8.4.4
+    rightsendcert=never
+    eap_identity=%identity
