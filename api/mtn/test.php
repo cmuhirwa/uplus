@@ -1,6 +1,4 @@
 <?php
-	$cli = new SoapClient('https://10.33.1.14:8052/mot/mm/debit');
-	var_dump($cli);
 	$curl_post_data = '
 	<?xml version="1.0" encoding="UTF-8"?>
 <ns0:debitrequest xmlns:ns0="http://www.ericsson.com/em/emm/financial/v1_0">
