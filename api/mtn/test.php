@@ -4,7 +4,7 @@
 	$curl_post_data = '<?xml version="1.0" encoding="UTF-8"?>
 <ns0:debitrequest xmlns:ns0="http://www.ericsson.com/em/emm/financial/v1_0">
 <fromfri>FRI:250788315891/MSISDN</fromfri>
-<tofri>FRI:xxx.sp/USER</tofri>
+<tofri>FRI:uplus.sp/USER</tofri>
 <amount>
 <amount>100</amount>
 <currency>RWF</currency>
