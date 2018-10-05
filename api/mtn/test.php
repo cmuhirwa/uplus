@@ -22,7 +22,7 @@
 	curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
 	curl_setopt ($curl, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
 	curl_setopt($curl, CURLOPT_CAINFO, 'certs/m3-ca-1.crt');
-	curl_setopt($curl, CURLOPT_SSLCERT, 'certs/cakey.pem');
+	curl_setopt($curl, CURLOPT_SSLCERT, 'certs/uplusCertificate.crt');
 	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 	curl_setopt($curl, CURLOPT_POST, true);
 	curl_setopt($curl, CURLOPT_POSTFIELDS, $curl_post_data);
