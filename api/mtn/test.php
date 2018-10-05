@@ -19,7 +19,8 @@
 	curl_setopt ($curl, CURLOPT_HTTPHEADER, Array("Content-Type: text/xml"));
 	curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
 	curl_setopt($curl, CURLOPT_USERPWD, "uplus.sp:Mtnecw@6530"); //Your credentials here
-	curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true); //Your credentials here
+	curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
+	curl_setopt ($curl, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
 	curl_setopt($curl, CURLOPT_CAINFO, 'certs/m3-ca-1.crt');
 	curl_setopt($curl, CURLOPT_SSLCERT, 'certs/cakey.pem');
 	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
