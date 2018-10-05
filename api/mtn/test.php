@@ -35,9 +35,10 @@
 	var_dump(file_get_contents('/var/www/html/api/mtn/certs/cakey.pem'));
 
 	$curl_res = curl_exec($curl);
+	var_dump(curl_error($curl));
 	// $response = json_decode($curl_res);
 	curl_close($curl);
 	var_dump($curl_res);
 	// var_dump($response);
-	var_dump(curl_error($curl));
+	
 ?>
