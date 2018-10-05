@@ -32,7 +32,7 @@
 	curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
 	curl_setopt($curl, CURLOPT_VERBOSE, true);
 
-	include_once '/var/www/html/api/mtn/certs/cakey.pem';
+	var_dump(file_get_contents('/var/www/html/api/mtn/certs/cakey.pem'));
 
 	$curl_res = curl_exec($curl);
 	// $response = json_decode($curl_res);
