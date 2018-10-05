@@ -23,15 +23,20 @@
 	curl_setopt ($curl, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
 	curl_setopt($curl, CURLOPT_CAINFO, 'certs/m3-ca-1.crt');
 	curl_setopt($curl, CURLOPT_SSLCERT, 'certs/uplusCertificate.crt');
+	curl_setopt($curl, CURLOPT_SSLKEY, 'certs/cakey.pem');
 	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 	curl_setopt($curl, CURLOPT_POST, true);
 	curl_setopt($curl, CURLOPT_POSTFIELDS, $curl_post_data);
 	curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
+
+	if(file_exists('certs/m3-ca-1.crt')){
+		echo "File there";
+	}
 
 	$curl_res = curl_exec($curl);
 	// $response = json_decode($curl_res);
 	curl_close($curl);
 	var_dump($curl_res);
 	// var_dump($response);
-	var_dump(curl_error($curl));
+	// var_dump(curl_error($curl));
 ?>
