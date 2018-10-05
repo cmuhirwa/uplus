@@ -1,7 +1,8 @@
 <?php
 	$cli = new SoapClient('https://10.33.1.14:8052/mot/mm/debit');
 	var_dump($cli);
-	$curl_post_data = '<?xml version="1.0" encoding="UTF-8"?>
+	$curl_post_data = '
+	<?xml version="1.0" encoding="UTF-8"?>
 <ns0:debitrequest xmlns:ns0="http://www.ericsson.com/em/emm/financial/v1_0">
 <fromfri>FRI:25078476282/MSISDN</fromfri>
 <tofri>FRI:uplus.sp/USER</tofri>
@@ -13,12 +14,16 @@
 <frommessage/>
 <tomessage/>
 <referenceid>345678IUN</referenceid>
-</ns0:debitrequest>';
+</ns0:debitrequest>
+';
 	$service_url = 'https://10.33.1.14:8052/mot/mm/debit';
 	$curl = curl_init($service_url);
 	curl_setopt ($curl, CURLOPT_HTTPHEADER, Array("Content-Type: text/xml"));
 	curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
 	curl_setopt($curl, CURLOPT_USERPWD, "uplus.sp:Mtnecw@6530"); //Your credentials here
+	curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true); //Your credentials here
+	curl_setopt($curl, CURLOPT_CAINFO, 'certs/m3-ca-1.crt');
+	curl_setopt($curl, CURLOPT_SSLCERT, 'certs/cakey.pem');
 	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 	curl_setopt($curl, CURLOPT_POST, true);
 	curl_setopt($curl, CURLOPT_POSTFIELDS, $curl_post_data);
