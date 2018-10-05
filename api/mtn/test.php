@@ -21,18 +21,16 @@
 	curl_setopt($curl, CURLOPT_USERPWD, "uplus.sp:Mtnecw@6530"); //Your credentials here
 	curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
 	curl_setopt ($curl, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
-	curl_setopt($curl, CURLOPT_CAINFO, 'certs/m3-ca-1.crt');
-	curl_setopt($curl, CURLOPT_SSLCERT, 'certs/uplusCertificate.crt');
+	curl_setopt($curl, CURLOPT_CAINFO, '/var/www/html/api/mtn/certs/m3-ca-1.pem');
+	curl_setopt($curl, CURLOPT_CERTINFO, TRUE);
+	curl_setopt($curl, CURLOPT_SSLCERT, 'certs/uplusCertificate.pem');
 	curl_setopt($curl, CURLOPT_SSLKEY, 'certs/cakey.pem');
+	curl_setopt($curl, CURLOPT_SSL_VERIFYSTATUS, TRUE);
 	curl_setopt($curl, CURLOPT_KEYPASSWD, "uplus123");
 	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 	curl_setopt($curl, CURLOPT_POST, true);
 	curl_setopt($curl, CURLOPT_POSTFIELDS, $curl_post_data);
 	curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
-
-	if(file_exists('certs/uplusCertificate.crt')){
-		echo "File there<br />";
-	}
 
 	$curl_res = curl_exec($curl);
 	// $response = json_decode($curl_res);
