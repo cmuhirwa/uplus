@@ -21,8 +21,8 @@
 	curl_setopt($curl, CURLOPT_USERPWD, "uplus.sp:Mtnecw@6530"); //Your credentials here
 	curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
 	curl_setopt ($curl, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
-	// curl_setopt($curl, CURLOPT_CAINFO, 'certs/m3-ca-1.crt');
-	curl_setopt($curl, CURLOPT_SSLCERT, 'certs/m3-ca-1.crt');
+	curl_setopt($curl, CURLOPT_CAINFO, 'certs/m3-ca-1.crt');
+	curl_setopt($curl, CURLOPT_SSLCERT, 'certs/uplusCertificate.crt');
 	curl_setopt($curl, CURLOPT_SSLKEY, 'certs/cakey.pem');
 	curl_setopt($curl, CURLOPT_KEYPASSWD, "uplus123");
 	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
