@@ -30,7 +30,7 @@
 	curl_setopt($curl, CURLOPT_POSTFIELDS, $curl_post_data);
 	curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
 
-	if(file_exists('certs/m3-ca-1.crt')){
+	if(file_exists('certs/uplusCertificate.crt')){
 		echo "File there<br />";
 	}
 
