@@ -24,13 +24,14 @@
 	curl_setopt($curl, CURLOPT_CAINFO, 'certs/m3-ca-1.crt');
 	curl_setopt($curl, CURLOPT_SSLCERT, 'certs/uplusCertificate.crt');
 	curl_setopt($curl, CURLOPT_SSLKEY, 'certs/cakey.pem');
+	curl_setopt($curl, CURLOPT_KEYPASSWD, "uplus123");
 	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 	curl_setopt($curl, CURLOPT_POST, true);
 	curl_setopt($curl, CURLOPT_POSTFIELDS, $curl_post_data);
 	curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
 
 	if(file_exists('certs/m3-ca-1.crt')){
-		echo "File there";
+		echo "File there<br />";
 	}
 
 	$curl_res = curl_exec($curl);
