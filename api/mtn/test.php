@@ -1,12 +1,22 @@
 <?php
-	$curl_post_data = array(
-		'fromfri'=>'0784762982',
-		'fromfri'=>'0784848236',
-		'amount'=>100,
-		'externaltransactionid'=>21
-	);
+	$cli = new SoapClient('https://10.33.1.14:8052/mot/mm/debit');
+	var_dump($cli);
+	$curl_post_data = '<?xml version="1.0" encoding="UTF-8"?>
+<ns0:debitrequest xmlns:ns0="http://www.ericsson.com/em/emm/financial/v1_0">
+<fromfri>FRI:250788315891/MSISDN</fromfri>
+<tofri>FRI:xxx.sp/USER</tofri>
+<amount>
+<amount>100</amount>
+<currency>RWF</currency>
+</amount>
+<externaltransactionid>345678IUN</externaltransactionid>
+<frommessage/>
+<tomessage/>
+<referenceid>345678IUN</referenceid>
+</ns0:debitrequest>';
 	$service_url = 'https://10.33.1.14:8052/mot/mm/debit';
 	$curl = curl_init($service_url);
+	curl_setopt ($curl, CURLOPT_HTTPHEADER, Array("Content-Type: text/xml"));
 	curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
 	curl_setopt($curl, CURLOPT_USERPWD, "uplus.sp:Mtnecw@6530"); //Your credentials here
 	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -19,5 +29,4 @@
 	curl_close($curl);
 
 	var_dump($response);
-
 ?>
