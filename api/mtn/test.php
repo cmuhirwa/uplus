@@ -30,6 +30,7 @@
 	curl_setopt($curl, CURLOPT_POST, true);
 	curl_setopt($curl, CURLOPT_POSTFIELDS, $curl_post_data);
 	curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
+	curl_setopt($curl, CURLOPT_VERBOSE, true);
 
 	include_once '/var/www/html/api/mtn/certs/cakey.pem';
 
@@ -38,5 +39,5 @@
 	curl_close($curl);
 	var_dump($curl_res);
 	// var_dump($response);
-	// var_dump(curl_error($curl));
+	var_dump(curl_error($curl));
 ?>
