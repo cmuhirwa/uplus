@@ -29,8 +29,9 @@
 	curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
 
 	$curl_res = curl_exec($curl);
-	$response = json_decode($curl_res);
+	// $response = json_decode($curl_res);
 	curl_close($curl);
-
-	var_dump($response);
+	var_dump($curl_res);
+	// var_dump($response);
+	var_dump(curl_error($curl));
 ?>
