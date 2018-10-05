@@ -23,14 +23,15 @@
 	curl_setopt ($curl, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
 	curl_setopt($curl, CURLOPT_CAINFO, '/var/www/html/api/mtn/certs/m3-ca-1.pem');
 	curl_setopt($curl, CURLOPT_CERTINFO, TRUE);
-	curl_setopt($curl, CURLOPT_SSLCERT, 'certs/uplusCertificate.pem');
-	curl_setopt($curl, CURLOPT_SSLKEY, 'certs/cakey.pem');
-	curl_setopt($curl, CURLOPT_SSL_VERIFYSTATUS, TRUE);
+	curl_setopt($curl, CURLOPT_SSLCERT, '/var/www/html/api/mtn/certs/uplusCertificate.pem');
+	curl_setopt($curl, CURLOPT_SSLKEY, '/var/www/html/api/mtn/certs/cakey.pem');
 	curl_setopt($curl, CURLOPT_KEYPASSWD, "uplus123");
 	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 	curl_setopt($curl, CURLOPT_POST, true);
 	curl_setopt($curl, CURLOPT_POSTFIELDS, $curl_post_data);
 	curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
+
+	include_once '/var/www/html/api/mtn/certs/cakey.pem';
 
 	$curl_res = curl_exec($curl);
 	// $response = json_decode($curl_res);
