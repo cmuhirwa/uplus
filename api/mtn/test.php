@@ -40,5 +40,36 @@
 	curl_close($curl);
 	var_dump($curl_res);
 	// var_dump($response);
-	
+
+	// Great thing
+	// curl --verbose https://ecwtest.mtn.co.rw:8052/mot/mm/debit --cert /var/www/html/api/mtn/certs/uplusCertificate.pem --key  /var/www/html/api/mtn/certs/cakey.pem:uplus123 --cacert /var/www/html/api/mtn/certs/m3-ca-1.pem --tlsv1.2 --user uplus.sp:Mtnecw@6530 -d '
+	<?xml version="1.0" encoding="UTF-8"?>
+<ns0:debitrequest xmlns:ns0="http://www.ericsson.com/em/emm/financial/v1_0">
+<fromfri>FRI:250784848236/MSISDN</fromfri>
+<tofri>FRI:uplus.sp/USER</tofri>
+<amount>
+<amount>300</amount>
+<currency>RWF</currency>
+</amount>
+<externaltransactionid>11UN2</externaltransactionid>
+<frommessage/>
+<tomessage/>
+</ns0:debitrequest>' -H 'Content-Type: text/xml'
+
+curl --verbose https://ecwtest.mtn.co.rw:8052/mot/mm/debit --cert /var/www/html/api/mtn/certs/uplusCertificate.pem --key  /var/www/html/api/mtn/certs/cakey.pem --cacert /var/www/html/api/mtn/certs/m3-ca-1.pem --tlsv1.2 --user uplus.sp:Mtnecw@6530 -d '
+<?xml version="1.0" encoding="UTF-8"?>
+<ns0:debitrequest xmlns:ns0="http://www.ericsson.com/em/emm/financial/v1_0">
+<fromfri>FRI:250784848236/MSISDN</fromfri>
+<tofri>FRI:uplus.sp/USER</tofri>
+<amount>
+<amount>300</amount>
+<currency>RWF</currency>
+</amount>
+<externaltransactionid>u1</externaltransactionid>
+<frommessage/>
+<tomessage/>
+<referenceid>u1</referenceid>
+</ns0:debitrequest>' -H 'Content-Type: text/xml'
+
+
 ?>
