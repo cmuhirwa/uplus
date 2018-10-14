@@ -117,27 +117,10 @@
 </head>
 
 <body>
-<nav class="navbar navbar-default navbar-fixed-top">
-  <div class="container">
-	<div class="navbar-header">
-	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu">
-	  <span class="icon-bar"></span> 
-	  <span class="icon-bar"></span>
-	  <span class="icon-bar"></span>
-	</button>
-	  <a class="navbar-brand" href="../">RTGS</a>
-	</div>
-  <div class="collapse navbar-collapse" id="menu">
-	<ul class="nav navbar-nav">
-	  <li class="active"><a href="javascript:void()">Home</a></li>
-	  <li><a href="transfers">Banks</a></li>
-	</ul>
-	<ul class="nav navbar-nav navbar-right">
-		<li class="active" style="padding: 5px;"><span style="float: left; padding-right: 10px; text-align: right;"><?php echo $name;?><br/><span style="font-size: 12px"><?php echo $level;?></span></span> <button onclick="window.location.href='logout.php'" class="btn btn-danger">Logout</button> <span class="sr-only">(current)</span></li>
-	</ul>
-	</div>
-  </div>
-</nav>
+<?php
+	//including navbar
+	include 'modules/navbar.php';
+?>
 <div style="height: 70px;"></div>
 
 <div class="container">

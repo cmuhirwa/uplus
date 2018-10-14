@@ -1,8 +1,6 @@
-
 RewriteEngine On
 RewriteRule ^home index.php [NC,L]
 RewriteRule ^transfers banks.php [NC,L]
 RewriteRule ^login login.php [NC,L]
-
-
+RewriteRule ^providers providers.php [NC,L]
 RewriteRule ^group([0-9]+) account.php?accountId=$1&clientId=$1&page=1 [NC,L]
