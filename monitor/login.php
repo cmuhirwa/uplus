@@ -4,7 +4,7 @@ if (isset($_SESSION["email"])) {
     header("location: home"); 
     exit();
 }
-error_reporting(0);
+error_reporting(E_ALL);
 ?>
 <?php
 $help ="Please sign in Uplus Backend";
